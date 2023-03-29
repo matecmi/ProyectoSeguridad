@@ -111,6 +111,9 @@
         .table-responsive {
             overflow: auto;
         }
+        .table.dataTable th,table.dataTable td {
+          text-align: center;
+              }
     </style>
 @stop
 
@@ -240,10 +243,7 @@
 
 });
 
-   
-       </script>
 
-       <script>
     $('#resgistrarGrupo').submit(function(e){
 
         e.preventDefault();
@@ -285,10 +285,7 @@
     });
 });
       
-    </script>
-    
 
-    <script>
     
     $(document).on('click', 'button[name="delete"]', function(){
         var id;
@@ -314,10 +311,7 @@
     // Restablecer el valor del campo 1
     $('#nombre').val('');
    });
-        
-    </script>
 
-    <script>
      $(document).on('click', 'button[name="edit"]', function(){
        var id = $(this).attr('id');
 

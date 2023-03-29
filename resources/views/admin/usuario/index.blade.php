@@ -103,6 +103,9 @@
         .table-responsive {
             overflow: auto;
         }
+        .table.dataTable th,table.dataTable td {
+          text-align: center;
+              }
     </style>
 @stop
 

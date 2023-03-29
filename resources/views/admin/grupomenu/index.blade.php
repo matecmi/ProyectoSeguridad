@@ -97,6 +97,10 @@
         .table-responsive {
             overflow: auto;
         }
+
+        .table.dataTable th,table.dataTable td {
+          text-align: center;
+              }
     </style>
 @stop
 
@@ -112,6 +116,7 @@
 
             processing:false,
             serverSide:true,
+
             language: {
                     url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json'
                 },
@@ -120,6 +125,8 @@
                     url: "{{ route('admin.grupomenu.index') }}",    
  
             },
+
+ 
             
             columns:[
                 
@@ -128,16 +135,12 @@
                 {data: 'icono'},
                 {data: 'orden'},
                 {data: 'action', orderable: false}
-            ]
+            ],
+
         });
     
     });
-  
 
-   
-       </script>
-
-       <script>
     $('#resgistrarGrupo').submit(function(e){
 
         e.preventDefault();
@@ -183,10 +186,7 @@
     });
 });
       
-    </script>
-    
 
-    <script>
     
     $(document).on('click', 'button[name="delete"]', function(){
         var id;
@@ -219,9 +219,7 @@
     $('#orden').val('');
    });
         
-    </script>
 
-    <script>
      $(document).on('click', 'button[name="edit"]', function(){
        var id = $(this).attr('id');
 
