@@ -16,8 +16,9 @@ class OpcionMenuController extends Controller
 
         if($request ->ajax()){
 
-            $opcionmenu = OpcionMenu::select('*')
-            ->where('status', '=', 'Y')
+            $opcionmenu = OpcionMenu::select('opcion_menus.*','grupo_menus.nombre as nombre_grupo')
+            ->join('grupo_menus', 'opcion_menus.grupo_menus_id', '=', 'grupo_menus.id')
+            ->where('opcion_menus.status', '=', 'Y')
             ->get();
             return Datatables::of($opcionmenu)
                 ->addColumn('action', function($opcionmenu){

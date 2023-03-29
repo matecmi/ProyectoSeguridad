@@ -66,15 +66,6 @@ class GrupoMenuController extends Controller
 
     }
 
-
-    public function show(GrupoMenu $grupomenu)
-    {
-
-        $grupoMenus = GrupoMenu::all();
-        return view('admin.grupomenu.show',compact('grupoMenus'));
-    }
-
-
 public function edit($id)
 {
     try {

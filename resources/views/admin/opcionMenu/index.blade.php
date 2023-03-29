@@ -141,12 +141,13 @@
                 {data: 'ruta'},
                 {data: 'orden'},
                 {data: 'icono'},
-                {data: 'grupo_menus_id'},
+                {data: 'nombre_grupo'},  
                 {data: 'action', orderable: false}
             ]
         });
     
     });
+
 
      function listarGrupo(){
         $.ajax({

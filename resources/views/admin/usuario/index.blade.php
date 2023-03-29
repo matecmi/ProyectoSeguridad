@@ -135,8 +135,8 @@
                 {data: 'id'},
                 {data: 'nombre'},
                 {data: 'password'},
-                {data: 'tipo_usuario_id'},
-                {data: 'persona_id'},
+                {data: 'nombre_tipo'},
+                {data: 'nombre_persona'},
                 {data: 'action', orderable: false}
             ]
         });

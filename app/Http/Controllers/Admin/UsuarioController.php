@@ -17,8 +17,11 @@ class UsuarioController extends Controller
 
         if($request ->ajax()){
 
-            $usuario = Usuario::select('*')
-            ->where('status', '=', 'Y')
+            $usuario = Usuario::select('usuarios.*','tipo_usuarios.nombre as nombre_tipo',
+            'personas.nombres as nombre_persona')
+            ->join('tipo_usuarios', 'usuarios.tipo_usuario_id', '=', 'tipo_usuarios.id')
+            ->join('personas', 'usuarios.persona_id', '=', 'personas.id')
+            ->where('usuarios.status', '=', 'Y')
             ->get();
             return Datatables::of($usuario)
                 ->addColumn('action', function($usuario){
