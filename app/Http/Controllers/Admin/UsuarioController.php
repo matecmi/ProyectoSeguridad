@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\TipoUsuario;
 use App\Models\Admin\Persona;
-use App\Models\Admin\OpcionMenu;
 use App\Models\Admin\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
