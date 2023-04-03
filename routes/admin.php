@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\RolController;
 use App\Http\Controllers\Admin\PersonaController;
 use App\Http\Controllers\Admin\RolPersonaController;
 use App\Http\Controllers\Admin\UsuarioController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
 
 
 
@@ -17,6 +19,9 @@ use App\Http\Controllers\Admin\UsuarioController;
 
 
 
+Route::post('/auth/register', [RegisterController::class, 'create'])->name('auth.register.create');
+Route::get('auth',[LoginController::class, 'login']);
+Route::get('auth',[LoginController::class, 'login'])->name('auth.login');
 
 
 Route::get('admin',[HomeController::class, 'index']);
