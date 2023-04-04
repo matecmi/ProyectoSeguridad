@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Event;
 use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
 use App\Models\Admin\OpcionMenu;
 use App\Models\Admin\GrupoMenu;
+use App\Models\Admin\Persona;
+use App\Models\Admin\Usuario;
+use App\Models\Admin\Acceso;
+
 
 
 
@@ -32,38 +36,72 @@ class EventServiceProvider extends ServiceProvider
         Event::listen(BuildingMenu::class, function (BuildingMenu $event) {
   
 
-            $grupos = GrupoMenu::select('*')
-            ->where('status', '=', 'Y')
-            ->orderBy('orden')
-            ->get();
+            $user = auth()->user();
+            $email = $user->email;
 
-            $key ="perfil";
+            if ($email=="kevin2010_12@hotmail.com") {
 
-            foreach ($grupos as $grupo) {
-
-                $event->menu->addAfter($key, [
-                    'key' => $grupo->nombre,
-                    'text' => $grupo->nombre,
-                    'icon' => $grupo->icono,
-    
-                ]);  
-                $key =$grupo->nombre;
-                $opciones = OpcionMenu::select('*')
+                $grupos = GrupoMenu::select('*')
                 ->where('status', '=', 'Y')
-                ->where('grupo_menus_id', '=', $grupo->id)
                 ->orderBy('orden')
                 ->get();
+    
+                $key ="perfil";
 
-                foreach ($opciones as $opcion) {
+    
+                foreach ($grupos as $grupo) {
+    
+                    $event->menu->addAfter($key, [
+                        'key' => $grupo->nombre,
+                        'text' => $grupo->nombre,
+                        'icon' => $grupo->icono,
+        
+                    ]);  
+                    $key =$grupo->nombre;
 
-                    $event->menu->addIn($grupo->nombre, [
-                        'key' => $opcion->nombre,
-                        'text' => $opcion->nombre,
-                        'url' => 'account/edit/notifications',
-                    ]);
-                }
+                    $persona = Persona::select('*')
+                    ->where('status', '=', 'Y')
+                    ->where('email', '=', $email)
+                    ->first();
 
-            }
+                    $usuario = Usuario::select('*')
+                    ->where('status', '=', 'Y')
+                    ->where('persona_id', '=', $persona->id)
+                    ->first();
+
+                    $accesos = Acceso::select('*')
+                    ->where('status', '=', 'Y')
+                    ->where('tipo_usuario_id', '=', $usuario->tipo_usuario_id)
+                    ->get();
+
+
+                    foreach ($accesos as $acceso) {
+                        $opciones = OpcionMenu::select('*')
+                        ->where('status', '=', 'Y')
+                        ->where('grupo_menus_id', '=', $grupo->id)
+                        ->orderBy('orden')
+                        ->get();
+
+                        foreach ($opciones as $opcion) {
+    
+                            if ($acceso->opcion_menu_id==$opcion->id) {
+                           
+                                $event->menu->addIn($grupo->nombre, [
+                                    'key' => $opcion->nombre,
+                                    'text' => $opcion->nombre,
+                                    'url' => 'account/edit/notifications',
+                                ]);
+                            }
+                     
+                        }
+
+                    }
+                }         
+               }
+
+           
         });
+ 
+ 
     } 
 }

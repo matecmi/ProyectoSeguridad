@@ -160,7 +160,6 @@
     type: 'GET',
     url:  "{{ route('admin.opcionmenu.lista') }}",
     success: function(data) {
-        // Iterar a través de los registros y construir las casillas de verificación
 
         var checkboxContainer = $('#checkbox-container');
         $.each(data, function(index, registro) {
@@ -170,6 +169,47 @@
             checkbox += '<label class="form-check-label" for="checkbox-' + registro.id + '">' + registro.nombre + '</label>';
             checkbox += '</div>';
             checkboxContainer.append(checkbox);
+        });
+    }
+});
+    }
+
+     function accesos(){
+        $.ajax({
+    type: 'GET',
+    url:  "{{ route('admin.opcionmenu.lista') }}",
+    success: function(data) {
+
+        $.ajax({
+            type: 'GET',
+            url:  "{{ route('admin.opcionmenu.grupo') }}",
+            success: function(grupo) {
+    var checkboxContainer = $('#checkbox-container');
+
+        $.each(grupo, function(index,opcion) {
+
+            var checkbox = '<div class="form-check">';
+            checkbox += '<label class="form-check-label" for="checkbox-' + opcion.nombre + '">' + opcion.nombre + '</label>';
+            checkbox += '</div>';
+            checkboxContainer.append(checkbox);
+            checkbox ="";
+          $.each(data, function(index, registro) {
+            if (registro.grupo_menus_id== opcion.id) {
+            
+            var checkbox2 = '<div class="form-check">';
+            checkbox2 += '<input class="form-check-input" type="checkbox" value="' + registro.id + '" id="checkbox-' + registro.id + '">';
+            checkbox2 += '<label class="form-check-label" for="checkbox-' + registro.id + '">' + registro.nombre + '</label>';
+            checkbox2 += '</div>';
+            checkboxContainer.append(checkbox2);
+
+            }
+        
+        });
+    
+    
+    });
+
+            }
         });
     }
 });
