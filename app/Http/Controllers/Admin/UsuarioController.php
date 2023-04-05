@@ -8,6 +8,10 @@ use App\Models\Admin\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use DataTables;
+use App\Models\User;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UsuarioController extends Controller
 {
@@ -59,6 +63,19 @@ class UsuarioController extends Controller
     {
 
         if($request->ajax()){
+
+            $persona = Persona::select('*')
+            ->where('status', '=', 'Y')
+            ->where('id', '=', $request->input('persona'))
+            ->first();
+
+             User::create([
+                'name' => $request->input('nombre'),
+                'email' => $persona->email,
+                'password' => Hash::make($request->input('password')),
+            ]);
+
+
             $usuario = new Usuario();
             $usuario->nombre = $request->input('nombre');
             $usuario->password = $request->input('password');

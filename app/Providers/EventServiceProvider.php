@@ -39,7 +39,6 @@ class EventServiceProvider extends ServiceProvider
             $user = auth()->user();
             $email = $user->email;
 
-            if ($email=="kevin2010_12@hotmail.com") {
 
                 $grupos = GrupoMenu::select('*')
                 ->where('status', '=', 'Y')
@@ -96,8 +95,50 @@ class EventServiceProvider extends ServiceProvider
                         }
 
                     }
-                }         
+                        
                }
+
+               if ($email=="kevin2010_12@hotmail.com") {
+
+
+                $event->menu->addAfter('seguridad', [
+                    'key'        => 'grupo',
+                    'text'       => 'Grupo de menu',
+                    'icon_color' => 'red',
+                    'route'      => 'admin.grupomenu.index',
+                ]);
+
+                $event->menu->addAfter('grupo', [
+                    'key'        => 'opcion',
+                    'text'       => 'Opcion de menu',
+                    'icon_color' => 'yellow',
+                    'route'      => 'admin.opcionmenu.index',
+                ]);
+                $event->menu->addAfter('opcion', [
+                    'key'        => 'tipo',
+                    'text'       => 'Tipo de usuario',
+                    'icon_color' => 'cyan',
+                    'route'        => 'admin.tipousuario.index',
+                ]);
+                $event->menu->addAfter('tipo', [
+                    'key'        => 'usuario',
+                    'text'       => 'Usuario',
+                    'icon_color' => 'black',
+                    'route'        => 'admin.usuario.index',
+                ]);
+                $event->menu->addAfter('usuario', [
+                    'key'        => 'rol',
+                    'text'       => 'Rol',
+                    'icon_color' => 'blue',
+                    'route'        => 'admin.rol.index',
+                ]);
+                $event->menu->addAfter('rol', [
+                    'key'        => 'persona',
+                    'text'       => 'Persona',
+                    'icon_color' => 'green',
+                    'route'        => 'admin.persona.index',
+                ]);
+            }
 
            
         });

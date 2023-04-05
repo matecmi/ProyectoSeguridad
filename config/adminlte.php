@@ -319,37 +319,9 @@ return [
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-user',
         ],
-        ['header' => 'SEGURIDAD'],
-        [
-            'text'       => 'Grupo de menu',
-            'icon_color' => 'red',
-            'route'      => 'admin.grupomenu.index',
-        ],
-        [
-            'text'       => 'Opcion de menu',
-            'icon_color' => 'yellow',
-            'route'      => 'admin.opcionmenu.index',
-        ],
-        [
-            'text'       => 'Tipo de usuario',
-            'icon_color' => 'cyan',
-            'route'        => 'admin.tipousuario.index',
-        ],
-        [
-            'text'       => 'Usuario',
-            'icon_color' => 'black',
-            'route'        => 'admin.usuario.index',
-        ],
-        [
-            'text'       => 'Rol',
-            'icon_color' => 'blue',
-            'route'        => 'admin.rol.index',
-        ],
-        [
-            'text'       => 'Persona',
-            'icon_color' => 'green',
-            'route'        => 'admin.persona.index',
-        ],
+        ['header' => 'SEGURIDAD',
+        'key' => 'seguridad']
+       
     ],
 
     /*
