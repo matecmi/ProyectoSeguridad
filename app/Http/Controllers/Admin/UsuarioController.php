@@ -70,7 +70,7 @@ class UsuarioController extends Controller
             ->first();
 
              User::create([
-                'name' => $request->input('nombre'),
+                'name' => $persona->nombres,
                 'email' => $persona->email,
                 'password' => Hash::make($request->input('password')),
             ]);

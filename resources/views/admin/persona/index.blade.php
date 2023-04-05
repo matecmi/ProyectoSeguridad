@@ -77,6 +77,8 @@
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="email" required>
               </div>
+              <div id="checkbox-container-nuevo"></div>
+
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button class="btn btn-primary" type="submit">Guardar</button>
@@ -155,6 +157,7 @@
 <script> 
 
     $(document).ready(function() {
+        rolPersona2();
         var tabla =$('#tabla').DataTable({
 
             processing:false,
@@ -211,6 +214,26 @@
 });
     }
 
+    function rolPersona2(){
+
+$.ajax({
+type: 'GET',
+url:  "{{ route('admin.rol.lista') }}",
+success: function(data) {
+
+var checkboxContainer = $('#checkbox-container-nuevo');
+$.each(data, function(index, registro) {
+
+    var checkbox = '<div class="form-check">';
+    checkbox += '<input class="form-check-input" type="checkbox" value="' + registro.id + '" id="checkbox-' + registro.id + '">';
+    checkbox += '<label class="form-check-label" for="checkbox-' + registro.id + '">' + registro.nombre + '</label>';
+    checkbox += '</div>';
+    checkboxContainer.append(checkbox);
+});
+}
+});
+}
+
     var id;
 
     $(document).on('click', '#rolPersona', function(){
@@ -243,8 +266,7 @@
 });
    });
 
-   $('#resgistrarRolPersona').submit(function(e){
-    e.preventDefault();
+   function registrarRol(){
     var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
     var valores = [];
 
@@ -274,6 +296,12 @@
         }
     });
 
+   }
+
+   $('#resgistrarRolPersona').submit(function(e){
+    e.preventDefault();
+    registrarRol()
+   
 });
 
 
