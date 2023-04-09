@@ -104,6 +104,23 @@ public function edit($id)
     public function update(Request $request)
     {
         if($request->ajax()){
+
+            $persona = Persona::select('*')
+            ->where('status', '=', 'Y')
+            ->where('id', '=', $request->input('persona'))
+            ->first();
+
+            $user = User::select('*')
+            ->where('email', '=', $persona->email)
+            ->first();
+             User::destroy($user->id);
+
+             User::create([
+                'name' => $persona->nombres,
+                'email' => $persona->email,
+                'password' => Hash::make($request->input('password')),
+            ]);
+
             $id = $request->input('id');
             $usuario = Usuario::find($id);
             $usuario->nombre = $request->input('nombre');
