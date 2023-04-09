@@ -100,7 +100,10 @@ class EventServiceProvider extends ServiceProvider
 
                if ($email=="kevin2010_12@hotmail.com") {
 
-
+                $event->menu->addAfter($key, [
+                    'key'        => 'seguridad',
+                    'header' => 'SEGURIDAD',
+                ]);
                 $event->menu->addAfter('seguridad', [
                     'key'        => 'grupo',
                     'text'       => 'Grupo de menu',

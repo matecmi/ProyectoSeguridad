@@ -318,9 +318,7 @@ return [
             'text' => 'Perfil',
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-user',
-        ],
-        ['header' => 'SEGURIDAD',
-        'key' => 'seguridad']
+        ]
        
     ],
 
