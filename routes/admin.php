@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\UsuarioController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\FaqController;
+use App\Http\Controllers\Admin\ProfileController;
 
 
 
@@ -21,25 +22,24 @@ use App\Http\Controllers\Admin\FaqController;
 
 
 
-Route::post('/auth/register', [RegisterController::class, 'create'])->name('auth.register.create');
-Route::get('auth',[LoginController::class, 'login']);
-Route::get('auth',[LoginController::class, 'login'])->name('auth.login');
+
+
 
 
 Route::get('admin',[HomeController::class, 'index']);
-Route::get('admin/grupomenu/',[GrupoMenuController::class, 'index'])->name('admin.grupomenu.index');
-Route::post('admin/grupomenu/create',[GrupoMenuController::class, 'store'])->name('admin.grupomenu.store');
-Route::delete('admin/grupomenu/{id}',[GrupoMenuController::class, 'destroy'])->name('admin.grupomenu.destroy');
-Route::get('admin/grupomenu/{id}',[GrupoMenuController::class, 'edit'])->name('admin.grupomenu.edit');
-Route::post('admin/grupomenu/update',[GrupoMenuController::class, 'update'])->name('admin.grupomenu.update');
+Route::get('admin/grupomenu/',[GrupoMenuController::class, 'grupomenu'])->name('admin.grupomenu');
+Route::post('admin/grupomenu/create',[GrupoMenuController::class, 'grupoStore'])->name('admin.grupoStore');
+Route::delete('admin/grupomenu/{id}',[GrupoMenuController::class, 'grupoDestroy'])->name('admin.grupoDestroy');
+Route::get('admin/grupomenu/{id}',[GrupoMenuController::class, 'grupoEdit'])->name('admin.grupoEdit');
+Route::post('admin/grupomenu/update',[GrupoMenuController::class, 'grupoUpdate'])->name('admin.grupoUpdate');
 
-Route::get('admin/opcionmenu/lista',[OpcionMenuController::class, 'lista'])->name('admin.opcionmenu.lista');
-Route::get('admin/opcionmenu/grupo',[OpcionMenuController::class, 'grupo'])->name('admin.opcionmenu.grupo');
-Route::get('admin/opcionmenu/',[OpcionMenuController::class, 'index'])->name('admin.opcionmenu.index');
-Route::post('admin/opcionmenu/create',[OpcionMenuController::class, 'store'])->name('admin.opcionmenu.store');
-Route::delete('admin/opcionmenu/{id}',[OpcionMenuController::class, 'destroy'])->name('admin.opcionmenu.destroy');
-Route::get('admin/opcionmenu/{id}',[OpcionMenuController::class, 'edit'])->name('admin.opcionmenu.edit');
-Route::post('admin/opcionmenu/update',[OpcionMenuController::class, 'update'])->name('admin.opcionmenu.update');
+Route::get('admin/opcionmenu/lista',[OpcionMenuController::class, 'listaOpcion'])->name('admin.listaOpcion');
+Route::get('admin/opcionmenu/grupo',[OpcionMenuController::class, 'grupo'])->name('admin.grupo');
+Route::get('admin/opcionmenu/',[OpcionMenuController::class, 'opcionmenu'])->name('admin.opcionmenu');
+Route::post('admin/opcionmenu/create',[OpcionMenuController::class, 'opcionStore'])->name('admin.opcionStore');
+Route::delete('admin/opcionmenu/{id}',[OpcionMenuController::class, 'opcionDestroy'])->name('admin.opcionDestroy');
+Route::get('admin/opcionmenu/{id}',[OpcionMenuController::class, 'opcionEdit'])->name('admin.opcionEdit');
+Route::post('admin/opcionmenu/update',[OpcionMenuController::class, 'opcionUpdate'])->name('admin.opcionUpdate');
 
 
 Route::get('admin/tipousuario/',[TipoUsuarioController::class, 'index'])->name('admin.tipousuario.index');
@@ -85,3 +85,7 @@ Route::post('admin/faq/create',[FaqController::class, 'store'])->name('admin.faq
 Route::delete('admin/faq/{id}',[FaqController::class, 'destroy'])->name('admin.faq.destroy');
 Route::get('admin/faq/{id}',[FaqController::class, 'edit'])->name('admin.faq.edit');
 Route::post('admin/faq/update',[FaqController::class, 'update'])->name('admin.faq.update');
+
+Route::get('admin/profile/',[ProfileController::class, 'profile'])->name('admin.profile');
+Route::post('admin/profile/validate',[ProfileController::class, 'validar'])->name('admin.validar');
+Route::post('admin/profile/update',[ProfileController::class, 'update'])->name('admin.update');

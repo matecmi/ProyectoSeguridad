@@ -307,7 +307,7 @@ return [
         [
             'key' => 'perfil',
             'text' => 'Perfil',
-            'url'  => 'admin/settings',
+            'route' => 'admin.profile',
             'icon' => 'fas fa-fw fa-user',
         ]
        

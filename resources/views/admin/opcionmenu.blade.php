@@ -42,7 +42,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form class="row g-3" id="resgistrarOpcion" action="{{ route('admin.opcionmenu.store') }}">
+        <form class="row g-3" id="resgistrarOpcion" action="{{ route('admin.opcionStore') }}">
             @csrf
             <div class="col-md-12">
                 <label for="grupo" class="form-label">Grupo de menu</label>
@@ -81,6 +81,7 @@
 
 @section('css')
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <link rel="stylesheet" href="{{ asset('DataTables/datatables.css') }}">
     <link rel="stylesheet" href="/css/admin_custom.css">
@@ -130,7 +131,7 @@
                 },
 
             ajax:{
-                    url: "{{ route('admin.opcionmenu.index') }}",    
+                    url: "{{ route('admin.opcionmenu') }}",    
  
             },
             
@@ -151,7 +152,7 @@
 
      function listarGrupo(){
         $.ajax({
-    url: "{{ route('admin.opcionmenu.grupo') }}",
+    url: "{{ route('admin.grupo') }}",
     type: 'GET',
     success: function(response) {
       var options = '';                   
@@ -167,7 +168,7 @@
 
     function elegirGrupo(){
         $.ajax({
-    url: "{{ route('admin.opcionmenu.grupo') }}",
+    url: "{{ route('admin.grupo') }}",
     type: 'GET',
     success: function(response) {
       var options = '';                   
@@ -202,9 +203,9 @@ $(document).on('click', '#registrar', function(){
 
         if(id==""){
 
-            url="{{ route('admin.opcionmenu.store') }}";
+            url="{{ route('admin.opcionStore') }}";
         }else if(id!=""){
-            url="{{ route('admin.opcionmenu.update') }}";
+            url="{{ route('admin.opcionUpdate') }}";
 
         }
 

@@ -11,7 +11,7 @@ use DataTables;
 class OpcionMenuController extends Controller
 {
  
-    public function index(Request $request)
+    public function opcionmenu(Request $request)
     {
 
         if($request ->ajax()){
@@ -33,7 +33,7 @@ class OpcionMenuController extends Controller
                 ->make(true);
         }
 
-        return view('admin.opcionmenu.index');
+        return view('admin.opcionmenu');
     }
 
     public function grupo()
@@ -45,7 +45,7 @@ class OpcionMenuController extends Controller
     }
 
 
-    public function lista()
+    public function listaOpcion()
     {
         $opcionMenu = OpcionMenu::select('*')
         ->where('status', '=', 'Y')
@@ -53,7 +53,7 @@ class OpcionMenuController extends Controller
         return response()->json($opcionMenu);
     }
 
-    public function store(Request $request)
+    public function opcionStore(Request $request)
     {
 
         if($request->ajax()){
@@ -72,7 +72,7 @@ class OpcionMenuController extends Controller
 
     }
 
-public function edit($id)
+public function opcionEdit($id)
 {
     try {
         $opcionmenu = OpcionMenu::findOrFail($id);
@@ -83,7 +83,7 @@ public function edit($id)
 }
 
 
-    public function update(Request $request)
+    public function opcionUpdate(Request $request)
     {
         if($request->ajax()){
             $id = $request->input('id');
@@ -103,7 +103,7 @@ public function edit($id)
     }
 
 
-    public function destroy( $id)
+    public function opcionDestroy( $id)
     {
         
         $registro = OpcionMenu::find($id);

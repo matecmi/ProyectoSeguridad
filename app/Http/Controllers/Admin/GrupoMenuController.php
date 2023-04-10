@@ -9,7 +9,7 @@ use DataTables;
 class GrupoMenuController extends Controller
 {
  
-    public function index(Request $request)
+    public function grupomenu(Request $request)
     {
 
         if($request ->ajax()){
@@ -30,10 +30,10 @@ class GrupoMenuController extends Controller
                 ->make(true);
         }
 
-        return view('admin.grupomenu.index');
+        return view('admin.grupomenu');
     }
 
-    public function create(Request $request)
+    public function grupoCreate(Request $request)
     {
 
         if($request->ajax()) {
@@ -49,7 +49,7 @@ class GrupoMenuController extends Controller
 
     }
 
-    public function store(Request $request)
+    public function grupoStore(Request $request)
     {
 
         if($request->ajax()){
@@ -66,7 +66,7 @@ class GrupoMenuController extends Controller
 
     }
 
-public function edit($id)
+public function grupoEdit($id)
 {
     try {
         $grupoMenu = GrupoMenu::findOrFail($id);
@@ -77,7 +77,7 @@ public function edit($id)
 }
 
 
-    public function update(Request $request)
+    public function grupoUpdate(Request $request)
     {
         if($request->ajax()){
             $id = $request->input('id');
@@ -94,7 +94,7 @@ public function edit($id)
     }
 
 
-    public function destroy( $id)
+    public function grupoDestroy( $id)
     {
         
         $registro = GrupoMenu::find($id);

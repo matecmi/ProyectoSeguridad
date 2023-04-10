@@ -108,14 +108,14 @@ class EventServiceProvider extends ServiceProvider
                     'key'        => 'grupo',
                     'text'       => 'Grupo de menu',
                     'icon_color' => 'red',
-                    'route'      => 'admin.grupomenu.index',
+                    'route'      => 'admin.grupomenu',
                 ]);
 
                 $event->menu->addAfter('grupo', [
                     'key'        => 'opcion',
                     'text'       => 'Opcion de menu',
                     'icon_color' => 'yellow',
-                    'route'      => 'admin.opcionmenu.index',
+                    'route'      => 'admin.opcionmenu',
                 ]);
                 $event->menu->addAfter('opcion', [
                     'key'        => 'tipo',
