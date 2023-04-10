@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\RolPersonaController;
 use App\Http\Controllers\Admin\UsuarioController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Admin\FaqController;
+
 
 
 
@@ -76,3 +78,10 @@ Route::post('admin/usuario/create',[UsuarioController::class, 'store'])->name('a
 Route::delete('admin/usuario/{id}',[UsuarioController::class, 'destroy'])->name('admin.usuario.destroy');
 Route::get('admin/usuario/{id}',[UsuarioController::class, 'edit'])->name('admin.usuario.edit');
 Route::post('admin/usuario/update',[UsuarioController::class, 'update'])->name('admin.usuario.update');
+
+
+Route::get('admin/faq/',[FaqController::class, 'index'])->name('admin.faq.index');
+Route::post('admin/faq/create',[FaqController::class, 'store'])->name('admin.faq.store');
+Route::delete('admin/faq/{id}',[FaqController::class, 'destroy'])->name('admin.faq.destroy');
+Route::get('admin/faq/{id}',[FaqController::class, 'edit'])->name('admin.faq.edit');
+Route::post('admin/faq/update',[FaqController::class, 'update'])->name('admin.faq.update');

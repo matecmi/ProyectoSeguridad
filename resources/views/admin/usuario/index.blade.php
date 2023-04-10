@@ -22,7 +22,6 @@
                 <tr>
                     <th>ID</th>
                     <th>NOMBRE</th>
-                    <th>PASSWORD</th>
                     <th>T.USUARIO</th>
                     <th>PERSONA</th>
                     <th colspan="2">ACCIONES</th>    
@@ -134,7 +133,6 @@
                 
                 {data: 'id'},
                 {data: 'nombre'},
-                {data: 'password'},
                 {data: 'nombre_tipo'},
                 {data: 'nombre_persona'},
                 {data: 'action', orderable: false}

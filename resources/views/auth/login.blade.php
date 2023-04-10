@@ -1,15 +1,23 @@
-@extends('layouts.app')
-<head>
-    <title>Registro de usuario</title>
+
+<html lang="en">
+
+<head> 
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="RNXDvdt5ep7rIJQ3hhK9rBgUhcbeGhJdAbtd5z2T">
+
+    <title>login de usuario</title>
 
     <link rel="stylesheet" href="http://localhost:8000/vendor/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="http://localhost:8000/vendor/overlayScrollbars/css/OverlayScrollbars.min.css">
     <link rel="stylesheet" href="http://localhost:8000/vendor/adminlte/dist/css/adminlte.min.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-
 </head>
-@section('content')
+
+<body class="register-page" style="min-height: 457.995px;">
 
 <div class="container register-box">
           
@@ -92,4 +100,10 @@
     </div>
     </div>
 
-@endsection
+    <script src="http://localhost:8000/vendor/jquery/jquery.min.js"></script>
+    <script src="http://localhost:8000/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="http://localhost:8000/vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="http://localhost:8000/vendor/adminlte/dist/js/adminlte.min.js"></script>
+</body>
+
+</html>
