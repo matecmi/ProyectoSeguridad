@@ -23,8 +23,8 @@ class OpcionMenuController extends Controller
             return Datatables::of($opcionmenu)
                 ->addColumn('action', function($opcionmenu){
 
-                    $acciones ='<button type="button" name="edit"  id="'.$opcionmenu->id.'" class=" btn btn-info btn-sm"> Editar </button>';
-                    $acciones .='&nbsp;&nbsp;<button type="button" name="delete" id="'.$opcionmenu->id.'" class=" btn btn-danger btn-sm"> Eliminar </button>'; 
+                    $acciones ='<button type="button" name="edit"  id="'.$opcionmenu->id.'" class=" btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
+                    $acciones .='&nbsp;&nbsp;<button type="button" name="delete" id="'.$opcionmenu->id.'" class=" btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button>'; 
 
                     return $acciones;
 

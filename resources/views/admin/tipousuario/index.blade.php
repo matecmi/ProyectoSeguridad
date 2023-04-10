@@ -22,7 +22,7 @@
                 <tr>
                     <th>ID</th>
                     <th>NOMBRE</th>
-                    <th></th>
+                    <th>ACCESOS</th>
                     <th colspan="2">ACCIONES</th>    
                 </tr>
             </thead>
@@ -147,7 +147,7 @@
                 {data: 'nombre'},
                 { render: function(data, type, row, meta) {
                 // Aquí puedes personalizar el contenido de la celda
-                return '<button type="button" name="'+row.id+'" id="acceso" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modelAcceso">Acceso</button>';
+                return '<button type="button" name="'+row.id+'" id="acceso" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modelAcceso"><i class="fa-solid fa-list"></i></button>';
                          }
                 },      
                 {data: 'action', orderable: false}

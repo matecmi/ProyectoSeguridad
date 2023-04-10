@@ -20,8 +20,8 @@ class GrupoMenuController extends Controller
             return Datatables::of($grupomenu)
                 ->addColumn('action', function($grupomenu){
 
-                    $acciones ='<button type="button" name="edit"  id="'.$grupomenu->id.'" class=" btn btn-info btn-sm"> Editar </button>';
-                    $acciones .='&nbsp;&nbsp;<button type="button" name="delete" id="'.$grupomenu->id.'" class=" btn btn-danger btn-sm"> Eliminar </button>'; 
+                    $acciones ='<button type="button" name="edit"  id="'.$grupomenu->id.'" class=" btn btn-success btn-sm"><i class="fa-sharp fa-solid fa-pen-to-square"></i></button>';
+                    $acciones .='&nbsp;&nbsp;<button type="button" name="delete" id="'.$grupomenu->id.'" class=" btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button>'; 
 
                     return $acciones;
 

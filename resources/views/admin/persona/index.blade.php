@@ -67,7 +67,7 @@
               </div>
               <div class="col-md-4">
                 <label for="ruc" class="form-label">RUC</label>
-                <input type="number" class="form-control" id="ruc"  required>
+                <input type="number" class="form-control" id="ruc">
               </div>
               <div class="col-md-4">
                 <label for="telefono" class="form-label">Telefono</label>
@@ -242,6 +242,7 @@ $.each(data, function(index, registro) {
         $('#checkbox-container').empty();
         rolPersona();
         id = $(this).attr('name');
+        console.log(id);
 
         $.ajax({
     type: 'GET',
@@ -250,6 +251,7 @@ $.each(data, function(index, registro) {
            id: id
     },
     success: function(data) {
+
         $.each(data, function(index, registro) {
 
             $('#checkbox-container input[type=checkbox]').each(function() {
@@ -307,6 +309,8 @@ $.each(data, function(index, registro) {
 
 
     $('#resgistrarGrupo').submit(function(e){
+
+        registrarRol();
 
         e.preventDefault();
 
