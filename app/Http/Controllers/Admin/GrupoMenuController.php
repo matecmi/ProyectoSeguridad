@@ -66,14 +66,17 @@ class GrupoMenuController extends Controller
 
     }
 
-public function grupoEdit($id)
+public function grupoEdit(Request $request)
 {
+    if($request->ajax()){
+
     try {
-        $grupoMenu = GrupoMenu::findOrFail($id);
+        $grupoMenu = GrupoMenu::findOrFail($request->input('id'));
         return response()->json(['success' => $grupoMenu]);
     } catch (\Throwable $th) {
         return response()->json(['error' => 'Registro no encontrado'], 404);
     }
+}
 }
 
 
@@ -94,13 +97,17 @@ public function grupoEdit($id)
     }
 
 
-    public function grupoDestroy( $id)
+    public function grupoDestroy(Request $request)
     {
-        
-        $registro = GrupoMenu::find($id);
+        if($request->ajax()){
+
+        $registro = GrupoMenu::find($request->input('id'));
         $registro->status = "N";
         $registro->save();
 
         return response()->json(['mensaje' => 'Registro eliminado']);
+        }
+        return response()->json(['mensaje' => 'Registro no eliminado']);
+
     }
 }

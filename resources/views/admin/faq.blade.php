@@ -5,7 +5,7 @@
 
 @section('content_header')
 
-<h1>GrupoMenu</h1>
+<h1>Faq</h1>
 
 
 @stop
@@ -21,9 +21,8 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>NOMBRE</th>
-                    <th>ICONO</th>
-                    <th>ORDEN</th>
+                    <th>TITULO</th>
+                    <th>RESPUESTA</th>
                     <th colspan="2">ACCIONES</th>    
                 </tr>
             </thead>
@@ -36,25 +35,22 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Grupo Menu</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Tipo De Usuario</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form class="row g-3" id="resgistrarGrupo" action="{{ route('admin.grupoStore') }}">
+        <form class="row g-3" id="resgistrarFaq" action="{{ route('admin.faqStore') }}">
             @csrf
 
             <div class="col-md-12">
                 <input type="text" id="ID" style="display:none">
-                <label for="Nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre" name="" required>
+                <label for="titulo" class="form-label">TITULO</label>
+                <input type="text" class="form-control" id="titulo" name="" required>
               </div>
               <div class="col-md-12">
-                <label for="Icono" class="form-label">Icono</label>
-                <input type="text" class="form-control" id="icono" required>
-              </div>
-              <div class="col-md-12">
-                <label for="Orden" class="form-label">Orden</label>
-                <input type="text" class="form-control" id="orden" required>
+                <input type="text" id="ID" style="display:none">
+                <label for="respuesta" class="form-label">RESPUESTA</label>
+                <input type="text" class="form-control" id="respuesta" name="" required>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -65,6 +61,7 @@
     </div>
   </div>
 </div>
+
 
 
 @stop
@@ -98,7 +95,6 @@
         .table-responsive {
             overflow: auto;
         }
-
         .table.dataTable th,table.dataTable td {
           text-align: center;
               }
@@ -117,38 +113,39 @@
 
             processing:false,
             serverSide:true,
+            //autoWidth: false,
 
             language: {
                     url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json'
                 },
 
             ajax:{
-                    url: "{{ route('admin.grupomenu') }}",    
+                    url: "{{ route('admin.faq') }}",    
  
             },
-
- 
             
             columns:[
                 
                 {data: 'id'},
-                {data: 'nombre'},
-                {data: 'icono'},
-                {data: 'orden'},
+                {data: 'titulo'},    
+                {data: 'respuesta'},      
                 {data: 'action', orderable: false}
-            ],
-
+            ]
         });
     
     });
+  
+    var id;
 
-    $('#resgistrarGrupo').submit(function(e){
+
+
+    $('#resgistrarFaq').submit(function(e){
 
         e.preventDefault();
 
-        var nombre = $('#nombre').val();
-        var icono = $('#icono').val();
-        var orden = $('#orden').val();
+        var titulo = $('#titulo').val();
+        var respuesta = $('#respuesta').val();
+
         var id = $('#ID').val();
         var _token =$("input[name=_token]").val();
 
@@ -156,9 +153,9 @@
 
         if(id==""){
 
-            ruta="{{ route('admin.grupoStore') }}";
+            ruta="{{ route('admin.faqStore') }}";
         }else if(id!=""){
-            ruta="{{ route('admin.grupoUpdate') }}";
+            ruta="{{ route('admin.faqUpdate') }}";
 
         }
 
@@ -167,9 +164,8 @@
             url: ruta,    
             type: "POST",
             data:{
-                nombre: nombre,
-                icono: icono,
-                orden: orden,
+                titulo: titulo,
+                respuesta: respuesta,
                 id: id,
                 _token: _token
 
@@ -180,7 +176,7 @@
             if(response){
                 $('#exampleModal').modal('hide');
                 $('#tabla').DataTable().ajax.reload();
-                $('#resgistrarGrupo')[0].reset();
+                $('#resgistrarFaq')[0].reset();
 
             }
         }
@@ -193,19 +189,14 @@
         var id;
 
         id = $(this).attr('id');
-
-        var nombre = $('#nombre').val();
-        var icono = $('#icono').val();
-        var orden = $('#orden').val();
         var _token =$("input[name=_token]").val();
 
       $.ajax({
 
-         url: "{{ route('admin.grupoDestroy') }}",
-         type: 'GET',
+         url: "/admin/faq/" + id,
+         type: 'DELETE',
          data: {
-            id:id,
-            _token: $('meta[name="csrf-token"]').attr('content')
+        _token: $('meta[name="csrf-token"]').attr('content')
                },
          success: function(response){
             $('#tabla').DataTable().ajax.reload();
@@ -216,39 +207,32 @@
 
    $('#exampleModal').on('hide.bs.modal', function (e) {
     // Restablecer el valor del campo 1
-    $('#nombre').val('');
-    $('#icono').val('');
-    $('#orden').val('');
+    $('#titulo').val('');
+    $('#respuesta').val('');
+
    });
-        
 
      $(document).on('click', 'button[name="edit"]', function(){
        var id = $(this).attr('id');
 
      $.ajax({
-        
-        url: "{{ route('admin.grupoEdit') }}",
+
+        url: "/admin/faq/" + id,
         type: 'get',
-        data: {
-            id:id,
-            _token: $('meta[name="csrf-token"]').attr('content')
-               },
         success: function(response){
 
             if(response!=null){
-            var nombre = response.success.nombre;
-            var icono = response.success.icono;
-            var orden = response.success.orden;
+            var titulo = response.success.titulo;
+            var respuesta = response.success.respuesta;
+
 
             $('#exampleModal').modal('show');
 
-            $('#nombre').val(nombre);
-            $('#icono').val(icono);
-            $('#orden').val(orden);
+            $('#titulo').val(titulo);
+            $('#respuesta').val(respuesta);
             $('#ID').val(id);
 
             }
-
         }
      });
   });

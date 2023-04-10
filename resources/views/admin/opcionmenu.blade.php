@@ -167,6 +167,7 @@
     }
 
     function elegirGrupo(){
+
         $.ajax({
     url: "{{ route('admin.grupo') }}",
     type: 'GET',
@@ -267,7 +268,8 @@ $(document).on('click', '#registrar', function(){
    });
         
      $(document).on('click', 'button[name="edit"]', function(){
-        elegirGrupo();
+      
+       elegirGrupo();
        var id = $(this).attr('id');
 
      $.ajax({
@@ -298,6 +300,8 @@ $(document).on('click', '#registrar', function(){
 
         }
      });
+
+     
   });
     
     </script>

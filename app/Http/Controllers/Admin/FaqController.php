@@ -11,7 +11,7 @@ use DataTables;
 class FaqController extends Controller
 {
 
-    public function index(Request $request)
+    public function faq(Request $request)
     {
 
         if($request ->ajax()){
@@ -32,10 +32,10 @@ class FaqController extends Controller
                 ->make(true);
         }
 
-        return view('admin.faq.index');
+        return view('admin.faq');
     }
 
-    public function store(Request $request)
+    public function faqStore(Request $request)
     {
 
         if($request->ajax()){
@@ -53,7 +53,7 @@ class FaqController extends Controller
     }
 
 
-public function edit($id)
+public function faqEdit($id)
 {
     try {
         $faq = Faq::findOrFail($id);
@@ -64,7 +64,7 @@ public function edit($id)
 }
 
 
-    public function update(Request $request)
+    public function faqUpdate(Request $request)
     {
         if($request->ajax()){
             $id = $request->input('id');
@@ -80,7 +80,7 @@ public function edit($id)
     }
 
 
-    public function destroy( $id)
+    public function faqDestroy( $id)
     {
         
         $registro = Faq::find($id);

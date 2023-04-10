@@ -29,8 +29,8 @@ use App\Http\Controllers\Admin\ProfileController;
 Route::get('admin',[HomeController::class, 'index']);
 Route::get('admin/grupomenu/',[GrupoMenuController::class, 'grupomenu'])->name('admin.grupomenu');
 Route::post('admin/grupomenu/create',[GrupoMenuController::class, 'grupoStore'])->name('admin.grupoStore');
-Route::delete('admin/grupomenu/{id}',[GrupoMenuController::class, 'grupoDestroy'])->name('admin.grupoDestroy');
-Route::get('admin/grupomenu/{id}',[GrupoMenuController::class, 'grupoEdit'])->name('admin.grupoEdit');
+Route::get('admin/grupomenu/delete',[GrupoMenuController::class, 'grupoDestroy'])->name('admin.grupoDestroy');
+Route::get('admin/grupomenu/edit',[GrupoMenuController::class, 'grupoEdit'])->name('admin.grupoEdit');
 Route::post('admin/grupomenu/update',[GrupoMenuController::class, 'grupoUpdate'])->name('admin.grupoUpdate');
 
 Route::get('admin/opcionmenu/lista',[OpcionMenuController::class, 'listaOpcion'])->name('admin.listaOpcion');
@@ -80,11 +80,11 @@ Route::get('admin/usuario/{id}',[UsuarioController::class, 'edit'])->name('admin
 Route::post('admin/usuario/update',[UsuarioController::class, 'update'])->name('admin.usuario.update');
 
 
-Route::get('admin/faq/',[FaqController::class, 'index'])->name('admin.faq.index');
-Route::post('admin/faq/create',[FaqController::class, 'store'])->name('admin.faq.store');
-Route::delete('admin/faq/{id}',[FaqController::class, 'destroy'])->name('admin.faq.destroy');
-Route::get('admin/faq/{id}',[FaqController::class, 'edit'])->name('admin.faq.edit');
-Route::post('admin/faq/update',[FaqController::class, 'update'])->name('admin.faq.update');
+Route::get('admin/faq/',[FaqController::class, 'faq'])->name('admin.faq');
+Route::post('admin/faq/create',[FaqController::class, 'faqStore'])->name('admin.faqStore');
+Route::delete('admin/faq/{id}',[FaqController::class, 'faqDestroy'])->name('admin.faqDestroy');
+Route::get('admin/faq/{id}',[FaqController::class, 'faqEdit'])->name('admin.faqEdit');
+Route::post('admin/faq/update',[FaqController::class, 'faqUpdate'])->name('admin.faqUpdate');
 
 Route::get('admin/profile/',[ProfileController::class, 'profile'])->name('admin.profile');
 Route::post('admin/profile/validate',[ProfileController::class, 'validar'])->name('admin.validar');
