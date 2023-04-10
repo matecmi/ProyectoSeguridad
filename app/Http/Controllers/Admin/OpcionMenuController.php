@@ -47,10 +47,21 @@ class OpcionMenuController extends Controller
 
     public function listaOpcion()
     {
+
+
+        $grupos = GrupoMenu::select('*')
+        ->where('status', '=', 'Y')
+        ->get();
+
         $opcionMenu = OpcionMenu::select('*')
         ->where('status', '=', 'Y')
         ->get();
-        return response()->json($opcionMenu);
+
+        $lista= array(
+            $grupos,
+            $opcionMenu
+        );
+        return response()->json($lista);
     }
 
     public function opcionStore(Request $request)
