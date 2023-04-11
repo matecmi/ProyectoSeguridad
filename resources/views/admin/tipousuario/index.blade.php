@@ -120,6 +120,7 @@
 
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script src="{{ asset('datatables/datatables.js') }}"></script>
 
@@ -290,7 +291,22 @@
 
             success: function(response) {
 
-            if(response){
+            if(response.success){
+                if (id=="") {
+                    swal({
+                 title: "Registro agregado",
+                 text: "",
+                 icon: "success",
+                 buttons: true,
+                })
+                }else {
+                swal({
+                 title: "Registro actualizado",
+                 text: "",
+                 icon: "success",
+                 buttons: true,
+                })
+                }
                 $('#exampleModal').modal('hide');
                 $('#tabla').DataTable().ajax.reload();
                 $('#resgistrarGrupo')[0].reset();

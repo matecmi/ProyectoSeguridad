@@ -99,15 +99,17 @@ public function grupoEdit(Request $request)
 
     public function grupoDestroy(Request $request)
     {
+
+        
         if($request->ajax()){
 
         $registro = GrupoMenu::find($request->input('id'));
         $registro->status = "N";
         $registro->save();
 
-        return response()->json(['mensaje' => 'Registro eliminado']);
+        return response()->json(['success' => true]);
         }
-        return response()->json(['mensaje' => 'Registro no eliminado']);
+        return response()->json(['success' => false]);
 
     }
 }

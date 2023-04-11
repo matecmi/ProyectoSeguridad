@@ -85,15 +85,17 @@ public function slaEdit(Request $request)
 
     public function slaDestroy(Request $request)
     {
-
-        if($request->ajax()){
+    if($request->ajax()){
 
         
         $registro = Sla::find($request->input('id'));
         $registro->status = "N";
         $registro->save();
 
-        return response()->json(['mensaje' => 'Registro eliminado']);
+        return response()->json(['success' => true]);
+    }else {
+        return response()->json(['success' => false]);
+
     }
     }
 }

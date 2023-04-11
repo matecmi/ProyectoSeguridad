@@ -249,6 +249,21 @@ $.each(data, function(index, registro) {
             success: function(response) {
 
                 if(response.success){
+                    if (id=="") {
+                    swal({
+                 title: "Registro agregado",
+                 text: "",
+                 icon: "success",
+                 buttons: true,
+                })
+                }else {
+                swal({
+                 title: "Registro actualizado",
+                 text: "",
+                 icon: "success",
+                 buttons: true,
+                })
+                }
                 $('#exampleModal').modal('hide');
                 $('#tabla').DataTable().ajax.reload();
                 $('#resgistrarGrupo')[0].reset();
@@ -432,7 +447,6 @@ $.each(data, function(index, registro) {
             inputRuc.disabled = true;
             inputRuc.removeAttribute("required");
             $('#ruc').val('');
-
 
         }
 

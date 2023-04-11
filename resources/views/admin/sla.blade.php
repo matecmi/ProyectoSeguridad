@@ -109,6 +109,7 @@
 
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script src="{{ asset('datatables/datatables.js') }}"></script>
 
@@ -182,7 +183,24 @@
 
             success: function(response) {
 
-            if(response){
+            if(response.success){
+
+                if (id=="") {
+                    swal({
+                 title: "Registro agregado",
+                 text: "",
+                 icon: "success",
+                 buttons: true,
+                })
+                }else {
+                swal({
+                 title: "Registro actualizado",
+                 text: "",
+                 icon: "success",
+                 buttons: true,
+                })
+                }
+
                 $('#exampleModal').modal('hide');
                 $('#tabla').DataTable().ajax.reload();
                 $('#resgistrarSla')[0].reset();
@@ -200,6 +218,15 @@
         id = $(this).attr('id');
         var _token =$("input[name=_token]").val();
 
+        swal({
+         title: "Desea eliminar el registro?",
+         icon: "warning",
+         buttons: true,
+         dangerMode: true,
+        })
+       .then((willDelete) => {
+           if (willDelete) {
+
       $.ajax({
 
          url: "{{ route('admin.slaDestroy') }}",
@@ -209,14 +236,25 @@
         _token: $('meta[name="csrf-token"]').attr('content')
                },
          success: function(response){
-            $('#tabla').DataTable().ajax.reload();
-        }
+            if(response.success){
+                $('#tabla').DataTable().ajax.reload();
+                swal({ 
+                    title:"Registro eliminado correctamente",
+                    icon: "success"
+            });
+            }       
+         }
       });
+         }
+
+     });
+
+
    });
 
 
    $('#exampleModal').on('hide.bs.modal', function (e) {
-    // Restablecer el valor del campo 1
+
     $('#nombre').val('');
     $('#hora').val('');
     $('#tpRespuesta').val('');

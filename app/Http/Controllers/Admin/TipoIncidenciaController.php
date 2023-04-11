@@ -89,7 +89,10 @@ public function tIncidenciaEdit(Request $request)
         $registro->status = "N";
         $registro->save();
 
-        return response()->json(['mensaje' => 'Registro eliminado']);
+        return response()->json(['success' => true]);
+    }else {
+        return response()->json(['success' => false]);
+
     }
     }
 }
