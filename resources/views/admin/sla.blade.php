@@ -5,7 +5,7 @@
 
 @section('content_header')
 
-<h1>Faq</h1>
+<h1>SLA</h1>
 
 
 @stop
@@ -21,8 +21,9 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>TITULO</th>
-                    <th>RESPUESTA</th>
+                    <th>NOMBRE</th>
+                    <th>HORAS</th>
+                    <th>TIEMPO PRIMERA RESPUESTA</th>
                     <th colspan="2">ACCIONES</th>    
                 </tr>
             </thead>
@@ -39,18 +40,23 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form class="row g-3" id="resgistrarFaq" action="{{ route('admin.faqStore') }}">
+        <form class="row g-3" id="resgistrarSla" action="{{ route('admin.slaStore') }}">
             @csrf
 
             <div class="col-md-12">
                 <input type="text" id="ID" style="display:none">
-                <label for="titulo" class="form-label">TITULO</label>
-                <input type="text" class="form-control" id="titulo" name="" required>
+                <label for="nombre" class="form-label">NOMBRE</label>
+                <input type="text" class="form-control" id="nombre" name="" required>
               </div>
               <div class="col-md-12">
                 <input type="text" id="ID" style="display:none">
-                <label for="respuesta" class="form-label">RESPUESTA</label>
-                <input type="text" class="form-control" id="respuesta" name="" required>
+                <label for="hora" class="form-label">HORAS</label>
+                <input type="text" class="form-control" id="hora" name="" required>
+              </div>
+              <div class="col-md-12">
+                <input type="text" id="ID" style="display:none">
+                <label for="tpRespuesta" class="form-label">TIEMPO PRIMERA RESPUESTA</label>
+                <input type="text" class="form-control" id="tpRespuesta" name="" required>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -120,15 +126,16 @@
                 },
 
             ajax:{
-                    url: "{{ route('admin.faq') }}",    
+                    url: "{{ route('admin.sla') }}",    
  
             },
             
             columns:[
                 
                 {data: 'id'},
-                {data: 'titulo'},    
-                {data: 'respuesta'},      
+                {data: 'nombre'},    
+                {data: 'horas'},    
+                {data: 'tiempo_primera_respuesta'},        
                 {data: 'action', orderable: false}
             ]
         });
@@ -139,12 +146,13 @@
 
 
 
-    $('#resgistrarFaq').submit(function(e){
+    $('#resgistrarSla').submit(function(e){
 
         e.preventDefault();
 
-        var titulo = $('#titulo').val();
-        var respuesta = $('#respuesta').val();
+        var nombre = $('#nombre').val();
+        var hora = $('#hora').val();
+        var tpRespuesta = $('#tpRespuesta').val();
 
         var id = $('#ID').val();
         var _token =$("input[name=_token]").val();
@@ -153,9 +161,9 @@
 
         if(id==""){
 
-            ruta="{{ route('admin.faqStore') }}";
+            ruta="{{ route('admin.slaStore') }}";
         }else if(id!=""){
-            ruta="{{ route('admin.faqUpdate') }}";
+            ruta="{{ route('admin.slaUpdate') }}";
 
         }
 
@@ -164,8 +172,9 @@
             url: ruta,    
             type: "POST",
             data:{
-                titulo: titulo,
-                respuesta: respuesta,
+                nombre: nombre,
+                hora: hora,
+                tpRespuesta: tpRespuesta,
                 id: id,
                 _token: _token
 
@@ -176,7 +185,7 @@
             if(response){
                 $('#exampleModal').modal('hide');
                 $('#tabla').DataTable().ajax.reload();
-                $('#resgistrarFaq')[0].reset();
+                $('#resgistrarSla')[0].reset();
 
             }
         }
@@ -193,7 +202,7 @@
 
       $.ajax({
 
-         url: "{{ route('admin.faqDestroy') }}",
+         url: "{{ route('admin.slaDestroy') }}",
          type: 'DELETE',
          data: {
             id:id,
@@ -208,8 +217,10 @@
 
    $('#exampleModal').on('hide.bs.modal', function (e) {
     // Restablecer el valor del campo 1
-    $('#titulo').val('');
-    $('#respuesta').val('');
+    $('#nombre').val('');
+    $('#hora').val('');
+    $('#tpRespuesta').val('');
+
 
    });
 
@@ -218,7 +229,7 @@
 
      $.ajax({
 
-        url: "{{ route('admin.faqEdit') }}",
+        url: "{{ route('admin.slaEdit') }}",
         type: 'get',
         data: {
             id:id,
@@ -227,14 +238,17 @@
         success: function(response){
 
             if(response!=null){
-            var titulo = response.success.titulo;
-            var respuesta = response.success.respuesta;
+            var nombre = response.success.nombre;
+            var hora = response.success.horas;
+            var tpRespuesta = response.success.tiempo_primera_respuesta;
+
 
 
             $('#exampleModal').modal('show');
 
-            $('#titulo').val(titulo);
-            $('#respuesta').val(respuesta);
+            $('#nombre').val(nombre);
+            $('#hora').val(hora);
+            $('#tpRespuesta').val(tpRespuesta);
             $('#ID').val(id);
 
             }

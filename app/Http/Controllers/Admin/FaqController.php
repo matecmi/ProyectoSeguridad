@@ -53,14 +53,18 @@ class FaqController extends Controller
     }
 
 
-public function faqEdit($id)
+public function faqEdit(Request $request)
 {
+
+    if($request->ajax()){
+
     try {
-        $faq = Faq::findOrFail($id);
+        $faq = Faq::findOrFail($request->input('id'));
         return response()->json(['success' => $faq]);
     } catch (\Throwable $th) {
         return response()->json(['error' => 'Registro no encontrado'], 404);
     }
+  }
 }
 
 
@@ -80,13 +84,17 @@ public function faqEdit($id)
     }
 
 
-    public function faqDestroy( $id)
+    public function faqDestroy(Request $request)
     {
+
+        if($request->ajax()){
+
         
-        $registro = Faq::find($id);
+        $registro = Faq::find($request->input('id'));
         $registro->status = "N";
         $registro->save();
 
         return response()->json(['mensaje' => 'Registro eliminado']);
+    }
     }
 }

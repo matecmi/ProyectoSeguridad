@@ -41,7 +41,7 @@ class EventServiceProvider extends ServiceProvider
   
             $key = $this->OpcionesMenu($event);
 
-            $this->AdminOpcion($key,$event);
+            $this->PerfilOpcion($key,$event);
             $this->OpcionesPorRol($key,$event);
      
         });
@@ -102,6 +102,17 @@ class EventServiceProvider extends ServiceProvider
         }
     }
 
+    public function PerfilOpcion($key,$event){
+
+            $event->menu->addAfter($key, [
+                'key' => 'perfil',
+                'text' => 'Perfil',
+                'route' => 'admin.profile',
+                'icon' => 'fas fa-fw fa-user',
+            ]); 
+    }
+
+
     public function OpcionesMenu($event){
         $user = auth()->user();
         $email = $user->email;
@@ -152,6 +163,7 @@ class EventServiceProvider extends ServiceProvider
                             $event->menu->addIn($grupo->nombre, [
                                 'key' => $opcion->nombre,
                                 'text' => $opcion->nombre,
+                                'icon' => $opcion->icono,
                                 'url' => $opcion->ruta,
                             ]);
                         }

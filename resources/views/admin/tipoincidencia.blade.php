@@ -5,7 +5,7 @@
 
 @section('content_header')
 
-<h1>Faq</h1>
+<h1>Tipo Incidencia</h1>
 
 
 @stop
@@ -21,8 +21,7 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>TITULO</th>
-                    <th>RESPUESTA</th>
+                    <th>NOMBRE</th>
                     <th colspan="2">ACCIONES</th>    
                 </tr>
             </thead>
@@ -39,18 +38,13 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form class="row g-3" id="resgistrarFaq" action="{{ route('admin.faqStore') }}">
+        <form class="row g-3" id="resgistrarTipoIncidencia" action="{{ route('admin.tIncidenciaStore') }}">
             @csrf
 
             <div class="col-md-12">
                 <input type="text" id="ID" style="display:none">
-                <label for="titulo" class="form-label">TITULO</label>
-                <input type="text" class="form-control" id="titulo" name="" required>
-              </div>
-              <div class="col-md-12">
-                <input type="text" id="ID" style="display:none">
-                <label for="respuesta" class="form-label">RESPUESTA</label>
-                <input type="text" class="form-control" id="respuesta" name="" required>
+                <label for="nombre" class="form-label">NOMBRE</label>
+                <input type="text" class="form-control" id="nombre" name="" required>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -120,15 +114,14 @@
                 },
 
             ajax:{
-                    url: "{{ route('admin.faq') }}",    
+                    url: "{{ route('admin.tipoincidencia') }}",    
  
             },
             
             columns:[
                 
                 {data: 'id'},
-                {data: 'titulo'},    
-                {data: 'respuesta'},      
+                {data: 'nombre'},      
                 {data: 'action', orderable: false}
             ]
         });
@@ -139,12 +132,11 @@
 
 
 
-    $('#resgistrarFaq').submit(function(e){
+    $('#resgistrarTipoIncidencia').submit(function(e){
 
         e.preventDefault();
 
-        var titulo = $('#titulo').val();
-        var respuesta = $('#respuesta').val();
+        var nombre = $('#nombre').val();
 
         var id = $('#ID').val();
         var _token =$("input[name=_token]").val();
@@ -153,9 +145,9 @@
 
         if(id==""){
 
-            ruta="{{ route('admin.faqStore') }}";
+            ruta="{{ route('admin.tIncidenciaStore') }}";
         }else if(id!=""){
-            ruta="{{ route('admin.faqUpdate') }}";
+            ruta="{{ route('admin.tIncidenciaUpdate') }}";
 
         }
 
@@ -164,8 +156,7 @@
             url: ruta,    
             type: "POST",
             data:{
-                titulo: titulo,
-                respuesta: respuesta,
+                nombre: nombre,
                 id: id,
                 _token: _token
 
@@ -176,7 +167,7 @@
             if(response){
                 $('#exampleModal').modal('hide');
                 $('#tabla').DataTable().ajax.reload();
-                $('#resgistrarFaq')[0].reset();
+                $('#resgistrarTipoIncidencia')[0].reset();
 
             }
         }
@@ -193,7 +184,7 @@
 
       $.ajax({
 
-         url: "{{ route('admin.faqDestroy') }}",
+         url: "{{ route('admin.tIncidenciaDestroy') }}",
          type: 'DELETE',
          data: {
             id:id,
@@ -208,8 +199,7 @@
 
    $('#exampleModal').on('hide.bs.modal', function (e) {
     // Restablecer el valor del campo 1
-    $('#titulo').val('');
-    $('#respuesta').val('');
+    $('#nombre').val('');
 
    });
 
@@ -218,7 +208,7 @@
 
      $.ajax({
 
-        url: "{{ route('admin.faqEdit') }}",
+        url: "{{ route('admin.tIncidenciaEdit') }}",
         type: 'get',
         data: {
             id:id,
@@ -227,14 +217,12 @@
         success: function(response){
 
             if(response!=null){
-            var titulo = response.success.titulo;
-            var respuesta = response.success.respuesta;
+            var nombre = response.success.nombre;
 
 
             $('#exampleModal').modal('show');
 
-            $('#titulo').val(titulo);
-            $('#respuesta').val(respuesta);
+            $('#nombre').val(nombre);
             $('#ID').val(id);
 
             }

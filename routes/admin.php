@@ -14,6 +14,10 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\SlaController;
+use App\Http\Controllers\Admin\TipoIncidenciaController;
+
+
 
 
 
@@ -82,10 +86,22 @@ Route::post('admin/usuario/update',[UsuarioController::class, 'update'])->name('
 
 Route::get('admin/faq/',[FaqController::class, 'faq'])->name('admin.faq');
 Route::post('admin/faq/create',[FaqController::class, 'faqStore'])->name('admin.faqStore');
-Route::delete('admin/faq/{id}',[FaqController::class, 'faqDestroy'])->name('admin.faqDestroy');
-Route::get('admin/faq/{id}',[FaqController::class, 'faqEdit'])->name('admin.faqEdit');
+Route::delete('admin/faq/delete',[FaqController::class, 'faqDestroy'])->name('admin.faqDestroy');
+Route::get('admin/faq/edit',[FaqController::class, 'faqEdit'])->name('admin.faqEdit');
 Route::post('admin/faq/update',[FaqController::class, 'faqUpdate'])->name('admin.faqUpdate');
 
 Route::get('admin/profile/',[ProfileController::class, 'profile'])->name('admin.profile');
 Route::post('admin/profile/validate',[ProfileController::class, 'validar'])->name('admin.validar');
 Route::post('admin/profile/update',[ProfileController::class, 'update'])->name('admin.update');
+
+Route::get('admin/sla/',[SlaController::class, 'sla'])->name('admin.sla');
+Route::post('admin/sla/create',[SlaController::class, 'slaStore'])->name('admin.slaStore');
+Route::delete('admin/sla/delete',[SlaController::class, 'slaDestroy'])->name('admin.slaDestroy');
+Route::get('admin/sla/edit',[SlaController::class, 'slaEdit'])->name('admin.slaEdit');
+Route::post('admin/sla/update',[SlaController::class, 'slaUpdate'])->name('admin.slaUpdate');
+
+Route::get('admin/tipoincidencia/',[TipoIncidenciaController::class, 'tipoincidencia'])->name('admin.tipoincidencia');
+Route::post('admin/tipoincidencia/create',[TipoIncidenciaController::class, 'tIncidenciaStore'])->name('admin.tIncidenciaStore');
+Route::delete('admin/tipoincidencia/delete',[TipoIncidenciaController::class, 'tIncidenciaDestroy'])->name('admin.tIncidenciaDestroy');
+Route::get('admin/tipoincidencia/edit',[TipoIncidenciaController::class, 'tIncidenciaEdit'])->name('admin.tIncidenciaEdit');
+Route::post('admin/tipoincidencia/update',[TipoIncidenciaController::class, 'tIncidenciaUpdate'])->name('admin.tIncidenciaUpdate');
