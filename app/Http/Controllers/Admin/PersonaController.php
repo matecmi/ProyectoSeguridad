@@ -41,29 +41,44 @@ class PersonaController extends Controller
 
         if($request->ajax()){
 
-            $ListaCheck =$request->input('valores');
-            $persona = new Persona();
-            
-            $persona->nombres = $request->input('nombres');
-            $persona->apellidopaterno = $request->input('paterno');
-            $persona->apellidomaterno = $request->input('materno');
-            $persona->dni = $request->input('dni');
-            $persona->ruc = $request->input('ruc');
-            $persona->telefno = $request->input('telefono');
-            $persona->email = $request->input('email');
-            $persona->save();
-
-            $per = Persona::select('*')
+            $validar = Persona::select('*')
             ->where('status', '=', 'Y')
             ->where('email', '=', $request->input('email'))
             ->first();
 
-            $this->storeRolPersona($ListaCheck, $per->id);
-        
-            return response()->json(['success' =>true]);
+            if (!isset($validar)) {
+                $ListaCheck =$request->input('valores');
+                $persona = new Persona();
+                
+                $persona->nombres = $request->input('nombres');
+                $persona->apellidopaterno = $request->input('paterno');
+                $persona->apellidomaterno = $request->input('materno');
+                $persona->dni = $request->input('dni');
+                $persona->ruc = $request->input('ruc');
+                $persona->telefno = $request->input('telefono');
+                $persona->email = $request->input('email');
+                $persona->save();
+    
+                $per = Persona::select('*')
+                ->where('status', '=', 'Y')
+                ->where('email', '=', $request->input('email'))
+                ->first();
+    
+                $this->storeRolPersona($ListaCheck, $per->id);
+            
+                return response()->json(['success' =>true]);
+            } else {
+                
+                return response()->json(['success' => false]);
+
+            }
+
+           
+        }else{
+            return response()->json(['success' => false]);
+
         }
    
-        return response()->json(['success' => false]);
 
     }
 

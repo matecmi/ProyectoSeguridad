@@ -46,37 +46,40 @@
       <div class="modal-body">
         <form class="row g-3" id="resgistrarGrupo" action="{{ route('admin.tipousuario.store') }}">
             @csrf
-
+            <div class="col-md-4">
+                <label for="rol" class="form-label">Rol</label>
+                <div id="checkbox-container-nuevo"></div>
+              </div>
             <div class="col-md-4">
                 <input type="text" id="ID" style="display:none">
                 <label for="nombres" class="form-label">Nombres</label>
-                <input type="text" class="form-control" id="nombres"  required>
+                <input type="text" class="form-control" id="nombres"  required disabled>
               </div>
               <div class="col-md-4">
                 <label for="paterno" class="form-label">A.Paterno</label>
-                <input type="text" class="form-control" id="paterno"  required>
+                <input type="text" class="form-control" id="paterno"  required disabled>
               </div>
               <div class="col-md-4">
                 <label for="materno" class="form-label">A.Materno</label>
-                <input type="text" class="form-control" id="materno"  required>
+                <input type="text" class="form-control" id="materno"  required disabled>
               </div>
               <div class="col-md-4">
                 <label for="dni" class="form-label">DNI</label>
-                <input type="number" class="form-control" id="dni"  required>
+                <input type="number" class="form-control" id="dni"  required disabled>
               </div>
               <div class="col-md-4">
                 <label for="ruc" class="form-label">RUC</label>
-                <input type="number" class="form-control" id="ruc">
+                <input type="number" class="form-control" id="ruc" disabled>
               </div>
               <div class="col-md-4">
                 <label for="telefono" class="form-label">Telefono</label>
-                <input type="number" class="form-control" id="telefono" required>
+                <input type="number" class="form-control" id="telefono" required disabled>
               </div>
               <div class="col-md-4">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" required>
+                <input type="email" class="form-control" id="email" required disabled>
               </div>
-              <div id="checkbox-container-nuevo"></div>
+     
 
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -131,6 +134,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
 
 <script src="{{ asset('datatables/datatables.js') }}"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script> 
 
@@ -199,7 +203,6 @@ $.each(data, function(index, registro) {
     for (var i = 0; i < checkboxes.length; i++) {
     valores.push(checkboxes[i].value);
     }
-    console.log(valores);
 
         var nombres = $('#nombres').val();
         var paterno = $('#paterno').val();
@@ -210,6 +213,10 @@ $.each(data, function(index, registro) {
         var email = $('#email').val();
         var id = $('#ID').val();
         var _token =$("input[name=_token]").val();
+
+        if (ruc === "" || ruc === null || ruc === undefined) {
+            ruc = "----";
+        }
 
         var ruta;
 
@@ -241,12 +248,24 @@ $.each(data, function(index, registro) {
 
             success: function(response) {
 
-                if(response){
+                if(response.success){
                 $('#exampleModal').modal('hide');
                 $('#tabla').DataTable().ajax.reload();
                 $('#resgistrarGrupo')[0].reset();
+                } else{
 
-                }
+                    swal({
+                     title: "Error al resgistra la persona",
+                     text: "No se puede registrar dos personas con el mismo correo",
+                     icon: "warning",
+                     buttons: true,
+                     dangerMode: true,
+                     })
+                     .then((willDelete) => {
+
+
+                    });
+              }
 
         }
     });
@@ -275,13 +294,17 @@ $.each(data, function(index, registro) {
 
    $('#exampleModal').on('hide.bs.modal', function (e) {
     // Restablecer el valor del campo 1
-    $('#nombres').val('');
-    $('#paterno').val('');
-    $('#materno').val('');
-    $('#dni').val('');
-    $('#ruc').val('');
-    $('#telefono').val('');
-    $('#email').val('');
+    $('#resgistrarGrupo')[0].reset();
+
+        inputRuc.disabled = true;
+        inputNombres.disabled = true;
+        inputPaterno.disabled = true;
+        inputMaterno.disabled = true;
+        inputEmail.disabled = true;
+        inputTelefono.disabled = true;
+        inputDni.disabled = true;
+
+
    });
 
      $(document).on('click', 'button[name="edit"]', function(){
@@ -294,6 +317,9 @@ $.each(data, function(index, registro) {
         success: function(response){
 
             if(response!=null){
+    
+            
+
             var nombres = response.success[0].nombres;
             var paterno = response.success[0].apellidopaterno;
             var materno = response.success[0].apellidomaterno;
@@ -302,10 +328,23 @@ $.each(data, function(index, registro) {
             var telefono =response.success[0].telefno;
             var email = response.success[0].email;
 
+       
+
 
             $('#exampleModal').modal('show');
 
 
+           inputNombres.removeAttribute("disabled");
+           inputPaterno.removeAttribute("disabled");
+           inputMaterno.removeAttribute("disabled");
+           inputDni.removeAttribute("disabled");
+           inputTelefono.removeAttribute("disabled");
+           inputEmail.removeAttribute("disabled");
+
+           if (ruc!= "----") {
+                inputRuc.removeAttribute("disabled");
+
+            }
             $.each(response.success[1], function(index, registro) {
 
             $('#checkbox-container-nuevo input[type=checkbox]').each(function() {
@@ -332,6 +371,75 @@ $.each(data, function(index, registro) {
         }
      });
   });
+
+    var inputRuc = document.getElementById("ruc");
+    var inputNombres = document.getElementById("nombres");
+    var inputPaterno = document.getElementById("paterno");
+    var inputMaterno = document.getElementById("materno");
+    var inputDni = document.getElementById("dni");
+    var inputTelefono = document.getElementById("telefono");
+    var inputEmail = document.getElementById("email");
+
+  $(document).on('click', 'input[type=checkbox]:checked', function(){
+
+
+
+
+    inputNombres.removeAttribute("disabled");
+    inputPaterno.removeAttribute("disabled");
+    inputMaterno.removeAttribute("disabled");
+    inputDni.removeAttribute("disabled");
+    inputTelefono.removeAttribute("disabled");
+    inputEmail.removeAttribute("disabled");
+
+    var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+
+
+    for (var i = 0; i < checkboxes.length; i++) {
+        if(checkboxes[i].value=="5"){
+
+            inputRuc.removeAttribute("disabled");
+            inputRuc.required = true;
+
+        }
+    }
+
+  });
+
+
+
+  $(document).on('click', 'input[type=checkbox]:not(:checked)', function(){
+
+    var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+
+    if (checkboxes.length==0) {
+        
+        $('#resgistrarGrupo')[0].reset();
+
+        inputRuc.disabled = true;
+        inputNombres.disabled = true;
+        inputPaterno.disabled = true;
+        inputMaterno.disabled = true;
+        inputEmail.disabled = true;
+        inputTelefono.disabled = true;
+        inputDni.disabled = true;
+    }
+
+    var checkboxesNot = document.querySelectorAll('input[type=checkbox]:not(:checked)');
+
+    for (var i = 0; i < checkboxesNot.length; i++) {
+        if(checkboxesNot[i].value=="5"){
+            inputRuc.disabled = true;
+            inputRuc.removeAttribute("required");
+            $('#ruc').val('');
+
+
+        }
+
+    }
+
+
+ });
     
     </script>
 
