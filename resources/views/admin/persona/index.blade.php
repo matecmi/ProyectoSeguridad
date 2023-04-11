@@ -28,7 +28,6 @@
                     <th>RUC</th>
                     <th>TELEFONO</th>
                     <th>EMAIL</th>
-                    <th></th>
                     <th colspan="2">ACCIONES</th>    
                 </tr>
             </thead>
@@ -89,28 +88,6 @@
   </div>
 </div>
 
-
-<div class="modal fade" id="modelAcceso" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Rol Persona</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form class="row g-3" id="resgistrarRolPersona">
-              @csrf
-              <div id="checkbox-container"></div>
-
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button class="btn btn-primary" type="submit">Guardar</button>
-            </div>
-            </form>
-        </div>
-      </div>
-    </div>
-  </div>
 
 
 @stop
@@ -183,37 +160,13 @@
                 {data: 'dni'},
                 {data: 'ruc'},
                 {data: 'telefno'},
-                {data: 'email'},
-                { render: function(data, type, row, meta) {
-                // Aquí puedes personalizar el contenido de la celda
-                return '<button type="button" name="'+row.id+'" id="rolPersona" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modelAcceso">Rol</button>';
-                         }
-                },      
+                {data: 'email'},    
                 {data: 'action', orderable: false}
             ]
         });
     
     });
   
-    function rolPersona(){
-
-        $.ajax({
-    type: 'GET',
-    url:  "{{ route('admin.rol.lista') }}",
-    success: function(data) {
-
-        var checkboxContainer = $('#checkbox-container');
-        $.each(data, function(index, registro) {
-
-            var checkbox = '<div class="form-check">';
-            checkbox += '<input class="form-check-input" type="checkbox" value="' + registro.id + '" id="checkbox-' + registro.id + '">';
-            checkbox += '<label class="form-check-label" for="checkbox-' + registro.id + '">' + registro.nombre + '</label>';
-            checkbox += '</div>';
-            checkboxContainer.append(checkbox);
-        });
-    }
-});
-    }
 
     function rolPersona2(){
 
@@ -233,86 +186,20 @@ $.each(data, function(index, registro) {
 });
 }
 });
+
 }
 
-    var id;
-
-    $(document).on('click', '#rolPersona', function(){
-
-        $('#checkbox-container').empty();
-        rolPersona();
-        id = $(this).attr('name');
-        console.log(id);
-
-        $.ajax({
-    type: 'GET',
-    url:  "{{ route('admin.rolpersona.lista') }}",
-    data:{
-           id: id
-    },
-    success: function(data) {
-
-        $.each(data, function(index, registro) {
-
-            $('#checkbox-container input[type=checkbox]').each(function() {
-        var checkboxValue = $(this).val();
-        if (checkboxValue== registro.rol_id) {
-
-        $(this).prop('checked', true);
-    
-    }});
-
-        });
-
-
-    }
-});
-   });
-
-   function registrarRol(){
-    var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
-    var valores = [];
-
-    for (var i = 0; i < checkboxes.length; i++) {
-    valores.push(checkboxes[i].value);
-    }
-        var _token =$("input[name=_token]").val();
- 
-        $.ajax({
-
-            url: "{{ route('admin.rolpersona.store') }}",    
-            type: "POST",
-            data:{
-                valores: valores,
-                id: id,
-                _token: _token
-
-            },
-
-            success: function(response) {
-            if(response){
-                $('#modelAcceso').modal('hide');
-                //$('#tabla').DataTable().ajax.reload();
-                $('#resgistrarRolPersona')[0].reset();
-
-            }
-        }
-    });
-
-   }
-
-   $('#resgistrarRolPersona').submit(function(e){
-    e.preventDefault();
-    registrarRol()
-   
-});
 
 
     $('#resgistrarGrupo').submit(function(e){
 
-        registrarRol();
-
-        e.preventDefault();
+    e.preventDefault();
+    var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+    var valores = [];
+    for (var i = 0; i < checkboxes.length; i++) {
+    valores.push(checkboxes[i].value);
+    }
+    console.log(valores);
 
         var nombres = $('#nombres').val();
         var paterno = $('#paterno').val();
@@ -346,6 +233,7 @@ $.each(data, function(index, registro) {
                 ruc: ruc,
                 telefono: telefono,
                 email: email,
+                valores:valores,
                 id: id,
                 _token: _token
 
@@ -353,12 +241,13 @@ $.each(data, function(index, registro) {
 
             success: function(response) {
 
-            if(response){
+                if(response){
                 $('#exampleModal').modal('hide');
                 $('#tabla').DataTable().ajax.reload();
                 $('#resgistrarGrupo')[0].reset();
 
-            }
+                }
+
         }
     });
 });
@@ -405,16 +294,29 @@ $.each(data, function(index, registro) {
         success: function(response){
 
             if(response!=null){
-            var nombres = response.success.nombres;
-            var paterno = response.success.apellidopaterno;
-            var materno = response.success.apellidomaterno;
-            var dni = response.success.dni;
-            var ruc = response.success.ruc;
-            var telefono =response.success.telefno;
-            var email = response.success.email;
+            var nombres = response.success[0].nombres;
+            var paterno = response.success[0].apellidopaterno;
+            var materno = response.success[0].apellidomaterno;
+            var dni = response.success[0].dni;
+            var ruc = response.success[0].ruc;
+            var telefono =response.success[0].telefno;
+            var email = response.success[0].email;
 
 
             $('#exampleModal').modal('show');
+
+
+            $.each(response.success[1], function(index, registro) {
+
+            $('#checkbox-container-nuevo input[type=checkbox]').each(function() {
+            var checkboxValue = $(this).val();
+            if (checkboxValue== registro.rol_id) {
+
+                  $(this).prop('checked', true);
+
+               }});
+
+            });
 
             $('#nombres').val(nombres);
             $('#paterno').val(paterno);
