@@ -209,10 +209,6 @@
         var id;
 
         id = $(this).attr('id');
-
-        var nombre = $('#nombre').val();
-        var icono = $('#icono').val();
-        var orden = $('#orden').val();
         var _token =$("input[name=_token]").val();
 
       $.ajax({

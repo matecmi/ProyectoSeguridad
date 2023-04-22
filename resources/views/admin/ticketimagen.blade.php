@@ -5,8 +5,7 @@
 
 @section('content_header')
 
-<h1>Tipo Incidencia</h1>
-
+<h1>Ticket Imagen</h1>
 
 @stop
 
@@ -14,7 +13,7 @@
 
 <div class="card">
     <div class="card-header">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo Registro</button>
+        <button id="registrar" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo Registro</button>
     </div>
     <div class="card-body table-responsive">
         <table class="table table-striped table-bordered table-hover" id="tabla">
@@ -22,6 +21,7 @@
                 <tr>
                     <th>ID</th>
                     <th>NOMBRE</th>
+                    <th>TICKET</th>
                     <th colspan="2">ACCIONES</th>    
                 </tr>
             </thead>
@@ -34,17 +34,21 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Tipo De Incidencia</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Ticket</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form class="row g-3" id="resgistrarTipoIncidencia" action="{{ route('admin.tIncidenciaStore') }}">
+        <form class="row g-3" id="resgistrarTicketImagen" action="{{ route('admin.calificacionStore') }}">
             @csrf
-
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <input type="text" id="ID" style="display:none">
-                <label for="nombre" class="form-label">NOMBRE</label>
+                <label for="Nombre" class="form-label">NOMBRE</label>
                 <input type="text" class="form-control" id="nombre" name="" required>
+              </div>
+              <div class="col-md-6">
+                <label for="grupo" class="form-label">TICKET</label>
+                <select class="form-select" id="listTicket" required>
+                </select>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -55,7 +59,6 @@
     </div>
   </div>
 </div>
-
 
 
 @stop
@@ -97,9 +100,9 @@
 
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script src="{{ asset('datatables/datatables.js') }}"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script> 
 
@@ -108,66 +111,101 @@
 
             processing:false,
             serverSide:true,
-            //autoWidth: false,
-
             language: {
                     url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json'
                 },
 
             ajax:{
-                    url: "{{ route('admin.tipoincidencia') }}",    
+                    url: "{{ route('admin.ticketImagen') }}",    
  
             },
             
             columns:[
                 
                 {data: 'id'},
-                {data: 'nombre'},      
+                {data: 'nombre'},
+                {data: 'ticket_nombre'}, 
                 {data: 'action', orderable: false}
             ]
         });
     
     });
-  
-    var id;
 
 
+     function listarTicket(){
+        $.ajax({
+    url: "{{ route('admin.listTicket') }}",
+    type: 'GET',
+    success: function(response) {
+      var options = '';                   
+      options +='<option selected disabled value="">Elegir un Ticket...</option>'
+      $.each(response, function(index, grupo) {
+        options += '<option value="' + grupo.id + '">' + grupo.descripcion + '</option>';
+      });
+      $('#listTicket').html(options);
+    }
+  });
 
-    $('#resgistrarTipoIncidencia').submit(function(e){
+    }
+
+    function elegirTicket(){
+
+        $.ajax({
+    url: "{{ route('admin.listTicket') }}",
+    type: 'GET',
+    success: function(response) {
+      var options = '';                   
+      $.each(response, function(index, grupo) {
+        options += '<option value="' + grupo.id + '">' + grupo.descripcion + '</option>';
+      });
+      $('#listTicket').html(options);
+    }
+  });
+
+    }
+
+
+$(document).on('click', '#registrar', function(){
+    listarTicket();
+
+   });
+
+
+    $('#resgistrarTicketImagen').submit(function(e){
 
         e.preventDefault();
 
         var nombre = $('#nombre').val();
-
+        var ticket_id = $('#listTicket').val();
         var id = $('#ID').val();
         var _token =$("input[name=_token]").val();
 
-        var ruta;
+        var url;
 
         if(id==""){
 
-            ruta="{{ route('admin.tIncidenciaStore') }}";
+            url="{{ route('admin.ticketImagenStore') }}";
         }else if(id!=""){
-            ruta="{{ route('admin.tIncidenciaUpdate') }}";
+            url="{{ route('admin.ticketImagenUpdate') }}";
 
         }
 
         $.ajax({
 
-            url: ruta,    
+            url: url,    
             type: "POST",
             data:{
-                nombre: nombre,
-                id: id,
-                _token: _token
+              nombre: nombre,
+              ticket_id:ticket_id,
+              id: id,
+              _token: _token
 
             },
 
             success: function(response) {
-
+              
             if(response.success){
-
-                if (id=="") {
+              if (id=="") {
                     swal({
                  title: "Registro agregado",
                  text: "",
@@ -182,25 +220,22 @@
                  buttons: true,
                 })
                 }
-                
                 $('#exampleModal').modal('hide');
                 $('#tabla').DataTable().ajax.reload();
-                $('#resgistrarTipoIncidencia')[0].reset();
+                $('#resgistrarTicketImagen')[0].reset();
 
             }
+            
         }
     });
 });
       
-
     
     $(document).on('click', 'button[name="delete"]', function(){
-
         var id;
 
         id = $(this).attr('id');
         var _token =$("input[name=_token]").val();
-        
         swal({
          title: "Desea eliminar el registro?",
          icon: "warning",
@@ -212,64 +247,66 @@
 
       $.ajax({
 
-         url: "{{ route('admin.tIncidenciaDestroy') }}",
+         url: "{{ route('admin.ticketImagenDestroy') }}",
          type: 'DELETE',
          data: {
             id:id,
-        _token: $('meta[name="csrf-token"]').attr('content')
+            _token: $('meta[name="csrf-token"]').attr('content')
                },
-         success: function(response){
-
+               success: function(response){
             if(response.success){
                 $('#tabla').DataTable().ajax.reload();
                 swal({ 
                     title:"Registro eliminado correctamente",
                     icon: "success"
             });
-            }
-        }
-
-         });
-
+            }       
+         }
+        });
          }
 
      });
-
 
    });
 
 
    $('#exampleModal').on('hide.bs.modal', function (e) {
     // Restablecer el valor del campo 1
-    $('#nombre').val('');
-
+    $('#resgistrarTicketImagen')[0].reset();
    });
-
+        
      $(document).on('click', 'button[name="edit"]', function(){
+      
+      elegirTicket();
+      
        var id = $(this).attr('id');
 
      $.ajax({
 
-        url: "{{ route('admin.tIncidenciaEdit') }}",
-        type: 'get',
+      url: "{{ route('admin.ticketImagenEdit') }}",
+      type: 'get',
         data: {
             id:id,
-        _token: $('meta[name="csrf-token"]').attr('content')
+            _token: $('meta[name="csrf-token"]').attr('content')
                },
         success: function(response){
 
             if(response!=null){
             var nombre = response.success.nombre;
-
-
+            var ticket_id = response.success.ticket_id;
+            
             $('#exampleModal').modal('show');
-
             $('#nombre').val(nombre);
+            $('#listTicket').val(ticket_id);
+           
             $('#ID').val(id);
 
             }
+
         }
      });
+
+     
   });
     
     </script>

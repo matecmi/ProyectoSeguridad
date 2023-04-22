@@ -303,7 +303,7 @@ return [
 
         // Sidebar items:
 
-        ['header' => 'opciones',
+        ['header' => '',
         'key' => 'perfil'],
 
        

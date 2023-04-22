@@ -16,6 +16,11 @@ use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SlaController;
 use App\Http\Controllers\Admin\TipoIncidenciaController;
+use App\Http\Controllers\Admin\TicketController;
+use App\Http\Controllers\Admin\CalificacionController;
+use App\Http\Controllers\Admin\TicketIamgenController;
+
+
 
 
 
@@ -105,3 +110,29 @@ Route::post('admin/tipoincidencia/create',[TipoIncidenciaController::class, 'tIn
 Route::delete('admin/tipoincidencia/delete',[TipoIncidenciaController::class, 'tIncidenciaDestroy'])->name('admin.tIncidenciaDestroy');
 Route::get('admin/tipoincidencia/edit',[TipoIncidenciaController::class, 'tIncidenciaEdit'])->name('admin.tIncidenciaEdit');
 Route::post('admin/tipoincidencia/update',[TipoIncidenciaController::class, 'tIncidenciaUpdate'])->name('admin.tIncidenciaUpdate');
+
+Route::get('admin/ticket/',[TicketController::class, 'ticket'])->name('admin.ticket');
+Route::post('admin/ticket/create',[TicketController::class, 'ticketStore'])->name('admin.ticketStore');
+Route::delete('admin/ticket/delete',[TicketController::class, 'ticketDestroy'])->name('admin.ticketDestroy');
+Route::get('admin/ticket/edit',[TicketController::class, 'ticketEdit'])->name('admin.ticketEdit');
+Route::post('admin/ticket/update',[TicketController::class, 'ticketUpdate'])->name('admin.ticketUpdate');
+Route::get('admin/ticket/listUsuario',[TicketController::class, 'listUsuario'])->name('admin.listUsuario');
+Route::get('admin/ticket/listTipoIncidencia',[TicketController::class, 'ListTipoIncidencia'])->name('admin.ListTipoIncidencia');
+Route::get('admin/ticket/listSla',[TicketController::class, 'ListSla'])->name('admin.ListSla');
+Route::get('admin/ticket/listPersona',[TicketController::class, 'ListPersona'])->name('admin.ListPersona');
+
+
+Route::get('admin/calificacion/',[CalificacionController::class, 'calificacion'])->name('admin.calificacion');
+Route::post('admin/calificacion/create',[CalificacionController::class, 'calificacionStore'])->name('admin.calificacionStore');
+Route::delete('admin/calificacion/delete',[CalificacionController::class, 'calificacionDestroy'])->name('admin.calificacionDestroy');
+Route::get('admin/calificacion/edit',[CalificacionController::class, 'calificacionEdit'])->name('admin.calificacionEdit');
+Route::post('admin/calificacion/update',[CalificacionController::class, 'calificacionUpdate'])->name('admin.calificacionUpdate');
+Route::get('admin/calificacion/listTicket',[CalificacionController::class, 'listTicket'])->name('admin.listTicket');
+
+Route::get('admin/ticketimagen/',[TicketIamgenController::class, 'ticketImagen'])->name('admin.ticketImagen');
+Route::post('admin/ticketimagen/create',[TicketIamgenController::class, 'ticketImagenStore'])->name('admin.ticketImagenStore');
+Route::delete('admin/ticketimagen/delete',[TicketIamgenController::class, 'ticketImagenDestroy'])->name('admin.ticketImagenDestroy');
+Route::get('admin/ticketimagen/edit',[TicketIamgenController::class, 'ticketImagenEdit'])->name('admin.ticketImagenEdit');
+Route::post('admin/ticketimagen/update',[TicketIamgenController::class, 'ticketImagenUpdate'])->name('admin.ticketImagenUpdate');
+Route::get('admin/ticketimagen/ListTicket',[TicketIamgenController::class, 'listTicket'])->name('admin.listTicket');
+
