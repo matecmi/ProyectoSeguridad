@@ -25,7 +25,9 @@
                     <th>F.FIN ESTIMADA</th>
                     <th>F. FIN</th>
                     <th>DESCRIPCION</th>
-                    <th>Persona</th>
+                    <th>PERSONAL</th>
+                    <th>EMPRESA</th>
+                    <th>SUPERVISOR</th>
                     <th>USUARIO</th>
                     <th>SITUACION</th>
                     <th>TIPO INCIDENCIA</th>
@@ -46,7 +48,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form class="row g-3" id="resgistrarTicket" action="{{ route('admin.ticketStore') }}">
+        <form class="row g-3 " id="resgistrarTicket" action="{{ route('admin.ticketStore') }}">
             @csrf
             <div class="col-md-6">
                 <input type="text" id="ID" style="display:none">
@@ -88,9 +90,19 @@
                 <select class="form-select" id="listSla" required>
                 </select>
               </div>
-              <div class="col-md-12">
-                <label for="grupo" class="form-label">Persona</label>
+              <div class="col-md-6">
+                <label for="grupo" class="form-label">PERSONA</label>
                 <select class="form-select" id="listPersona" required>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="grupo" class="form-label">SUPERVISOR</label>
+                <select class="form-select" id="listSupervisor" required>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="grupo" class="form-label">EMPRESA</label>
+                <select class="form-select" id="listEmpresa" required>
                 </select>
               </div>
               <div class="modal-footer">
@@ -172,7 +184,9 @@
                 {data: 'fecha_fin'},
                 {data: 'descripcion'},  
                 {data: 'situacion'}, 
-                {data: 'persona_nombre'},   
+                {data: 'personal_nombre'},
+                {data: 'empresa_nombre'},   
+                {data: 'supervisor_nombre'},      
                 {data: 'usuario_nombre'},  
                 {data: 'tipo_incidencia_nombre'},  
                 {data: 'sla_nombre'},  
@@ -248,6 +262,39 @@
 
     }
 
+      function listarSupervisor(){
+        $.ajax({
+    url: "{{ route('admin.listSupervisor') }}",
+    type: 'GET',
+    success: function(response) {
+      var options = '';                   
+      options +='<option selected disabled value="">Elegir un Supervisor...</option>'
+      $.each(response, function(index, grupo) {
+        options += '<option value="' + grupo.id + '">' + grupo.nombres + '</option>';
+      });
+      $('#listSupervisor').html(options);
+    }
+  });
+
+    }
+
+
+            function listarEmpresa(){
+        $.ajax({
+    url: "{{ route('admin.listEmpresa') }}",
+    type: 'GET',
+    success: function(response) {
+      var options = '';                   
+      options +='<option selected disabled value="">Elegir una Empresa...</option>'
+      $.each(response, function(index, grupo) {
+        options += '<option value="' + grupo.id + '">' + grupo.nombres + '</option>';
+      });
+      $('#listEmpresa').html(options);
+    }
+  });
+
+    }
+
     function elegirUsario(){
 
         $.ajax({
@@ -317,6 +364,8 @@ $(document).on('click', '#registrar', function(){
     listarTipoIncidencia();
     listarSla();
     listarPersona();
+    listarEmpresa();
+    listarSupervisor();
    });
 
 
@@ -334,6 +383,9 @@ $(document).on('click', '#registrar', function(){
         var tipoincidencia_id = $('#listTIncidencia').val();
         var sla_id = $('#listSla').val();
         var personal_id = $('#listPersona').val();
+        var supervisor_id = $('#listSupervisor').val();
+        var empresa_id = $('#listEmpresa').val();
+
 
 
         var id = $('#ID').val();
@@ -366,14 +418,14 @@ $(document).on('click', '#registrar', function(){
               tipoincidencia_id,tipoincidencia_id,
               sla_id,sla_id,
               personal_id,personal_id,
+              supervisor_id:supervisor_id,
+              empresa_id:empresa_id,
               id: id,
                 _token: _token
 
             },
 
             success: function(response) {
-
-              console.log(response)
               
             if(response.success){
               if (id=="") {
@@ -477,6 +529,9 @@ $(document).on('click', '#registrar', function(){
             var tipoincidencia_id_edit = response.success.tipoincidencia_id;
             var sla_id_edit = response.success.sla_id;
             var personal_id_edit = response.success.personal_id;
+            var empresa_id = response.success.empresa_id;
+            var supervisor_id = response.success.supervisor_id;
+
 
 
             $('#exampleModal').modal('show');
@@ -490,6 +545,8 @@ $(document).on('click', '#registrar', function(){
             $('#listTIncidencia').val(tipoincidencia_id_edit);
             $('#listSla').val(sla_id_edit);
             $('#listPersona').val(personal_id_edit);
+            $('#listEmpresa').val(supervisor_id);
+            $('#listSupervisor').val(empresa_id);
 
             $('#ID').val(id);
 

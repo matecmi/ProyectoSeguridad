@@ -123,6 +123,8 @@ Route::get('admin/ticket/listUsuario',[TicketController::class, 'listUsuario'])-
 Route::get('admin/ticket/listTipoIncidencia',[TicketController::class, 'ListTipoIncidencia'])->name('admin.ListTipoIncidencia');
 Route::get('admin/ticket/listSla',[TicketController::class, 'ListSla'])->name('admin.ListSla');
 Route::get('admin/ticket/listPersona',[TicketController::class, 'ListPersona'])->name('admin.ListPersona');
+Route::get('admin/ticket/listEmpresa',[TicketController::class, 'listEmpresa'])->name('admin.listEmpresa');
+Route::get('admin/ticket/listSupervisor',[TicketController::class, 'listSupervisor'])->name('admin.listSupervisor');
 
 
 Route::get('admin/calificacion/',[CalificacionController::class, 'calificacion'])->name('admin.calificacion');

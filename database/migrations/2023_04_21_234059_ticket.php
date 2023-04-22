@@ -36,6 +36,18 @@ class Ticket extends Migration
                     ->on('personas')
                     ->onDelete('cascade');
 
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')
+                    ->references('id')
+                    ->on('personas')
+                    ->onDelete('cascade');
+
+            $table->unsignedBigInteger('supervisor_id');
+            $table->foreign('supervisor_id')
+                    ->references('id')
+                    ->on('personas')
+                    ->onDelete('cascade');
+
             $table->unsignedBigInteger('sla_id');
             $table->foreign('sla_id')
                    ->references('id')

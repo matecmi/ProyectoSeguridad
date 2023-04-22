@@ -6,6 +6,10 @@ use App\Models\Admin\Usuario;
 use App\Models\Admin\TipoIncidencia;
 use App\Models\Admin\Sla;
 use App\Models\Admin\Persona;
+use App\Models\Admin\Rol;
+use App\Models\Admin\RolPersona;
+
+
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -20,13 +24,19 @@ class TicketController extends Controller
         if($request ->ajax()){
 
             $ticket = Ticket::select('tickets.*','usuarios.nombre as usuario_nombre',
-            'tipo_incidencias.nombre as tipo_incidencia_nombre','slas.nombre as sla_nombre', 'personas.nombres as persona_nombre')
+            'tipo_incidencias.nombre as tipo_incidencia_nombre','slas.nombre as sla_nombre', 
+            'persona1.nombres as personal_nombre',
+            'persona2.nombres as empresa_nombre', 
+            'persona3.nombres as supervisor_nombre')
             ->join('usuarios', 'tickets.usuario_id', '=', 'usuarios.id')
             ->join('tipo_incidencias', 'tickets.tipoincidencia_id', '=', 'tipo_incidencias.id')
             ->join('slas', 'tickets.sla_id', '=', 'slas.id')
-            ->join('personas', 'tickets.personal_id', '=', 'personas.id')
+            ->join('personas as persona1', 'tickets.personal_id', '=', 'persona1.id')
+            ->join('personas as persona2', 'tickets.empresa_id', '=', 'persona2.id')
+            ->join('personas as persona3', 'tickets.supervisor_id', '=', 'persona3.id')
             ->where('tickets.status', '=', 'Y')
             ->get();
+
             return Datatables::of($ticket)
                 ->addColumn('action', function($ticket){
 
@@ -68,10 +78,118 @@ class TicketController extends Controller
     }
     public function ListPersona()
     {
-        $persona = Persona::select('*')
+        $Personal = array(); 
+
+        $rol = Rol::select('*')
+        ->where('status', '=', 'Y')
+        ->where('nombre', '=', 'Personal')
+        ->first();
+
+
+        $rolPersona = RolPersona::select('*')
+        ->where('status', '=', 'Y')
+        ->where('rol_id', '=', $rol->id)
+        ->get();
+
+        $personas = Persona::select('*')
         ->where('status', '=', 'Y')
         ->get();
-        return response()->json($persona);
+
+        $contador = 0;
+
+        foreach ($rolPersona as $rolP) {
+
+            foreach ($personas as $persona) {
+
+                if ($rolP->persona_id ==$persona->id) {
+
+                    $Personal[$contador] = $persona;
+                    $contador++;
+                }
+
+
+            }
+        }
+
+
+        return response()->json($Personal);
+    }
+
+    public function listEmpresa()
+    {
+        $Empresa = array(); 
+
+        $rol = Rol::select('*')
+        ->where('status', '=', 'Y')
+        ->where('nombre', '=', 'Empresa')
+        ->first();
+
+
+        $rolPersona = RolPersona::select('*')
+        ->where('status', '=', 'Y')
+        ->where('rol_id', '=', $rol->id)
+        ->get();
+
+        $personas = Persona::select('*')
+        ->where('status', '=', 'Y')
+        ->get();
+
+        $contador = 0;
+
+        foreach ($rolPersona as $rolP) {
+
+            foreach ($personas as $persona) {
+
+                if ($rolP->persona_id ==$persona->id) {
+
+                    $Empresa[$contador] = $persona;
+                    $contador++;
+                }
+
+
+            }
+        }
+
+
+        return response()->json($Empresa);
+    }
+    public function listSupervisor()
+    {
+        $Supervisor = array(); 
+
+        $rol = Rol::select('*')
+        ->where('status', '=', 'Y')
+        ->where('nombre', '=', 'Supervisor')
+        ->first();
+
+
+        $rolPersona = RolPersona::select('*')
+        ->where('status', '=', 'Y')
+        ->where('rol_id', '=', $rol->id)
+        ->get();
+
+        $personas = Persona::select('*')
+        ->where('status', '=', 'Y')
+        ->get();
+
+        $contador = 0;
+
+        foreach ($rolPersona as $rolP) {
+
+            foreach ($personas as $persona) {
+
+                if ($rolP->persona_id ==$persona->id) {
+
+                    $Supervisor[$contador] = $persona;
+                    $contador++;
+                }
+
+
+            }
+        }
+
+
+        return response()->json($Supervisor);
     }
 
 
@@ -92,6 +210,9 @@ class TicketController extends Controller
             $ticked->tipoincidencia_id = $request->input('tipoincidencia_id');
             $ticked->sla_id = $request->input('sla_id');
             $ticked->personal_id = $request->input('personal_id');
+            $ticked->supervisor_id = $request->input('supervisor_id');
+            $ticked->empresa_id = $request->input('empresa_id');
+
             $ticked->save();
         
             return response()->json(['success' => true]);
@@ -131,6 +252,8 @@ public function ticketEdit(Request $request)
             $ticked->tipoincidencia_id = $request->input('tipoincidencia_id');
             $ticked->sla_id = $request->input('sla_id');
             $ticked->personal_id = $request->input('personal_id');
+            $ticked->supervisor_id = $request->input('supervisor_id');
+            $ticked->empresa_id = $request->input('empresa_id');
 
             $ticked->save();
         
