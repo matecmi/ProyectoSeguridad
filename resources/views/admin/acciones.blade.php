@@ -5,7 +5,7 @@
 
 @section('content_header')
 
-<h1>Calificacion</h1>
+<h1>Acciones</h1>
 
 @stop
 
@@ -22,8 +22,10 @@
                     <th>ID</th>
                     <th>FECHA</th>
                     <th>DESCRIPCIÓN</th>
-                    <th>PUNTAJE</th>
+                    <th>MODO</th>
                     <th>TICKET</th>
+                    <th>USUARIO</th>
+                    <th>PERSONAL</th>
                     <th colspan="2">ACCIONES</th>    
                 </tr>
             </thead>
@@ -40,7 +42,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form class="row g-3" id="resgistrarCalificacion" action="{{ route('admin.calificacionStore') }}">
+        <form class="row g-3" id="resgistrarAcciones" action="{{ route('admin.accionesStore') }}">
             @csrf
             <div class="col-md-6">
                 <input type="text" id="ID" style="display:none">
@@ -52,12 +54,22 @@
                 <input type="text" class="form-control" id="descripcion" required>
               </div>
               <div class="col-md-6">
-                <label for="Icono" class="form-label">PUNTAJE</label>
-                <input type="text" class="form-control" id="puntaje" required>
+                <label for="Ruta" class="form-label">MODO</label>
+                <input type="text" class="form-control" id="modo" required>
               </div>
               <div class="col-md-6">
                 <label for="grupo" class="form-label">TICKET</label>
                 <select class="form-select" id="listTicket" required>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="grupo" class="form-label">USUARIO</label>
+                <select class="form-select" id="listUsuario" required>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="grupo" class="form-label">PERSONAL</label>
+                <select class="form-select" id="listPersona" required>
                 </select>
               </div>
               <div class="modal-footer">
@@ -126,7 +138,7 @@
                 },
 
             ajax:{
-                    url: "{{ route('admin.calificacion') }}",    
+                    url: "{{ route('admin.acciones') }}",    
  
             },
             
@@ -135,8 +147,10 @@
                 {data: 'id'},
                 {data: 'fecha'},
                 {data: 'descripcion'},
-                {data: 'puntaje'},
+                {data: 'modo'},
                 {data: 'ticket_nombre'}, 
+                {data: 'usuario_nombre'},
+                {data: 'persona_nombre'}, 
                 {data: 'action', orderable: false}
             ]
         });
@@ -160,6 +174,39 @@
 
     }
 
+    function listarUsuario(){
+        $.ajax({
+    url: "{{ route('admin.listUsuario') }}",
+    type: 'GET',
+    success: function(response) {
+      var options = '';                   
+      options +='<option selected disabled value="">Elegir un Usuario...</option>'
+      $.each(response, function(index, grupo) {
+        options += '<option value="' + grupo.id + '">' + grupo.nombre + '</option>';
+      });
+      $('#listUsuario').html(options);
+    }
+  });
+
+    }
+
+    function listarPersona(){
+        $.ajax({
+    url: "{{ route('admin.ListPersona') }}",
+    type: 'GET',
+    success: function(response) {
+      var options = '';                   
+      options +='<option selected disabled value="">Elegir una Persona...</option>'
+      $.each(response, function(index, grupo) {
+        options += '<option value="' + grupo.id + '">' + grupo.nombres + '</option>';
+      });
+      $('#listPersona').html(options);
+    }
+  });
+
+    }
+
+
     function elegirTicket(){
 
         $.ajax({
@@ -176,21 +223,57 @@
 
     }
 
+        function elegirUsario(){
+
+        $.ajax({
+    url: "{{ route('admin.listUsuario') }}",
+    type: 'GET',
+    success: function(response) {
+      var options = '';                   
+      $.each(response, function(index, grupo) {
+        options += '<option value="' + grupo.id + '">' + grupo.nombre + '</option>';
+      });
+      $('#listUsuario').html(options);
+    }
+  });
+
+    }
+
+            function elegirPersona(){
+
+        $.ajax({
+    url: "{{ route('admin.ListPersona') }}",
+    type: 'GET',
+    success: function(response) {
+      var options = '';                   
+      $.each(response, function(index, grupo) {
+        options += '<option value="' + grupo.id + '">' + grupo.nombres + '</option>';
+      });
+      $('#listPersona').html(options);
+    }
+  });
+
+    }
+
 
 $(document).on('click', '#registrar', function(){
     listarTicket();
+    listarUsuario();
+    listarPersona();
 
    });
 
 
-    $('#resgistrarCalificacion').submit(function(e){
+    $('#resgistrarAcciones').submit(function(e){
 
         e.preventDefault();
 
         var fecha = $('#fecha').val();
         var descripcion = $('#descripcion').val();
-        var puntaje = $('#puntaje').val();
+        var modo = $('#modo').val();
         var ticket_id = $('#listTicket').val();
+        var usuario_id = $('#listUsuario').val();
+        var personal_id = $('#listPersona').val();
         var id = $('#ID').val();
         var _token =$("input[name=_token]").val();
 
@@ -198,9 +281,9 @@ $(document).on('click', '#registrar', function(){
 
         if(id==""){
 
-            url="{{ route('admin.calificacionStore') }}";
+            url="{{ route('admin.accionesStore') }}";
         }else if(id!=""){
-            url="{{ route('admin.calificacionUpdate') }}";
+            url="{{ route('admin.accionesUpdate') }}";
 
         }
 
@@ -211,8 +294,10 @@ $(document).on('click', '#registrar', function(){
             data:{
               fecha: fecha,
               descripcion: descripcion,
-              puntaje: puntaje,
+              modo:modo,
               ticket_id:ticket_id,
+              usuario_id:usuario_id,
+              personal_id:personal_id,
               id: id,
               _token: _token
 
@@ -238,7 +323,7 @@ $(document).on('click', '#registrar', function(){
                 }
                 $('#exampleModal').modal('hide');
                 $('#tabla').DataTable().ajax.reload();
-                $('#resgistrarCalificacion')[0].reset();
+                $('#resgistrarAcciones')[0].reset();
 
             }
             
@@ -263,7 +348,7 @@ $(document).on('click', '#registrar', function(){
 
       $.ajax({
 
-         url: "{{ route('admin.calificacionDestroy') }}",
+         url: "{{ route('admin.accionesDestroy') }}",
          type: 'DELETE',
          data: {
             id:id,
@@ -288,18 +373,20 @@ $(document).on('click', '#registrar', function(){
 
    $('#exampleModal').on('hide.bs.modal', function (e) {
     // Restablecer el valor del campo 1
-    $('#resgistrarCalificacion')[0].reset();
+    $('#resgistrarAcciones')[0].reset();
    });
         
      $(document).on('click', 'button[name="edit"]', function(){
       
       elegirTicket();
+      elegirUsario();
+      elegirPersona();
       
        var id = $(this).attr('id');
 
      $.ajax({
 
-      url: "{{ route('admin.calificacionEdit') }}",
+      url: "{{ route('admin.accionesEdit') }}",
       type: 'get',
         data: {
             id:id,
@@ -310,15 +397,19 @@ $(document).on('click', '#registrar', function(){
             if(response!=null){
             var fecha = response.success.fecha;
             var descripcion = response.success.descripcion;
-            var puntaje = response.success.puntaje;
+            var modo = response.success.modo;
+            var usuario_id = response.success.usuario_id;
             var ticket_id = response.success.ticket_id;
+            var personal_id = response.success.personal_id;
+
             
             $('#exampleModal').modal('show');
             $('#fecha').val(fecha);
             $('#descripcion').val(descripcion);
-            $('#puntaje').val(puntaje);
+            $('#modo').val(modo);
+            $('#listUsuario').val(usuario_id);
             $('#listTicket').val(ticket_id);
-           
+            $('#listPersona').val(personal_id);
             $('#ID').val(id);
 
             }

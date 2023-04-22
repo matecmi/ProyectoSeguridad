@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\TicketController;
 use App\Http\Controllers\Admin\CalificacionController;
 use App\Http\Controllers\Admin\TicketIamgenController;
 use App\Http\Controllers\Admin\ComentarioController;
+use App\Http\Controllers\Admin\AccionesController;
 
 
 
@@ -144,4 +145,10 @@ Route::post('admin/comentario/create',[ComentarioController::class, 'comentarioS
 Route::delete('admin/comentario/delete',[ComentarioController::class, 'comentarioDestroy'])->name('admin.comentarioDestroy');
 Route::get('admin/comentario/edit',[ComentarioController::class, 'comentarioEdit'])->name('admin.comentarioEdit');
 Route::post('admin/comentario/update',[ComentarioController::class, 'comentarioUpdate'])->name('admin.comentarioUpdate');
+
+Route::get('admin/acciones/',[AccionesController::class, 'acciones'])->name('admin.acciones');
+Route::post('admin/acciones/create',[AccionesController::class, 'accionesStore'])->name('admin.accionesStore');
+Route::delete('admin/acciones/delete',[AccionesController::class, 'accionesDestroy'])->name('admin.accionesDestroy');
+Route::get('admin/acciones/edit',[AccionesController::class, 'accionesEdit'])->name('admin.accionesEdit');
+Route::post('admin/acciones/update',[AccionesController::class, 'accionesUpdate'])->name('admin.accionesUpdate');
 
