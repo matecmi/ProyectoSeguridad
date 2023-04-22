@@ -19,6 +19,8 @@ use App\Http\Controllers\Admin\TipoIncidenciaController;
 use App\Http\Controllers\Admin\TicketController;
 use App\Http\Controllers\Admin\CalificacionController;
 use App\Http\Controllers\Admin\TicketIamgenController;
+use App\Http\Controllers\Admin\ComentarioController;
+
 
 
 
@@ -134,5 +136,12 @@ Route::post('admin/ticketimagen/create',[TicketIamgenController::class, 'ticketI
 Route::delete('admin/ticketimagen/delete',[TicketIamgenController::class, 'ticketImagenDestroy'])->name('admin.ticketImagenDestroy');
 Route::get('admin/ticketimagen/edit',[TicketIamgenController::class, 'ticketImagenEdit'])->name('admin.ticketImagenEdit');
 Route::post('admin/ticketimagen/update',[TicketIamgenController::class, 'ticketImagenUpdate'])->name('admin.ticketImagenUpdate');
-Route::get('admin/ticketimagen/ListTicket',[TicketIamgenController::class, 'listTicket'])->name('admin.listTicket');
+//Route::get('admin/ticketimagen/ListTicket',[TicketIamgenController::class, 'listTicket'])->name('admin.listTicket');
+
+
+Route::get('admin/comentario/',[ComentarioController::class, 'comentario'])->name('admin.comentario');
+Route::post('admin/comentario/create',[ComentarioController::class, 'comentarioStore'])->name('admin.comentarioStore');
+Route::delete('admin/comentario/delete',[ComentarioController::class, 'comentarioDestroy'])->name('admin.comentarioDestroy');
+Route::get('admin/comentario/edit',[ComentarioController::class, 'comentarioEdit'])->name('admin.comentarioEdit');
+Route::post('admin/comentario/update',[ComentarioController::class, 'comentarioUpdate'])->name('admin.comentarioUpdate');
 
