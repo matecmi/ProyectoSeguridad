@@ -114,6 +114,7 @@ Route::delete('admin/tipoincidencia/delete',[TipoIncidenciaController::class, 't
 Route::get('admin/tipoincidencia/edit',[TipoIncidenciaController::class, 'tIncidenciaEdit'])->name('admin.tIncidenciaEdit');
 Route::post('admin/tipoincidencia/update',[TipoIncidenciaController::class, 'tIncidenciaUpdate'])->name('admin.tIncidenciaUpdate');
 
+Route::get('admin/ticket/list',[TicketController::class, 'ticketList'])->name('admin.ticketList');
 Route::get('admin/ticket/',[TicketController::class, 'ticket'])->name('admin.ticket');
 Route::post('admin/ticket/create',[TicketController::class, 'ticketStore'])->name('admin.ticketStore');
 Route::delete('admin/ticket/delete',[TicketController::class, 'ticketDestroy'])->name('admin.ticketDestroy');

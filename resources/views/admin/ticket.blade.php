@@ -12,9 +12,53 @@
 @section('content')
 
 <div class="card">
-    <div class="card-header">
-        <button id="registrar" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo Registro</button>
+  <div class="card-header row g-3 ">
+    <div class="col-md-3">
+      <button id="registrar" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo Registro</button>
     </div>
+    <div class="col-md-3 d-flex align-items-center">
+      <label for="grupo" class="form-label me-2">FECHA</label>
+      <input type="date" id="filtroFecha" class="form-control">
+    </div>
+    <div class="col-md-3 d-flex align-items-center">
+      <label for="grupo" class="form-label me-2">T.INCIDENCIA</label>
+      <select class="form-select" id="filtroIcidencia" required>
+      </select>
+    </div>
+    <div class="col-md-3 d-flex align-items-center">
+      <label for="grupo" class="form-label me-2">ESTADO</label>
+      <select class="form-select" id="filtroEstado" required>
+        <option value="Todos" selected>TODOS</option>
+        <option value="Pendiente">PENDIENTE</option>
+        <option value="Proceso">EN PROCESO</option>
+        <option value="Standby">STAND-BY</option>
+        <option value="Finalizado">FINALIZADO</option>
+      </select>
+    </div>
+    <div class="col-md-6 d-flex align-items-center">
+    </div>
+    <div class="col-md-3 d-flex align-items-center">
+      <label for="grupo" class="form-label me-2">EMPRESA</label>
+      <select class="form-select" id="filtroEmpresa" required>
+      </select>
+    </div>
+
+    <div class="col-md-3 d-flex align-items-center">
+      <label for="grupo" class="form-label me-2">DESCRIPCIÓN</label>
+      <input type="text" class="form-control" id="filtroDescripcion" required>
+    </div>
+    <div class="col-md-9 d-flex align-items-center"></div> 
+    <div class="col-md-3 d-flex align-items-center justify-content-end">
+      <button id="filtro" type="button" class="btn btn-primary">Filtrar</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
     <div class="card-body table-responsive">
         <table class="table table-striped table-bordered table-hover" id="tabla">
             <thead>
@@ -32,9 +76,15 @@
                     <th>SITUACION</th>
                     <th>TIPO INCIDENCIA</th>
                     <th>SLA</th>
-                    <th colspan="2">ACCIONES</th>    
+                    <th>COMENTARIO</th>
+                    <th>ACCIONES</th>    
                 </tr>
             </thead>
+
+            <tbody id="colTicket">
+
+
+            </tbody>
         </table>
     </div>
 </div>
@@ -55,30 +105,16 @@
                 <label for="Nombre" class="form-label">F.REGISTRO</label>
                 <input type="text" class="form-control" id="fecha_registro" name="" required>
               </div>
+
               <div class="col-md-6">
-                <label for="Ruta" class="form-label">F.INICIO</label>
-                <input type="text" class="form-control" id="fecha_inicio" required>
-              </div>
-              <div class="col-md-6">
-                <label for="Icono" class="form-label">F.FIN ESTIMADA</label>
-                <input type="text" class="form-control" id="fecha_fin_estimado" required>
-              </div>
-              <div class="col-md-6">
-                <label for="Orden" class="form-label">F. FIN</label>
-                <input type="text" class="form-control" id="fecha_fin" required>
-              </div>
-              <div class="col-md-12">
-                <label for="Orden" class="form-label">DESCRIPCION</label>
-                <input type="text" class="form-control" id="descripcion" required>
-              </div>
-              <div class="col-md-6">
-                <label for="grupo" class="form-label">USUARIO</label>
-                <select class="form-select" id="listUsuario" required>
+                <label for="grupo" class="form-label">EMPRESA</label>
+                <select class="form-select" id="listEmpresa" required>
                 </select>
               </div>
-              <div class="col-md-6">
-                <label for="Orden" class="form-label">SITUACIÓN</label>
-                <input type="text" class="form-control" id="situacion" required>
+              
+              <div class="col-md-12">
+                <label for="Orden" class="form-label">DESCRIPCION</label>
+                <textarea name="" class="form-control" id="descripcion" cols="20" rows="5" required></textarea>
               </div>
               <div class="col-md-6">
                 <label for="grupo" class="form-label">T.INCIDENCIA</label>
@@ -100,10 +136,70 @@
                 <select class="form-select" id="listSupervisor" required>
                 </select>
               </div>
-              <div class="col-md-6">
-                <label for="grupo" class="form-label">EMPRESA</label>
-                <select class="form-select" id="listEmpresa" required>
-                </select>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button class="btn btn-primary" type="submit">Guardar</button>
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="comentarioModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Comentarios</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+          <div class="col-md-3">
+
+            <button id="btnComentario" type="button" class="btn btn-primary">Nuevo Comentario</button>
+          </div>
+
+        <div class="card-body table-responsive">
+          <table class="table table-striped table-bordered table-hover" id="tablaComentario">
+            <thead>
+                <tr>
+                    <th style="width: 50px;">ID</th>
+                    <th style="width: 200px;">DESCRIPCIÓN</th>
+                    <th style="width: 100px;">FECHA</th>
+                    <th style="width: 150px;">TICKET</th>
+                    <th style="width: 150px;">USUARIO</th>
+                    <th style="width: 50px;">ACCIONES</th>    
+                </tr>
+            </thead>
+            <tbody id="colComentario">
+            </tbody>
+        </table>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="modalComentario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Comentario</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3" id="resgistrarComentario" action="{{ route('admin.comentarioStore') }}">
+            @csrf
+              <div class="col-md-12">
+                <input type="text" id="IDComentario" style="display:none">
+                <label for="Ruta" class="form-label">DESCRIPCIÓN</label>
+                <textarea name="" class="form-control" id="descripcionC" cols="20" rows="5" required></textarea>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -114,6 +210,7 @@
     </div>
   </div>
 </div>
+
 
 
 @stop
@@ -149,7 +246,11 @@
         }
         .table.dataTable th,table.dataTable td {
           text-align: center;
-              }
+        }
+        .modal-lg {
+        max-width: 80%;
+       }
+
     </style>
 @stop
 
@@ -161,53 +262,115 @@
 
 <script> 
 
+  var filtroIncidencia = "Todos";
+  var filtroEstado = "Todos";
+  var filtroEmpresa = "Todos";
+  var filtroDescripcion = " ";
+
+
     $(document).ready(function() {
-        var tabla =$('#tabla').DataTable({
+      $('#tabla').DataTable({
+        searching: false
 
-            processing:false,
-            serverSide:true,
-            language: {
-                    url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json'
-                },
+      });
 
-            ajax:{
-                    url: "{{ route('admin.ticket') }}",    
- 
-            },
-            
-            columns:[
-                
-                {data: 'id'},
-                {data: 'fecha_registro'},
-                {data: 'fecha_inicio'},
-                {data: 'fecha_fin_estimado'},
-                {data: 'fecha_fin'},
-                {data: 'descripcion'},  
-                {data: 'situacion'}, 
-                {data: 'personal_nombre'},
-                {data: 'empresa_nombre'},   
-                {data: 'supervisor_nombre'},      
-                {data: 'usuario_nombre'},  
-                {data: 'tipo_incidencia_nombre'},  
-                {data: 'sla_nombre'},  
-                {data: 'action', orderable: false}
-            ]
-        });
-    
+      $('#tablaComentario').DataTable();
+
+
+      filtroListTipoIncidencia();
+      filtroListEmpresa();
+      generarContenidoTabla();
     });
 
 
-     function listarUsuario(){
+
+    function generarContenidoTabla(){
+
+   filtroIncidencia = $('#filtroIcidencia').val();
+   filtroEstado = $('#filtroEstado').val();
+   filtroEmpresa = $('#filtroEmpresa').val();
+   filtroDescripcion = $('#filtroDescripcion').val();
+
         $.ajax({
-    url: "{{ route('admin.listUsuario') }}",
+    url: "{{ route('admin.ticketList') }}",
+    type: 'GET',
+    data: {
+          filtroIncidencia:filtroIncidencia,
+          filtroEstado:filtroEstado,
+          filtroEmpresa:filtroEmpresa,
+          filtroDescripcion:filtroDescripcion
+          },
+
+    success: function(response) {
+      console.log(response)
+      var options;    
+      
+      if(response.success.length>0){
+        $.each(response.success, function(index, grupo) {
+        options += '<tr>';
+        options += '<td>' + grupo.id + '</td>';
+        options += '<td>' + grupo.fecha_registro + '</td>';
+        options += '<td>' + grupo.fecha_inicio + '</td>';
+        options += '<td>' + grupo.fecha_fin_estimado + '</td>';
+        options += '<td>' + grupo.fecha_fin + '</td>';
+        options += '<td>' + grupo.descripcion + '</td>';
+        options += '<td>' + grupo.personal_nombre + '</td>';
+        options += '<td>' + grupo.empresa_nombre + '</td>';
+        options += '<td>' + grupo.supervisor_nombre + '</td>';
+        options += '<td>' + grupo.usuario_nombre + '</td>';
+        options += '<td>' + grupo.situacion + '</td>';
+        options += '<td>' + grupo.tipo_incidencia_nombre + '</td>';
+        options += '<td>' + grupo.sla_nombre + '</td>';
+        options += '<td><button name="comentario" id="' + grupo.id + '" type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#comentarioModal">Comentario</button></td>'
+        options += '<td> <button type="button" name="edit"  id="' + grupo.id + '" class="btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
+        options += '&nbsp;&nbsp;<button type="button" name="delete" id="' + grupo.id + '" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
+        options += '</tr>';
+
+      });
+      }else{
+        console.log("no encontre nada");
+        options=" ";
+      }
+
+      $('#colTicket').html(options);
+
+
+
+    }
+  });
+
+
+
+    }
+
+
+    function filtroListTipoIncidencia(){
+        $.ajax({
+    url: "{{ route('admin.ListTipoIncidencia') }}",
     type: 'GET',
     success: function(response) {
       var options = '';                   
-      options +='<option selected disabled value="">Elegir un Usuario...</option>'
+      options +='<option selected value="Todos">TODOS</option>'
       $.each(response, function(index, grupo) {
         options += '<option value="' + grupo.id + '">' + grupo.nombre + '</option>';
       });
-      $('#listUsuario').html(options);
+      $('#filtroIcidencia').html(options);
+    }
+  });
+
+    }
+
+    function filtroListEmpresa(){
+        $.ajax({
+    url: "{{ route('admin.listEmpresa') }}",
+    type: 'GET',
+    success: function(response) {
+      var options = '';                   
+      options +='<option selected value="Todos">TODOS</option>'
+      $.each(response, function(index, grupo) {
+        options += '<option value="' + grupo.id + '">' + grupo.nombres + '</option>';
+      });
+      $('#filtroEmpresa').html(options);
     }
   });
 
@@ -295,21 +458,6 @@
 
     }
 
-    function elegirUsario(){
-
-        $.ajax({
-    url: "{{ route('admin.listUsuario') }}",
-    type: 'GET',
-    success: function(response) {
-      var options = '';                   
-      $.each(response, function(index, grupo) {
-        options += '<option value="' + grupo.id + '">' + grupo.nombre + '</option>';
-      });
-      $('#listUsuario').html(options);
-    }
-  });
-
-    }
 
     function elegirTipoIncidencia(){
 
@@ -359,8 +507,39 @@
 
     }
 
+            function elegirEmpresa(){
+
+        $.ajax({
+    url: "{{ route('admin.listSupervisor') }}",
+    type: 'GET',
+    success: function(response) {
+      var options = '';                   
+      $.each(response, function(index, grupo) {
+        options += '<option value="' + grupo.id + '">' + grupo.nombres + '</option>';
+      });
+      $('#listSupervisor').html(options);
+    }
+  });
+
+    }
+
+                function elegirSupervisor(){
+
+        $.ajax({
+    url: "{{ route('admin.listEmpresa') }}",
+    type: 'GET',
+    success: function(response) {
+      var options = '';                   
+      $.each(response, function(index, grupo) {
+        options += '<option value="' + grupo.id + '">' + grupo.nombres + '</option>';
+      });
+      $('#listEmpresa').html(options);
+    }
+  });
+
+    }
+
 $(document).on('click', '#registrar', function(){
-    listarUsuario();
     listarTipoIncidencia();
     listarSla();
     listarPersona();
@@ -374,23 +553,14 @@ $(document).on('click', '#registrar', function(){
         e.preventDefault();
 
         var fecha_registro = $('#fecha_registro').val();
-        var fecha_inicio = $('#fecha_inicio').val();
-        var fecha_fin_estimado = $('#fecha_fin_estimado').val();
-        var fecha_fin = $('#fecha_fin').val();
         var descripcion = $('#descripcion').val();
-        var situacion = $('#situacion').val();
-        var usuario_id = $('#listUsuario').val();
         var tipoincidencia_id = $('#listTIncidencia').val();
         var sla_id = $('#listSla').val();
         var personal_id = $('#listPersona').val();
         var supervisor_id = $('#listSupervisor').val();
         var empresa_id = $('#listEmpresa').val();
-
-
-
         var id = $('#ID').val();
         var _token =$("input[name=_token]").val();
-
         var url;
 
         if(id==""){
@@ -401,20 +571,13 @@ $(document).on('click', '#registrar', function(){
 
         }
 
-
-
         $.ajax({
 
             url: url,    
             type: "POST",
             data:{
               fecha_registro: fecha_registro,
-              fecha_inicio: fecha_inicio,
-              fecha_fin_estimado: fecha_fin_estimado,
-              fecha_fin:fecha_fin,
               descripcion:descripcion,
-              situacion: situacion,
-              usuario_id:usuario_id,
               tipoincidencia_id,tipoincidencia_id,
               sla_id,sla_id,
               personal_id,personal_id,
@@ -444,7 +607,7 @@ $(document).on('click', '#registrar', function(){
                 })
                 }
                 $('#exampleModal').modal('hide');
-                $('#tabla').DataTable().ajax.reload();
+                generarContenidoTabla();
                 $('#resgistrarTicket')[0].reset();
 
             }
@@ -478,7 +641,7 @@ $(document).on('click', '#registrar', function(){
                },
                success: function(response){
             if(response.success){
-                $('#tabla').DataTable().ajax.reload();
+              generarContenidoTabla();
                 swal({ 
                     title:"Registro eliminado correctamente",
                     icon: "success"
@@ -502,8 +665,9 @@ $(document).on('click', '#registrar', function(){
       
        elegirSla();
        elegirTipoIncidencia();
-       elegirUsario();
        elegirPersona();
+       elegirSupervisor();
+       elegirEmpresa();
       
       
        var id = $(this).attr('id');
@@ -520,12 +684,7 @@ $(document).on('click', '#registrar', function(){
 
             if(response!=null){
             var fecha_registro_edit = response.success.fecha_registro;
-            var fecha_inicio_edit = response.success.fecha_inicio;
-            var fecha_fin_estimado_edit = response.success.fecha_fin_estimado;
-            var fecha_fin_edit = response.success.fecha_fin;
             var descripcion_edit = response.success.descripcion;
-            var situacion_edit = response.success.situacion;
-            var usuario_id_edit = response.success.usuario_id;
             var tipoincidencia_id_edit = response.success.tipoincidencia_id;
             var sla_id_edit = response.success.sla_id;
             var personal_id_edit = response.success.personal_id;
@@ -536,12 +695,7 @@ $(document).on('click', '#registrar', function(){
 
             $('#exampleModal').modal('show');
             $('#fecha_registro').val(fecha_registro_edit);
-            $('#fecha_inicio').val(fecha_inicio_edit);
-            $('#fecha_fin_estimado').val(fecha_fin_estimado_edit);
-            $('#fecha_fin').val(fecha_fin_edit);
             $('#descripcion').val(descripcion_edit);
-            $('#situacion').val(situacion_edit);
-            $('#listUsuario').val(usuario_id_edit);
             $('#listTIncidencia').val(tipoincidencia_id_edit);
             $('#listSla').val(sla_id_edit);
             $('#listPersona').val(personal_id_edit);
@@ -549,6 +703,195 @@ $(document).on('click', '#registrar', function(){
             $('#listSupervisor').val(empresa_id);
 
             $('#ID').val(id);
+
+            }
+
+        }
+     });
+
+     
+  });
+
+
+  $(document).on('click', '#filtro', function(){
+    generarContenidoTabla();
+
+   });
+  ///////////////////////////// Comentario///////////////////////////////
+
+  var idTicket;
+
+  $(document).on('click', 'button[name="comentario"]', function(){
+    idTicket = $(this).attr('id');
+
+    listComentario();
+
+   });
+
+
+
+  function listComentario(){
+
+    $.ajax({
+    url: "{{ route('admin.comentario') }}",
+    type: 'GET',
+    data: {
+      idTicket:idTicket,
+          },
+
+    success: function(response) {
+      var options;
+      if(response.success.length>0){
+      
+        $.each(response.success, function(index, grupo) {
+        options += '<tr>';
+        options += '<td>' + grupo.id + '</td>';
+        options += '<td>' + grupo.descripcion + '</td>';
+        options += '<td>' + grupo.fecha + '</td>';
+        options += '<td>' + grupo.ticket_nombre + '</td>';
+        options += '<td>' + grupo.usuario_nombre + '</td>';
+        options += '<td> <button type="button" name="editComentario"  id="' + grupo.id + '" class="btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
+        options += '&nbsp;&nbsp;<button type="button" name="deleteComentario" id="' + grupo.id + '" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
+        options += '</tr>';
+
+      });
+      }else{
+        options=" ";
+      }
+      $('#colComentario').html(options);
+   }
+    });
+  }
+
+
+  $('#btnComentario').on('click', function () {
+    $('#modalComentario').modal('show');
+});
+ 
+    $('#resgistrarComentario').submit(function(e){
+
+        e.preventDefault();
+
+        var descripcion = $('#descripcionC').val();
+        var id = $('#IDComentario').val();
+        var _token =$("input[name=_token]").val();
+
+        var url;
+
+        if(id==""){
+
+            url="{{ route('admin.comentarioStore') }}";
+        }else if(id!=""){
+            url="{{ route('admin.comentarioUpdate') }}";
+
+        }
+
+        $.ajax({
+
+            url: url,    
+            type: "POST",
+            data:{
+              descripcion: descripcion,
+              idTicket:idTicket,
+              id: id,
+              _token: _token
+
+            },
+
+            success: function(response) {
+              
+            if(response.success){
+              if (id=="") {
+                    swal({
+                 title: "Registro agregado",
+                 text: "",
+                 icon: "success",
+                 buttons: true,
+                })
+                }else {
+                swal({
+                 title: "Registro actualizado",
+                 text: "",
+                 icon: "success",
+                 buttons: true,
+                })
+                }
+                $('#modalComentario').modal('hide');
+                listComentario();             
+                $('#resgistrarComentario')[0].reset();
+
+            }
+            
+        }
+    });
+});
+      
+    
+    $(document).on('click', 'button[name="deleteComentario"]', function(){
+        var id;
+
+        id = $(this).attr('id');
+        var _token =$("input[name=_token]").val();
+        swal({
+         title: "Desea eliminar el registro?",
+         icon: "warning",
+         buttons: true,
+         dangerMode: true,
+        })
+       .then((willDelete) => {
+           if (willDelete) {
+
+      $.ajax({
+
+         url: "{{ route('admin.comentarioDestroy') }}",
+         type: 'DELETE',
+         data: {
+            id:id,
+            _token: $('meta[name="csrf-token"]').attr('content')
+               },
+               success: function(response){
+            if(response.success){
+              listComentario();             
+                swal({ 
+                    title:"Registro eliminado correctamente",
+                    icon: "success"
+            });
+            }       
+         }
+        });
+         }
+
+     });
+
+   });
+
+
+   $('#modalComentario').on('hide.bs.modal', function (e) {
+    // Restablecer el valor del campo 1
+    $('#resgistrarComentario')[0].reset();
+   });
+        
+     $(document).on('click', 'button[name="editComentario"]', function(){
+      
+      
+       var id = $(this).attr('id');
+
+     $.ajax({
+
+      url: "{{ route('admin.comentarioEdit') }}",
+      type: 'get',
+        data: {
+            id:id,
+            _token: $('meta[name="csrf-token"]').attr('content')
+               },
+        success: function(response){
+
+            if(response!=null){
+            var descripcion = response.success.descripcion;
+            
+            $('#modalComentario').modal('show');
+            $('#descripcionC').val(descripcion);
+            $('#IDComentario').val(id);
 
             }
 

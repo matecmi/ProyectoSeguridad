@@ -17,11 +17,18 @@ use DataTables;
 
 class TicketController extends Controller
 {
-     
-    public function ticket(Request $request)
-    {
+
+    public function ticketList(Request $request){
 
         if($request ->ajax()){
+        
+            
+            $filtroIncidencia = $request->input('filtroIncidencia');
+            $filtroEstado = $request->input('filtroEstado');
+            $filtroEmpresa = $request->input('filtroEmpresa');
+            $filtroDescripcion = $request->input('filtroDescripcion');
+
+
 
             $ticket = Ticket::select('tickets.*','usuarios.nombre as usuario_nombre',
             'tipo_incidencias.nombre as tipo_incidencia_nombre','slas.nombre as sla_nombre', 
@@ -35,6 +42,66 @@ class TicketController extends Controller
             ->join('personas as persona2', 'tickets.empresa_id', '=', 'persona2.id')
             ->join('personas as persona3', 'tickets.supervisor_id', '=', 'persona3.id')
             ->where('tickets.status', '=', 'Y')
+            ->when($filtroEstado != 'Todos' && $filtroEstado != null , function ($query) use ($filtroEstado) {
+                return $query->where('tickets.situacion', $filtroEstado);
+            })
+            ->when($filtroIncidencia != 'Todos' && $filtroIncidencia != null , function ($query) use ($filtroIncidencia) {
+                return $query->where('tickets.tipoincidencia_id', $filtroIncidencia);
+            })
+            ->when($filtroEmpresa != 'Todos' && $filtroEmpresa != null , function ($query) use ($filtroEmpresa) {
+                return $query->where('tickets.empresa_id', $filtroEmpresa);
+            })
+            ->when($filtroDescripcion != '' && $filtroDescripcion != null , function ($query) use ($filtroDescripcion) {
+                return $query->where('tickets.descripcion', 'LIKE', '%' . $filtroDescripcion . '%');
+            })
+            ->get();
+
+
+            return response()->json(['success' => $ticket]);
+
+
+        }
+    }
+     
+    public function ticket(Request $request)
+    {
+
+        if($request ->ajax()){
+        
+            
+            $filtroIncidencia = $request->input('filtroIncidencia');
+            $filtroEstado = $request->input('filtroEstado');
+            $filtroEmpresa = $request->input('filtroEmpresa');
+            $filtroDescripcion = $request->input('filtroDescripcion');
+
+
+
+            $ticket = Ticket::select('tickets.*','usuarios.nombre as usuario_nombre',
+            'tipo_incidencias.nombre as tipo_incidencia_nombre','slas.nombre as sla_nombre', 
+            'persona1.nombres as personal_nombre',
+            'persona2.nombres as empresa_nombre', 
+            'persona3.nombres as supervisor_nombre')
+            ->join('usuarios', 'tickets.usuario_id', '=', 'usuarios.id')
+            ->join('tipo_incidencias', 'tickets.tipoincidencia_id', '=', 'tipo_incidencias.id')
+            ->join('slas', 'tickets.sla_id', '=', 'slas.id')
+            ->join('personas as persona1', 'tickets.personal_id', '=', 'persona1.id')
+            ->join('personas as persona2', 'tickets.empresa_id', '=', 'persona2.id')
+            ->join('personas as persona3', 'tickets.supervisor_id', '=', 'persona3.id')
+            ->where('tickets.status', '=', 'Y')
+            ->when($filtroEstado != 'Todos' && $filtroEstado != null , function ($query) use ($filtroEstado) {
+                return $query->where('tickets.situacion', $filtroEstado);
+            })
+            ->when($filtroIncidencia != 'Todos' && $filtroIncidencia != null , function ($query) use ($filtroIncidencia) {
+                return $query->where('tickets.tipoincidencia_id', $filtroIncidencia);
+            })
+            ->when($filtroEmpresa != 'Todos' && $filtroEmpresa != null , function ($query) use ($filtroEmpresa) {
+                return $query->where('tickets.empresa_id', $filtroEmpresa);
+            })
+            ->when($filtroDescripcion != '' && $filtroDescripcion != null , function ($query) use ($filtroDescripcion) {
+                return $query->where('tickets.descripcion', 'LIKE', '%' . $filtroDescripcion . '%');
+            })
+
+
             ->get();
 
             return Datatables::of($ticket)
@@ -49,8 +116,8 @@ class TicketController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-
         return view('admin.ticket');
+
     }
 
     public function listUsuario()
@@ -197,16 +264,32 @@ class TicketController extends Controller
     public function ticketStore(Request $request)
     {
 
+        $user = auth()->user();
+        $email = $user->email;
+
+            $key ="perfil";
+            $persona = Persona::select('*')
+            ->where('status', '=', 'Y')
+            ->where('email', '=', $email)
+            ->first();
+
+            $usuario = Usuario::select('*')
+            ->where('status', '=', 'Y')
+            ->where('persona_id', '=', $persona->id)
+            ->first();
+
         if($request->ajax()){
 
+            date_default_timezone_set('America/Lima');
+
             $ticked = new Ticket();
-            $ticked->fecha_registro = $request->input('fecha_registro');
-            $ticked->fecha_inicio = $request->input('fecha_inicio');
-            $ticked->fecha_fin_estimado = $request->input('fecha_fin_estimado');
-            $ticked->fecha_fin = $request->input('fecha_fin');
+            $ticked->fecha_registro = date('d/m/Y H:i:s', time());
+            $ticked->fecha_inicio = "---";
+            $ticked->fecha_fin_estimado = "---";
+            $ticked->fecha_fin = "---";
             $ticked->descripcion = $request->input('descripcion');
-            $ticked->situacion = $request->input('situacion');
-            $ticked->usuario_id = $request->input('usuario_id');
+            $ticked->situacion = "Pendiente";
+            $ticked->usuario_id = $usuario->id;
             $ticked->tipoincidencia_id = $request->input('tipoincidencia_id');
             $ticked->sla_id = $request->input('sla_id');
             $ticked->personal_id = $request->input('personal_id');

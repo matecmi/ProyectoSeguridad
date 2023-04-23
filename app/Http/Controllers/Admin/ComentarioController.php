@@ -3,6 +3,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Ticket;
 use App\Models\Admin\Comentario;
+use App\Models\Admin\Usuario;
+use App\Models\Admin\Persona;
 
 
 
@@ -17,38 +19,47 @@ class ComentarioController extends Controller
 
         if($request ->ajax()){
 
+            $ticket = $request->input('idTicket');
+
             $comentario = Comentario::select('Comentarios.*','tickets.descripcion as ticket_nombre'
             ,'usuarios.nombre as usuario_nombre')
             ->join('usuarios', 'Comentarios.usuario_id', '=', 'usuarios.id')
             ->join('tickets', 'Comentarios.ticket_id', '=', 'tickets.id')
             ->where('Comentarios.status', '=', 'Y')
+            ->where('Comentarios.ticket_id', '=',$ticket)
             ->get();
-            return Datatables::of($comentario)
-                ->addColumn('action', function($comentario){
 
-                    $acciones ='<button type="button" name="edit"  id="'.$comentario->id.'" class=" btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
-                    $acciones .='&nbsp;&nbsp;<button type="button" name="delete" id="'.$comentario->id.'" class=" btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button>'; 
+            return response()->json(['success' => $comentario]);
 
-                    return $acciones;
-
-                })
-                ->rawColumns(['action'])
-                ->make(true);
         }
 
-        return view('admin.comentario');
     }
    
     public function comentarioStore(Request $request)
     {
 
+        $user = auth()->user();
+        $email = $user->email;
+
+            $key ="perfil";
+            $persona = Persona::select('*')
+            ->where('status', '=', 'Y')
+            ->where('email', '=', $email)
+            ->first();
+
+            $usuario = Usuario::select('*')
+            ->where('status', '=', 'Y')
+            ->where('persona_id', '=', $persona->id)
+            ->first();
         if($request->ajax()){
+
+            date_default_timezone_set('America/Lima');
 
             $comentario = new Comentario();
             $comentario->descripcion = $request->input('descripcion');
-            $comentario->fecha = $request->input('fecha');
-            $comentario->ticket_id = $request->input('ticket_id');
-            $comentario->usuario_id = $request->input('usuario_id');
+            $comentario->fecha = date('d/m/Y H:i:s', time());
+            $comentario->ticket_id = $request->input('idTicket');
+            $comentario->usuario_id = $usuario->id;
             $comentario->save();
         
             return response()->json(['success' => true]);
@@ -79,9 +90,6 @@ public function comentarioEdit(Request $request)
             $id = $request->input('id');
             $comentario = Comentario::find($id);
             $comentario->descripcion = $request->input('descripcion');
-            $comentario->fecha = $request->input('fecha');
-            $comentario->ticket_id = $request->input('ticket_id');
-            $comentario->usuario_id = $request->input('usuario_id');
             $comentario->save();
         
             return response()->json(['success' => true]);
