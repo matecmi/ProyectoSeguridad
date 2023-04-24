@@ -2,6 +2,8 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Accione;
+use App\Models\Admin\Persona;
+use App\Models\Admin\Usuario;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -14,31 +16,39 @@ class AccionesController extends Controller
 
         if($request ->ajax()){
 
+            $ticket = $request->input('idTicket');
+
             $accion = Accione::select('acciones.*','tickets.descripcion as ticket_nombre'
             ,'usuarios.nombre as usuario_nombre', 'personas.nombres as persona_nombre')
             ->join('usuarios', 'acciones.usuario_id', '=', 'usuarios.id')
             ->join('tickets', 'acciones.ticket_id', '=', 'tickets.id')
             ->join('personas', 'acciones.personal_id', '=', 'personas.id')
             ->where('acciones.status', '=', 'Y')
+            ->where('acciones.ticket_id', '=',$ticket)
             ->get();
-            return Datatables::of($accion)
-                ->addColumn('action', function($accion){
+            return response()->json(['success' => $accion]);
 
-                    $acciones ='<button type="button" name="edit"  id="'.$accion->id.'" class=" btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
-                    $acciones .='&nbsp;&nbsp;<button type="button" name="delete" id="'.$accion->id.'" class=" btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button>'; 
-
-                    return $acciones; 
-
-                })
-                ->rawColumns(['action'])
-                ->make(true);
         }
 
-        return view('admin.acciones');
     }
    
     public function accionesStore(Request $request)
     {
+
+        $user = auth()->user();
+        $email = $user->email;
+
+            $key ="perfil";
+            $persona = Persona::select('*')
+            ->where('status', '=', 'Y')
+            ->where('email', '=', $email)
+            ->first();
+
+            $usuario = Usuario::select('*')
+            ->where('status', '=', 'Y')
+            ->where('persona_id', '=', $persona->id)
+            ->first();
+
 
         if($request->ajax()){
 
@@ -46,8 +56,8 @@ class AccionesController extends Controller
             $accion->fecha = $request->input('fecha');
             $accion->descripcion = $request->input('descripcion');
             $accion->modo = $request->input('modo');
-            $accion->ticket_id = $request->input('ticket_id');
-            $accion->usuario_id = $request->input('usuario_id');
+            $accion->ticket_id = $request->input('idTicket');
+            $accion->usuario_id = $usuario->id;
             $accion->personal_id = $request->input('personal_id');
             $accion->save();
         

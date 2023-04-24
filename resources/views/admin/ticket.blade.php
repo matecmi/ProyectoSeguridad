@@ -5,7 +5,7 @@
 
 @section('content_header')
 
-<h1>Ticket</h1>
+<h1>TICKET</h1>
 
 @stop
 
@@ -75,7 +75,9 @@
                     <th>USUARIO</th>
                     <th>SITUACION</th>
                     <th>TIPO INCIDENCIA</th>
-                    <th>SLA</th>
+                    <th><div class="size">SLA</div></th>
+                    <th>ESTADO</th>
+                    <th>ACCIONES</th>
                     <th>COMENTARIO</th>
                     <th>ACCIONES</th>    
                 </tr>
@@ -146,8 +148,9 @@
   </div>
 </div>
 
+<!-- Modales para la creación de comentarios. -->
 
-<div class="modal fade" id="comentarioModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="tablaComentarioModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -185,7 +188,6 @@
   </div>
 </div>
 
-
 <div class="modal fade" id="modalComentario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -211,7 +213,121 @@
   </div>
 </div>
 
+<!-- Modales para la creación de Acciones. -->
 
+
+<div class="modal fade" id="tablaAccionesModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Acciones</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+          <div class="col-md-3">
+
+            <button id="btnAccion" type="button" class="btn btn-primary">Nueva Accion</button>
+          </div>
+
+        <div class="card-body table-responsive">
+          <table class="table table-striped table-bordered table-hover" id="tablaAcciones">
+            <thead>
+                <tr>
+                    <th style="width: 50px;">ID</th>
+                    <th style="width: 100px;">FECHA</th>
+                    <th style="width: 200px;">DESCRIPCIÓN</th>
+                    <th style="width: 100px;">MODO</th>
+                    <th style="width: 150px;">TICKET</th>
+                    <th style="width: 150px;">USUARIO</th>
+                    <th style="width: 150px;">PERSONAL </th>
+                    <th style="width: 50px;">ACCIONES</th>    
+                </tr>
+            </thead>
+            <tbody id="colAccion">
+            </tbody>
+        </table>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="modalAcciones" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Nueva Accion</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3" id="resgistrarAcciones" action="{{ route('admin.accionesStore') }}">
+            @csrf
+            <div class="col-md-6">
+                <input type="text" id="accionID" style="display:none">
+                <label for="Nombre" class="form-label">FECHA</label>
+                <input type="datetime-local" class="form-control" id="fechaA" name="fecha-hora">
+              </div>
+              <div class="col-md-6">
+                <label for="Ruta" class="form-label">MODO</label>
+                <select class="form-select" id="modo" required>
+                  <option selected disabled value="">Elegir un Modo...</option>         
+                  <option value="Remoto">REMOTO</option>
+                  <option value="Presencial">PRESENCIAL</option>
+                  <option value="Cas">CAS</option>
+                </select>              
+              </div>
+              <div class="col-md-12">
+                <label for="Ruta" class="form-label">DESCRIPCIÓN</label>
+                <textarea name="" class="form-control" id="descripcionA" cols="20" rows="5" required></textarea>
+              </div>
+              <div class="col-md-6">
+                <label for="grupo" class="form-label">PERSONAL</label>
+                <select class="form-select" id="accionListPersona" required>
+                </select>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button class="btn btn-primary" type="submit">Guardar</button>
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modales para la creación de Acciones. -->
+
+<div class="modal fade" id="estadoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">ESTADO</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="card-header row g-3 d-flex justify-content-center mb-3">
+          <div id="divProceso" class="col-md-3">
+            <button id="btnProceso" type="button" class="btn btn-primary btn-relieve" disabled>Proceso</button>
+          </div>
+          <div id="divStanby" class="col-md-3">
+            <button id="btnStanby" type="button" class="btn btn-success btn-relieve-verde" disabled>Stand-By</button>
+          </div>
+          <div id="divFinalizado" class="col-md-3">
+            <button id="btnFinalizado" type="button" class="btn btn-danger btn-relieve-rojo" disabled>Finalizado</button>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 @stop
 
@@ -223,6 +339,53 @@
     <link rel="stylesheet" href="/css/admin_custom.css">
 
     <style>
+
+.btn-relieve {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  box-shadow: 0px 3px 0px #0056b3;
+  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
+}
+
+.btn-relieve:hover {
+  box-shadow: 0px 5px 0px #0056b3;
+  text-shadow: 0px -2px 0px rgba(0, 0, 0, 0.25);
+}
+
+.btn-relieve-rojo {
+  background-color: #ff0000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  box-shadow: 0px 3px 0px #990000;
+  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
+}
+
+.btn-relieve-rojo:hover {
+  box-shadow: 0px 5px 0px #990000;
+  text-shadow: 0px -2px 0px rgba(0, 0, 0, 0.25);
+}
+
+.btn-relieve-verde {
+  background-color: #008000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  box-shadow: 0px 3px 0px #004d00;
+  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
+}
+
+.btn-relieve-verde:hover {
+  box-shadow: 0px 5px 0px #004d00;
+  text-shadow: 0px -2px 0px rgba(0, 0, 0, 0.25);
+}
+
+
         .dataTables_wrapper {
             padding: 10px;
         }
@@ -251,6 +414,11 @@
         max-width: 80%;
        }
 
+       .size{
+       width: 100px;
+       }
+
+
     </style>
 @stop
 
@@ -275,6 +443,8 @@
       });
 
       $('#tablaComentario').DataTable();
+      $('#tablaAcciones').DataTable();
+
 
 
       filtroListTipoIncidencia();
@@ -302,7 +472,6 @@
           },
 
     success: function(response) {
-      console.log(response)
       var options;    
       
       if(response.success.length>0){
@@ -321,14 +490,36 @@
         options += '<td>' + grupo.situacion + '</td>';
         options += '<td>' + grupo.tipo_incidencia_nombre + '</td>';
         options += '<td>' + grupo.sla_nombre + '</td>';
-        options += '<td><button name="comentario" id="' + grupo.id + '" type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#comentarioModal">Comentario</button></td>'
-        options += '<td> <button type="button" name="edit"  id="' + grupo.id + '" class="btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
-        options += '&nbsp;&nbsp;<button type="button" name="delete" id="' + grupo.id + '" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
+        options += '<td style="text-align: center; vertical-align: middle;"><button style="font-size: 20px;" name="estado" id="' + grupo.id + '" type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#estadoModal"><i class="fa-solid fa-hourglass-half"></i></button></td>'
+        options += '<td style="text-align: center; vertical-align: middle;"><button style="font-size: 20px;" name="acciones" id="' + grupo.id + '" type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#tablaAccionesModal"><i class="fa-solid fa-list-check"></i></button></td>'
+        options += '<td style="text-align: center; vertical-align: middle;"><button style="font-size: 20px;" name="comentario" id="' + grupo.id + '" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tablaComentarioModal"><i class="fa-solid fa-comments"></i></button></td>'
+        
+        if (grupo.situacion =="Pendiente") {
+        options += '<td style="text-align: center; vertical-align: middle;"> <button style="font-size: 20px;" type="button" name="edit"  id="' + grupo.id + '" class="btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
+        options += '&nbsp;&nbsp;<button style="font-size: 20px;" type="button" name="delete" id="' + grupo.id + '" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
+       
+        }
+        if (grupo.situacion =="Proceso") {
+          options += '<td style="text-align: center; vertical-align: middle;"> <button style="font-size: 20px;" type="button" name="edit"  id="' + grupo.id + '" class="btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
+         options += '&nbsp;&nbsp;<button style="font-size: 20px;" type="button" name="delete" id="' + grupo.id + '" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
+       
+        }
+        if (grupo.situacion =="Standby") {
+          options += '<td style="text-align: center; vertical-align: middle;"> <button style="font-size: 20px;" type="button" name="edit"  id="' + grupo.id + '" class="btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
+         options += '&nbsp;&nbsp;<button style="font-size: 20px;" type="button" name="delete" id="' + grupo.id + '" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
+       
+        }
+        if (grupo.situacion =="Finalizado") {
+          options += '<td style="text-align: center; vertical-align: middle;"> <button disabled style="font-size: 20px;" type="button" name="edit"  id="' + grupo.id + '" class="btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
+         options += '&nbsp;&nbsp;<button disabled style="font-size: 20px;" type="button" name="delete" id="' + grupo.id + '" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
+       
+        }
+
+       
         options += '</tr>';
 
       });
       }else{
-        console.log("no encontre nada");
         options=" ";
       }
 
@@ -723,6 +914,7 @@ $(document).on('click', '#registrar', function(){
 
   $(document).on('click', 'button[name="comentario"]', function(){
     idTicket = $(this).attr('id');
+    $('#colComentario').html(" ");
 
     listComentario();
 
@@ -867,7 +1059,6 @@ $(document).on('click', '#registrar', function(){
 
 
    $('#modalComentario').on('hide.bs.modal', function (e) {
-    // Restablecer el valor del campo 1
     $('#resgistrarComentario')[0].reset();
    });
         
@@ -900,6 +1091,501 @@ $(document).on('click', '#registrar', function(){
 
      
   });
+
+  ////////////////////ACCIONES/////////////////////////
+  
+  $('#btnAccion').on('click', function () {
+    $('#modalAcciones').modal('show');
+});
+
+  $(document).on('click', 'button[name="acciones"]', function(){
+    idTicket = $(this).attr('id');
+    $('#colAccion').html(" ");
+
+    listAcciones();
+
+   });
+
+
+
+  function listAcciones(){
+
+    $.ajax({
+    url: "{{ route('admin.acciones') }}",
+    type: 'GET',
+    data: {
+      idTicket:idTicket,
+          },
+
+    success: function(response) {
+      var options;
+      if(response.success.length>0){
+      
+        $.each(response.success, function(index, grupo) {
+        options += '<tr>';
+        options += '<td>' + grupo.id + '</td>';
+        options += '<td>' + grupo.fecha + '</td>';
+        options += '<td>' + grupo.descripcion + '</td>';
+        options += '<td>' + grupo.modo + '</td>';
+        options += '<td>' + grupo.ticket_nombre + '</td>';
+        options += '<td>' + grupo.usuario_nombre + '</td>';
+        options += '<td>' + grupo.persona_nombre + '</td>';
+        options += '<td> <button type="button" name="editAccion"  id="' + grupo.id + '" class="btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
+        options += '&nbsp;&nbsp;<button type="button" name="deleteAccion" id="' + grupo.id + '" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
+        options += '</tr>';
+
+      });
+      }else{
+        options=" ";
+      }
+      $('#colAccion').html(options);
+   }
+    });
+  }
+
+
+    function accionListarPersona(){
+        $.ajax({
+    url: "{{ route('admin.ListPersona') }}",
+    type: 'GET',
+    success: function(response) {
+      var options = '';                   
+      options +='<option selected disabled value="">Elegir una Persona...</option>'
+      $.each(response, function(index, grupo) {
+        options += '<option value="' + grupo.id + '">' + grupo.nombres + '</option>';
+      });
+      $('#accionListPersona').html(options);
+    }
+  });
+
+    }
+
+    function accionElegirPersona(){
+
+        $.ajax({
+    url: "{{ route('admin.ListPersona') }}",
+    type: 'GET',
+    success: function(response) {
+      var options = '';                   
+      $.each(response, function(index, grupo) {
+        options += '<option value="' + grupo.id + '">' + grupo.nombres + '</option>';
+      });
+      $('#accionListPersona').html(options);
+    }
+  });
+
+    }
+
+
+$(document).on('click', '#btnAccion', function(){
+  accionListarPersona();
+
+   });
+
+
+    $('#resgistrarAcciones').submit(function(e){
+
+        e.preventDefault();
+
+        var fecha = $('#fechaA').val();
+        var descripcion = $('#descripcionA').val();
+        var modo = $('#modo').val();
+        var personal_id = $('#accionListPersona').val();
+        var id = $('#accionID').val();
+        var _token =$("input[name=_token]").val();
+
+        var url;
+
+        if(id==""){
+
+            url="{{ route('admin.accionesStore') }}";
+        }else if(id!=""){
+            url="{{ route('admin.accionesUpdate') }}";
+
+        }
+
+        $.ajax({
+
+            url: url,    
+            type: "POST",
+            data:{
+              fecha: fecha,
+              descripcion: descripcion,
+              modo:modo,
+              personal_id:personal_id,
+              id: id,
+              idTicket:idTicket,
+              _token: _token
+
+            },
+
+            success: function(response) {
+              
+            if(response.success){
+              if (id=="") {
+                    swal({
+                 title: "Registro agregado",
+                 text: "",
+                 icon: "success",
+                 buttons: true,
+                })
+                }else {
+                swal({
+                 title: "Registro actualizado",
+                 text: "",
+                 icon: "success",
+                 buttons: true,
+                })
+                }
+                $('#modalAcciones').modal('hide');
+                listAcciones();
+                $('#resgistrarAcciones')[0].reset();
+
+            }
+            
+        }
+    });
+});
+      
+    
+    $(document).on('click', 'button[name="deleteAccion"]', function(){
+        var id;
+
+        id = $(this).attr('id');
+        var _token =$("input[name=_token]").val();
+        swal({
+         title: "Desea eliminar el registro?",
+         icon: "warning",
+         buttons: true,
+         dangerMode: true,
+        })
+       .then((willDelete) => {
+           if (willDelete) {
+
+      $.ajax({
+
+         url: "{{ route('admin.accionesDestroy') }}",
+         type: 'DELETE',
+         data: {
+            id:id,
+            _token: $('meta[name="csrf-token"]').attr('content')
+               },
+               success: function(response){
+            if(response.success){
+              listAcciones();
+                swal({ 
+                    title:"Registro eliminado correctamente",
+                    icon: "success"
+            });
+            }       
+         }
+        });
+         }
+
+     });
+
+   });
+
+
+   $('#exampleModal').on('hide.bs.modal', function (e) {
+    // Restablecer el valor del campo 1
+    $('#resgistrarAcciones')[0].reset();
+   });
+        
+     $(document).on('click', 'button[name="editAccion"]', function(){
+    
+      accionElegirPersona();
+      
+       var id = $(this).attr('id');
+
+     $.ajax({
+
+      url: "{{ route('admin.accionesEdit') }}",
+      type: 'get',
+        data: {
+            id:id,
+            _token: $('meta[name="csrf-token"]').attr('content')
+               },
+        success: function(response){
+
+            if(response!=null){
+            var fecha = response.success.fecha;
+            var descripcion = response.success.descripcion;
+            var modo = response.success.modo;
+            var personal_id = response.success.personal_id;
+
+            
+            $('#modalAcciones').modal('show');
+            $('#fechaA').val(fecha);
+            $('#descripcionA').val(descripcion);
+            $('#modo').val(modo);
+            $('#accionListPersona').val(personal_id);
+            $('#accionID').val(id);
+
+            }
+
+        }
+     });
+
+     
+  });
+    ////////////////////ESTADO/////////////////////////
+
+    var btnStanby = document.getElementById("btnStanby");
+    var btnFinalizado = document.getElementById("btnFinalizado");
+    var btnProceso = document.getElementById("btnProceso");
+
+    var divStanby = document.getElementById("divStanby");
+    var divFinalizado = document.getElementById("divFinalizado");
+    var divProceso = document.getElementById("divProceso");
+
+    $(document).on('click', 'button[name="estado"]', function(){
+
+
+
+      idTicket = $(this).attr('id');
+
+      var id = $(this).attr('id');
+
+    $.ajax({
+
+     url: "{{ route('admin.ticketEdit') }}",
+     type: 'get',
+       data: {
+           id:id,
+           _token: $('meta[name="csrf-token"]').attr('content')
+              },
+       success: function(response){
+
+           if(response!=null){
+        
+            var situacion = response.success.situacion;
+
+            if(situacion=="Pendiente"){
+
+              btnProceso.removeAttribute("disabled");
+              btnStanby.disabled = true;
+              btnFinalizado.disabled = true;
+
+              divProceso.style.cursor = "";
+              divStanby.style.cursor = "not-allowed";
+              divFinalizado.style.cursor = "not-allowed";
+
+            }
+
+            if(situacion=="Proceso"){
+
+              btnFinalizado.removeAttribute("disabled");
+              btnStanby.removeAttribute("disabled");
+              btnProceso.disabled = true;
+
+              divProceso.style.cursor = "not-allowed";
+              divStanby.style.cursor = "";
+              divFinalizado.style.cursor = "";
+
+
+            }
+            if(situacion=="Standby"){
+
+              btnFinalizado.removeAttribute("disabled");
+              btnProceso.disabled = true;
+              btnStanby.disabled = true;
+
+              divProceso.style.cursor = "not-allowed";
+              divStanby.style.cursor = "not-allowed";
+              divFinalizado.style.cursor = "";
+            }
+
+            if(situacion=="Finalizado"){
+
+              btnFinalizado.disabled = true;
+              btnStanby.disabled = true;
+              btnProceso.disabled = true;
+
+              divProceso.style.cursor = "not-allowed";
+              divStanby.style.cursor = "not-allowed";
+              divFinalizado.style.cursor = "not-allowed";
+
+            }
+
+
+
+           }
+
+       }
+    });
+
+      btnStanby.disabled = true;
+      btnFinalizado.disabled = true;
+      btnProceso.disabled = true;
+
+
+   });
+
+   $('#estadoModal').on('hide.bs.modal', function (e) {
+
+
+      btnStanby.disabled = true;
+      btnFinalizado.disabled = true;
+      btnProceso.disabled = true;
+  });
+
+
+   $('#btnProceso').on('click', function () {
+
+    var estado = "Proceso"
+
+swal({
+  title: "¿Desea Cambiar de estado a en 'PROCESO'?",
+  text: "Una vez cambiado de estado no podra modificar su elección",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+
+        $.ajax({
+
+       url: "{{ route('admin.ticketUpdateEstado') }}",
+       type: 'POST',
+       data: {
+            id:idTicket,
+            estado:estado,
+            _token: $('meta[name="csrf-token"]').attr('content')
+            },
+       success: function(response){
+
+        if(response.success){
+
+              swal({ 
+            title:"El estado fue cambiado correctamente a 'PROCESO'",
+            icon: "success"
+             });
+          generarContenidoTabla();
+
+              btnFinalizado.removeAttribute("disabled");
+              btnStanby.removeAttribute("disabled");
+              btnProceso.disabled = true;
+
+              divProceso.style.cursor = "not-allowed";
+              divStanby.style.cursor = "";
+              divFinalizado.style.cursor = "";
+        }
+    }
+    });
+
+
+  } 
+});
+
+
+
+  });
+
+   $('#btnStanby').on('click', function () {
+
+    var estado = "Standby"
+    
+swal({
+  title: "¿Desea Cambiar de estado a 'Stanby'?",
+  text: "Una vez cambiado de estado no podra modificar su elección",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+
+        $.ajax({
+
+       url: "{{ route('admin.ticketUpdateEstado') }}",
+       type: 'POST',
+       data: {
+            id:idTicket,
+            estado:estado,
+            _token: $('meta[name="csrf-token"]').attr('content')
+            },
+       success: function(response){
+
+        if(response.success){
+
+              swal({ 
+            title:"El estado fue cambiado correctamente a 'STANBY'",
+            icon: "success"
+             });
+          generarContenidoTabla();
+
+              btnFinalizado.removeAttribute("disabled");
+              btnProceso.disabled = true;
+              btnStanby.disabled = true;
+
+              divProceso.style.cursor = "not-allowed";
+              divStanby.style.cursor = "not-allowed";
+              divFinalizado.style.cursor = "";
+        }
+    }
+    });
+
+
+  } 
+});
+
+
+
+  });
+   $('#btnFinalizado').on('click', function () {
+
+    var estado = "Finalizado"
+    
+    swal({
+      title: "¿Desea Cambiar de estado a 'FINALIZADO'?",
+      text: "Una vez cambiado de estado no se podra modificar su elección",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+    
+            $.ajax({
+    
+           url: "{{ route('admin.ticketUpdateEstado') }}",
+           type: 'POST',
+           data: {
+                id:idTicket,
+                estado:estado,
+                _token: $('meta[name="csrf-token"]').attr('content')
+                },
+           success: function(response){
+    
+            if(response.success){
+    
+                  swal({ 
+                title:"El estado fue cambiado correctamente a 'FINALIZADO'",
+                icon: "success"
+                 });
+              generarContenidoTabla();
+    
+              btnFinalizado.disabled = true;
+              btnStanby.disabled = true;
+              btnProceso.disabled = true;
+
+              divProceso.style.cursor = "not-allowed";
+              divStanby.style.cursor = "not-allowed";
+              divFinalizado.style.cursor = "not-allowed";
+
+            }
+        }
+        });
+    
+    
+      } 
+    });
+    
+  });
+
+
     
     </script>
 

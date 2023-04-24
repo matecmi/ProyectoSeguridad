@@ -360,4 +360,34 @@ public function ticketEdit(Request $request)
             return response()->json(['success' => false]);
     
     }
+
+
+
+    public function ticketUpdateEstado(Request $request)
+    {
+        if($request->ajax()){
+
+            date_default_timezone_set('America/Lima');
+
+            $estado =$request->input('estado');
+            $id = $request->input('id');
+            $ticked = Ticket::find($id);
+
+            if ($estado=="Proceso") {
+                $ticked->fecha_inicio = date('d/m/Y H:i:s', time());
+            }
+
+            if ($estado=="Finalizado") {
+                $ticked->fecha_fin =date('d/m/Y H:i:s', time());
+            }
+
+            $ticked->situacion = $request->input('estado');
+
+            $ticked->save();
+        
+            return response()->json(['success' => true]);
+        }
+   
+        return response()->json(['success' => false]);
+    }
 }

@@ -120,6 +120,7 @@ Route::post('admin/ticket/create',[TicketController::class, 'ticketStore'])->nam
 Route::delete('admin/ticket/delete',[TicketController::class, 'ticketDestroy'])->name('admin.ticketDestroy');
 Route::get('admin/ticket/edit',[TicketController::class, 'ticketEdit'])->name('admin.ticketEdit');
 Route::post('admin/ticket/update',[TicketController::class, 'ticketUpdate'])->name('admin.ticketUpdate');
+Route::post('admin/ticket/updateEstado',[TicketController::class, 'ticketUpdateEstado'])->name('admin.ticketUpdateEstado');
 Route::get('admin/ticket/listUsuario',[TicketController::class, 'listUsuario'])->name('admin.listUsuario');
 Route::get('admin/ticket/listTipoIncidencia',[TicketController::class, 'ListTipoIncidencia'])->name('admin.ListTipoIncidencia');
 Route::get('admin/ticket/listSla',[TicketController::class, 'ListSla'])->name('admin.ListSla');
