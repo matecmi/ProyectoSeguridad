@@ -18,7 +18,7 @@ class AccionesController extends Controller
 
             $ticket = $request->input('idTicket');
 
-            $accion = Accione::select('acciones.*','tickets.descripcion as ticket_nombre'
+            $accion = Accione::select('acciones.*','tickets.situacion as ticket_estado'
             ,'usuarios.nombre as usuario_nombre', 'personas.nombres as persona_nombre')
             ->join('usuarios', 'acciones.usuario_id', '=', 'usuarios.id')
             ->join('tickets', 'acciones.ticket_id', '=', 'tickets.id')

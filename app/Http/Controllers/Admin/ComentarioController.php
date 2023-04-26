@@ -21,7 +21,7 @@ class ComentarioController extends Controller
 
             $ticket = $request->input('idTicket');
 
-            $comentario = Comentario::select('Comentarios.*','tickets.descripcion as ticket_nombre'
+            $comentario = Comentario::select('Comentarios.*','tickets.situacion as ticket_estado'
             ,'usuarios.nombre as usuario_nombre')
             ->join('usuarios', 'Comentarios.usuario_id', '=', 'usuarios.id')
             ->join('tickets', 'Comentarios.ticket_id', '=', 'tickets.id')

@@ -17,13 +17,19 @@
       <button id="registrar" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo Registro</button>
     </div>
     <div class="col-md-3 d-flex align-items-center">
-      <label for="grupo" class="form-label me-2">FECHA</label>
+      <label for="grupo" class="form-label me-2">DESDE</label>
+      <input type="date" id="filtroFecha" class="form-control">
+    </div>
+    <div class="col-md-3 d-flex align-items-center">
+      <label for="grupo" class="form-label me-2">HASTA</label>
       <input type="date" id="filtroFecha" class="form-control">
     </div>
     <div class="col-md-3 d-flex align-items-center">
       <label for="grupo" class="form-label me-2">T.INCIDENCIA</label>
       <select class="form-select" id="filtroIcidencia" required>
       </select>
+    </div>
+    <div class="col-md-3 d-flex align-items-center">
     </div>
     <div class="col-md-3 d-flex align-items-center">
       <label for="grupo" class="form-label me-2">ESTADO</label>
@@ -34,8 +40,6 @@
         <option value="Standby">STAND-BY</option>
         <option value="Finalizado">FINALIZADO</option>
       </select>
-    </div>
-    <div class="col-md-6 d-flex align-items-center">
     </div>
     <div class="col-md-3 d-flex align-items-center">
       <label for="grupo" class="form-label me-2">EMPRESA</label>
@@ -63,7 +67,7 @@
         <table class="table table-striped table-bordered table-hover" id="tabla">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>N.TICKET</th>
                     <th>F.REGISTRO</th>
                     <th>F.INICIO</th>
                     <th>F.FIN ESTIMADA</th>
@@ -102,15 +106,15 @@
       <div class="modal-body">
         <form class="row g-3 " id="resgistrarTicket" action="{{ route('admin.ticketStore') }}">
             @csrf
-            <div class="col-md-6">
-                <input type="text" id="ID" style="display:none">
-                <label for="Nombre" class="form-label">F.REGISTRO</label>
-                <input type="text" class="form-control" id="fecha_registro" name="" required>
-              </div>
-
               <div class="col-md-6">
+                <input type="text" id="ID" style="display:none">
                 <label for="grupo" class="form-label">EMPRESA</label>
                 <select class="form-select" id="listEmpresa" required>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="grupo" class="form-label">T.INCIDENCIA</label>
+                <select class="form-select" id="listTIncidencia" required>
                 </select>
               </div>
               
@@ -118,11 +122,7 @@
                 <label for="Orden" class="form-label">DESCRIPCION</label>
                 <textarea name="" class="form-control" id="descripcion" cols="20" rows="5" required></textarea>
               </div>
-              <div class="col-md-6">
-                <label for="grupo" class="form-label">T.INCIDENCIA</label>
-                <select class="form-select" id="listTIncidencia" required>
-                </select>
-              </div>
+
               <div class="col-md-6">
                 <label for="grupo" class="form-label">SLA</label>
                 <select class="form-select" id="listSla" required>
@@ -154,7 +154,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Comentarios</h1>
+        <h1 class="modal-title fs-5" id="tituloComentario"></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -168,10 +168,9 @@
           <table class="table table-striped table-bordered table-hover" id="tablaComentario">
             <thead>
                 <tr>
-                    <th style="width: 50px;">ID</th>
+                    <th style="width: 50px;">#</th>
                     <th style="width: 200px;">DESCRIPCIÓN</th>
                     <th style="width: 100px;">FECHA</th>
-                    <th style="width: 150px;">TICKET</th>
                     <th style="width: 150px;">USUARIO</th>
                     <th style="width: 50px;">ACCIONES</th>    
                 </tr>
@@ -220,7 +219,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Acciones</h1>
+        <h1 class="modal-title fs-5" id="tituloAcciones"></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -234,11 +233,10 @@
           <table class="table table-striped table-bordered table-hover" id="tablaAcciones">
             <thead>
                 <tr>
-                    <th style="width: 50px;">ID</th>
+                    <th style="width: 50px;">#</th>
                     <th style="width: 100px;">FECHA</th>
                     <th style="width: 200px;">DESCRIPCIÓN</th>
                     <th style="width: 100px;">MODO</th>
-                    <th style="width: 150px;">TICKET</th>
                     <th style="width: 150px;">USUARIO</th>
                     <th style="width: 150px;">PERSONAL </th>
                     <th style="width: 50px;">ACCIONES</th>    
@@ -306,7 +304,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">ESTADO</h1>
+        <h1 class="modal-title fs-5" id="tituloEstado">ESTADO</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -418,7 +416,10 @@
        width: 100px;
        }
 
-
+       #tdTabla{
+        text-align: center; 
+        vertical-align: middle;
+       }
     </style>
 @stop
 
@@ -438,12 +439,32 @@
 
     $(document).ready(function() {
       $('#tabla').DataTable({
-        searching: false
+        searching: false,
+        info: false,
+
+        language: {
+          url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json'
+         },
+         responsive: "true"
 
       });
 
-      $('#tablaComentario').DataTable();
-      $('#tablaAcciones').DataTable();
+      $('#tablaComentario').DataTable({
+          info: false,
+
+        language: {
+          url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json'
+         },
+         responsive: "true"
+      });
+      $('#tablaAcciones').DataTable({
+          info: false,
+
+        language: {
+          url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json'
+         },
+         responsive: "true"
+      });
 
 
 
@@ -477,41 +498,30 @@
       if(response.success.length>0){
         $.each(response.success, function(index, grupo) {
         options += '<tr>';
-        options += '<td>' + grupo.id + '</td>';
-        options += '<td>' + grupo.fecha_registro + '</td>';
-        options += '<td>' + grupo.fecha_inicio + '</td>';
-        options += '<td>' + grupo.fecha_fin_estimado + '</td>';
-        options += '<td>' + grupo.fecha_fin + '</td>';
-        options += '<td>' + grupo.descripcion + '</td>';
-        options += '<td>' + grupo.personal_nombre + '</td>';
-        options += '<td>' + grupo.empresa_nombre + '</td>';
-        options += '<td>' + grupo.supervisor_nombre + '</td>';
-        options += '<td>' + grupo.usuario_nombre + '</td>';
-        options += '<td>' + grupo.situacion + '</td>';
-        options += '<td>' + grupo.tipo_incidencia_nombre + '</td>';
-        options += '<td>' + grupo.sla_nombre + '</td>';
-        options += '<td style="text-align: center; vertical-align: middle;"><button style="font-size: 20px;" name="estado" id="' + grupo.id + '" type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#estadoModal"><i class="fa-solid fa-hourglass-half"></i></button></td>'
-        options += '<td style="text-align: center; vertical-align: middle;"><button style="font-size: 20px;" name="acciones" id="' + grupo.id + '" type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#tablaAccionesModal"><i class="fa-solid fa-list-check"></i></button></td>'
-        options += '<td style="text-align: center; vertical-align: middle;"><button style="font-size: 20px;" name="comentario" id="' + grupo.id + '" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tablaComentarioModal"><i class="fa-solid fa-comments"></i></button></td>'
-        
-        if (grupo.situacion =="Pendiente") {
-        options += '<td style="text-align: center; vertical-align: middle;"> <button style="font-size: 20px;" type="button" name="edit"  id="' + grupo.id + '" class="btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
-        options += '&nbsp;&nbsp;<button style="font-size: 20px;" type="button" name="delete" id="' + grupo.id + '" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
-       
-        }
-        if (grupo.situacion =="Proceso") {
-          options += '<td style="text-align: center; vertical-align: middle;"> <button style="font-size: 20px;" type="button" name="edit"  id="' + grupo.id + '" class="btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
-         options += '&nbsp;&nbsp;<button style="font-size: 20px;" type="button" name="delete" id="' + grupo.id + '" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
-       
-        }
-        if (grupo.situacion =="Standby") {
-          options += '<td style="text-align: center; vertical-align: middle;"> <button style="font-size: 20px;" type="button" name="edit"  id="' + grupo.id + '" class="btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
-         options += '&nbsp;&nbsp;<button style="font-size: 20px;" type="button" name="delete" id="' + grupo.id + '" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
-       
-        }
+        options += '<td id="tdTabla">' + grupo.id.toString().padStart(5, '0') + '</td>';
+        options += '<td id="tdTabla">' + grupo.fecha_registro + '</td>';
+        options += '<td id="tdTabla">' + grupo.fecha_inicio + '</td>';
+        options += '<td id="tdTabla">' + grupo.fecha_fin_estimado + '</td>';
+        options += '<td id="tdTabla">' + grupo.fecha_fin + '</td>';
+        options += '<td id="tdTabla">' + grupo.descripcion + '</td>';
+        options += '<td id="tdTabla">' + grupo.personal_nombre + '</td>';
+        options += '<td id="tdTabla">' + grupo.empresa_nombre + '</td>';
+        options += '<td id="tdTabla">' + grupo.supervisor_nombre + '</td>';
+        options += '<td id="tdTabla">' + grupo.usuario_nombre + '</td>';
+        options += '<td id="tdTabla">' + grupo.situacion + '</td>';
+        options += '<td id="tdTabla">' + grupo.tipo_incidencia_nombre + '</td>';
+        options += '<td id="tdTabla">' + grupo.sla_nombre + '</td>';
+        options += '<td id="tdTabla"><button style="font-size: 20px;" name="estado" id="' + grupo.id + '" type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#estadoModal"><i class="fa-solid fa-hourglass-half"></i></button></td>'
+        options += '<td id="tdTabla"><button style="font-size: 20px;" name="acciones" id="' + grupo.id + '" type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#tablaAccionesModal"><i class="fa-solid fa-list-check"></i></button></td>'
+        options += '<td id="tdTabla"><button style="font-size: 20px;" name="comentario" id="' + grupo.id + '" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tablaComentarioModal"><i class="fa-solid fa-comments"></i></button></td>'
+      
         if (grupo.situacion =="Finalizado") {
           options += '<td style="text-align: center; vertical-align: middle;"> <button disabled style="font-size: 20px;" type="button" name="edit"  id="' + grupo.id + '" class="btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
          options += '&nbsp;&nbsp;<button disabled style="font-size: 20px;" type="button" name="delete" id="' + grupo.id + '" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
+       
+        }else{
+          options += '<td style="text-align: center; vertical-align: middle;"> <button style="font-size: 20px;" type="button" name="edit"  id="' + grupo.id + '" class="btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
+          options += '&nbsp;&nbsp;<button style="font-size: 20px;" type="button" name="delete" id="' + grupo.id + '" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
        
         }
 
@@ -743,7 +753,6 @@ $(document).on('click', '#registrar', function(){
 
         e.preventDefault();
 
-        var fecha_registro = $('#fecha_registro').val();
         var descripcion = $('#descripcion').val();
         var tipoincidencia_id = $('#listTIncidencia').val();
         var sla_id = $('#listSla').val();
@@ -767,7 +776,6 @@ $(document).on('click', '#registrar', function(){
             url: url,    
             type: "POST",
             data:{
-              fecha_registro: fecha_registro,
               descripcion:descripcion,
               tipoincidencia_id,tipoincidencia_id,
               sla_id,sla_id,
@@ -874,7 +882,6 @@ $(document).on('click', '#registrar', function(){
         success: function(response){
 
             if(response!=null){
-            var fecha_registro_edit = response.success.fecha_registro;
             var descripcion_edit = response.success.descripcion;
             var tipoincidencia_id_edit = response.success.tipoincidencia_id;
             var sla_id_edit = response.success.sla_id;
@@ -885,7 +892,6 @@ $(document).on('click', '#registrar', function(){
 
 
             $('#exampleModal').modal('show');
-            $('#fecha_registro').val(fecha_registro_edit);
             $('#descripcion').val(descripcion_edit);
             $('#listTIncidencia').val(tipoincidencia_id_edit);
             $('#listSla').val(sla_id_edit);
@@ -914,6 +920,9 @@ $(document).on('click', '#registrar', function(){
 
   $(document).on('click', 'button[name="comentario"]', function(){
     idTicket = $(this).attr('id');
+
+    var tituloComentario = document.getElementById("tituloComentario");
+    tituloComentario.innerHTML = "Comentarios / Ticket " + idTicket.toString().padStart(5, '0');
     $('#colComentario').html(" ");
 
     listComentario();
@@ -933,18 +942,27 @@ $(document).on('click', '#registrar', function(){
 
     success: function(response) {
       var options;
+      var btnComentario = document.getElementById("btnComentario");
       if(response.success.length>0){
       
         $.each(response.success, function(index, grupo) {
         options += '<tr>';
-        options += '<td>' + grupo.id + '</td>';
-        options += '<td>' + grupo.descripcion + '</td>';
-        options += '<td>' + grupo.fecha + '</td>';
-        options += '<td>' + grupo.ticket_nombre + '</td>';
-        options += '<td>' + grupo.usuario_nombre + '</td>';
-        options += '<td> <button type="button" name="editComentario"  id="' + grupo.id + '" class="btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
-        options += '&nbsp;&nbsp;<button type="button" name="deleteComentario" id="' + grupo.id + '" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
-        options += '</tr>';
+        options += '<td id="tdTabla">' + grupo.id.toString().padStart(5, '0') + '</td>';
+        options += '<td id="tdTabla">' + grupo.descripcion + '</td>';
+        options += '<td id="tdTabla">' + grupo.fecha + '</td>';
+        options += '<td id="tdTabla">' + grupo.usuario_nombre + '</td>';
+        if (grupo.ticket_estado== "Finalizado") {
+          btnComentario.disabled = true;
+          options += '<td id="tdTabla"> <button disabled type="button" name="editComentario"  id="' + grupo.id + '" class="btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
+        options += '&nbsp;&nbsp;<button disabled type="button" name="deleteComentario" id="' + grupo.id + '" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
+        }else {
+          btnComentario.removeAttribute("disabled");
+
+          options += '<td id="tdTabla"> <button type="button" name="editComentario"  id="' + grupo.id + '" class="btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
+          options += '&nbsp;&nbsp;<button type="button" name="deleteComentario" id="' + grupo.id + '" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
+
+        }
+            options += '</tr>';
 
       });
       }else{
@@ -1095,11 +1113,20 @@ $(document).on('click', '#registrar', function(){
   ////////////////////ACCIONES/////////////////////////
   
   $('#btnAccion').on('click', function () {
+
     $('#modalAcciones').modal('show');
 });
 
   $(document).on('click', 'button[name="acciones"]', function(){
+
+
+
+
+
     idTicket = $(this).attr('id');
+
+    var tituloAcciones = document.getElementById("tituloAcciones");
+    tituloAcciones.innerHTML = "Acciones / Ticket " + idTicket.toString().padStart(5, '0');
     $('#colAccion').html(" ");
 
     listAcciones();
@@ -1119,20 +1146,31 @@ $(document).on('click', '#registrar', function(){
 
     success: function(response) {
       var options;
+      var btnAccion = document.getElementById("btnAccion");
+
       if(response.success.length>0){
       
         $.each(response.success, function(index, grupo) {
         options += '<tr>';
-        options += '<td>' + grupo.id + '</td>';
-        options += '<td>' + grupo.fecha + '</td>';
-        options += '<td>' + grupo.descripcion + '</td>';
-        options += '<td>' + grupo.modo + '</td>';
-        options += '<td>' + grupo.ticket_nombre + '</td>';
-        options += '<td>' + grupo.usuario_nombre + '</td>';
-        options += '<td>' + grupo.persona_nombre + '</td>';
-        options += '<td> <button type="button" name="editAccion"  id="' + grupo.id + '" class="btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
-        options += '&nbsp;&nbsp;<button type="button" name="deleteAccion" id="' + grupo.id + '" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
-        options += '</tr>';
+        options += '<td id="tdTabla">' + grupo.id.toString().padStart(5, '0') + '</td>';
+        options += '<td id="tdTabla">' + grupo.fecha + '</td>';
+        options += '<td id="tdTabla">' + grupo.descripcion + '</td>';
+        options += '<td id="tdTabla">' + grupo.modo + '</td>';
+        options += '<td id="tdTabla">' + grupo.usuario_nombre + '</td>';
+        options += '<td id="tdTabla">' + grupo.persona_nombre + '</td>';
+
+        if (grupo.ticket_estado=="Finalizado") {
+        btnAccion.disabled = true;
+        options += '<td id="tdTabla"> <button disabled type="button" name="editAccion"  id="' + grupo.id + '" class="btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
+        options += '&nbsp;&nbsp;<button disabled type="button" name="deleteAccion" id="' + grupo.id + '" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
+
+        }else{
+          btnAccion.removeAttribute("disabled");
+          options += '<td id="tdTabla"> <button type="button" name="editAccion"  id="' + grupo.id + '" class="btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
+          options += '&nbsp;&nbsp;<button type="button" name="deleteAccion" id="' + grupo.id + '" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
+
+        }
+          options += '</tr>';
 
       });
       }else{
@@ -1341,9 +1379,10 @@ $(document).on('click', '#btnAccion', function(){
 
     $(document).on('click', 'button[name="estado"]', function(){
 
-
-
       idTicket = $(this).attr('id');
+
+      var tituloEstado = document.getElementById("tituloEstado");
+      tituloEstado.innerHTML = "Estado / Ticket " + idTicket.toString().padStart(5, '0');
 
       var id = $(this).attr('id');
 
