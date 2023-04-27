@@ -325,13 +325,9 @@ public function ticketEdit(Request $request)
 
             $id = $request->input('id');
             $ticked = Ticket::find($id);
-            $ticked->fecha_registro = $request->input('fecha_registro');
-            $ticked->fecha_inicio = $request->input('fecha_inicio');
-            $ticked->fecha_fin_estimado = $request->input('fecha_fin_estimado');
-            $ticked->fecha_fin = $request->input('fecha_fin');
+            //$ticked->fecha_registro = $request->input('fecha_registro');
             $ticked->descripcion = $request->input('descripcion');
-            $ticked->situacion = $request->input('situacion');
-            $ticked->usuario_id = $request->input('usuario_id');
+            //$ticked->situacion = $request->input('situacion');
             $ticked->tipoincidencia_id = $request->input('tipoincidencia_id');
             $ticked->sla_id = $request->input('sla_id');
             $ticked->personal_id = $request->input('personal_id');
