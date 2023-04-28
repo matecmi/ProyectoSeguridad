@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Persona;
 use App\Models\Admin\RolPersona;
@@ -11,20 +12,20 @@ use DataTables;
 
 class PersonaController extends Controller
 {
-    
-    public function index(Request $request)
+
+    public function persona(Request $request)
     {
 
-        if($request ->ajax()){
+        if ($request->ajax()) {
 
             $persona = Persona::select('*')
-            ->where('status', '=', 'Y')
-            ->get();
+                ->where('status', '=', 'Y')
+                ->get();
             return Datatables::of($persona)
-                ->addColumn('action', function($persona){
+                ->addColumn('action', function ($persona) {
 
-                    $acciones ='<button type="button" name="edit"  id="'.$persona->id.'" class=" btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
-                    $acciones .='&nbsp;&nbsp;<button type="button" name="delete" id="'.$persona->id.'" class=" btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button>'; 
+                    $acciones = '<button type="button" name="edit"  id="' . $persona->id . '" class=" btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
+                    $acciones .= '&nbsp;&nbsp;<button type="button" name="delete" id="' . $persona->id . '" class=" btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button>';
 
                     return $acciones;
 
@@ -33,23 +34,23 @@ class PersonaController extends Controller
                 ->make(true);
         }
 
-        return view('admin.persona.index');
+        return view('admin.persona');
     }
 
-    public function store(Request $request)
+    public function personaStore(Request $request)
     {
 
-        if($request->ajax()){
+        if ($request->ajax()) {
 
             $validar = Persona::select('*')
-            ->where('status', '=', 'Y')
-            ->where('email', '=', $request->input('email'))
-            ->first();
+                ->where('status', '=', 'Y')
+                ->where('email', '=', $request->input('email'))
+                ->first();
 
             if (!isset($validar)) {
-                $ListaCheck =$request->input('valores');
+                $ListaCheck = $request->input('valores');
                 $persona = new Persona();
-                
+
                 $persona->nombres = $request->input('nombres');
                 $persona->apellidopaterno = $request->input('paterno');
                 $persona->apellidomaterno = $request->input('materno');
@@ -58,59 +59,66 @@ class PersonaController extends Controller
                 $persona->telefno = $request->input('telefono');
                 $persona->email = $request->input('email');
                 $persona->save();
-    
+
                 $per = Persona::select('*')
-                ->where('status', '=', 'Y')
-                ->where('email', '=', $request->input('email'))
-                ->first();
-    
+                    ->where('status', '=', 'Y')
+                    ->where('email', '=', $request->input('email'))
+                    ->first();
+
                 $this->storeRolPersona($ListaCheck, $per->id);
-            
-                return response()->json(['success' =>true]);
+
+                return response()->json(['success' => true]);
             } else {
-                
+
                 return response()->json(['success' => false]);
 
             }
 
-           
-        }else{
+
+        } else {
             return response()->json(['success' => false]);
 
         }
-   
+
 
     }
 
 
-public function edit($id)
-{
-    try {
-
-
-        $listRolPersona = RolPersona::select('*')
-        ->where('status', '=', 'Y')
-        ->where('persona_id', '=', $id)
-        ->get();
-
-        $persona = Persona::findOrFail($id);
-
-        $lista= array(
-            $persona,
-            $listRolPersona
-
-        );
-        return response()->json(['success' => $lista]);
-    } catch (\Throwable $th) {
-        return response()->json(['error' => 'Registro no encontrado'], 404);
-    }
-}
-
-
-    public function update(Request $request)
+    public function personaEdit(Request $request)
     {
+
         if($request->ajax()){
-            $ListaCheck =$request->input('valores');
+
+        try {
+
+            $id = $request->input('id');
+
+
+            $listRolPersona = RolPersona::select('*')
+                ->where('status', '=', 'Y')
+                ->where('persona_id', '=', $id)
+                ->get();
+
+            $persona = Persona::findOrFail($id);
+
+            $lista = array(
+                $persona,
+                $listRolPersona
+
+            );
+            return response()->json(['success' => $lista]);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => 'Registro no encontrado'], 404);
+        }
+
+        }
+    }
+
+
+    public function personaUpdate(Request $request)
+    {
+        if ($request->ajax()) {
+            $ListaCheck = $request->input('valores');
 
             $id = $request->input('id');
             $persona = Persona::find($id);
@@ -125,75 +133,82 @@ public function edit($id)
 
             $this->storeRolPersona($ListaCheck, $id);
 
-        
+
             return response()->json(['success' => true]);
         }
-   
+
         return response()->json(['success' => false]);
     }
 
 
-    public function destroy( $id)
+    public function personaDestroy(Request $request)
     {
-        
-        $registro = Persona::find($id);
-        $registro->status = "N";
-        $registro->save();
 
-        return response()->json(['mensaje' => 'Registro eliminado']);
+        if($request->ajax()){
+
+        
+            $registro = Persona::find($request->input('id'));
+            $registro->status = "N";
+            $registro->save();
+    
+            return response()->json(['success' => true]);
+        }else {
+            return response()->json(['success' => false]);
+    
+        }
     }
 
-    public function storeRolPersona($ListaCheck,$id)
+    public function storeRolPersona($ListaCheck, $id)
     {
 
-            $listRolPersona = RolPersona::select('*')
+        $listRolPersona = RolPersona::select('*')
             ->where('status', '=', 'Y')
             ->where('persona_id', '=', $id)
             ->get();
 
-            if (isset($ListaCheck)) {
+        if (isset($ListaCheck)) {
 
-                foreach ($ListaCheck as $Check) {
-                    $condicion=true;
-    
-                    if(isset($listRolPersona)){
-                        foreach ($listRolPersona as $registroRolPersona) {
-    
-                            if($Check == $registroRolPersona->rol_id){
-                                $condicion=false;
-                            }
+            foreach ($ListaCheck as $Check) {
+                $condicion = true;
+
+                if (isset($listRolPersona)) {
+                    foreach ($listRolPersona as $registroRolPersona) {
+
+                        if ($Check == $registroRolPersona->rol_id) {
+                            $condicion = false;
                         }
-                    }
-    
-                    if($condicion){
-                        $rolPersona = new RolPersona();
-                        $rolPersona->rol_id = $Check;
-                        $rolPersona->persona_id = $id;
-                        $rolPersona->save();
                     }
                 }
 
+                if ($condicion) {
+                    $rolPersona = new RolPersona();
+                    $rolPersona->rol_id = $Check;
+                    $rolPersona->persona_id = $id;
+                    $rolPersona->save();
+                }
             }
- 
-            if(isset($listRolPersona)){
-                foreach ($listRolPersona as $registroRolPersona) {
-                    $eliminacion=true;
 
-                    if (isset($ListaCheck)) {
-                        foreach ($ListaCheck as $Check) {
-    
-                            if($registroRolPersona->rol_id ==$Check ){
-                                $eliminacion=false;
-                            }
-                        }
+        }
 
-                        if($eliminacion){
-                            $registroRolPersona->delete();
+        if (isset($listRolPersona)) {
+            foreach ($listRolPersona as $registroRolPersona) {
+                $eliminacion = true;
+
+                if (isset($ListaCheck)) {
+                    foreach ($ListaCheck as $Check) {
+
+                        if ($registroRolPersona->rol_id == $Check) {
+                            $eliminacion = false;
                         }
-                    }else{
+                    }
+
+                    if ($eliminacion) {
                         $registroRolPersona->delete();
                     }
+                } else {
+                    $registroRolPersona->delete();
                 }
             }
+        }
     }
 }

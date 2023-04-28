@@ -72,11 +72,11 @@ Route::get('admin/rol/{id}',[RolController::class, 'edit'])->name('admin.rol.edi
 Route::post('admin/rol/update',[RolController::class, 'update'])->name('admin.rol.update');
 
 
-Route::get('admin/persona/',[PersonaController::class, 'index'])->name('admin.persona.index');
-Route::post('admin/persona/create',[PersonaController::class, 'store'])->name('admin.persona.store');
-Route::delete('admin/persona/{id}',[PersonaController::class, 'destroy'])->name('admin.persona.destroy');
-Route::get('admin/persona/{id}',[PersonaController::class, 'edit'])->name('admin.persona.edit');
-Route::post('admin/persona/update',[PersonaController::class, 'update'])->name('admin.persona.update');
+Route::get('admin/persona',[PersonaController::class, 'persona'])->name('admin.persona');
+Route::post('admin/persona/create',[PersonaController::class, 'personaStore'])->name('admin.personaStore');
+Route::delete('admin/persona/delete',[PersonaController::class, 'personaDestroy'])->name('admin.personaDestroy');
+Route::get('admin/persona/edit',[PersonaController::class, 'personaEdit'])->name('admin.personaEdit');
+Route::post('admin/persona/update',[PersonaController::class, 'personaUpdate'])->name('admin.personaUpdate');
 
 Route::get('admin/rolpersona/lista',[RolPersonaController::class, 'lista'])->name('admin.rolpersona.lista');
 Route::post('admin/rolpersona/create',[RolPersonaController::class, 'store'])->name('admin.rolpersona.store');
