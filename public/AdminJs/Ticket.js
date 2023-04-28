@@ -306,6 +306,7 @@ $('#resgistrarTicket').submit(function (e) {
 
   e.preventDefault();
 
+
   var descripcion = $('#descripcion').val();
   var tipoincidencia_id = $('#listTIncidencia').val();
   var sla_id = $('#listSla').val();
@@ -314,7 +315,10 @@ $('#resgistrarTicket').submit(function (e) {
   var empresa_id = $('#listEmpresa').val();
   var id = $('#ID').val();
   var _token = $("input[name=_token]").val();
+  var fecha = $('#fecha').val();
+
   var url;
+
 
   if (id == "") {
 
@@ -329,10 +333,11 @@ $('#resgistrarTicket').submit(function (e) {
     url: url,
     type: "POST",
     data: {
+      fecha:fecha,
       descripcion: descripcion,
-      tipoincidencia_id, tipoincidencia_id,
-      sla_id, sla_id,
-      personal_id, personal_id,
+      tipoincidencia_id:tipoincidencia_id,
+      sla_id:sla_id,
+      personal_id:personal_id,
       supervisor_id: supervisor_id,
       empresa_id: empresa_id,
       id: id,
@@ -435,6 +440,7 @@ $(document).on('click', 'button[name="edit"]', function () {
     success: function (response) {
 
       if (response != null) {
+        var fecha = response.success.fecha_registro;
         var descripcion_edit = response.success.descripcion;
         var tipoincidencia_id_edit = response.success.tipoincidencia_id;
         var sla_id_edit = response.success.sla_id;
@@ -445,6 +451,7 @@ $(document).on('click', 'button[name="edit"]', function () {
 
 
         $('#exampleModal').modal('show');
+        $('#fecha').val(fecha);
         $('#descripcion').val(descripcion_edit);
         $('#listTIncidencia').val(tipoincidencia_id_edit);
         $('#listSla').val(sla_id_edit);

@@ -279,11 +279,11 @@ class TicketController extends Controller
             ->first();
 
         if($request->ajax()){
-
+            
             date_default_timezone_set('America/Lima');
 
             $ticked = new Ticket();
-            $ticked->fecha_registro = date('d/m/Y H:i:s', time());
+            $ticked->fecha_registro = $request->input('fecha');
             $ticked->fecha_inicio = "---";
             $ticked->fecha_fin_estimado = "---";
             $ticked->fecha_fin = "---";

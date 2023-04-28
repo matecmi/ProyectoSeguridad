@@ -12,7 +12,7 @@ class Calificacion extends Migration
             $table->id();
 
             $table->string('fecha')->nulable(false);
-            $table->string('descripcion')->nulable(false);
+            $table->text('descripcion')->nulable(false);
             $table->string('puntaje')->nulable(false);
             $table->unsignedBigInteger('ticket_id');
             $table->foreign('ticket_id')

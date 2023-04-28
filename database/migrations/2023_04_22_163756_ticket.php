@@ -15,7 +15,7 @@ class Ticket extends Migration
             $table->string('fecha_inicio')->nulable(true);
             $table->string('fecha_fin_estimado')->nulable(true);
             $table->string('fecha_fin')->nulable(true);
-            $table->string('descripcion')->nulable(false);
+            $table->text('descripcion')->nulable(false);
             $table->string('situacion')->nulable(false);
 
             $table->unsignedBigInteger('usuario_id');
@@ -53,6 +53,13 @@ class Ticket extends Migration
                    ->references('id')
                    ->on('slas')
                    ->onDelete('cascade');
+
+            $table->unsignedBigInteger('medio_reporte_id');
+            $table->foreign('medio_reporte_id')
+                   ->references('id')
+                   ->on('medio_reportes')
+                   ->onDelete('cascade');
+
             $table->string('status')->default('Y');
             $table->timestamps();
         });

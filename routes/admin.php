@@ -21,6 +21,8 @@ use App\Http\Controllers\Admin\CalificacionController;
 use App\Http\Controllers\Admin\TicketIamgenController;
 use App\Http\Controllers\Admin\ComentarioController;
 use App\Http\Controllers\Admin\AccionesController;
+use App\Http\Controllers\Admin\MedioReporteController;
+
 
 
 
@@ -156,3 +158,8 @@ Route::delete('admin/acciones/delete',[AccionesController::class, 'accionesDestr
 Route::get('admin/acciones/edit',[AccionesController::class, 'accionesEdit'])->name('admin.accionesEdit');
 Route::post('admin/acciones/update',[AccionesController::class, 'accionesUpdate'])->name('admin.accionesUpdate');
 
+Route::get('admin/medioreporte',[MedioReporteController::class, 'medioReporte'])->name('admin.medioReporte');
+Route::post('admin/medioreporte/create',[MedioReporteController::class, 'medioReporteStore'])->name('admin.medioReporteStore');
+Route::delete('admin/medioreporte/delete',[MedioReporteController::class, 'medioReporteDestroy'])->name('admin.medioReporteDestroy');
+Route::get('admin/medioreporte/edit',[MedioReporteController::class, 'medioReporteEdit'])->name('admin.medioReporteEdit');
+Route::post('admin/medioreporte/update',[MedioReporteController::class, 'medioReporteUpdate'])->name('admin.medioReporteUpdate');

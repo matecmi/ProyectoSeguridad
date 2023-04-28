@@ -108,19 +108,26 @@
             @csrf
               <div class="col-md-6">
                 <input type="text" id="ID" style="display:none">
+                <label for="Nombre" class="form-label">FECHA REGISTRO</label>
+                <input type="datetime-local" class="form-control" id="fecha" >
+
+              </div>
+
+              <div class="col-md-6">
                 <label for="grupo" class="form-label">EMPRESA</label>
                 <select class="form-select" id="listEmpresa" required>
                 </select>
               </div>
+       
+              <div class="col-md-12">
+                <label for="Orden" class="form-label">DESCRIPCION</label>
+                <textarea name="" class="form-control" id="descripcion" cols="20" rows="5" required></textarea>
+              </div>
+
               <div class="col-md-6">
                 <label for="grupo" class="form-label">T.INCIDENCIA</label>
                 <select class="form-select" id="listTIncidencia" required>
                 </select>
-              </div>
-              
-              <div class="col-md-12">
-                <label for="Orden" class="form-label">DESCRIPCION</label>
-                <textarea name="" class="form-control" id="descripcion" cols="20" rows="5" required></textarea>
               </div>
 
               <div class="col-md-6">

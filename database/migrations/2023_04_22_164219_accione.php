@@ -11,7 +11,7 @@ class Accione extends Migration
         Schema::create('acciones', function (Blueprint $table) {
             $table->id();
             $table->string('fecha')->nulable(false);
-            $table->string('descripcion')->nulable(false);
+            $table->text('descripcion')->nulable(false);
             $table->string('modo')->nulable(false);
 
             $table->unsignedBigInteger('ticket_id');

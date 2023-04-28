@@ -10,7 +10,7 @@ class Comentario extends Migration
     {
         Schema::create('comentarios', function (Blueprint $table) {
             $table->id();
-            $table->string('descripcion')->nulable(false);
+            $table->text('descripcion')->nulable(false);
             $table->string('fecha')->nulable(false);
 
             $table->unsignedBigInteger('ticket_id');

@@ -51,12 +51,12 @@
               <div class="col-md-12">
                 <input type="text" id="ID" style="display:none">
                 <label for="hora" class="form-label">HORAS</label>
-                <input type="text" class="form-control" id="hora" name="" required>
+                <input type="number" class="form-control" id="hora" name="" required>
               </div>
               <div class="col-md-12">
                 <input type="text" id="ID" style="display:none">
                 <label for="tpRespuesta" class="form-label">TIEMPO PRIMERA RESPUESTA</label>
-                <input type="text" class="form-control" id="tpRespuesta" name="" required>
+                <input type="number" class="form-control" id="tpRespuesta" name="" required>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
