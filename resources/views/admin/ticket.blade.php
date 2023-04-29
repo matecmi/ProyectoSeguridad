@@ -80,11 +80,15 @@
                     <th>SITUACION</th>
                     <th>TIPO INCIDENCIA</th>
                     <th><div class="size">SLA</div></th>
-                    <th>USUARIO QUE REPORTA</th>
-                    <th>ESTADO</th>
-                    <th>ACCIONES</th>
-                    <th>COMENTARIO</th>
-                    <th>ACCIONES</th>    
+                    <th class="no-exportar">USUARIO QUE REPORTA</th>
+                    <th class="no-exportar">ESTADO</th>
+                    <th class="no-exportar">ACCIONES</th>
+                    <th class="no-exportar">COMENTARIO</th>
+                    <th class="no-exportar">ACCIONES</th>    
+                    <th style="display: none;">NOMBRE USUARIO REPORTA</th>
+                    <th style="display: none;">TELEFONO USUARIO REPORTA</th>    
+                    <th style="display: none;">EMAIL USUARIO REPORTA</th>    
+  
                 </tr>
             </thead>
 

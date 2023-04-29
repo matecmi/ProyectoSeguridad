@@ -26,7 +26,10 @@ function DataTableCreacion() {
                     extend:'excelHtml5',
                     text: '<i class="fa fa-file-excel"></i>',
                     titleAttr:'Exportar a Excel',
-                    className: 'btn btn-success'
+                    className: 'btn btn-success',
+                    exportOptions: {
+                      columns: ':not(.no-exportar)'
+                  }
                 },
             ]
 
@@ -96,6 +99,9 @@ function generarContenidoTabla() {
 
           }
 
+          options += '<td style="display: none;">' + grupo.usuario_reporte_nombre + '</td>';
+          options += '<td style="display: none;">' + grupo.usuario_reporte_telefono + '</td>';
+          options += '<td style="display: none;">' + grupo.usuario_reporte_email + '</td>';
 
           options += '</tr>';
 
