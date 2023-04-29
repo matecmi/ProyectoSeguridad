@@ -4,14 +4,15 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Comentario extends Migration
+class Accione extends Migration
 {
     public function up()
     {
-        Schema::create('comentarios', function (Blueprint $table) {
+        Schema::create('acciones', function (Blueprint $table) {
             $table->id();
+            $table->dateTimeTz('fecha')->nulable(false);
             $table->text('descripcion')->nulable(false);
-            $table->string('fecha')->nulable(false);
+            $table->string('modo')->nulable(false);
 
             $table->unsignedBigInteger('ticket_id');
             $table->foreign('ticket_id')
@@ -24,7 +25,11 @@ class Comentario extends Migration
                     ->references('id')
                     ->on('usuarios')
                     ->onDelete('cascade');
-
+            $table->unsignedBigInteger('personal_id');
+            $table->foreign('personal_id')
+                    ->references('id')
+                    ->on('personas')
+                    ->onDelete('cascade');
             $table->string('status')->default('Y');
             $table->timestamps();
         });   
@@ -32,6 +37,6 @@ class Comentario extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('comentarios');
+        Schema::dropIfExists('acciones');
     }
 }

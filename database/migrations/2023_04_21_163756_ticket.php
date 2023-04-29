@@ -11,12 +11,14 @@ class Ticket extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
 
-            $table->string('fecha_registro')->nulable(false);
-            $table->string('fecha_inicio')->nulable(true);
-            $table->string('fecha_fin_estimado')->nulable(true);
-            $table->string('fecha_fin')->nulable(true);
+            $table->dateTimeTz('fecha_registro')->nulable(false);
+            $table->dateTimeTz('fecha_fin_estimado')->nulable(true);
+            $table->dateTimeTz('fecha_fin')->nullable();
             $table->text('descripcion')->nulable(false);
             $table->string('situacion')->nulable(false);
+            $table->string('usuario_reporte_nombre')->nullable();
+            $table->string('usuario_reporte_email')->nullable();
+            $table->string('usuario_reporte_telefono')->nullable();
 
             $table->unsignedBigInteger('usuario_id');
             $table->foreign('usuario_id')

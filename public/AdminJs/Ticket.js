@@ -53,17 +53,18 @@ function generarContenidoTabla() {
           options += '<tr>';
           options += '<td id="tdTabla">' + grupo.id.toString().padStart(5, '0') + '</td>';
           options += '<td id="tdTabla">' + grupo.fecha_registro + '</td>';
-          options += '<td id="tdTabla">' + grupo.fecha_inicio + '</td>';
           options += '<td id="tdTabla">' + grupo.fecha_fin_estimado + '</td>';
-          options += '<td id="tdTabla">' + grupo.fecha_fin + '</td>';
+          options += '<td id="tdTabla">' + (grupo.fecha_fin == null ? "----" : grupo.fecha_fin) + '</td>';
           options += '<td id="tdTabla">' + grupo.descripcion + '</td>';
           options += '<td id="tdTabla">' + grupo.personal_nombre + '</td>';
           options += '<td id="tdTabla">' + grupo.empresa_nombre + '</td>';
           options += '<td id="tdTabla">' + grupo.supervisor_nombre + '</td>';
           options += '<td id="tdTabla">' + grupo.usuario_nombre + '</td>';
+          options += '<td id="tdTabla">' + grupo.medio_reporte_nombre + '</td>';
           options += '<td id="tdTabla">' + grupo.situacion + '</td>';
           options += '<td id="tdTabla">' + grupo.tipo_incidencia_nombre + '</td>';
           options += '<td id="tdTabla">' + grupo.sla_nombre + '</td>';
+          options += '<td id="tdTabla"><button style="font-size: 20px;" name="usuario" id="' + grupo.id + '" type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tablaUsuarioModal"><i class="fa-solid fa-user"></i></button></td>'
           options += '<td id="tdTabla"><button style="font-size: 20px;" name="estado" id="' + grupo.id + '" type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#estadoModal"><i class="fa-solid fa-hourglass-half"></i></button></td>'
           options += '<td id="tdTabla"><button style="font-size: 20px;" name="acciones" id="' + grupo.id + '" type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#tablaAccionesModal"><i class="fa-solid fa-list-check"></i></button></td>'
           options += '<td id="tdTabla"><button style="font-size: 20px;" name="comentario" id="' + grupo.id + '" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tablaComentarioModal"><i class="fa-solid fa-comments"></i></button></td>'
@@ -96,6 +97,10 @@ function generarContenidoTabla() {
 
 
 }
+
+$('#btnUsuario').on('click', function () {
+  $('#usuarioModal').modal('show');
+});
 
 
 function filtroListTipoIncidencia() {
@@ -142,6 +147,22 @@ function listarTipoIncidencia() {
         options += '<option value="' + grupo.id + '">' + grupo.nombre + '</option>';
       });
       $('#listTIncidencia').html(options);
+    }
+  });
+
+}
+
+function listarMedioReporte() {
+  $.ajax({
+    url: "/admin/ticket/listMedioReporte",
+    type: 'GET',
+    success: function (response) {
+      var options = '';
+      options += '<option selected disabled value="">Elegir un medio de reporte...</option>'
+      $.each(response, function (index, grupo) {
+        options += '<option value="' + grupo.id + '">' + grupo.nombre + '</option>';
+      });
+      $('#listMedioReporte').html(options);
     }
   });
 
@@ -229,6 +250,22 @@ function elegirTipoIncidencia() {
 
 }
 
+function elegirMedioReporte() {
+
+  $.ajax({
+    url: "/admin/ticket/listMedioReporte",
+    type: 'GET',
+    success: function (response) {
+      var options = '';
+      $.each(response, function (index, grupo) {
+        options += '<option value="' + grupo.id + '">' + grupo.nombre + '</option>';
+      });
+      $('#listMedioReporte').html(options);
+    }
+  });
+
+}
+
 function elegirSla() {
 
   $.ajax({
@@ -299,6 +336,7 @@ $(document).on('click', '#registrar', function () {
   listarPersona();
   listarEmpresa();
   listarSupervisor();
+  listarMedioReporte();
 });
 
 
@@ -313,9 +351,14 @@ $('#resgistrarTicket').submit(function (e) {
   var personal_id = $('#listPersona').val();
   var supervisor_id = $('#listSupervisor').val();
   var empresa_id = $('#listEmpresa').val();
+  var medio_reporte_id	 = $('#listMedioReporte').val();
   var id = $('#ID').val();
   var _token = $("input[name=_token]").val();
   var fecha = $('#fecha').val();
+  var nombre = $('#nombre').val();
+  var email = $('#email').val();
+  var telefono = $('#telefono').val();
+
 
   var url;
 
@@ -333,6 +376,9 @@ $('#resgistrarTicket').submit(function (e) {
     url: url,
     type: "POST",
     data: {
+      nombre:nombre,
+      email:email,
+      telefono:telefono,
       fecha:fecha,
       descripcion: descripcion,
       tipoincidencia_id:tipoincidencia_id,
@@ -340,6 +386,7 @@ $('#resgistrarTicket').submit(function (e) {
       personal_id:personal_id,
       supervisor_id: supervisor_id,
       empresa_id: empresa_id,
+      medio_reporte_id:medio_reporte_id,
       id: id,
       _token: _token
 
@@ -416,6 +463,9 @@ $(document).on('click', 'button[name="delete"]', function () {
 $('#exampleModal').on('hide.bs.modal', function (e) {
   // Restablecer el valor del campo 1
   $('#resgistrarTicket')[0].reset();
+  $('#nombre').val('');
+  $('#telefono').val('');
+  $('#email').val('');
 });
 
 $(document).on('click', 'button[name="edit"]', function () {
@@ -425,7 +475,7 @@ $(document).on('click', 'button[name="edit"]', function () {
   elegirPersona();
   elegirSupervisor();
   elegirEmpresa();
-
+  elegirMedioReporte();
 
   var id = $(this).attr('id');
 
@@ -447,17 +497,24 @@ $(document).on('click', 'button[name="edit"]', function () {
         var personal_id_edit = response.success.personal_id;
         var empresa_id = response.success.empresa_id;
         var supervisor_id = response.success.supervisor_id;
-
+        var medio_reporte_id =response.success.medio_reporte_id;
+        var nombre =response.success.usuario_reporte_nombre;
+        var telefono =response.success.usuario_reporte_telefono;
+        var email =response.success.usuario_reporte_email;
 
 
         $('#exampleModal').modal('show');
         $('#fecha').val(fecha);
+        $('#listMedioReporte').val(medio_reporte_id);
         $('#descripcion').val(descripcion_edit);
         $('#listTIncidencia').val(tipoincidencia_id_edit);
         $('#listSla').val(sla_id_edit);
         $('#listPersona').val(personal_id_edit);
         $('#listEmpresa').val(supervisor_id);
         $('#listSupervisor').val(empresa_id);
+        $('#nombre').val(nombre);
+        $('#email').val(email);
+        $('#telefono').val(telefono);
 
         $('#ID').val(id);
 
@@ -509,19 +566,8 @@ $(document).on('click', 'button[name="estado"]', function () {
 
         var situacion = response.success.situacion;
 
-        if (situacion == "Pendiente") {
 
-          btnProceso.removeAttribute("disabled");
-          btnStanby.disabled = true;
-          btnFinalizado.disabled = true;
-
-          divProceso.style.cursor = "";
-          divStanby.style.cursor = "not-allowed";
-          divFinalizado.style.cursor = "not-allowed";
-
-        }
-
-        if (situacion == "Proceso") {
+        if (situacion == "En Proceso") {
 
           btnFinalizado.removeAttribute("disabled");
           btnStanby.removeAttribute("disabled");
@@ -578,58 +624,6 @@ $('#estadoModal').on('hide.bs.modal', function (e) {
   btnProceso.disabled = true;
 });
 
-
-$('#btnProceso').on('click', function () {
-
-  var estado = "Proceso"
-
-  swal({
-    title: "¿Desea Cambiar de estado a en 'PROCESO'?",
-    text: "Una vez cambiado de estado no podra modificar su elección",
-    icon: "warning",
-    buttons: true,
-    dangerMode: true,
-  })
-    .then((willDelete) => {
-      if (willDelete) {
-
-        $.ajax({
-
-          url: "/admin/ticket/updateEstado",
-          type: 'POST',
-          data: {
-            id: idTicket,
-            estado: estado,
-            _token: $('meta[name="csrf-token"]').attr('content')
-          },
-          success: function (response) {
-
-            if (response.success) {
-
-              swal({
-                title: "El estado fue cambiado correctamente a 'PROCESO'",
-                icon: "success"
-              });
-              generarContenidoTabla();
-
-              btnFinalizado.removeAttribute("disabled");
-              btnStanby.removeAttribute("disabled");
-              btnProceso.disabled = true;
-
-              divProceso.style.cursor = "not-allowed";
-              divStanby.style.cursor = "";
-              divFinalizado.style.cursor = "";
-            }
-          }
-        });
-
-
-      }
-    });
-
-
-
-});
 
 $('#btnStanby').on('click', function () {
 
@@ -733,3 +727,105 @@ $('#btnFinalizado').on('click', function () {
 
 });
 
+
+//////////////////USUARIO QUE REPORTA /////////////////////////
+
+var idTicket;
+
+  $(document).on('click', 'button[name="usuario"]', function () {
+  
+    idTicket = $(this).attr('id');
+  
+    //var tituloAcciones = document.getElementById("tituloAcciones");
+   // tituloAcciones.innerHTML = "Acciones / Ticket " + idTicket.toString().padStart(5, '0');
+    $('#colUsuario').html(" ");
+  
+    listUsuarioReporte();
+  
+  });
+  
+  
+  
+  function listUsuarioReporte() {
+  
+    $.ajax({
+      url: "/admin/ticket/edit",
+      type: 'GET',
+      data: {
+        id: idTicket,
+      },
+  
+      success: function (response) {
+
+        var options;
+
+            options += '<tr>';
+            options += '<td id="tdTabla">' + response.success.usuario_reporte_nombre + '</td>';
+            options += '<td id="tdTabla">' + response.success.usuario_reporte_telefono + '</td>';
+            options += '<td id="tdTabla">' + response.success.usuario_reporte_email + '</td>';
+            options += '</tr>';
+          
+        $('#colUsuario').html(options);
+
+        if (response.success.usuario_reporte_nombre ==null && response.success.usuario_reporte_telefono ==null && response.success.usuario_reporte_email ==null) {
+          $('#colUsuario').html(" ");
+        }
+      }
+    });
+  }
+
+
+  ////////////////////Reapertura de ticket////////////////////////
+  
+
+  $('#btnReapertura').on('click', function () {
+
+    var estado = "En Proceso"
+  
+    swal({
+      title: "¿Desea reaperturar el ticket'?",
+      text: "",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+  
+          $.ajax({
+  
+            url: "/admin/ticket/updateEstado",
+            type: 'POST',
+            data: {
+              id: idTicket,
+              estado: estado,
+              _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (response) {
+  
+              if (response.success) {
+  
+                swal({
+                  title: "El ticket fue reaperturado correctamente",
+                  icon: "success"
+                });
+                generarContenidoTabla();
+  
+                btnFinalizado.removeAttribute("disabled");
+                btnStanby.removeAttribute("disabled");
+                btnProceso.disabled = true;
+  
+                divProceso.style.cursor = "not-allowed";
+                divStanby.style.cursor = "";
+                divFinalizado.style.cursor = "";
+              }
+            }
+          });
+  
+  
+        }
+      });
+  
+  
+  
+  });

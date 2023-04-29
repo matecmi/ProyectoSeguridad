@@ -8,20 +8,20 @@ class CreateUsuarioTable extends Migration
 {
     public function up()
     {
-        Schema::create('usuario', function (Blueprint $table) {
+        Schema::create('usuarios', function (Blueprint $table) {
             $table->id();
             $table->string('nombre')->nulable(false);
             $table->string('password')->nulable(false);
             $table->unsignedBigInteger('tipo_usuario_id');
             $table->foreign('tipo_usuario_id')
                   ->references('id')
-                  ->on('tipo_usuario')
+                  ->on('tipo_usuarios')
                   ->onDelete('cascade');
 
             $table->unsignedBigInteger('persona_id');
             $table->foreign('persona_id')
                     ->references('id')
-                    ->on('persona')
+                    ->on('personas')
                     ->onDelete('cascade');
                     $table->string('status')->default('Y');
 
@@ -32,6 +32,6 @@ class CreateUsuarioTable extends Migration
   
     public function down()
     {
-        Schema::dropIfExists('usuario');
+        Schema::dropIfExists('usuarios');
     }
 }

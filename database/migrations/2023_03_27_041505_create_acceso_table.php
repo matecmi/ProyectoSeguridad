@@ -18,12 +18,12 @@ class CreateAccesoTable extends Migration
             $table->unsignedBigInteger('opcion_menu_id');
             $table->foreign('opcion_menu_id')
                   ->references('id')
-                  ->on('opcion_menu')
+                  ->on('opcion_menus')
                   ->onDelete('cascade');
                   $table->unsignedBigInteger('tipo_usuario_id');
                   $table->foreign('tipo_usuario_id')
                         ->references('id')
-                        ->on('tipo_usuario')
+                        ->on('tipo_usuarios')
                         ->onDelete('cascade');
                    $table->string('status')->default('Y');
 
@@ -38,6 +38,6 @@ class CreateAccesoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('acceso');
+        Schema::dropIfExists('accesos');
     }
 }

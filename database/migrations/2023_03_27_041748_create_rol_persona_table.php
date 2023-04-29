@@ -18,12 +18,12 @@ class CreateRolPersonaTable extends Migration
             $table->unsignedBigInteger('rol_id');
             $table->foreign('rol_id')
                     ->references('id')
-                    ->on('rol')
+                    ->on('rols')
                     ->onDelete('cascade');
             $table->unsignedBigInteger('persona_id');
             $table->foreign('persona_id')
                     ->references('id')
-                    ->on('persona')
+                    ->on('personas')
                     ->onDelete('cascade');
             $table->string('status')->default('Y');
 

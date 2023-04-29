@@ -36,7 +36,7 @@
       <select class="form-select" id="filtroEstado" required>
         <option value="Todos" selected>TODOS</option>
         <option value="Pendiente">PENDIENTE</option>
-        <option value="Proceso">EN PROCESO</option>
+        <option value="En Proceso">EN PROCESO</option>
         <option value="Standby">STAND-BY</option>
         <option value="Finalizado">FINALIZADO</option>
       </select>
@@ -69,7 +69,6 @@
                 <tr>
                     <th>N.TICKET</th>
                     <th>F.REGISTRO</th>
-                    <th>F.INICIO</th>
                     <th>F.FIN ESTIMADA</th>
                     <th>F. FIN</th>
                     <th>DESCRIPCION</th>
@@ -77,9 +76,11 @@
                     <th>EMPRESA</th>
                     <th>SUPERVISOR</th>
                     <th>USUARIO</th>
+                    <th>MEDIO REPORTE</th>
                     <th>SITUACION</th>
                     <th>TIPO INCIDENCIA</th>
                     <th><div class="size">SLA</div></th>
+                    <th>USUARIO QUE REPORTA</th>
                     <th>ESTADO</th>
                     <th>ACCIONES</th>
                     <th>COMENTARIO</th>
@@ -136,6 +137,11 @@
                 </select>
               </div>
               <div class="col-md-6">
+                <label for="grupo" class="form-label">MEDIO DE REPORTE</label>
+                <select class="form-select" id="listMedioReporte" required>
+                </select>
+              </div>
+              <div class="col-md-6">
                 <label for="grupo" class="form-label">PERSONA</label>
                 <select class="form-select" id="listPersona" required>
                 </select>
@@ -145,11 +151,44 @@
                 <select class="form-select" id="listSupervisor" required>
                 </select>
               </div>
+              <div class="col-md-6">
+                <label for="grupo" class="form-label">USUARIO QUE REPORTA</label>
+                <button id="btnUsuario" type="button" class="btn btn-primary">AGREGAR</button>
+              </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button class="btn btn-primary" type="submit">Guardar</button>
             </div>
           </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="usuarioModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-usuario">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">Nuevo Usuario de Reporte</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="col-md-12">
+            <label for="nombre" class="form-label">NOMBRE</label>
+            <input type="text" class="form-control" id="nombre" name="" required>
+          </div>
+          <div class="col-md-12">
+            <label for="nombre" class="form-label">TELEFONO</label>
+            <input type="number" class="form-control" id="telefono" name="" required>
+          </div>
+          <div class="col-md-12">
+            <label for="nombre" class="form-label">EMAIL</label>
+            <input type="email" class="form-control" id="email" name="" required>
+          </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Guardar</button>
+          </div>
       </div>
     </div>
   </div>
@@ -308,16 +347,26 @@
 <!-- Modales para la creación de Acciones. -->
 
 <div class="modal fade" id="estadoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-tablaUsuario">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="tituloEstado">ESTADO</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <div class="row g-3 " style="margin-bottom: 40px;">
+            <div class="col-md-3" >
+              <label for="grupo" class="form-label">REAPERTURA</label>
+            </div>
+            <div class="col-md-2">
+              <button id="btnReapertura" type="button" class="btn btn-primary"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+            </div>
+        </div>
+        
+
         <div class="card-header row g-3 d-flex justify-content-center mb-3">
           <div id="divProceso" class="col-md-3">
-            <button id="btnProceso" type="button" class="btn btn-primary btn-relieve" disabled>Proceso</button>
+            <button id="btnProceso" type="button" class="btn btn-primary btn-relieve" disabled>En Proceso</button>
           </div>
           <div id="divStanby" class="col-md-3">
             <button id="btnStanby" type="button" class="btn btn-success btn-relieve-verde" disabled>Stand-By</button>
@@ -329,6 +378,38 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modales para la visualizacion de el usuario que reporta. -->
+
+<div class="modal fade" id="tablaUsuarioModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-tablaUsuario">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="tituloUsusario"></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="card-body table-responsive">
+          <table class="table table-striped table-bordered table-hover" id="tablausuario">
+            <thead>
+                <tr>
+                    <th id="tdTabla">NOMBRE</th>
+                    <th id="tdTabla">TELEFONO</th>
+                    <th id="tdTabla">EMAIL</th>
+                </tr>
+            </thead>
+            <tbody id="colUsuario">
+            </tbody>
+        </table>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+      </div>
       </div>
     </div>
   </div>
@@ -417,6 +498,13 @@
         }
         .modal-lg {
         max-width: 80%;
+       }
+       .modal-usuario {
+        max-width: 30%;
+       }
+       .modal-tablaUsuario{
+        max-width: 40%;
+
        }
 
        .size{

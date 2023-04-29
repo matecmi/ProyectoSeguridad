@@ -8,6 +8,8 @@ use App\Models\Admin\Sla;
 use App\Models\Admin\Persona;
 use App\Models\Admin\Rol;
 use App\Models\Admin\RolPersona;
+use App\Models\Admin\MedioReporte;
+
 
 
 
@@ -32,10 +34,12 @@ class TicketController extends Controller
 
             $ticket = Ticket::select('tickets.*','usuarios.nombre as usuario_nombre',
             'tipo_incidencias.nombre as tipo_incidencia_nombre','slas.nombre as sla_nombre', 
+            'medio_reportes.nombre as medio_reporte_nombre',
             'persona1.nombres as personal_nombre',
             'persona2.nombres as empresa_nombre', 
             'persona3.nombres as supervisor_nombre')
             ->join('usuarios', 'tickets.usuario_id', '=', 'usuarios.id')
+            ->join('medio_reportes', 'tickets.medio_reporte_id', '=', 'medio_reportes.id')
             ->join('tipo_incidencias', 'tickets.tipoincidencia_id', '=', 'tipo_incidencias.id')
             ->join('slas', 'tickets.sla_id', '=', 'slas.id')
             ->join('personas as persona1', 'tickets.personal_id', '=', 'persona1.id')
@@ -127,7 +131,15 @@ class TicketController extends Controller
         ->get();
         return response()->json($usuario);
     }
+    
 
+    public function listMedioReporte()
+    {
+        $medio = MedioReporte::select('*')
+        ->where('status', '=', 'Y')
+        ->get();
+        return response()->json($medio);
+    }
     public function ListTipoIncidencia()
     {
         $tIncidencia = TipoIncidencia::select('*')
@@ -284,17 +296,19 @@ class TicketController extends Controller
 
             $ticked = new Ticket();
             $ticked->fecha_registro = $request->input('fecha');
-            $ticked->fecha_inicio = "---";
-            $ticked->fecha_fin_estimado = "---";
-            $ticked->fecha_fin = "---";
+            $ticked->fecha_fin_estimado = $request->input('fecha');
             $ticked->descripcion = $request->input('descripcion');
-            $ticked->situacion = "Pendiente";
+            $ticked->situacion = "En Proceso";
             $ticked->usuario_id = $usuario->id;
             $ticked->tipoincidencia_id = $request->input('tipoincidencia_id');
             $ticked->sla_id = $request->input('sla_id');
             $ticked->personal_id = $request->input('personal_id');
             $ticked->supervisor_id = $request->input('supervisor_id');
             $ticked->empresa_id = $request->input('empresa_id');
+            $ticked->medio_reporte_id = $request->input('medio_reporte_id');
+            $ticked->usuario_reporte_nombre = $request->input('nombre');
+            $ticked->usuario_reporte_email = $request->input('email');
+            $ticked->usuario_reporte_telefono = $request->input('telefono');
 
             $ticked->save();
         
@@ -325,14 +339,17 @@ public function ticketEdit(Request $request)
 
             $id = $request->input('id');
             $ticked = Ticket::find($id);
-            //$ticked->fecha_registro = $request->input('fecha_registro');
+            $ticked->fecha_registro = $request->input('fecha');
             $ticked->descripcion = $request->input('descripcion');
-            //$ticked->situacion = $request->input('situacion');
+
             $ticked->tipoincidencia_id = $request->input('tipoincidencia_id');
             $ticked->sla_id = $request->input('sla_id');
             $ticked->personal_id = $request->input('personal_id');
             $ticked->supervisor_id = $request->input('supervisor_id');
             $ticked->empresa_id = $request->input('empresa_id');
+            $ticked->usuario_reporte_nombre = $request->input('nombre');
+            $ticked->usuario_reporte_email = $request->input('email');
+            $ticked->usuario_reporte_telefono = $request->input('telefono');
 
             $ticked->save();
         
@@ -369,12 +386,11 @@ public function ticketEdit(Request $request)
             $id = $request->input('id');
             $ticked = Ticket::find($id);
 
-            if ($estado=="Proceso") {
-                $ticked->fecha_inicio = date('d/m/Y H:i:s', time());
-            }
-
             if ($estado=="Finalizado") {
-                $ticked->fecha_fin =date('d/m/Y H:i:s', time());
+                $ticked->fecha_fin =date('Y-m-d H:i:s', time());
+            }else{
+                $ticked->fecha_fin =null;
+
             }
 
             $ticked->situacion = $request->input('estado');

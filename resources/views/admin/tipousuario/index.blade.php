@@ -205,6 +205,7 @@
            id: id
     },
     success: function(data) {
+        console.log(data)
         $.each(data, function(index, registro) {
 
 
@@ -216,7 +217,9 @@
 
         $(this).prop('checked', true);
     
-    }});
+    }
+
+});
 
         });
 

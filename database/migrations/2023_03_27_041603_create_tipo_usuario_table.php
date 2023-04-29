@@ -20,6 +20,6 @@ class CreateTipoUsuarioTable extends Migration
 
        public function down()
     {
-        Schema::dropIfExists('tipo_usuario');
+        Schema::dropIfExists('tipo_usuarios');
     }
 }
