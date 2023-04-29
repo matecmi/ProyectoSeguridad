@@ -19,8 +19,10 @@ var idTicket;
 $(document).on('click', 'button[name="comentario"]', function () {
   idTicket = $(this).attr('id');
 
+  var idGenerado =$(this).attr('value');
+
   var tituloComentario = document.getElementById("tituloComentario");
-  tituloComentario.innerHTML = "Comentarios / Ticket " + idTicket.toString().padStart(5, '0');
+  tituloComentario.innerHTML = "Comentarios / Ticket " + idGenerado;
   $('#colComentario').html(" ");
 
   listComentario();

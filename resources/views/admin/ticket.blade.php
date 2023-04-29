@@ -75,7 +75,7 @@
                     <th>N.TICKET</th>
                     <th>F.REGISTRO</th>
                     <th>F.FIN ESTIMADA</th>
-                    <th>F. FIN</th>
+                    <th><div class="size">F. FIN</div></th>
                     <th>DESCRIPCION</th>
                     <th>PERSONAL</th>
                     <th>EMPRESA</th>

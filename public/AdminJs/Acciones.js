@@ -21,14 +21,11 @@ $('#btnAccion').on('click', function () {
   
   $(document).on('click', 'button[name="acciones"]', function () {
   
-  
-  
-  
-  
     idTicket = $(this).attr('id');
-  
+    var idGenerado =$(this).attr('value');
+
     var tituloAcciones = document.getElementById("tituloAcciones");
-    tituloAcciones.innerHTML = "Acciones / Ticket " + idTicket.toString().padStart(5, '0');
+    tituloAcciones.innerHTML = "Acciones / Ticket " + idGenerado;
     $('#colAccion').html(" ");
   
     listAcciones();

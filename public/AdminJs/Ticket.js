@@ -73,8 +73,9 @@ function generarContenidoTabla() {
 
       if (response.success.length > 0) {
         $.each(response.success, function (index, grupo) {
+          var idGenerado = grupo.sla_nomenclatura + "-" +grupo.id.toString().padStart(7, '0');
           options += '<tr>';
-          options += '<td id="tdTabla">' + grupo.id.toString().padStart(5, '0') + '</td>';
+          options += '<td id="tdTabla">' + idGenerado + '</td>';
           options += '<td id="tdTabla">' + grupo.fecha_registro + '</td>';
           options += '<td id="tdTabla">' + grupo.fecha_fin_estimado + '</td>';
           options += '<td id="tdTabla">' + (grupo.fecha_fin == null ? "----" : grupo.fecha_fin) + '</td>';
@@ -87,10 +88,10 @@ function generarContenidoTabla() {
           options += '<td id="tdTabla">' + grupo.situacion + '</td>';
           options += '<td id="tdTabla">' + grupo.tipo_incidencia_nombre + '</td>';
           options += '<td id="tdTabla">' + grupo.sla_nombre + '</td>';
-          options += '<td id="tdTabla"><button style="font-size: 20px;" name="usuario" id="' + grupo.id + '" type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tablaUsuarioModal"><i class="fa-solid fa-user"></i></button></td>'
-          options += '<td id="tdTabla"><button style="font-size: 20px;" name="estado" id="' + grupo.id + '" type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#estadoModal"><i class="fa-solid fa-hourglass-half"></i></button></td>'
-          options += '<td id="tdTabla"><button style="font-size: 20px;" name="acciones" id="' + grupo.id + '" type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#tablaAccionesModal"><i class="fa-solid fa-list-check"></i></button></td>'
-          options += '<td id="tdTabla"><button style="font-size: 20px;" name="comentario" id="' + grupo.id + '" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tablaComentarioModal"><i class="fa-solid fa-comments"></i></button></td>'
+          options += '<td id="tdTabla"><button style="font-size: 20px;" value="' + idGenerado + '" name="usuario" id="' + grupo.id + '" type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tablaUsuarioModal"><i class="fa-solid fa-user"></i></button></td>'
+          options += '<td id="tdTabla"><button style="font-size: 20px;" value="' + idGenerado + '" name="estado" id="' + grupo.id + '" type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#estadoModal"><i class="fa-solid fa-hourglass-half"></i></button></td>'
+          options += '<td id="tdTabla"><button style="font-size: 20px;" value="' + idGenerado + '" name="acciones" id="' + grupo.id + '" type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#tablaAccionesModal"><i class="fa-solid fa-list-check"></i></button></td>'
+          options += '<td id="tdTabla"><button style="font-size: 20px;" value="' + idGenerado + '" name="comentario" id="' + grupo.id + '" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tablaComentarioModal"><i class="fa-solid fa-comments"></i></button></td>'
 
           if (grupo.situacion == "Finalizado") {
             options += '<td style="text-align: center; vertical-align: middle;"> <button disabled style="font-size: 20px;" type="button" name="edit"  id="' + grupo.id + '" class="btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
@@ -587,9 +588,10 @@ var divProceso = document.getElementById("divProceso");
 $(document).on('click', 'button[name="estado"]', function () {
 
   idTicket = $(this).attr('id');
+  var idGenerado =$(this).attr('value');
 
   var tituloEstado = document.getElementById("tituloEstado");
-  tituloEstado.innerHTML = "Estado / Ticket " + idTicket.toString().padStart(5, '0');
+  tituloEstado.innerHTML = "Estado / Ticket " + idGenerado;
 
   var id = $(this).attr('id');
 
@@ -776,9 +778,10 @@ var idTicket;
   $(document).on('click', 'button[name="usuario"]', function () {
   
     idTicket = $(this).attr('id');
-  
-    //var tituloAcciones = document.getElementById("tituloAcciones");
-   // tituloAcciones.innerHTML = "Acciones / Ticket " + idTicket.toString().padStart(5, '0');
+    var idGenerado =$(this).attr('value');
+
+    var tituloUsusario = document.getElementById("tituloUsusario");
+    tituloUsusario.innerHTML = "Ususario-Reporte / Ticket " + idGenerado;
     $('#colUsuario').html(" ");
   
     listUsuarioReporte();

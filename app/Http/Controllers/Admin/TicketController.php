@@ -31,11 +31,10 @@ class TicketController extends Controller
             $filtroDescripcion = $request->input('filtroDescripcion');
             $filtroPersonal = $request->input('filtroPersonal');
 
-            
-
-
             $ticket = Ticket::select('tickets.*','usuarios.nombre as usuario_nombre',
-            'tipo_incidencias.nombre as tipo_incidencia_nombre','slas.nombre as sla_nombre', 
+            'tipo_incidencias.nombre as tipo_incidencia_nombre',
+            'slas.nombre as sla_nombre',
+            'slas.nomenclatura as sla_nomenclatura',  
             'medio_reportes.nombre as medio_reporte_nombre',
             'persona1.nombres as personal_nombre',
             'persona2.nombres as empresa_nombre', 
@@ -63,6 +62,7 @@ class TicketController extends Controller
             ->when($filtroDescripcion != '' && $filtroDescripcion != null , function ($query) use ($filtroDescripcion) {
                 return $query->where('tickets.descripcion', 'LIKE', '%' . $filtroDescripcion . '%');
             })
+            ->orderByDesc('tickets.id')
             ->get();
 
 
@@ -74,57 +74,6 @@ class TicketController extends Controller
      
     public function ticket(Request $request)
     {
-
-        if($request ->ajax()){
-        
-            
-            $filtroIncidencia = $request->input('filtroIncidencia');
-            $filtroEstado = $request->input('filtroEstado');
-            $filtroEmpresa = $request->input('filtroEmpresa');
-            $filtroDescripcion = $request->input('filtroDescripcion');
-
-
-
-            $ticket = Ticket::select('tickets.*','usuarios.nombre as usuario_nombre',
-            'tipo_incidencias.nombre as tipo_incidencia_nombre','slas.nombre as sla_nombre', 
-            'persona1.nombres as personal_nombre',
-            'persona2.nombres as empresa_nombre', 
-            'persona3.nombres as supervisor_nombre')
-            ->join('usuarios', 'tickets.usuario_id', '=', 'usuarios.id')
-            ->join('tipo_incidencias', 'tickets.tipoincidencia_id', '=', 'tipo_incidencias.id')
-            ->join('slas', 'tickets.sla_id', '=', 'slas.id')
-            ->join('personas as persona1', 'tickets.personal_id', '=', 'persona1.id')
-            ->join('personas as persona2', 'tickets.empresa_id', '=', 'persona2.id')
-            ->join('personas as persona3', 'tickets.supervisor_id', '=', 'persona3.id')
-            ->where('tickets.status', '=', 'Y')
-            ->when($filtroEstado != 'Todos' && $filtroEstado != null , function ($query) use ($filtroEstado) {
-                return $query->where('tickets.situacion', $filtroEstado);
-            })
-            ->when($filtroIncidencia != 'Todos' && $filtroIncidencia != null , function ($query) use ($filtroIncidencia) {
-                return $query->where('tickets.tipoincidencia_id', $filtroIncidencia);
-            })
-            ->when($filtroEmpresa != 'Todos' && $filtroEmpresa != null , function ($query) use ($filtroEmpresa) {
-                return $query->where('tickets.empresa_id', $filtroEmpresa);
-            })
-            ->when($filtroDescripcion != '' && $filtroDescripcion != null , function ($query) use ($filtroDescripcion) {
-                return $query->where('tickets.descripcion', 'LIKE', '%' . $filtroDescripcion . '%');
-            })
-
-
-            ->get();
-
-            return Datatables::of($ticket)
-                ->addColumn('action', function($ticket){
-
-                    $acciones ='<button type="button" name="edit"  id="'.$ticket->id.'" class=" btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
-                    $acciones .='&nbsp;&nbsp;<button type="button" name="delete" id="'.$ticket->id.'" class=" btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button>'; 
-
-                    return $acciones;
-
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
         return view('admin.ticket');
 
     }
@@ -275,8 +224,6 @@ class TicketController extends Controller
         return response()->json($Supervisor);
     }
 
-
-    
     public function ticketStore(Request $request)
     {
 
