@@ -1,24 +1,39 @@
 
 
 $(function () {
-  $('#tabla').DataTable({
-    searching: false,
-    info: false,
-
-    language: {
-      url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json'
-    },
-    responsive: "true"
-
-  });
-
-
 
   filtroListTipoIncidencia();
   filtroListEmpresa();
   generarContenidoTabla();
 
 });
+
+
+function DataTableCreacion() {
+  $('#tabla').DataTable({
+    searching: false,
+    info: false,
+    "paging": true,
+
+
+    language: {
+      url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json'
+    },
+    responsive: "true",
+    dom: 'Bfrtilp',
+            buttons:[
+                {
+                    extend:'excelHtml5',
+                    text: '<i class="fa fa-file-excel"></i>',
+                    titleAttr:'Exportar a Excel',
+                    className: 'btn btn-success'
+                },
+            ]
+
+
+  });
+}
+
 
 var filtroIncidencia = "Todos";
 var filtroEstado = "Todos";
@@ -27,6 +42,7 @@ var filtroDescripcion = " ";
 
 
 function generarContenidoTabla() {
+  $('#tabla').DataTable().destroy();
 
   filtroIncidencia = $('#filtroIcidencia').val();
   filtroEstado = $('#filtroEstado').val();
@@ -88,8 +104,7 @@ function generarContenidoTabla() {
       }
 
       $('#colTicket').html(options);
-
-
+      DataTableCreacion()
 
     }
   });

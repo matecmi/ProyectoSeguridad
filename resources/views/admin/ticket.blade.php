@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-@section('title', 'administrador')
+@section('title', 'Ticket')
 
 @section('content_header')
 
@@ -522,9 +522,14 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-<script src="{{ asset('datatables/datatables.js') }}"></script>
+<script src="{{ asset('DataTables/datatables.js') }}"></script>
 <script src="{{ asset('AdminJs/Ticket.js') }}"></script>
 <script src="{{ asset('AdminJs/Acciones.js') }}"></script>
 <script src="{{ asset('AdminJs/Comentario.js') }}"></script>
+<script src="{{ asset('DataTables/JSZip-2.5.0/jszip.min.js') }}"></script>
+<script src="{{ asset('DataTables/Buttons-2.3.4/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('DataTables/Buttons-2.3.4/js/buttons.bootstrap5.min.js') }}"></script>
+<script src="{{ asset('DataTables/Buttons-2.3.4/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('DataTables/Buttons-2.3.4/js/buttons.print.min.js') }}"></script>
 
 @stop
