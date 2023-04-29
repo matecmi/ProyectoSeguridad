@@ -29,7 +29,9 @@ class TicketController extends Controller
             $filtroEstado = $request->input('filtroEstado');
             $filtroEmpresa = $request->input('filtroEmpresa');
             $filtroDescripcion = $request->input('filtroDescripcion');
+            $filtroPersonal = $request->input('filtroPersonal');
 
+            
 
 
             $ticket = Ticket::select('tickets.*','usuarios.nombre as usuario_nombre',
@@ -54,6 +56,9 @@ class TicketController extends Controller
             })
             ->when($filtroEmpresa != 'Todos' && $filtroEmpresa != null , function ($query) use ($filtroEmpresa) {
                 return $query->where('tickets.empresa_id', $filtroEmpresa);
+            })
+            ->when($filtroPersonal != 'Todos' && $filtroPersonal != null , function ($query) use ($filtroPersonal) {
+                return $query->where('tickets.personal_id', $filtroPersonal);
             })
             ->when($filtroDescripcion != '' && $filtroDescripcion != null , function ($query) use ($filtroDescripcion) {
                 return $query->where('tickets.descripcion', 'LIKE', '%' . $filtroDescripcion . '%');
@@ -132,7 +137,6 @@ class TicketController extends Controller
         return response()->json($usuario);
     }
     
-
     public function listMedioReporte()
     {
         $medio = MedioReporte::select('*')
@@ -292,11 +296,16 @@ class TicketController extends Controller
 
         if($request->ajax()){
             
+            $sla = Sla::select('*')
+            ->where('status', '=', 'Y')
+            ->where('id', '=', $request->input('sla_id'))
+            ->first();
+
             date_default_timezone_set('America/Lima');
 
             $ticked = new Ticket();
             $ticked->fecha_registro = $request->input('fecha');
-            $ticked->fecha_fin_estimado = $request->input('fecha');
+            $ticked->fecha_fin_estimado = $this->sumarHoras($request->input('fecha'),$sla->horas);
             $ticked->descripcion = $request->input('descripcion');
             $ticked->situacion = "En Proceso";
             $ticked->usuario_id = $usuario->id;
@@ -402,4 +411,15 @@ public function ticketEdit(Request $request)
    
         return response()->json(['success' => false]);
     }
+
+    function sumarHoras($fecha, $horas) {
+        // Crea un objeto DateTime a partir de la fecha y hora dadas
+        $fechaObj = new \DateTime($fecha);
+        
+        // Suma las horas a la fecha y hora
+        $fechaObj->add(new \DateInterval("PT{$horas}H"));
+        
+        // Devuelve la nueva fecha y hora en formato ISO 8601
+        return $fechaObj->format('Y-m-d H:i:s');
+      }
 }

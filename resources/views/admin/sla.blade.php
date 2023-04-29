@@ -24,6 +24,7 @@
                     <th>NOMBRE</th>
                     <th>HORAS</th>
                     <th>TIEMPO PRIMERA RESPUESTA</th>
+                    <th>NOMENCLATURA</th>
                     <th colspan="2">ACCIONES</th>    
                 </tr>
             </thead>
@@ -33,7 +34,7 @@
 
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog" style="max-width: 25%;">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Sla</h1>
@@ -49,12 +50,14 @@
                 <input type="text" class="form-control" id="nombre" name="" required>
               </div>
               <div class="col-md-12">
-                <input type="text" id="ID" style="display:none">
+                <label for="hora" class="form-label">NOMENCLATURA</label>
+                <input type="text" class="form-control" id="nomenclatura" name="" required>
+              </div>
+              <div class="col-md-12">
                 <label for="hora" class="form-label">HORAS</label>
                 <input type="number" class="form-control" id="hora" name="" required>
               </div>
               <div class="col-md-12">
-                <input type="text" id="ID" style="display:none">
                 <label for="tpRespuesta" class="form-label">TIEMPO PRIMERA RESPUESTA</label>
                 <input type="number" class="form-control" id="tpRespuesta" name="" required>
               </div>
@@ -136,7 +139,8 @@
                 {data: 'id'},
                 {data: 'nombre'},    
                 {data: 'horas'},    
-                {data: 'tiempo_primera_respuesta'},        
+                {data: 'tiempo_primera_respuesta'},    
+                {data: 'nomenclatura'},        
                 {data: 'action', orderable: false}
             ]
         });
@@ -154,6 +158,7 @@
         var nombre = $('#nombre').val();
         var hora = $('#hora').val();
         var tpRespuesta = $('#tpRespuesta').val();
+        var nomenclatura = $('#nomenclatura').val();
 
         var id = $('#ID').val();
         var _token =$("input[name=_token]").val();
@@ -176,6 +181,7 @@
                 nombre: nombre,
                 hora: hora,
                 tpRespuesta: tpRespuesta,
+                nomenclatura:nomenclatura,
                 id: id,
                 _token: _token
 
@@ -255,10 +261,7 @@
 
    $('#exampleModal').on('hide.bs.modal', function (e) {
 
-    $('#nombre').val('');
-    $('#hora').val('');
-    $('#tpRespuesta').val('');
-
+    $('#resgistrarSla')[0].reset();
 
    });
 
@@ -279,14 +282,14 @@
             var nombre = response.success.nombre;
             var hora = response.success.horas;
             var tpRespuesta = response.success.tiempo_primera_respuesta;
-
-
+            var nomenclatura = response.success.nomenclatura;
 
             $('#exampleModal').modal('show');
 
             $('#nombre').val(nombre);
             $('#hora').val(hora);
             $('#tpRespuesta').val(tpRespuesta);
+            $('#nomenclatura').val(nomenclatura);
             $('#ID').val(id);
 
             }

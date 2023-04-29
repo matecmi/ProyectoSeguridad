@@ -41,6 +41,8 @@ class SlaController extends Controller
             $sla->nombre = $request->input('nombre');
             $sla->horas = $request->input('hora');
             $sla->tiempo_primera_respuesta = $request->input('tpRespuesta');
+            $sla->nomenclatura = $request->input('nomenclatura');
+
             $sla->save();
         
             return response()->json(['success' => true]);
@@ -74,6 +76,7 @@ public function slaEdit(Request $request)
             $sla->nombre = $request->input('nombre');
             $sla->horas = $request->input('hora');
             $sla->tiempo_primera_respuesta = $request->input('tpRespuesta');
+            $sla->nomenclatura = $request->input('nomenclatura');
             $sla->save();
         
             return response()->json(['success' => true]);

@@ -3,6 +3,7 @@
 $(function () {
   filtroListTipoIncidencia();
   filtroListEmpresa();
+  filtroListPersonal();
   generarContenidoTabla();
   
 
@@ -42,7 +43,7 @@ var filtroIncidencia = "Todos";
 var filtroEstado = "Todos";
 var filtroEmpresa = "Todos";
 var filtroDescripcion = " ";
-
+var filtroPersonal = "Todos";
 
 function generarContenidoTabla() {
   $('#tabla').DataTable().clear();
@@ -52,6 +53,7 @@ function generarContenidoTabla() {
   filtroEstado = $('#filtroEstado').val();
   filtroEmpresa = $('#filtroEmpresa').val();
   filtroDescripcion = $('#filtroDescripcion').val();
+  filtroPersonal = $('#filtroPersonal').val();
 
   $.ajax({
     url: "/admin/ticket/list",
@@ -61,6 +63,7 @@ function generarContenidoTabla() {
       filtroEstado: filtroEstado,
       filtroEmpresa: filtroEmpresa,
       filtroDescripcion: filtroDescripcion,
+      filtroPersonal:filtroPersonal,
       _token: $('meta[name="csrf-token"]').attr('content')
 
     },
@@ -152,6 +155,22 @@ function filtroListEmpresa() {
         options += '<option value="' + grupo.id + '">' + grupo.nombres + '</option>';
       });
       $('#filtroEmpresa').html(options);
+    }
+  });
+
+}
+
+function filtroListPersonal() {
+  $.ajax({
+    url: "/admin/ticket/listPersona",
+    type: 'GET',
+    success: function (response) {
+      var options = '';
+      options += '<option selected value="Todos">TODOS</option>'
+      $.each(response, function (index, grupo) {
+        options += '<option value="' + grupo.id + '">' + grupo.nombres + '</option>';
+      });
+      $('#filtroPersonal').html(options);
     }
   });
 
