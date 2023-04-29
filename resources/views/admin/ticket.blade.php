@@ -18,11 +18,11 @@
     </div>
     <div class="col-md-2 d-flex align-items-center" style="margin-right: 20px;">
       <label for="grupo" class="form-label me-2">DESDE</label>
-      <input type="date" id="filtroFecha" class="form-control" style="width: 140px;">
+      <input type="date" id="filtroDesde" class="form-control" style="width: 140px;">
     </div>
     <div class="col-md-2 d-flex align-items-center" style="margin-right: 20px;">
       <label for="grupo" class="form-label me-2">HASTA</label>
-      <input type="date" id="filtroFecha" class="form-control" style="width: 140px;">
+      <input type="date" id="filtroHasta" class="form-control" style="width: 140px;">
     </div>
     <div class="col-md-2 d-flex align-items-center" style="margin-right: 30px;">
       <label for="grupo" class="form-label me-2">ESTADO</label>

@@ -30,6 +30,8 @@ class TicketController extends Controller
             $filtroEmpresa = $request->input('filtroEmpresa');
             $filtroDescripcion = $request->input('filtroDescripcion');
             $filtroPersonal = $request->input('filtroPersonal');
+            $filtroDesde = $request->input('filtroPersonal');
+            $filtroHasta = $request->input('filtroHasta');
 
             $ticket = Ticket::select('tickets.*','usuarios.nombre as usuario_nombre',
             'tipo_incidencias.nombre as tipo_incidencia_nombre',
@@ -62,6 +64,9 @@ class TicketController extends Controller
             ->when($filtroDescripcion != '' && $filtroDescripcion != null , function ($query) use ($filtroDescripcion) {
                 return $query->where('tickets.descripcion', 'LIKE', '%' . $filtroDescripcion . '%');
             })
+            ->when($filtroDesde && $filtroHasta, function ($query) use ($filtroDesde, $filtroHasta) {
+                return $query->whereBetween('tickets.fecha_registro', [$filtroDesde, $filtroHasta]);
+            })
             ->orderByDesc('tickets.id')
             ->get();
 
@@ -74,6 +79,24 @@ class TicketController extends Controller
      
     public function ticket(Request $request)
     {
+
+        if($request ->ajax()){
+        
+            date_default_timezone_set('America/Lima');
+
+            $ticket = Ticket::select('tickets.*','usuarios.nombre as usuario_nombre',
+            'slas.nombre as sla_nombre',
+            'slas.nomenclatura as sla_nomenclatura')
+            ->join('usuarios', 'tickets.usuario_id', '=', 'usuarios.id')
+            ->join('slas', 'tickets.sla_id', '=', 'slas.id')
+            ->where('tickets.status', '=', 'Y')
+            ->where('tickets.situacion', '=', "En Proceso")
+            ->where('tickets.fecha_primera_respuesta', '<', date('Y-m-d H:i:s', time()))
+            ->get();
+
+            return response()->json(['success' => $ticket]);
+        }
+        
         return view('admin.ticket');
 
     }
@@ -253,6 +276,7 @@ class TicketController extends Controller
             $ticked = new Ticket();
             $ticked->fecha_registro = $request->input('fecha');
             $ticked->fecha_fin_estimado = $this->sumarHoras($request->input('fecha'),$sla->horas);
+            $ticked->fecha_primera_respuesta = $this->sumarHoras($request->input('fecha'),$sla->tiempo_primera_respuesta);
             $ticked->descripcion = $request->input('descripcion');
             $ticked->situacion = "En Proceso";
             $ticked->usuario_id = $usuario->id;

@@ -54,6 +54,9 @@ function generarContenidoTabla() {
   filtroEmpresa = $('#filtroEmpresa').val();
   filtroDescripcion = $('#filtroDescripcion').val();
   filtroPersonal = $('#filtroPersonal').val();
+  filtroDesde = $('#filtroDesde').val();
+  filtroHasta = $('#filtroHasta').val();
+  console.log(filtroDesde);
 
   $.ajax({
     url: "/admin/ticket/list",
@@ -64,6 +67,8 @@ function generarContenidoTabla() {
       filtroEmpresa: filtroEmpresa,
       filtroDescripcion: filtroDescripcion,
       filtroPersonal:filtroPersonal,
+      filtroDesde:filtroDesde,
+      filtroHasta:filtroHasta,
       _token: $('meta[name="csrf-token"]').attr('content')
 
     },

@@ -13,6 +13,7 @@ class Ticket extends Migration
 
             $table->dateTimeTz('fecha_registro')->nulable(false);
             $table->dateTimeTz('fecha_fin_estimado')->nulable(true);
+            $table->dateTimeTz('fecha_primera_respuesta')->nullable();
             $table->dateTimeTz('fecha_fin')->nullable();
             $table->text('descripcion')->nulable(false);
             $table->string('situacion')->nulable(false);
