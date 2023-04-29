@@ -1,10 +1,10 @@
 
 
 $(function () {
-
   filtroListTipoIncidencia();
   filtroListEmpresa();
   generarContenidoTabla();
+  
 
 });
 
@@ -42,6 +42,7 @@ var filtroDescripcion = " ";
 
 
 function generarContenidoTabla() {
+  $('#tabla').DataTable().clear();
   $('#tabla').DataTable().destroy();
 
   filtroIncidencia = $('#filtroIcidencia').val();
@@ -104,7 +105,7 @@ function generarContenidoTabla() {
       }
 
       $('#colTicket').html(options);
-      DataTableCreacion()
+      DataTableCreacion();
 
     }
   });
