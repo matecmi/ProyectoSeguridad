@@ -14,6 +14,7 @@ class Sla extends Migration
             $table->string('nombre')->nulable(false);
             $table->integer('horas')->nulable(false);
             $table->integer('tiempo_primera_respuesta')->nulable(false);
+            $table->integer('nomenclatura')->nullable();
             $table->string('status')->default('Y');
             $table->timestamps();
 
