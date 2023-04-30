@@ -181,6 +181,7 @@ $(document).on('click', 'button[name="delete"]', function () {
 $('#exampleModal').on('hide.bs.modal', function (e) {
     // Restablecer el valor del campo 1
     $('#resgistrarGrupo')[0].reset();
+    editarValidar=false;
 
     $('#checkbox-container-nuevo input[type=checkbox]').each(function () {
         var checkboxValue = $(this).val();
@@ -206,6 +207,7 @@ $('#exampleModal').on('hide.bs.modal', function (e) {
 
 });
 var rucValidar;
+var editarValidar;
 
 $(document).on('click', 'button[name="edit"]', function () {
     var id = $(this).attr('id');
@@ -233,7 +235,7 @@ $(document).on('click', 'button[name="edit"]', function () {
                 var email = response.success[0].email;
 
                 rucValidar=ruc;
-
+                editarValidar=true;
 
                 $('#exampleModal').modal('show');
 
@@ -353,6 +355,7 @@ $(document).on('click', 'input[type=checkbox]:checked', function () {
     }
 
 
+
     if (checkboxes.length>1 && validarRol) {
 
         swal({
@@ -366,7 +369,8 @@ $(document).on('click', 'input[type=checkbox]:checked', function () {
             $('#checkbox-container-nuevo input[type=checkbox]').each(function () {
                 var checkboxValue = $(this).val();
 
-                if (rucValidar != "----") {
+                
+                if (rucValidar != "----" && editarValidar) {
                     if (checkboxValue !=5) {
 
                         $(this).prop('checked', false);
@@ -381,7 +385,6 @@ $(document).on('click', 'input[type=checkbox]:checked', function () {
                 }
 
             });
-
           });
         
     }
