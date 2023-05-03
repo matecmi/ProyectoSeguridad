@@ -86,6 +86,7 @@
                     <th>TIPO INCIDENCIA</th>
                     <th><div class="size">SLA</div></th>
                     <th class="no-exportar">USUARIO QUE REPORTA</th>
+                    <th class="no-exportar">ARCHIVOS</th>
                     <th class="no-exportar">ESTADO</th>
                     <th class="no-exportar">ACCIONES</th>
                     <th class="no-exportar">COMENTARIO</th>
@@ -423,6 +424,82 @@
     </div>
   </div>
 </div>
+<!-- Modales para la visualizacion y subida de archivos. -->
+
+
+<div class="modal fade" id="imagenModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Nueva Imagen</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3" id="resgistrarTicketImagen" action="{{ route('admin.ticketImagenStore') }}" method="POST" enctype="multipart/form-data">
+          @csrf
+          <div class="col-md-12">
+                <input type="text" id="ticketId" name="ticketId" style="display:none">
+                <label for="Nombre" class="form-label">imagen</label>
+                <input type="file" class="form-control" id="file" name="file" accept="image/*" required>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button class="btn btn-primary" type="submit">Guardar</button>
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="archivosModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="max-width: 40%"> 
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="tituloComentario"></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+          <div class="col-md-5 mb-2">
+            <button id="btnImagen" type="button" class="btn btn-primary">Subir Imagen</button>
+          </div>
+
+        <div class="card-body table-responsive">
+
+          <div id="carouselExampleIndicators" class="carousel slide">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner" id="contenedorImagenes">
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+          
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 
 @stop
 
@@ -516,9 +593,18 @@
 
        }
 
-       .size{
-       width: 100px;
+       #imagenModal {
+         z-index: 2001; /* el valor de z-index debe ser mayor que el del otro modal */
        }
+
+
+.imagen-carrusel {
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
 
        #tdTabla{
         text-align: center; 
@@ -535,10 +621,99 @@
 <script src="{{ asset('AdminJs/Ticket.js') }}"></script>
 <script src="{{ asset('AdminJs/Acciones.js') }}"></script>
 <script src="{{ asset('AdminJs/Comentario.js') }}"></script>
+
 <script src="{{ asset('DataTables/JSZip-2.5.0/jszip.min.js') }}"></script>
 <script src="{{ asset('DataTables/Buttons-2.3.4/js/dataTables.buttons.min.js') }}"></script>
 <script src="{{ asset('DataTables/Buttons-2.3.4/js/buttons.bootstrap5.min.js') }}"></script>
 <script src="{{ asset('DataTables/Buttons-2.3.4/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('DataTables/Buttons-2.3.4/js/buttons.print.min.js') }}"></script>
 
+
+<script>
+
+function asset(file) {
+        return '{{ asset('') }}' + file;
+    }
+
+var ticketId;
+
+
+$(document).on('click', 'button[name="archivo"]', function () {
+  
+    ticketId = $(this).attr('id');
+    var idGenerado =$(this).attr('value');
+    $('#ticketId').val(ticketId);
+
+
+    //var tituloAcciones = document.getElementById("tituloImagenes");
+    //tituloAcciones.innerHTML = "Imagenes / Ticket " + idGenerado;
+    listarImagenes();
+
+  });
+
+$('#btnImagen').on('click', function () {
+
+    $('#imagenModal').modal('show');
+
+
+});
+
+
+
+$('#resgistrarTicketImagen').submit(function (e) {
+  
+    e.preventDefault();
+
+    $.ajax({
+  
+      url: "{{ route('admin.ticketImagenStore') }}",
+      type: "POST",
+      data: new FormData(this),
+      processData: false,
+      contentType: false,
+      _token: $('meta[name="csrf-token"]').attr('content'),
+      success: function (response) {
+  
+        if (response.success) {
+            swal({
+              title: "Imagen agregada correctamente",
+              text: "",
+              icon: "success",
+              buttons: true,
+            })
+            listarImagenes();
+          $('#imagenModal').modal('hide');
+          $('#resgistrarTicketImagen')[0].reset();
+  
+        }
+  
+      }
+    });
+  });
+
+
+
+  function listarImagenes() {
+    $.ajax({
+      url: "{{ route('admin.ticketImagen') }}",
+      data:{
+        ticketId:ticketId
+      },
+      type: 'GET',
+      success: function (response) {
+        var options = '';
+        $.each(response, function (index, grupo) {
+          console.log(grupo.path);
+          var ruta =grupo.path;
+          options += '<div class="carousel-item active">'
+            options += '<img src="' + asset(grupo.path.substring(1))+ '" class="d-block w-100 " alt="...">';
+          options += '</div>'
+
+        });
+        $('#contenedorImagenes').html(options);
+      }
+    });
+  }
+  
+</script>
 @stop

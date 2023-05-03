@@ -1,8 +1,8 @@
 <?php
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
-use App\Models\Admin\Ticket;
 use App\Models\Admin\TicketImagen;
+use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -16,50 +16,44 @@ class TicketIamgenController extends Controller
 
         if($request ->ajax()){
 
-            $ticketImagen = TicketImagen::select('ticket_imagens.*','tickets.descripcion as ticket_nombre')
-            ->join('tickets', 'ticket_imagens.ticket_id', '=', 'tickets.id')
+            $ticketId = $request->input("ticketId");
+
+            $ticketImagen = TicketImagen::select('*')
             ->where('ticket_imagens.status', '=', 'Y')
+            ->where('ticket_imagens.ticket_id', '=', $ticketId)
             ->get();
-            return Datatables::of($ticketImagen)
-                ->addColumn('action', function($ticketImagen){
+            
+            return response()->json($ticketImagen);
 
-                    $acciones ='<button type="button" name="edit"  id="'.$ticketImagen->id.'" class=" btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
-                    $acciones .='&nbsp;&nbsp;<button type="button" name="delete" id="'.$ticketImagen->id.'" class=" btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button>'; 
-
-                    return $acciones;
-
-                })
-                ->rawColumns(['action'])
-                ->make(true);
         }
 
-        return view('admin.ticketImagen');
     }
 
-    public function listTicket()
-    {
-        $ticket = Ticket::select('*')
-        ->where('status', '=', 'Y')
-        ->get();
-        return response()->json($ticket);
-    }
-
-   
     public function ticketImagenStore(Request $request)
     {
 
         if($request->ajax()){
+            $request->validate([
 
+                'file'=>'required|image|max:2048'
+            ]);
+    
+           $imagenes= $request->file('file')->store('public/imagenes');
+           $url =Storage::url($imagenes);
+    
             $ticketImagen = new TicketImagen();
-            $ticketImagen->nombre = $request->input('nombre');
-            $ticketImagen->ticket_id = $request->input('ticket_id');
+            $ticketImagen->nombre = "imagen";
+            $ticketImagen->ticket_id = $request->input('ticketId');
+            $ticketImagen->path =  $url;
             $ticketImagen->save();
-        
+
+
             return response()->json(['success' => true]);
+
         }
-   
         return response()->json(['success' => false]);
 
+   
     }
 
 public function ticketImagenEdit(Request $request)

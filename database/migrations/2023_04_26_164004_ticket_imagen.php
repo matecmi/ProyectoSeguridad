@@ -10,8 +10,8 @@ class TicketImagen extends Migration
     {
         Schema::create('ticket_imagens', function (Blueprint $table) {
             $table->id();
-
             $table->string('nombre')->nulable(false);
+            $table->string('path')->nulable(false);
             $table->unsignedBigInteger('ticket_id');
             $table->foreign('ticket_id')
                   ->references('id')

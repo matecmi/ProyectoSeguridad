@@ -1,4 +1,4 @@
-
+/*
 
 
 $(function () {
@@ -140,3 +140,4 @@ $('#modalComentario').on('hide.bs.modal', function (e) {
 });
 
 
+*/
