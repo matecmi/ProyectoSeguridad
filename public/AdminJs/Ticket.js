@@ -45,6 +45,19 @@ var filtroEmpresa = "Todos";
 var filtroDescripcion = " ";
 var filtroPersonal = "Todos";
 
+function agregarTiempo(fecha, horas, minutos, segundos) {
+  // Creamos un objeto Date a partir de la fecha
+  var fechaNueva = new Date(fecha);
+
+  // Agregamos las horas, minutos y segundos especificados
+  fechaNueva.setHours(fechaNueva.getHours() + horas);
+  fechaNueva.setMinutes(fechaNueva.getMinutes() + minutos);
+  fechaNueva.setSeconds(fechaNueva.getSeconds() + segundos);
+
+  // Retornamos la fecha con el tiempo agregado
+  return fechaNueva;
+}
+
 function generarContenidoTabla() {
   $('#tabla').DataTable().clear();
   $('#tabla').DataTable().destroy();
@@ -56,7 +69,6 @@ function generarContenidoTabla() {
   filtroPersonal = $('#filtroPersonal').val();
   filtroDesde = $('#filtroDesde').val();
   filtroHasta = $('#filtroHasta').val();
-  console.log(filtroDesde);
 
   $.ajax({
     url: "/admin/ticket/list",

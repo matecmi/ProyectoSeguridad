@@ -31,7 +31,7 @@ class TicketController extends Controller
             $filtroEmpresa = $request->input('filtroEmpresa');
             $filtroDescripcion = $request->input('filtroDescripcion');
             $filtroPersonal = $request->input('filtroPersonal');
-            $filtroDesde = $request->input('filtroPersonal');
+            $filtroDesde = $request->input('filtroDesde');
             $filtroHasta = $request->input('filtroHasta');
 
             $ticket = Ticket::select('tickets.*','usuarios.nombre as usuario_nombre',
@@ -68,7 +68,12 @@ class TicketController extends Controller
             ->when($filtroDesde && $filtroHasta, function ($query) use ($filtroDesde, $filtroHasta) {
                 return $query->whereBetween('tickets.fecha_registro', [$filtroDesde, $filtroHasta]);
             })
-            ->orderByDesc('tickets.id')
+            ->when($filtroDesde && !$filtroHasta, function ($query) use ($filtroDesde) {
+                return $query->where('tickets.fecha_registro', '>=', $filtroDesde);
+            })
+            ->when(!$filtroDesde && $filtroHasta, function ($query) use ($filtroHasta) {
+                return $query->where('tickets.fecha_registro', '<=', $filtroHasta);
+            })
             ->get();
 
 
