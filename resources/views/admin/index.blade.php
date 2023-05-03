@@ -22,6 +22,7 @@
                   <thead>
                       <tr>
                           <th id="tdTabla">CODIGO</th>
+                          <th id="tdTabla">FECHA DE REGISTRO</th>
                           <th id="tdTabla">FECHA PRIMERA RESPUESTA</th>
                           <th id="tdTabla">DESCRIPCION</th>
                       </tr>

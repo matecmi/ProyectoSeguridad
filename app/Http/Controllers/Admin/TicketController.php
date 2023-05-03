@@ -9,6 +9,7 @@ use App\Models\Admin\Persona;
 use App\Models\Admin\Rol;
 use App\Models\Admin\RolPersona;
 use App\Models\Admin\MedioReporte;
+use App\Models\Admin\Accione;
 
 
 
@@ -81,10 +82,15 @@ class TicketController extends Controller
     {
 
         if($request ->ajax()){
+
+            $acciones =Accione::select('*')
+            ->where('status', '=', 'Y')
+            ->get();
+
         
             date_default_timezone_set('America/Lima');
 
-            $ticket = Ticket::select('tickets.*','usuarios.nombre as usuario_nombre',
+            $tickets = Ticket::select('tickets.*','usuarios.nombre as usuario_nombre',
             'slas.nombre as sla_nombre',
             'slas.nomenclatura as sla_nomenclatura')
             ->join('usuarios', 'tickets.usuario_id', '=', 'usuarios.id')
@@ -94,7 +100,28 @@ class TicketController extends Controller
             ->where('tickets.fecha_primera_respuesta', '<', date('Y-m-d H:i:s', time()))
             ->get();
 
-            return response()->json(['success' => $ticket]);
+            $ticketVencido = array(); 
+            $validar =true;
+            foreach ($tickets as $ticket) {
+
+                foreach ($acciones as $accion) {
+
+                    if ($accion->ticket_id == $ticket->id) {
+                        $validar =false;
+
+                    }
+                }
+
+                if ($validar) {
+                    array_push($ticketVencido, $ticket);
+
+                }
+                $validar =true;
+
+            }
+
+
+            return response()->json($ticketVencido);
         }
         
         return view('admin.ticket');

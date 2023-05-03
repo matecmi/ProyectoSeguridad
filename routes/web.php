@@ -15,7 +15,7 @@ use App\Http\Controllers\Admin\TicketController;
 |
 */
 
-Route::get('/login', function () {
+Route::get('/', function () {
     return view('auth/login');
 });
 
