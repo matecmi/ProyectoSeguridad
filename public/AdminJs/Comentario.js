@@ -58,8 +58,8 @@ function listComentario() {
           } else {
             btnComentario.removeAttribute("disabled");
 
-            options += '<td id="tdTabla"> <button type="button" name="editComentario"  id="' + grupo.id + '" class="btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
-            options += '&nbsp;&nbsp;<button type="button" name="deleteComentario" id="' + grupo.id + '" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
+            options += '<td id="tdTabla"> <button type="button" name="editComentario"  id="' + grupo.id + '" class="btn editar btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
+            options += '&nbsp;&nbsp;<button type="button" name="deleteComentario" id="' + grupo.id + '" class="btn eliminar btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
 
           }
           options += '</tr>';

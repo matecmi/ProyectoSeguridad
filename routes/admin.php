@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\TipoIncidenciaController;
 use App\Http\Controllers\Admin\TicketController;
 use App\Http\Controllers\Admin\CalificacionController;
 use App\Http\Controllers\Admin\TicketIamgenController;
+use App\Http\Controllers\Admin\TicketDocumentoController;
 use App\Http\Controllers\Admin\ComentarioController;
 use App\Http\Controllers\Admin\AccionesController;
 use App\Http\Controllers\Admin\MedioReporteController;
@@ -142,9 +143,10 @@ Route::get('admin/calificacion/listTicket',[CalificacionController::class, 'list
 Route::get('admin/ticketimagen/',[TicketIamgenController::class, 'ticketImagen'])->name('admin.ticketImagen');
 Route::post('admin/ticketimagen/create',[TicketIamgenController::class, 'ticketImagenStore'])->name('admin.ticketImagenStore');
 Route::delete('admin/ticketimagen/delete',[TicketIamgenController::class, 'ticketImagenDestroy'])->name('admin.ticketImagenDestroy');
-Route::get('admin/ticketimagen/edit',[TicketIamgenController::class, 'ticketImagenEdit'])->name('admin.ticketImagenEdit');
-Route::post('admin/ticketimagen/update',[TicketIamgenController::class, 'ticketImagenUpdate'])->name('admin.ticketImagenUpdate');
-//Route::get('admin/ticketimagen/ListTicket',[TicketIamgenController::class, 'listTicket'])->name('admin.listTicket');
+
+Route::get('admin/ticketdocumento/',[TicketDocumentoController::class, 'ticketDocumento'])->name('admin.ticketDocumento');
+Route::post('admin/ticketdocumento/create',[TicketDocumentoController::class, 'ticketDocumentoStore'])->name('admin.ticketDocumentoStore');
+Route::delete('admin/ticketdocumento/delete',[TicketDocumentoController::class, 'ticketDocumentoDestroy'])->name('admin.ticketDocumentoDestroy');
 
 
 Route::get('admin/comentario/',[ComentarioController::class, 'comentario'])->name('admin.comentario');

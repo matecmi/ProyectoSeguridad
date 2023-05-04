@@ -1,10 +1,12 @@
 
 
 $(function () {
+  generarContenidoTabla();
+
   filtroListTipoIncidencia();
   filtroListEmpresa();
   filtroListPersonal();
-  generarContenidoTabla();
+
   
 
 });
@@ -22,20 +24,23 @@ function DataTableCreacion() {
     },
     responsive: "true",
     dom: 'Bfrtilp',
-            buttons:[
-                {
-                    extend:'excelHtml5',
-                    text: '<i class="fa fa-file-excel"></i>',
-                    titleAttr:'Exportar a Excel',
-                    className: 'btn btn-success',
-                    exportOptions: {
-                      columns: ':not(.no-exportar)'
-                  }
-                },
-            ]
 
 
   });
+  var boton = document.getElementById("exportar-btn");
+
+  if (boton !== null) {
+    boton.remove();
+  }
+  
+  
+    $('#exportar').append(
+      '<button id="exportar-btn" class="btn btn-success">Excel<i class="fa fa-file-excel ml-1"></i></button>'
+    );
+    $('#exportar-btn').click(function() {
+      $('#tabla').DataTable().button('.buttons-excel').trigger();
+    });
+
 }
 
 
@@ -45,21 +50,7 @@ var filtroEmpresa = "Todos";
 var filtroDescripcion = " ";
 var filtroPersonal = "Todos";
 
-function agregarTiempo(fecha, horas, minutos, segundos) {
-  // Creamos un objeto Date a partir de la fecha
-  var fechaNueva = new Date(fecha);
-
-  // Agregamos las horas, minutos y segundos especificados
-  fechaNueva.setHours(fechaNueva.getHours() + horas);
-  fechaNueva.setMinutes(fechaNueva.getMinutes() + minutos);
-  fechaNueva.setSeconds(fechaNueva.getSeconds() + segundos);
-
-  // Retornamos la fecha con el tiempo agregado
-  return fechaNueva;
-}
-
 function generarContenidoTabla() {
-  $('#tabla').DataTable().clear();
   $('#tabla').DataTable().destroy();
 
   filtroIncidencia = $('#filtroIcidencia').val();
@@ -105,19 +96,21 @@ function generarContenidoTabla() {
           options += '<td id="tdTabla">' + grupo.situacion + '</td>';
           options += '<td id="tdTabla">' + grupo.tipo_incidencia_nombre + '</td>';
           options += '<td id="tdTabla">' + grupo.sla_nombre + '</td>';
-          options += '<td id="tdTabla"><button style="font-size: 20px;" value="' + idGenerado + '" name="usuario" id="' + grupo.id + '" type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tablaUsuarioModal"><i class="fa-solid fa-user"></i></button></td>'
-          options += '<td id="tdTabla"><button style="font-size: 20px;" value="' + idGenerado + '" name="archivo" id="' + grupo.id + '" type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#archivosModal"><i class="fa-solid fa-folder-open"></i></button></td>'
-          options += '<td id="tdTabla"><button style="font-size: 20px;" value="' + idGenerado + '" name="estado" id="' + grupo.id + '" type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#estadoModal"><i class="fa-solid fa-hourglass-half"></i></button></td>'
-          options += '<td id="tdTabla"><button style="font-size: 20px;" value="' + idGenerado + '" name="acciones" id="' + grupo.id + '" type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#tablaAccionesModal"><i class="fa-solid fa-list-check"></i></button></td>'
-          options += '<td id="tdTabla"><button style="font-size: 20px;" value="' + idGenerado + '" name="comentario" id="' + grupo.id + '" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tablaComentarioModal"><i class="fa-solid fa-comments"></i></button></td>'
+          options += '<td id="tdTabla"><button style="font-size: 20px;" value="' + idGenerado + '" name="usuario" id="' + grupo.id + '" type="button" class="btn usuario btn-sm" data-bs-toggle="modal" data-bs-target="#tablaUsuarioModal"><i class="fa-solid fa-user" style="color: white;"></i></button></td>'
+          options += '<td id="tdTabla"><button style="font-size: 20px;" value="' + idGenerado + '" name="imagen" id="' + grupo.id + '" type="button" class="btn imagen btn-sm" data-bs-toggle="modal" data-bs-target="#archivoImagenModal"><i class="fa-regular fa-images" style="color: white;"></i></button>'
+          options += '&nbsp;&nbsp;<button style="font-size: 20px;" value="' + idGenerado + '" name="archivo" id="' + grupo.id + '" type="button" class="btn archivo btn-sm" data-bs-toggle="modal" data-bs-target="#archivoModal"><i class="fa-solid fa-folder-open" style="color: white;"></i></button></td>'
+
+          options += '<td id="tdTabla"><button style="font-size: 20px;" value="' + idGenerado + '" name="estado" id="' + grupo.id + '" type="button" class="btn estado btn-sm" data-bs-toggle="modal" data-bs-target="#estadoModal"><i class="fa-solid fa-hourglass-half" style="color: white;"></i></button></td>'
+          options += '<td id="tdTabla"><button style="font-size: 20px;" value="' + idGenerado + '" name="acciones" id="' + grupo.id + '" type="button" class="btn accion btn-sm" data-bs-toggle="modal" data-bs-target="#tablaAccionesModal"><i class="fa-solid fa-list-check" style="color: white;"></i></button></td>'
+          options += '<td id="tdTabla"><button style="font-size: 20px;" value="' + idGenerado + '" name="comentario" id="' + grupo.id + '" type="button" class="btn comentario btn-sm" data-bs-toggle="modal" data-bs-target="#tablaComentarioModal"><i class="fa-solid fa-comments" style="color: white;"></i></button></td>'
 
           if (grupo.situacion == "Finalizado") {
             options += '<td style="text-align: center; vertical-align: middle;"> <button disabled style="font-size: 20px;" type="button" name="edit"  id="' + grupo.id + '" class="btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
             options += '&nbsp;&nbsp;<button disabled style="font-size: 20px;" type="button" name="delete" id="' + grupo.id + '" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
 
           } else {
-            options += '<td style="text-align: center; vertical-align: middle;"> <button style="font-size: 20px;" type="button" name="edit"  id="' + grupo.id + '" class="btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
-            options += '&nbsp;&nbsp;<button style="font-size: 20px;" type="button" name="delete" id="' + grupo.id + '" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
+            options += '<td style="text-align: center; vertical-align: middle;"> <button style="font-size: 20px;" type="button" name="edit"  id="' + grupo.id + '" class="btn editar btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square" style="color: white;"></i> </button>';
+            options += '&nbsp;&nbsp;<button style="font-size: 20px;" type="button" name="delete" id="' + grupo.id + '" class="btn eliminar btn-sm"> <i class="fa-solid fa-trash-can" style="color: white;"></i> </button></td>';
 
           }
 
@@ -391,6 +384,14 @@ function elegirSupervisor() {
 }
 
 $(document).on('click', '#registrar', function () {
+  $('#resgistrarTicket')[0].reset();
+  $('#listEmpresa').html("");
+  $('#listSupervisor').html("");
+  $('#listPersona').html("");
+  $('#listSla').html("");
+  $('#listMedioReporte').html("");
+  $('#listTIncidencia').html("");
+
   listarTipoIncidencia();
   listarSla();
   listarPersona();
@@ -523,19 +524,12 @@ $(document).on('click', 'button[name="delete"]', function () {
 $('#exampleModal').on('hide.bs.modal', function (e) {
   // Restablecer el valor del campo 1
   $('#resgistrarTicket')[0].reset();
-  $('#nombre').val('');
-  $('#telefono').val('');
-  $('#email').val('');
+
 });
 
 $(document).on('click', 'button[name="edit"]', function () {
 
-  elegirSla();
-  elegirTipoIncidencia();
-  elegirPersona();
-  elegirSupervisor();
-  elegirEmpresa();
-  elegirMedioReporte();
+
 
   var id = $(this).attr('id');
 
@@ -564,6 +558,8 @@ $(document).on('click', 'button[name="edit"]', function () {
 
 
         $('#exampleModal').modal('show');
+
+        
         $('#fecha').val(fecha);
         $('#listMedioReporte').val(medio_reporte_id);
         $('#descripcion').val(descripcion_edit);
@@ -577,6 +573,13 @@ $(document).on('click', 'button[name="edit"]', function () {
         $('#telefono').val(telefono);
 
         $('#ID').val(id);
+
+        elegirSla();
+        elegirTipoIncidencia();
+        elegirPersona();
+        elegirSupervisor();
+        elegirEmpresa();
+        elegirMedioReporte();
 
       }
 
@@ -594,6 +597,10 @@ $(document).on('click', '#filtro', function () {
 
 
 ////////////////////ESTADO/////////////////////////
+var labelReapertura = document.getElementById("labelReapertura");
+var btnReapertura = document.getElementById("btnReapertura");
+
+
 var idTicket;
 var btnStanby = document.getElementById("btnStanby");
 var btnFinalizado = document.getElementById("btnFinalizado");
@@ -604,6 +611,8 @@ var divFinalizado = document.getElementById("divFinalizado");
 var divProceso = document.getElementById("divProceso");
 
 $(document).on('click', 'button[name="estado"]', function () {
+  btnReapertura.style.display="none";
+  labelReapertura.style.display="none";
 
   idTicket = $(this).attr('id');
   var idGenerado =$(this).attr('value');
@@ -630,6 +639,9 @@ $(document).on('click', 'button[name="estado"]', function () {
 
         if (situacion == "En Proceso") {
 
+          btnReapertura.style.display="none";
+          labelReapertura.style.display="none";
+
           btnFinalizado.removeAttribute("disabled");
           btnStanby.removeAttribute("disabled");
           btnProceso.disabled = true;
@@ -642,6 +654,9 @@ $(document).on('click', 'button[name="estado"]', function () {
         }
         if (situacion == "Standby") {
 
+          btnReapertura.style.display="none";
+          labelReapertura.style.display="none";
+
           btnFinalizado.removeAttribute("disabled");
           btnProceso.disabled = true;
           btnStanby.disabled = true;
@@ -652,6 +667,9 @@ $(document).on('click', 'button[name="estado"]', function () {
         }
 
         if (situacion == "Finalizado") {
+
+          btnReapertura.style.display="inline-block";
+          labelReapertura.style.display="inline-block";
 
           btnFinalizado.disabled = true;
           btnStanby.disabled = true;
@@ -692,7 +710,6 @@ $('#btnStanby').on('click', function () {
 
   swal({
     title: "¿Desea Cambiar de estado a 'Stanby'?",
-    text: "Una vez cambiado de estado no podra modificar su elección",
     icon: "warning",
     buttons: true,
     dangerMode: true,
@@ -714,7 +731,7 @@ $('#btnStanby').on('click', function () {
             if (response.success) {
 
               swal({
-                title: "El estado fue cambiado correctamente a 'STANBY'",
+                title: "El estado fue cambiado correctamente",
                 icon: "success"
               });
               generarContenidoTabla();
@@ -743,7 +760,6 @@ $('#btnFinalizado').on('click', function () {
 
   swal({
     title: "¿Desea Cambiar de estado a 'FINALIZADO'?",
-    text: "Una vez cambiado de estado no se podra modificar su elección",
     icon: "warning",
     buttons: true,
     dangerMode: true,
@@ -765,9 +781,12 @@ $('#btnFinalizado').on('click', function () {
             if (response.success) {
 
               swal({
-                title: "El estado fue cambiado correctamente a 'FINALIZADO'",
+                title: "El estado fue cambiado correctamente",
                 icon: "success"
               });
+
+              btnReapertura.style.display="inline-block";
+              labelReapertura.style.display="inline-block";
               generarContenidoTabla();
 
               btnFinalizado.disabled = true;

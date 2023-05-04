@@ -56,40 +56,15 @@ class TicketIamgenController extends Controller
    
     }
 
-public function ticketImagenEdit(Request $request)
-{
-    if($request->ajax()){
-
-        try {
-            $ticketImagen = TicketImagen::findOrFail($request->input('id'));
-            return response()->json(['success' => $ticketImagen]);
-        } catch (\Throwable $th) {
-            return response()->json(['error' => 'Registro no encontrado'], 404);
-        }
-    }
-}
-
-
-    public function ticketImagenUpdate(Request $request)
-    {
-        if($request->ajax()){
-
-            $id = $request->input('id');
-            $ticketImagen = TicketImagen::find($id);
-            $ticketImagen->nombre = $request->input('nombre');
-            $ticketImagen->ticket_id = $request->input('ticket_id');
-            $ticketImagen->save();
-        
-            return response()->json(['success' => true]);
-        }
-   
-        return response()->json(['success' => false]);
-    }
-
-
     public function ticketImagenDestroy(Request $request)
     {
         if($request->ajax()){
+            $registro = TicketImagen::find($request->input('id'));
+
+
+          if(file_exists(substr($registro->path, 1))) {
+          unlink(substr($registro->path, 1));
+          }
 
             $registro = TicketImagen::find($request->input('id'));
             $registro->status = "N";

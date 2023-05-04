@@ -57,14 +57,11 @@
       </select>
     </div>
     <div class="col-md-9 d-flex align-items-center"></div> 
-    <div class="col-md-3 d-flex align-items-center justify-content-end">
-      <button id="filtro" type="button" class="btn btn-primary">Filtrar <i class="fa-solid fa-magnifying-glass"></i></button>
+    <div class="col-md-3 d-flex align-items-center justify-content-end" id="exportar">
+      <button id="filtro" type="button" class="btn btn-primary ml-2">Filtrar <i class="fa-solid fa-magnifying-glass"></i></button>
     </div>
   </div>
 </div>
-
-
-
 
 
 
@@ -75,8 +72,8 @@
                     <th>N.TICKET</th>
                     <th>F.REGISTRO</th>
                     <th>F.FIN ESTIMADA</th>
-                    <th><div class="size">F. FIN</div></th>
-                    <th>DESCRIPCION</th>
+                    <th><div style="width: 80;">F. FIN</div></th>
+                    <th><div style="width: 150;">DESCRIPCION</div></th>
                     <th>PERSONAL</th>
                     <th>EMPRESA</th>
                     <th>SUPERVISOR</th>
@@ -84,13 +81,13 @@
                     <th>MEDIO REPORTE</th>
                     <th>SITUACION</th>
                     <th>TIPO INCIDENCIA</th>
-                    <th><div class="size">SLA</div></th>
-                    <th class="no-exportar">USUARIO QUE REPORTA</th>
+                    <th><div style="width: 110;">SLA</div></th>
+                    <th class="no-exportar">USUARIO REPORTE</th>
                     <th class="no-exportar">ARCHIVOS</th>
                     <th class="no-exportar">ESTADO</th>
                     <th class="no-exportar">ACCIONES</th>
                     <th class="no-exportar">COMENTARIO</th>
-                    <th class="no-exportar">ACCIONES</th>    
+                    <th class="no-exportar">OPCIONES</th>    
                     <th style="display: none;">NOMBRE USUARIO REPORTA</th>
                     <th style="display: none;">TELEFONO USUARIO REPORTA</th>    
                     <th style="display: none;">EMAIL USUARIO REPORTA</th>    
@@ -161,9 +158,9 @@
                 <select class="form-select" id="listSupervisor" required>
                 </select>
               </div>
-              <div class="col-md-6">
-                <label for="grupo" class="form-label">USUARIO QUE REPORTA</label>
-                <button id="btnUsuario" type="button" class="btn btn-primary">AGREGAR</button>
+              <div class="col-md-6" style="text-align: center">
+                <label for="grupo" class="form-label" >USUARIO QUIEN REPORTA</label>
+                <button id="btnUsuario" type="button"  class="btn btn-primary">REGISTRAR<i class="fa-solid fa-user ml-2"></i></button>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -180,7 +177,7 @@
   <div class="modal-dialog modal-usuario">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5">Nuevo Usuario de Reporte</h1>
+        <h1 class="modal-title fs-5">Nuevo Usuario quien Reporta</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -354,7 +351,7 @@
   </div>
 </div>
 
-<!-- Modales para la creación de Acciones. -->
+<!-- Modales para la creación de Estados. -->
 
 <div class="modal fade" id="estadoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-tablaUsuario">
@@ -363,13 +360,13 @@
         <h1 class="modal-title fs-5" id="tituloEstado">ESTADO</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <div class="row g-3 " style="margin-bottom: 40px;">
+      <div class="modal-body" >
+        <div class="row g-3 " style="margin-bottom: 40px;" >
             <div class="col-md-3" >
-              <label for="grupo" class="form-label">REAPERTURA</label>
+              <label id="labelReapertura" for="grupo" class="form-label" style="display:none">REAPERTURA</label>
             </div>
             <div class="col-md-2">
-              <button id="btnReapertura" type="button" class="btn btn-primary"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+              <button id="btnReapertura" type="button" class="btn btn-primary" style="display:none"><i class="fa-solid fa-arrow-rotate-left"></i></button>
             </div>
         </div>
         
@@ -424,7 +421,7 @@
     </div>
   </div>
 </div>
-<!-- Modales para la visualizacion y subida de archivos. -->
+<!-- Modales para la visualizacion y subida de Imagenes. -->
 
 
 <div class="modal fade" id="imagenModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -454,26 +451,24 @@
 </div>
 
 
-<div class="modal fade" id="archivosModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" style="max-width: 40%"> 
+<div class="modal fade" id="archivoImagenModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="max-width: 50%"> 
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="tituloComentario"></h1>
+        <h1 class="modal-title fs-5" id="tituloImagen"></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
 
           <div class="col-md-5 mb-2">
-            <button id="btnImagen" type="button" class="btn btn-primary">Subir Imagen</button>
+            <button id="btnImagen" type="button" class="btn btn-success">Nueva Imagen <i class="fa-solid fa-circle-up ml-2"></i></button>
           </div>
 
         <div class="card-body table-responsive">
 
           <div id="carouselExampleIndicators" class="carousel slide">
-            <div class="carousel-indicators">
-              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <div class="carousel-indicators" id="botonesIamgen">
+
             </div>
             <div class="carousel-inner" id="contenedorImagenes">
 
@@ -489,6 +484,45 @@
           </div>
           
         <div class="modal-footer">
+          <button id="btnDescargarImagen" class="btn btn-primary"><i class="fa-solid fa-download"></i></button>
+          <button id="eliminarImagen" style="font-size: 20px;" type="button" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button>
+
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modales para la visualizacion y subida de Archivos. -->
+
+<div class="modal fade" id="archivoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-tablaUsuario">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="tituloArchivo"></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="col-md-5 mb-2">
+          <button id="btnArchivo" type="button" class="btn btn-success">Nuevo Documento<i class="fa-solid fa-circle-up ml-2"></i></button>
+        </div>
+        <div class="card-body table-responsive">
+          <table class="table table-striped table-bordered table-hover" id="tablaArchivo">
+            <thead>
+                <tr>
+                    <th id="tdTabla">NOMBRE</th>
+                    <th id="tdTabla">FECHA</th>
+                    <th id="tdTabla">ARCHIVO</th>
+                    <th id="tdTabla">ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody id="colArchivo">
+            </tbody>
+        </table>
+        <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
       </div>
@@ -499,7 +533,35 @@
 
 
 
+<div class="modal fade" id="documentoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Documento</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3" id="resgistrarTicketDocumento" action="{{ route('admin.ticketDocumentoStore') }}" method="POST" enctype="multipart/form-data">
+          @csrf
+          <div class="col-md-12">
+            <label for="nombre" class="form-label">NOMBRE</label>
+            <input type="text" class="form-control" id="nombreDocumento" name="nombreDocumento" required>
+          </div>
+          <div class="col-md-12">
+                <input type="text" id="ticketIdDocumento" name="ticketIdDocumento" style="display:none">
+                <label for="Nombre" class="form-label">Documento</label>
+                <input type="file" class="form-control" id="file" name="file"  accept=".pdf,.xls,.xlsx,.doc,.docx,.pptx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"  required>
+              </div>
 
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button class="btn btn-primary" type="submit">Guardar</button>
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 @stop
 
@@ -508,108 +570,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <link rel="stylesheet" href="{{ asset('DataTables/datatables.css') }}">
+<link rel="stylesheet" href="{{ asset('AdminCss/Ticket.css') }}" >
+
     <link rel="stylesheet" href="/css/admin_custom.css">
 
     <style>
 
-.btn-relieve {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  box-shadow: 0px 3px 0px #0056b3;
-  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
-}
 
-.btn-relieve:hover {
-  box-shadow: 0px 5px 0px #0056b3;
-  text-shadow: 0px -2px 0px rgba(0, 0, 0, 0.25);
-}
-
-.btn-relieve-rojo {
-  background-color: #ff0000;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  box-shadow: 0px 3px 0px #990000;
-  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
-}
-
-.btn-relieve-rojo:hover {
-  box-shadow: 0px 5px 0px #990000;
-  text-shadow: 0px -2px 0px rgba(0, 0, 0, 0.25);
-}
-
-.btn-relieve-verde {
-  background-color: #008000;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  box-shadow: 0px 3px 0px #004d00;
-  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
-}
-
-.btn-relieve-verde:hover {
-  box-shadow: 0px 5px 0px #004d00;
-  text-shadow: 0px -2px 0px rgba(0, 0, 0, 0.25);
-}
-
-
-        .dataTables_wrapper {
-            padding: 10px;
-        }
-
-        .dataTables_filter label, .dataTables_length label {
-            margin-right: 10px;
-        }
-
-        .dataTables_info {
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-
-        .dataTables_paginate {
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-
-        .table-responsive {
-            overflow: auto;
-        }
-        .table.dataTable th,table.dataTable td {
-          text-align: center;
-        }
-        .modal-lg {
-        max-width: 80%;
-       }
-       .modal-usuario {
-        max-width: 30%;
-       }
-       .modal-tablaUsuario{
-        max-width: 40%;
-
-       }
-
-       #imagenModal {
-         z-index: 2001; /* el valor de z-index debe ser mayor que el del otro modal */
-       }
-
-
-.imagen-carrusel {
-  max-width: 100%;
-  max-height: 100%;
-  margin: auto;
-  position: absolute;
-  top: 0; left: 0; bottom: 0; right: 0;
-}
-
-       #tdTabla{
-        text-align: center; 
-        vertical-align: middle;
-       }
     </style>
 @stop
 
@@ -638,15 +605,15 @@ function asset(file) {
 var ticketId;
 
 
-$(document).on('click', 'button[name="archivo"]', function () {
-  
+$(document).on('click', 'button[name="imagen"]', function () {
+  $('#contenedorImagenes').html("");
+        $('#botonesIamgen').html("");
     ticketId = $(this).attr('id');
     var idGenerado =$(this).attr('value');
     $('#ticketId').val(ticketId);
 
-
-    //var tituloAcciones = document.getElementById("tituloImagenes");
-    //tituloAcciones.innerHTML = "Imagenes / Ticket " + idGenerado;
+    var tituloImagen = document.getElementById("tituloImagen");
+    tituloImagen.innerHTML = "Imagenes / Ticket " + idGenerado;
     listarImagenes();
 
   });
@@ -654,7 +621,8 @@ $(document).on('click', 'button[name="archivo"]', function () {
 $('#btnImagen').on('click', function () {
 
     $('#imagenModal').modal('show');
-
+    $('#resgistrarTicketImagen')[0].reset();
+    $('#ticketId').val(ticketId);
 
 });
 
@@ -684,7 +652,8 @@ $('#resgistrarTicketImagen').submit(function (e) {
             listarImagenes();
           $('#imagenModal').modal('hide');
           $('#resgistrarTicketImagen')[0].reset();
-  
+          $('#ticketId').val(ticketId);
+
         }
   
       }
@@ -702,18 +671,229 @@ $('#resgistrarTicketImagen').submit(function (e) {
       type: 'GET',
       success: function (response) {
         var options = '';
+        var botones ='';
+        var value =true;
         $.each(response, function (index, grupo) {
           console.log(grupo.path);
           var ruta =grupo.path;
-          options += '<div class="carousel-item active">'
-            options += '<img src="' + asset(grupo.path.substring(1))+ '" class="d-block w-100 " alt="...">';
-          options += '</div>'
+          if (value) {
+            options += '<div class="carousel-item active">'
+              botones += '<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="'+ index +'" class="active" aria-current="true" aria-label="Slide '+index+'"></button>';
+              value=false;
+          }else {
+            botones+='<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="'+index+'" aria-label="Slide '+index+'"></button>';
+
+            options += '<div class="carousel-item">'
+          }
+            options += '<img src="' + asset(grupo.path.substring(1))+ '" class="item " alt="..." id="'+grupo.id+'">';
+            options += '</div>'
 
         });
         $('#contenedorImagenes').html(options);
+        $('#botonesIamgen').html(botones);
+
       }
     });
   }
+
+
+  // Obtener el botón de descarga y el carrusel
+var btnDescargar = document.getElementById('btnDescargarImagen');
+var carrusel = document.getElementById('carouselExampleIndicators');
+
+// Agregar un evento de click al botón de descarga
+btnDescargar.addEventListener('click', function() {
+  // Obtener la imagen activa del carrusel
+  var imagenActiva = carrusel.querySelector('.carousel-item.active img');
+  
+  // Crear un enlace de descarga con la imagen y agregar un nombre de archivo
+  var linkDescarga = document.createElement('a');
+  linkDescarga.download = 'ImagenTicket.jpg';
+  linkDescarga.href = imagenActiva.src;
+  
+  // Simular un clic en el enlace de descarga
+  linkDescarga.click();
+  
+  // Eliminar el enlace de descarga del DOM
+  linkDescarga.remove();
+});
+
+$(document).on('click', 'button[name="delete"]', function(){
+        var id;
+
+        id = $(this).attr('id');
+        var _token =$("input[name=_token]").val();
+
+
+   });
+
+
+$('#eliminarImagen').on('click', function() {
+  var idImagen = $('#contenedorImagenes .carousel-item.active img').attr('id');
+
+  swal({
+         title: "Desea eliminar la imagen?",
+         icon: "warning",
+         buttons: true,
+         dangerMode: true,
+        })
+       .then((willDelete) => {
+           if (willDelete) {
+
+      $.ajax({
+
+         url: "{{ route('admin.ticketImagenDestroy') }}",
+         type: 'DELETE',
+         data: {
+            id:idImagen,
+            _token: $('meta[name="csrf-token"]').attr('content')
+               },
+               success: function(response){
+            if(response.success){
+              listarImagenes();
+                swal({ 
+                    title:"Imagen eliminada correctamente",
+                    icon: "success"
+            });
+            }       
+         }
+        });
+         }
+
+     });
+
+
+});
+
+
+////////////////////////////////ARCHIVO////////////////////////////////////////
+
+$(document).on('click', 'button[name="archivo"]', function () {
+
+    ticketId = $(this).attr('id');
+    var idGenerado =$(this).attr('value');
+    $('#ticketIdDocumento').val(ticketId);
+
+    var tituloArchivo = document.getElementById("tituloArchivo");
+    tituloArchivo.innerHTML = "Documentos / Ticket " + idGenerado;
+
+    listDocumentos();
+
+  });
+
+$('#btnArchivo').on('click', function () {
+  $('#resgistrarTicketDocumento')[0].reset();
+ $('#documentoModal').modal('show');
+ $('#ticketIdDocumento').val(ticketId);
+
+
+});
+
+
+function listDocumentos() {
+
+  $.ajax({
+    url: "{{ route('admin.ticketDocumento') }}",
+    type: 'GET',
+    data: {
+      ticketId: ticketId,
+    },
+
+    success: function (response) {
+      var options;
+
+      if (response.length > 0) {
+
+        $.each(response, function (index, grupo) {
+          options += '<tr>';
+          //options += '<td id="tdTabla">' + grupo.id.toString().padStart(5, '0') + '</td>';
+          options += '<td id="tdTabla">' + grupo.nombre + '</td>';
+          options += '<td id="tdTabla">' + grupo.fecha + '</td>';
+          options += '<td id="tdTabla"><a href="' + asset(grupo.path.substring(1))+ '"target="_blank">' + grupo.nombre + ' <i class="fa-solid fa-download"></i></a></td>';
+          options += '<td id="tdTabla"><button type="button" name="deleteDocumento" id="' + grupo.id + '" class="btn eliminar btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
+          options += '</tr>';
+
+        });
+      } else {
+        options = " ";
+      }
+
+      $('#colArchivo').html(options);
+    }
+  });
+}
+
+
+$('#resgistrarTicketDocumento').submit(function (e) {
+  
+    e.preventDefault();
+
+    $.ajax({
+  
+      url: "{{ route('admin.ticketDocumentoStore') }}",
+      type: "POST",
+      data: new FormData(this),
+      processData: false,
+      contentType: false,
+      _token: $('meta[name="csrf-token"]').attr('content'),
+      success: function (response) {
+  
+        if (response.success) {
+            swal({
+              title: "Documento agregada correctamente",
+              text: "",
+              icon: "success",
+              buttons: true,
+            })
+            listDocumentos();
+          $('#documentoModal').modal('hide');
+          $('#resgistrarTicketDocumento')[0].reset();
+          $('#ticketIdDocumento').val(ticketId);
+
+        }
+  
+      }
+    });
+  });
+
+
+$(document).on('click', 'button[name="deleteDocumento"]', function () {
+  var idDocumento = $(this).attr('id');
+
+swal({
+       title: "Desea eliminar el Documento?",
+       icon: "warning",
+       buttons: true,
+       dangerMode: true,
+      })
+     .then((willDelete) => {
+         if (willDelete) {
+
+    $.ajax({
+
+       url: "{{ route('admin.ticketDocumentoDestroy') }}",
+       type: 'DELETE',
+       data: {
+          id:idDocumento,
+          _token: $('meta[name="csrf-token"]').attr('content')
+             },
+             success: function(response){
+          if(response.success){
+            listDocumentos();
+              swal({ 
+                  title:"Documento eliminado correctamente",
+                  icon: "success"
+          });
+          }       
+       }
+      });
+       }
+
+   });
+
+
+});
+
   
 </script>
 @stop
