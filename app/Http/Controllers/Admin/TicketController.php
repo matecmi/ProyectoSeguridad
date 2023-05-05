@@ -34,6 +34,9 @@ class TicketController extends Controller
             $filtroDesde = $request->input('filtroDesde');
             $filtroHasta = $request->input('filtroHasta');
 
+            $fechaDesde =date('Y-m-d H:i:s', strtotime($filtroDesde . ' 00:00:00'));
+            $fechasHasta= date('Y-m-d H:i:s', strtotime($filtroHasta . ' 23:59:59'));
+
             $ticket = Ticket::select('tickets.*','usuarios.nombre as usuario_nombre',
             'tipo_incidencias.nombre as tipo_incidencia_nombre',
             'slas.nombre as sla_nombre',
@@ -65,14 +68,14 @@ class TicketController extends Controller
             ->when($filtroDescripcion != '' && $filtroDescripcion != null , function ($query) use ($filtroDescripcion) {
                 return $query->where('tickets.descripcion', 'LIKE', '%' . $filtroDescripcion . '%');
             })
-            ->when($filtroDesde && $filtroHasta, function ($query) use ($filtroDesde, $filtroHasta) {
-                return $query->whereBetween('tickets.fecha_registro', [$filtroDesde, $filtroHasta]);
+            ->when($filtroDesde && $filtroHasta, function ($query) use ($fechaDesde, $fechasHasta) {
+                return $query->whereBetween('tickets.fecha_registro', [$fechaDesde, $fechasHasta]);
             })
-            ->when($filtroDesde && !$filtroHasta, function ($query) use ($filtroDesde) {
-                return $query->where('tickets.fecha_registro', '>=', $filtroDesde);
+            ->when($filtroDesde && !$filtroHasta, function ($query) use ($fechaDesde) {
+                return $query->where('tickets.fecha_registro', '>=', $fechaDesde);
             })
-            ->when(!$filtroDesde && $filtroHasta, function ($query) use ($filtroHasta) {
-                return $query->where('tickets.fecha_registro', '<=', $filtroHasta);
+            ->when(!$filtroDesde && $filtroHasta, function ($query) use ($fechasHasta) {
+                return $query->where('tickets.fecha_registro', '<=', $fechasHasta);
             })
             ->get();
 
