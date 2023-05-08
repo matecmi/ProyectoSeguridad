@@ -34,7 +34,14 @@ $(function () {
           {data: 'usuario_nombre'},
           {data: 'persona_nombre'},  
           {data: 'action', orderable: false}
-      ]
+      ],
+      createdRow: function ( row, data, dataIndex ) {
+        // Obtener el valor de id y modificarlo
+        var id = data.id.toString().padStart(5, '0');
+
+        // Actualizar el valor de id en la celda correspondiente
+        $('td', row).eq(0).html(id);
+    }
   });
 
     

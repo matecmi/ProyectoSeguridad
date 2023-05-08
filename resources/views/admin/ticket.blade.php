@@ -577,10 +577,22 @@
       <div class="modal-body">
         <div class="row g-3">
 
+          <div class="col-md-6">
+            <label for="nombre" class="form-label">NOMBRE</label>
+            <input type="text" class="form-control" id="" name="" required>
+          </div>
+          <div class="col-md-6">
+            <label for="nombre" class="form-label">NOMBRE</label>
+            <input type="text" class="form-control" id="" name="" required>
+          </div>
 
-          <div class="col-md-7">
+          <div class="col-md-7" >
+            <div class="card-body table-responsive" style="border: 2px solid black; margin: 10px;">
+
+            <h3 style="text-align: center">ACCIONES</h3>
+            <button id="btnAccion" type="button" class="btn btn-primary btn-sm ml-2 ">Nuevo</button>
             <table style="font-size: 13px;"  class="table table-striped table-bordered table-hover" id="tablaAcciones">
-              <label for="">Acciones </label><button id="btnAccion" type="button" class="btn btn-primary btn-sm ">Nuevo</button>
+
               <thead>
                   <tr>
                       <th>N.ACCIÓN</th>
@@ -593,10 +605,14 @@
                   </tr>
               </thead>
           </table>
+            </div>
           </div>
 
           <div class="col-md-5">
-            <button id="btnComentario" type="button" class="btn btn-primary btn-sm">Nuevo Comentario</button>
+            <div class="card-body table-responsive" style="border: 2px solid black; margin: 10px;">
+            <h3 style="text-align: center">COMENTARIOS</h3>
+
+            <button id="btnComentario" type="button" class="btn btn-primary btn-sm ml-2">Nuevo</button>
             <table style="font-size: 13px;" class="table table-striped table-bordered table-hover" id="tablaComentario">
               <thead>
                   <tr>
@@ -608,14 +624,11 @@
                   </tr>
               </thead>
           </table>
+            </div>
           </div>
         </div>
 
-          
-
-
-
-
+        
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
