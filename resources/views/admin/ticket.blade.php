@@ -82,6 +82,7 @@
                     <th>SITUACION</th>
                     <th>TIPO INCIDENCIA</th>
                     <th><div style="width: 110;">SLA</div></th>
+                    <th class="no-exportar">PANEL</th>
                     <th class="no-exportar">USUARIO REPORTE</th>
                     <th class="no-exportar">ARCHIVOS</th>
                     <th class="no-exportar">ESTADO</th>
@@ -563,6 +564,35 @@
   </div>
 </div>
 
+
+<!-- Modales para el panel de control del ticket. -->
+
+
+<div class="modal fade" id="PanelModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="TituloPanel"></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+          <div class="col-md-3">
+
+            <button id="btnAccion" type="button" class="btn btn-primary">Nueva Accion</button>
+          </div>
+
+
+
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 @stop
 
 @section('css')
@@ -588,6 +618,7 @@
 <script src="{{ asset('AdminJs/Ticket.js') }}"></script>
 <script src="{{ asset('AdminJs/Acciones.js') }}"></script>
 <script src="{{ asset('AdminJs/Comentario.js') }}"></script>
+<script src="{{ asset('AdminJs/PanelControlTicket.js') }}"></script>
 
 <script src="{{ asset('DataTables/JSZip-2.5.0/jszip.min.js') }}"></script>
 <script src="{{ asset('DataTables/Buttons-2.3.4/js/dataTables.buttons.min.js') }}"></script>

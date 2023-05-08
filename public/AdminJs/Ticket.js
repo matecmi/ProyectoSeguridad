@@ -96,6 +96,7 @@ function generarContenidoTabla() {
           options += '<td id="tdTabla">' + grupo.situacion + '</td>';
           options += '<td id="tdTabla">' + grupo.tipo_incidencia_nombre + '</td>';
           options += '<td id="tdTabla">' + grupo.sla_nombre + '</td>';
+          options += '<td id="tdTabla"><button style="font-size: 20px;" value="' + idGenerado + '" name="panel" id="' + grupo.id + '" type="button" class="btn usuario btn-sm" data-bs-toggle="modal" data-bs-target="#PanelModal"><i class="fa-solid fa-user" style="color: white;"></i></button></td>'
           options += '<td id="tdTabla"><button style="font-size: 20px;" value="' + idGenerado + '" name="usuario" id="' + grupo.id + '" type="button" class="btn usuario btn-sm" data-bs-toggle="modal" data-bs-target="#tablaUsuarioModal"><i class="fa-solid fa-user" style="color: white;"></i></button></td>'
           options += '<td id="tdTabla"><button style="font-size: 20px;" value="' + idGenerado + '" name="imagen" id="' + grupo.id + '" type="button" class="btn imagen btn-sm" data-bs-toggle="modal" data-bs-target="#archivoImagenModal"><i class="fa-regular fa-images" style="color: white;"></i></button>'
           options += '&nbsp;&nbsp;<button style="font-size: 20px;" value="' + idGenerado + '" name="archivo" id="' + grupo.id + '" type="button" class="btn archivo btn-sm" data-bs-toggle="modal" data-bs-target="#archivoModal"><i class="fa-solid fa-folder-open" style="color: white;"></i></button></td>'
