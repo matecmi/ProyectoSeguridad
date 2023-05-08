@@ -586,7 +586,7 @@
             <input type="text" class="form-control" id="" name="" required>
           </div>
 
-          <div class="col-md-6" >
+          <div class="col-md-7" >
             <div class="card-body table-responsive" style="border: 2px solid black; margin: 10px;">
 
             <h3 style="text-align: center">ACCIONES</h3>
@@ -608,7 +608,7 @@
             </div>
           </div>
 
-          <div class="col-md-6">
+          <div class="col-md-5">
             <div class="card-body table-responsive" style="border: 2px solid black; margin: 10px;">
             <h3 style="text-align: center">COMENTARIOS</h3>
 
