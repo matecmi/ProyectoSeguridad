@@ -203,7 +203,7 @@
 </div>
 
 <!-- Modales para la creación de comentarios. -->
-
+<!-- 
 <div class="modal fade" id="tablaComentarioModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -240,8 +240,8 @@
     </div>
   </div>
 </div>
-
-<div class="modal fade" id="modalComentario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+-->
+<div class="modal fade delante" id="modalComentario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -268,7 +268,7 @@
 
 <!-- Modales para la creación de Acciones. -->
 
-
+<!--
 <div class="modal fade" id="tablaAccionesModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -280,7 +280,6 @@
 
           <div class="col-md-3">
 
-            <button id="btnAccion" type="button" class="btn btn-primary">Nueva Accion</button>
           </div>
 
         <div class="card-body table-responsive">
@@ -307,9 +306,9 @@
     </div>
   </div>
 </div>
+-->
 
-
-<div class="modal fade" id="modalAcciones" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade delante" id="modalAcciones" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -576,11 +575,43 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <div class="row g-3">
 
-          <div class="col-md-3">
 
-            <button id="btnAccion" type="button" class="btn btn-primary">Nueva Accion</button>
+          <div class="col-md-7">
+            <table style="font-size: 13px;"  class="table table-striped table-bordered table-hover" id="tablaAcciones">
+              <label for="">Acciones </label><button id="btnAccion" type="button" class="btn btn-primary btn-sm ">Nuevo</button>
+              <thead>
+                  <tr>
+                      <th>N.ACCIÓN</th>
+                      <th><div style="width: 50;">FECHA</div></th>
+                      <th>DESCRIPCIÓN</th>
+                      <th>MODO</th>
+                      <th>USUARIO</th>
+                      <th>PERSONAL </th>
+                      <th colspan="2">ACCIONES</th>    
+                  </tr>
+              </thead>
+          </table>
           </div>
+
+          <div class="col-md-5">
+            <button id="btnComentario" type="button" class="btn btn-primary btn-sm">Nuevo Comentario</button>
+            <table style="font-size: 13px;" class="table table-striped table-bordered table-hover" id="tablaComentario">
+              <thead>
+                  <tr>
+                      <th>N.COMENTARIO</th>
+                      <th>DESCRIPCIÓN</th>
+                      <th><div style="width: 50;">FECHA</div></th>
+                      <th>USUARIO</th>
+                      <th colspan="2">ACCIONES</th>    
+                  </tr>
+              </thead>
+          </table>
+          </div>
+        </div>
+
+          
 
 
 

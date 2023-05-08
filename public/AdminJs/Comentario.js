@@ -2,30 +2,53 @@
 
 
 $(function () {
-    $('#tablaComentario').DataTable({
-      info: false,
-  
-      language: {
-        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json'
-      },
-      responsive: "true"
-    });
+  DataTablePruebaComentario();
   
   });
+
+  function DataTablePruebaComentario(){
+    var tabla =$('#tablaComentario').DataTable({
+      info: false,
+
+      "pageLength": 4,
+      responsive: "true",
+      lengthChange: false,
+
+
+      language: {
+              url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json'
+          },
+
+      ajax:{
+              url: "/admin/comentario",   
+              data: function ( d ) {
+                d.idTicket = idTicket;
+            } 
+
+      },
+      
+      columns:[
+          
+          {data: 'id'},
+          {data: 'descripcion'},
+          {data: 'fecha'},
+          {data: 'usuario_nombre'},
+          {data: 'action', orderable: false}
+      ]
+  });
+
+    
+  }
 
 
 var idTicket;
 
-$(document).on('click', 'button[name="comentario"]', function () {
+$(document).on('click', 'button[name="panel"]', function () {
   idTicket = $(this).attr('id');
 
-  var idGenerado =$(this).attr('value');
+  $('#tablaComentario').DataTable().ajax.reload();
 
-  var tituloComentario = document.getElementById("tituloComentario");
-  tituloComentario.innerHTML = "Comentarios / Ticket " + idGenerado;
-  $('#colComentario').html(" ");
-
-  listComentario();
+  //listComentario();
 
 });
 
@@ -128,7 +151,7 @@ $('#resgistrarComentario').submit(function (e) {
           })
         }
         $('#modalComentario').modal('hide');
-        listComentario();
+        $('#tablaComentario').DataTable().ajax.reload();
         $('#resgistrarComentario')[0].reset();
 
       }
@@ -162,7 +185,7 @@ $(document).on('click', 'button[name="deleteComentario"]', function () {
           },
           success: function (response) {
             if (response.success) {
-              listComentario();
+              $('#tablaComentario').DataTable().ajax.reload();
               swal({
                 title: "Registro eliminado correctamente",
                 icon: "success"
@@ -181,8 +204,10 @@ $('#modalComentario').on('hide.bs.modal', function (e) {
   $('#resgistrarComentario')[0].reset();
 });
 
+
 $(document).on('click', 'button[name="editComentario"]', function () {
 
+  $('#modalComentario').modal('show');
 
   var id = $(this).attr('id');
 
@@ -199,7 +224,6 @@ $(document).on('click', 'button[name="editComentario"]', function () {
       if (response != null) {
         var descripcion = response.success.descripcion;
 
-        $('#modalComentario').modal('show');
         $('#descripcionC').val(descripcion);
         $('#IDComentario').val(id);
 

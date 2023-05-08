@@ -73,7 +73,7 @@ table.dataTable td {
 }
 
 .modal-lg {
-    max-width: 80%;
+    max-width: 98%;
 }
 
 .modal-usuario {
@@ -88,6 +88,10 @@ table.dataTable td {
 #imagenModal {
     z-index: 2001;
     /* el valor de z-index debe ser mayor que el del otro modal */
+}
+
+.delante{
+    z-index: 2001;
 }
 
 
@@ -258,4 +262,6 @@ table.dataTable td {
     box-shadow: 3px 3px 3px #FF0000;
 }
 
-
+.btn-group, btn-group-vertical{
+    position: absolute !important;
+}

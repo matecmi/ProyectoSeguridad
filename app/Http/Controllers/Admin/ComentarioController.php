@@ -28,8 +28,19 @@ class ComentarioController extends Controller
             ->where('Comentarios.status', '=', 'Y')
             ->where('Comentarios.ticket_id', '=',$ticket)
             ->get();
+            return Datatables::of($comentario)
+            ->addColumn('action', function($comentario){
 
-            return response()->json(['success' => $comentario]);
+                $acciones ='<td id="tdTabla"> <button type="button" name="editComentario"  id="'.$comentario->id.'" class="btn editar btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
+                $acciones .='&nbsp;&nbsp;<button type="button" name="deleteComentario" id="'.$comentario->id.'" class="btn eliminar btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
+
+                return $acciones;
+
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+
+           //return response()->json(['success' => $comentario]);
 
         }
 
@@ -57,7 +68,7 @@ class ComentarioController extends Controller
 
             $comentario = new Comentario();
             $comentario->descripcion = $request->input('descripcion');
-            $comentario->fecha = date('d/m/Y H:i:s', time());
+            $comentario->fecha = date('Y-m-d H:i:s', time());
             $comentario->ticket_id = $request->input('idTicket');
             $comentario->usuario_id = $usuario->id;
             $comentario->save();

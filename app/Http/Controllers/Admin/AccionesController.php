@@ -26,7 +26,18 @@ class AccionesController extends Controller
             ->where('acciones.status', '=', 'Y')
             ->where('acciones.ticket_id', '=',$ticket)
             ->get();
-            return response()->json(['success' => $accion]);
+            return Datatables::of($accion)
+            ->addColumn('action', function($accion){
+
+                $acciones ='<td id="tdTabla"> <button type="button" name="editAccion"  id="'.$accion->id.'" class="btn editar btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
+                $acciones .='&nbsp;&nbsp;<button type="button" name="deleteAccion" id="'.$accion->id.'" class="btn eliminar btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
+
+                return $acciones;
+
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+            //return response()->json(['success' => $accion]);
 
         }
 
@@ -91,8 +102,6 @@ public function accionesEdit(Request $request)
             $accion->fecha = $request->input('fecha');
             $accion->descripcion = $request->input('descripcion');
             $accion->modo = $request->input('modo');
-            $accion->ticket_id = $request->input('ticket_id');
-            $accion->usuario_id = $request->input('usuario_id');
             $accion->personal_id = $request->input('personal_id');
             $accion->save();
         

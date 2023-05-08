@@ -1,16 +1,44 @@
 var idTicket;
 
 $(function () {
-
-    $('#tablaAcciones').DataTable({
-      info: false,
-  
-      language: {
-        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json'
-      },
-      responsive: "true"
-    });  
+  DataTablePruebaAccion();
+    
   });
+  function DataTablePruebaAccion(){
+    var tabla =$('#tablaAcciones').DataTable({
+      info: false,
+
+      "pageLength": 4,
+      responsive: "true",
+      lengthChange: false,
+
+
+      language: {
+              url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json'
+          },
+
+      ajax:{
+              url: "/admin/acciones",   
+              data: function ( d ) {
+                d.idTicket = idTicket;
+            } 
+
+      },
+      
+      columns:[
+          
+          {data: 'id'},
+          {data: 'fecha'},
+          {data: 'descripcion'},
+          {data: 'modo'},
+          {data: 'usuario_nombre'},
+          {data: 'persona_nombre'},  
+          {data: 'action', orderable: false}
+      ]
+  });
+
+    
+  }
 
 
 
@@ -19,23 +47,26 @@ $('#btnAccion').on('click', function () {
     $('#modalAcciones').modal('show');
   });
   
-  $(document).on('click', 'button[name="acciones"]', function () {
+  $(document).on('click', 'button[name="panel"]', function () {
   
     idTicket = $(this).attr('id');
     var idGenerado =$(this).attr('value');
+    $('#tablaAcciones').DataTable().ajax.reload();
 
+
+/*
     var tituloAcciones = document.getElementById("tituloAcciones");
     tituloAcciones.innerHTML = "Acciones / Ticket " + idGenerado;
     $('#colAccion').html(" ");
-  
-    listAcciones();
-  
+  */
+    //listAcciones();
   });
   
   
   
   function listAcciones() {
-  
+    //$('#tablaAcciones').DataTable().destroy();
+
     $.ajax({
       url: "/admin/acciones",
       type: 'GET',
@@ -48,8 +79,10 @@ $('#btnAccion').on('click', function () {
         var btnAccion = document.getElementById("btnAccion");
   
         if (response.success.length > 0) {
+
   
           $.each(response.success, function (index, grupo) {
+
             options += '<tr>';
             options += '<td id="tdTabla">' + grupo.id.toString().padStart(5, '0') + '</td>';
             options += '<td id="tdTabla">' + grupo.fecha + '</td>';
@@ -76,7 +109,9 @@ $('#btnAccion').on('click', function () {
           btnAccion.removeAttribute("disabled");
           options = " ";
         }
+
         $('#colAccion').html(options);
+
       }
     });
   }
@@ -141,7 +176,7 @@ $('#btnAccion').on('click', function () {
       url = "/admin/acciones/update";
   
     }
-  
+  console.log(idTicket);
     $.ajax({
   
       url: url,
@@ -176,7 +211,7 @@ $('#btnAccion').on('click', function () {
             })
           }
           $('#modalAcciones').modal('hide');
-          listAcciones();
+          $('#tablaAcciones').DataTable().ajax.reload();
           $('#resgistrarAcciones')[0].reset();
   
         }
@@ -210,7 +245,7 @@ $('#btnAccion').on('click', function () {
             },
             success: function (response) {
               if (response.success) {
-                listAcciones();
+                $('#tablaAcciones').DataTable().ajax.reload();
                 swal({
                   title: "Registro eliminado correctamente",
                   icon: "success"
@@ -224,14 +259,16 @@ $('#btnAccion').on('click', function () {
   
   });
   
-  
-  $('#exampleModal').on('hide.bs.modal', function (e) {
+
+  $('#modalAcciones').on('hide.bs.modal', function (e) {
     // Restablecer el valor del campo 1
     $('#resgistrarAcciones')[0].reset();
+    
   });
   
   $(document).on('click', 'button[name="editAccion"]', function () {
-  
+    $('#modalAcciones').modal('show');
+
     accionElegirPersona();
   
     var id = $(this).attr('id');
@@ -253,7 +290,6 @@ $('#btnAccion').on('click', function () {
           var personal_id = response.success.personal_id;
   
   
-          $('#modalAcciones').modal('show');
           $('#fechaA').val(fecha);
           $('#descripcionA').val(descripcion);
           $('#modo').val(modo);

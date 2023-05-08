@@ -1,3 +1,5 @@
+
+
 $(document).on('click', 'button[name="panel"]', function () {
   
     idTicket = $(this).attr('id');
@@ -7,3 +9,4 @@ $(document).on('click', 'button[name="panel"]', function () {
     tituloPanel.innerHTML = "Panel de control / Ticket " + idGenerado;
     
   });
+  
