@@ -353,7 +353,7 @@
 
 <!-- Modales para la creación de Estados. -->
 
-<div class="modal fade" id="estadoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade delante" id="estadoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-tablaUsuario">
     <div class="modal-content">
       <div class="modal-header">
@@ -392,7 +392,7 @@
 
 <!-- Modales para la visualizacion de el usuario que reporta. -->
 
-<div class="modal fade" id="tablaUsuarioModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade delante" id="tablaUsuarioModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-tablaUsuario">
     <div class="modal-content">
       <div class="modal-header">
@@ -451,7 +451,7 @@
 </div>
 
 
-<div class="modal fade" id="archivoImagenModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade delante" id="archivoImagenModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" style="max-width: 50%"> 
     <div class="modal-content">
       <div class="modal-header">
@@ -498,7 +498,7 @@
 
 <!-- Modales para la visualizacion y subida de Archivos. -->
 
-<div class="modal fade" id="archivoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade delante" id="archivoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-tablaUsuario">
     <div class="modal-content">
       <div class="modal-header">
@@ -577,38 +577,47 @@
       <div class="modal-body">
         <div class="row g-3">
 
-          <div class="col-md-6">
-            <label for="nombre" class="form-label">NOMBRE</label>
-            <input type="text" class="form-control" id="" name="" required>
+          <div class="col-md-4">
+            <label for="nombre" class="form-label">USUARIO QUE REPORTO</label>
+            <button style="font-size: 20px;"  name="usuario" id="btnUsuario" type="button" class="btn usuario btn-sm" data-bs-toggle="modal" data-bs-target="#tablaUsuarioModal"><i class="fa-solid fa-user" style="color: white;"></i></button>
+
           </div>
-          <div class="col-md-6">
-            <label for="nombre" class="form-label">NOMBRE</label>
-            <input type="text" class="form-control" id="" name="" required>
+          <div class="col-md-4">
+            <label for="nombre" class="form-label">ESTADO DEL TICKET</label>
+            <button style="font-size: 20px;" name="estado" id="btnEstado" type="button" class="btn estado btn-sm" ><i class="fa-solid fa-hourglass-half" style="color: white;"></i></button>
+
+          </div>
+          <div class="col-md-4">
+            <label for="nombre" class="form-label">ARCHIVOS E IMAGENES</label>
+
+           <button style="font-size: 20px;" id="btnVerImagen" type="button" class="btn imagen btn-sm" ><i class="fa-regular fa-images" style="color: white;"></i></button>
+          &nbsp;&nbsp;<button style="font-size: 20px;"  id="btnVerArchivo" type="button" class="btn archivo btn-sm"><i class="fa-solid fa-folder-open" style="color: white;"></i></button>
+    
           </div>
 
-          <div class="col-md-7" >
+          <div class="col-md-12" >
             <div class="card-body table-responsive" style="border: 2px solid black; margin: 10px;">
 
             <h3 style="text-align: center">ACCIONES</h3>
             <button id="btnAccion" type="button" class="btn btn-primary btn-sm ml-2 ">Nuevo</button>
-            <table style="font-size: 13px;"  class="table table-striped table-bordered table-hover" id="tablaAcciones">
+            <table style="font-size: 14px;"  class="table table-striped table-bordered table-hover" id="tablaAcciones">
 
               <thead>
                   <tr>
                       <th>N.º</th>
-                      <th><div style="width: 50;">FECHA</div></th>
+                      <th><div style="width: 62;">FECHA</div></th>
                       <th>DESCRIPCIÓN</th>
                       <th>MODO</th>
                       <th>USUARIO</th>
                       <th>PERSONAL </th>
-                      <th colspan="2">ACCIONES</th>    
+                      <th ><div style="width: 62;">ACCIONES</div></th>    
                   </tr>
               </thead>
           </table>
             </div>
           </div>
 
-          <div class="col-md-5">
+          <div class="col-md-12">
             <div class="card-body table-responsive" style="border: 2px solid black; margin: 10px;">
             <h3 style="text-align: center">COMENTARIOS</h3>
 
@@ -680,16 +689,31 @@ function asset(file) {
 var ticketId;
 
 
-$(document).on('click', 'button[name="imagen"]', function () {
-  $('#contenedorImagenes').html("");
-        $('#botonesIamgen').html("");
-    ticketId = $(this).attr('id');
-    var idGenerado =$(this).attr('value');
-    $('#ticketId').val(ticketId);
 
-    var tituloImagen = document.getElementById("tituloImagen");
+$(document).on('click', 'button[name="panel"]', function () {
+  
+  ticketId = $(this).attr('id');
+  var idGenerado =$(this).attr('value');
+
+  var tituloImagen = document.getElementById("tituloImagen");
     tituloImagen.innerHTML = "Imagenes / Ticket " + idGenerado;
-    listarImagenes();
+
+    var tituloArchivo = document.getElementById("tituloArchivo");
+    tituloArchivo.innerHTML = "Documentos / Ticket " + idGenerado;
+  
+});
+
+
+
+$('#btnVerImagen').on('click', function () {
+
+  $('#archivoImagenModal').modal('show');
+
+  $('#contenedorImagenes').html("");
+  $('#botonesIamgen').html("");
+  $('#ticketId').val(ticketId);
+
+  listarImagenes();
 
   });
 
@@ -843,14 +867,10 @@ $('#eliminarImagen').on('click', function() {
 
 ////////////////////////////////ARCHIVO////////////////////////////////////////
 
-$(document).on('click', 'button[name="archivo"]', function () {
-
-    ticketId = $(this).attr('id');
-    var idGenerado =$(this).attr('value');
+$('#btnVerArchivo').on('click', function () {
+ 
+  $('#archivoModal').modal('show');
     $('#ticketIdDocumento').val(ticketId);
-
-    var tituloArchivo = document.getElementById("tituloArchivo");
-    tituloArchivo.innerHTML = "Documentos / Ticket " + idGenerado;
 
     listDocumentos();
 

@@ -597,11 +597,23 @@ $(document).on('click', '#filtro', function () {
 
 
 ////////////////////ESTADO/////////////////////////
+
+var idTicket;
+
+$(document).on('click', 'button[name="panel"]', function () {
+  
+  idTicket = $(this).attr('id');
+  var idGenerado =$(this).attr('value');
+
+  var tituloEstado = document.getElementById("tituloEstado");
+  tituloEstado.innerHTML = "Estado / Ticket " + idGenerado;
+
+});
+
 var labelReapertura = document.getElementById("labelReapertura");
 var btnReapertura = document.getElementById("btnReapertura");
 
 
-var idTicket;
 var btnStanby = document.getElementById("btnStanby");
 var btnFinalizado = document.getElementById("btnFinalizado");
 var btnProceso = document.getElementById("btnProceso");
@@ -610,24 +622,18 @@ var divStanby = document.getElementById("divStanby");
 var divFinalizado = document.getElementById("divFinalizado");
 var divProceso = document.getElementById("divProceso");
 
-$(document).on('click', 'button[name="estado"]', function () {
+$('#btnEstado').on('click', function () {
+  $('#estadoModal').modal('show');
+
   btnReapertura.style.display="none";
   labelReapertura.style.display="none";
-
-  idTicket = $(this).attr('id');
-  var idGenerado =$(this).attr('value');
-
-  var tituloEstado = document.getElementById("tituloEstado");
-  tituloEstado.innerHTML = "Estado / Ticket " + idGenerado;
-
-  var id = $(this).attr('id');
 
   $.ajax({
 
     url: "/admin/ticket/edit",
     type: 'get',
     data: {
-      id: id,
+      id: idTicket,
       _token: $('meta[name="csrf-token"]').attr('content')
     },
     success: function (response) {
