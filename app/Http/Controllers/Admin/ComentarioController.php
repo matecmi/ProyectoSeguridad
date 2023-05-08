@@ -31,13 +31,19 @@ class ComentarioController extends Controller
             return Datatables::of($comentario)
             ->addColumn('action', function($comentario){
 
-                $acciones ='<td id="tdTabla"> <button type="button" name="editComentario"  id="'.$comentario->id.'" class="btn editar btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
-                $acciones .='&nbsp;&nbsp;<button type="button" name="deleteComentario" id="'.$comentario->id.'" class="btn eliminar btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
+                $acciones ='<td id="tdTabla"> <button type="button" name="editComentario"  id="'.$comentario->id.'" class="btn editar btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button></td>';
 
                 return $acciones;
 
             })
-            ->rawColumns(['action'])
+            ->addColumn('action2', function($comentario){
+
+                $acciones ='<td id="tdTabla"> <button type="button" name="deleteComentario" id="'.$comentario->id.'" class="btn eliminar btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
+
+                return $acciones;
+
+            })
+            ->rawColumns(['action', 'action2'])
             ->make(true);
 
            //return response()->json(['success' => $comentario]);

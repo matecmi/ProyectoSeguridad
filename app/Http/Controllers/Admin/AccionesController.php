@@ -37,8 +37,8 @@ class AccionesController extends Controller
             })
             ->addColumn('archivo', function($accion){
 
-                $archi ='<button style="font-size: 20px;" id="btnVerImagen" type="button" class="btn imagen btn-sm" ><i class="fa-regular fa-images" style="color: white;"></i></button>';
-                $archi .='&nbsp;&nbsp;<button style="font-size: 20px;"  id="btnVerArchivo" type="button" class="btn archivo btn-sm"><i class="fa-solid fa-folder-open" style="color: white;"></i></button></td>';
+                $archi ='<button style="font-size: 20px;" value="'.$accion->id.'" id="btnVerImagen" type="button" class="btn imagen btn-sm" ><i class="fa-regular fa-images" style="color: white;"></i></button>';
+                $archi .='&nbsp;&nbsp;<button style="font-size: 20px;" value="'.$accion->id.'"  id="btnVerArchivo" type="button" class="btn archivo btn-sm"><i class="fa-solid fa-folder-open" style="color: white;"></i></button></td>';
 
                 return $archi;
 

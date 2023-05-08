@@ -33,7 +33,9 @@ $(function () {
           {data: 'descripcion'},
           {data: 'fecha'},
           {data: 'usuario_nombre'},
-          {data: 'action', orderable: false}
+          {data: 'action', orderable: false},
+          {data: 'action2', orderable: false}
+
       ],
       createdRow: function ( row, data, dataIndex ) {
         // Obtener el valor de id y modificarlo
