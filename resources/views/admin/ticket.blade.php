@@ -588,7 +588,7 @@
 
           </div>
           <div class="col-md-4">
-            <label for="nombre" class="form-label">ARCHIVOS E IMAGENES</label>
+            <label for="nombre" class="form-label">ARCHIVOS</label>
 
            <button style="font-size: 20px;" id="btnVerImagen" type="button" class="btn imagen btn-sm" ><i class="fa-regular fa-images" style="color: white;"></i></button>
           &nbsp;&nbsp;<button style="font-size: 20px;"  id="btnVerArchivo" type="button" class="btn archivo btn-sm"><i class="fa-solid fa-folder-open" style="color: white;"></i></button>
@@ -610,7 +610,7 @@
                       <th>MODO</th>
                       <th>USUARIO</th>
                       <th>PERSONAL </th>
-                      <th ><div style="width: 62;">ACCIONES</div></th>    
+                      <th ><div style="width: 100;">ACCIONES</div></th>    
                   </tr>
               </thead>
           </table>
