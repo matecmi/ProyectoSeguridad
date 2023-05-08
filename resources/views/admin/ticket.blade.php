@@ -596,10 +596,11 @@
           </div>
 
           <div class="col-md-12" >
-            <div class="card-body table-responsive" style="border: 2px solid black; margin: 10px;">
-
             <h3 style="text-align: center">ACCIONES</h3>
             <button id="btnAccion" type="button" class="btn btn-primary btn-sm ml-2 ">Nuevo</button>
+            <div style="border: 2px solid black; margin: 10px;">
+
+
             <table style="font-size: 14px;"  class="table table-striped table-bordered table-hover" id="tablaAcciones">
 
               <thead>
@@ -610,7 +611,8 @@
                       <th>MODO</th>
                       <th>USUARIO</th>
                       <th>PERSONAL </th>
-                      <th ><div style="width: 100;">ACCIONES</div></th>    
+                      <th colspan="2">ARCHIVOS</th>
+                      <th colspan="2" ><div style="width: 100;">ACCIONES</div></th>    
                   </tr>
               </thead>
           </table>

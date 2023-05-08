@@ -32,7 +32,8 @@ $(function () {
           {data: 'descripcion'},
           {data: 'modo'},
           {data: 'usuario_nombre'},
-          {data: 'persona_nombre'},  
+          {data: 'persona_nombre'}, 
+          {data: 'action', orderable: false}, 
           {data: 'action', orderable: false}
       ],
       createdRow: function ( row, data, dataIndex ) {
