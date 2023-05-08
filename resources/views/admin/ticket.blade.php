@@ -595,7 +595,7 @@
 
               <thead>
                   <tr>
-                      <th>N.ACCIÓN</th>
+                      <th>N.º</th>
                       <th><div style="width: 50;">FECHA</div></th>
                       <th>DESCRIPCIÓN</th>
                       <th>MODO</th>
@@ -616,7 +616,7 @@
             <table style="font-size: 13px;" class="table table-striped table-bordered table-hover" id="tablaComentario">
               <thead>
                   <tr>
-                      <th>N.COMENTARIO</th>
+                      <th>N.º</th>
                       <th>DESCRIPCIÓN</th>
                       <th><div style="width: 50;">FECHA</div></th>
                       <th>USUARIO</th>
