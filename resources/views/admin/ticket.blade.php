@@ -612,7 +612,6 @@
                       <th>USUARIO</th>
                       <th>PERSONAL </th>
                       <th colspan="2">ARCHIVOS</th>
-                      <th colspan="2" ><div style="width: 100;">ACCIONES</div></th>    
                   </tr>
               </thead>
           </table>

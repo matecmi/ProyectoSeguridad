@@ -33,7 +33,7 @@ $(function () {
           {data: 'modo'},
           {data: 'usuario_nombre'},
           {data: 'persona_nombre'}, 
-          {data: 'action', orderable: false}, 
+          {data: 'archivo', orderable: false}, 
           {data: 'action', orderable: false}
       ],
       createdRow: function ( row, data, dataIndex ) {
