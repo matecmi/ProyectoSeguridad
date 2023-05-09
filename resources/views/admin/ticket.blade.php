@@ -365,13 +365,13 @@
         
 
         <div class="card-header row g-3 d-flex justify-content-center mb-3">
-          <div id="divProceso" class="col-md-3">
+          <div id="divProceso" class="col-md-4">
             <button id="btnProceso" type="button" class="btn btn-primary btn-relieve" disabled>En Proceso</button>
           </div>
-          <div id="divStanby" class="col-md-3">
+          <div id="divStanby" class="col-md-4">
             <button id="btnStanby" type="button" class="btn btn-success btn-relieve-verde" disabled>Stand-By</button>
           </div>
-          <div id="divFinalizado" class="col-md-3">
+          <div id="divFinalizado" class="col-md-4">
             <button id="btnFinalizado" type="button" class="btn btn-danger btn-relieve-rojo" disabled>Finalizado</button>
           </div>
         </div>
