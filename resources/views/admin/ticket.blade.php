@@ -72,7 +72,8 @@
         <table class="table table-striped table-bordered table-hover" id="tabla">
             <thead>
                 <tr>
-                    <th>N.TICKET</th>
+                    <th ></th>
+                    <th><div style="width: 150;">N.TICKET</div></th>
                     <th>F.REGISTRO</th>
                     <th>F.FIN ESTIMADA</th>
                     <th><div style="width: 80;">F. FIN</div></th>
@@ -83,10 +84,9 @@
                     <th>USUARIO</th>
                     <th>MEDIO REPORTE</th>
                     <th>SITUACION</th>
-                    <th>TIPO INCIDENCIA</th>
+                    <th><div style="width: 150;">TIPO INCIDENCIA</div></th>
                     <th><div style="width: 110;">SLA</div></th>
                     <th>USUARIO REPORTE</th>
-                    <th class="no-exportar">PANEL</th>
                     <th class="no-exportar">OPCIONES</th>    
   
                 </tr>

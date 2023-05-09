@@ -88,17 +88,17 @@ $('#btnAccion').on('click', function () {
           tituloPanel.innerHTML = "PANEL DE CONTROL / TICKET " + idGenerado + " / ";
 
           if (situacion =="Standby") {
-            tituloPanel2.style.color = "green";
+            tituloPanel2.style.color = "orange";
             tituloPanel2.innerHTML =situacion.toUpperCase();
 
           }
           if (situacion =="En Proceso") {
-            tituloPanel2.style.color = "blue";
+            tituloPanel2.style.color = "#e0d910";
             tituloPanel2.innerHTML =situacion.toUpperCase();
 
           }
           if (situacion =="Finalizado") {
-            tituloPanel2.style.color = "red";
+            tituloPanel2.style.color = "green";
             tituloPanel2.innerHTML =situacion.toUpperCase();
 
           }
@@ -265,6 +265,7 @@ $('#btnAccion').on('click', function () {
           }
           $('#modalAcciones').modal('hide');
           $('#tablaAcciones').DataTable().ajax.reload();
+          validarTicketVencidos();
    
         }
   
@@ -298,6 +299,7 @@ $('#btnAccion').on('click', function () {
             success: function (response) {
               if (response.success) {
                 $('#tablaAcciones').DataTable().ajax.reload();
+                validarTicketVencidos();
                 swal({
                   title: "Registro eliminado correctamente",
                   icon: "success"

@@ -1,7 +1,7 @@
 
 
 $(function () {
-  generarContenidoTabla();
+  validarTicketVencidos();
 
   filtroListTipoIncidencia();
   filtroListEmpresa();
@@ -49,7 +49,24 @@ var filtroEmpresa = "Todos";
 var filtroDescripcion = " ";
 var filtroPersonal = "Todos";
 
-function generarContenidoTabla() {
+function validarTicketVencidos(){
+
+  $.ajax({
+    url: "/admin/ticket",
+    type: 'GET',
+    success: function (response) {
+      if (response.length>0) {
+        generarContenidoTabla(response);
+
+      }else{
+        generarContenidoTabla2();
+
+      }
+    }
+  });
+}
+
+function generarContenidoTabla(ticketVencido) {
   $('#tabla').DataTable().destroy();
 
   filtroIncidencia = $('#filtroIcidencia').val();
@@ -77,12 +94,34 @@ function generarContenidoTabla() {
 
     success: function (response) {
       var options;
+      var validarTicket=false;
 
       if (response.success.length > 0) {
+
+        const situacionColores = {
+          "Finalizado": "#00ff11",
+          "En Proceso": "#fbff00",
+          "Standby": "#ff8800"
+        };
         $.each(response.success, function (index, grupo) {
+
+          $.each(ticketVencido, function (index, ticket) {
+
+            if (grupo.id == ticket.id) {
+              validarTicket=true;
+            }
+          
+          });
           var idGenerado = grupo.sla_nomenclatura + "-" +grupo.id.toString().padStart(7, '0');
-          options += '<tr>';
-          options += '<td id="tdTabla">' + idGenerado + '</td>';
+          if (validarTicket) {
+            options += '<tr style="background-color:#f24a4a;" >';
+
+          }else {
+            options += '<tr>';
+
+          }
+          options += `<td id="tdTabla"><i class="fa-solid fa-circle" style="color: ${situacionColores[grupo.situacion]}"></i></td>`;
+          options += '<td id="tdTabla"><button value="' + idGenerado + '" name="panel" id="' + grupo.id + '" type="button" class="btn usuario btn-sm" data-bs-toggle="modal" data-bs-target="#PanelModal">' + idGenerado +'</button></td>';
           options += '<td id="tdTabla">' + grupo.fecha_registro + '</td>';
           options += '<td id="tdTabla">' + grupo.fecha_fin_estimado + '</td>';
           options += '<td id="tdTabla">' + (grupo.fecha_fin == null ? "----" : grupo.fecha_fin) + '</td>';
@@ -96,7 +135,6 @@ function generarContenidoTabla() {
           options += '<td id="tdTabla">' + grupo.tipo_incidencia_nombre + '</td>';
           options += '<td id="tdTabla">' + grupo.sla_nombre + '</td>';
           options += '<td id="tdTabla">' + grupo.nombre + '</td>';
-          options += '<td id="tdTabla"><button style="font-size: 20px;" value="' + idGenerado + '" name="panel" id="' + grupo.id + '" type="button" class="btn usuario btn-sm" data-bs-toggle="modal" data-bs-target="#PanelModal"><i class="fa-solid fa-user" style="color: white;"></i></button></td>'
           if (grupo.situacion == "Finalizado") {
             options += '<td style="text-align: center; vertical-align: middle;"> <button disabled style="font-size: 20px;" type="button" name="edit"  id="' + grupo.id + '" class="btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
             options += '&nbsp;&nbsp;<button disabled style="font-size: 20px;" type="button" name="delete" id="' + grupo.id + '" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
@@ -107,7 +145,7 @@ function generarContenidoTabla() {
 
           }
           options += '</tr>';
-
+          validarTicket=false;
         });
       } else {
         options = " ";
@@ -118,8 +156,84 @@ function generarContenidoTabla() {
 
     }
   });
+}
 
-
+  function generarContenidoTabla2() {
+    $('#tabla').DataTable().destroy();
+  
+    filtroIncidencia = $('#filtroIcidencia').val();
+    filtroEstado = $('#filtroEstado').val();
+    filtroEmpresa = $('#filtroEmpresa').val();
+    filtroDescripcion = $('#filtroDescripcion').val();
+    filtroPersonal = $('#filtroPersonal').val();
+    filtroDesde = $('#filtroDesde').val();
+    filtroHasta = $('#filtroHasta').val();
+  
+    $.ajax({
+      url: "/admin/ticket/list",
+      type: 'GET',
+      data: {
+        filtroIncidencia: filtroIncidencia,
+        filtroEstado: filtroEstado,
+        filtroEmpresa: filtroEmpresa,
+        filtroDescripcion: filtroDescripcion,
+        filtroPersonal:filtroPersonal,
+        filtroDesde:filtroDesde,
+        filtroHasta:filtroHasta,
+        _token: $('meta[name="csrf-token"]').attr('content')
+  
+      },
+  
+      success: function (response) {
+        var options;
+  
+        if (response.success.length > 0) {
+  
+          const situacionColores = {
+            "Finalizado": "#00ff11",
+            "En Proceso": "#fbff00",
+            "Standby": "#ff8800"
+          };
+          $.each(response.success, function (index, grupo) {
+  
+            var idGenerado = grupo.sla_nomenclatura + "-" +grupo.id.toString().padStart(7, '0');
+ 
+            options += '<tr>';
+            options += `<td id="tdTabla"><i class="fa-solid fa-circle" style="color: ${situacionColores[grupo.situacion]}"></i></td>`;
+            options += '<td id="tdTabla"><button value="' + idGenerado + '" name="panel" id="' + grupo.id + '" type="button" class="btn usuario btn-sm" data-bs-toggle="modal" data-bs-target="#PanelModal">' + idGenerado +'</button></td>';
+            options += '<td id="tdTabla">' + grupo.fecha_registro + '</td>';
+            options += '<td id="tdTabla">' + grupo.fecha_fin_estimado + '</td>';
+            options += '<td id="tdTabla">' + (grupo.fecha_fin == null ? "----" : grupo.fecha_fin) + '</td>';
+            options += '<td id="tdTabla">' + grupo.descripcion + '</td>';
+            options += '<td id="tdTabla">' + grupo.personal_nombre + '</td>';
+            options += '<td id="tdTabla">' + grupo.empresa_nombre + '</td>';
+            options += '<td id="tdTabla">' + grupo.supervisor_nombre + '</td>';
+            options += '<td id="tdTabla">' + grupo.usuario_nombre + '</td>';
+            options += '<td id="tdTabla">' + grupo.medio_reporte_nombre + '</td>';
+            options += '<td id="tdTabla">' + grupo.situacion + '</td>';
+            options += '<td id="tdTabla">' + grupo.tipo_incidencia_nombre + '</td>';
+            options += '<td id="tdTabla">' + grupo.sla_nombre + '</td>';
+            options += '<td id="tdTabla">' + grupo.nombre + '</td>';
+            if (grupo.situacion == "Finalizado") {
+              options += '<td style="text-align: center; vertical-align: middle;"> <button disabled style="font-size: 20px;" type="button" name="edit"  id="' + grupo.id + '" class="btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
+              options += '&nbsp;&nbsp;<button disabled style="font-size: 20px;" type="button" name="delete" id="' + grupo.id + '" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
+  
+            } else {
+              options += '<td style="text-align: center; vertical-align: middle;"> <button style="font-size: 20px;" type="button" name="edit"  id="' + grupo.id + '" class="btn editar btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square" style="color: white;"></i> </button>';
+              options += '&nbsp;&nbsp;<button style="font-size: 20px;" type="button" name="delete" id="' + grupo.id + '" class="btn eliminar btn-sm"> <i class="fa-solid fa-trash-can" style="color: white;"></i> </button></td>';
+  
+            }
+            options += '</tr>';
+          });
+        } else {
+          options = " ";
+        }
+  
+        $('#colTicket').html(options);
+        DataTableCreacion();
+  
+      }
+    });
 
 }
 
@@ -491,7 +605,7 @@ $('#resgistrarTicket').submit(function (e) {
           })
         }
         $('#exampleModal').modal('hide');
-        generarContenidoTabla();
+        validarTicketVencidos();
         $('#resgistrarTicket')[0].reset();
 
       }
@@ -525,7 +639,7 @@ $(document).on('click', 'button[name="delete"]', function () {
           },
           success: function (response) {
             if (response.success) {
-              generarContenidoTabla();
+              validarTicketVencidos();
               swal({
                 title: "Registro eliminado correctamente",
                 icon: "success"
@@ -549,7 +663,7 @@ $('#exampleModal').on('hide.bs.modal', function (e) {
 $(document).on('click', 'button[name="edit"]', function () {
 
   var id = $(this).attr('id');
-  
+
   elegirSla();
   elegirTipoIncidencia();
   elegirPersona();
@@ -763,7 +877,7 @@ $('#btnStanby').on('click', function () {
               });
               generarContenidoTabla();
 
-              tituloPanel2.style.color = "green";
+              tituloPanel2.style.color = "orange";
               tituloPanel2.innerHTML ="STANDBY";
 
               btnFinalizado.removeAttribute("disabled");
@@ -817,7 +931,7 @@ $('#btnFinalizado').on('click', function () {
 
               btnReapertura.style.display="inline-block";
               labelReapertura.style.display="inline-block";
-              tituloPanel2.style.color = "red";
+              tituloPanel2.style.color = "green";
               tituloPanel2.innerHTML ="FINALIZADO";
               generarContenidoTabla();
 
@@ -919,14 +1033,13 @@ $('#btnFinalizado').on('click', function () {
                   title: "El ticket fue reaperturado correctamente",
                   icon: "success"
                 });
-                tituloPanel2.style.color = "blue";
+                tituloPanel2.style.color = "#e0d910";
                 tituloPanel2.innerHTML ="EN PROCESO";
                 generarContenidoTabla();
   
                 btnFinalizado.removeAttribute("disabled");
                 btnStanby.removeAttribute("disabled");
                 btnProceso.disabled = true;
-  
                 divProceso.style.cursor = "not-allowed";
                 divStanby.style.cursor = "";
                 divFinalizado.style.cursor = "";
