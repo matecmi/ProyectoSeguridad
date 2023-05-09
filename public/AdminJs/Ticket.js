@@ -874,7 +874,8 @@ $('#btnStanby').on('click', function () {
                 title: "El estado fue cambiado correctamente",
                 icon: "success"
               });
-              generarContenidoTabla();
+              validarTicketVencidos();
+
 
               tituloPanel2.style.color = "orange";
               tituloPanel2.innerHTML ="STANDBY";
@@ -932,7 +933,8 @@ $('#btnFinalizado').on('click', function () {
               labelReapertura.style.display="inline-block";
               tituloPanel2.style.color = "green";
               tituloPanel2.innerHTML ="FINALIZADO";
-              generarContenidoTabla();
+              validarTicketVencidos();
+
 
               btnFinalizado.disabled = true;
               btnStanby.disabled = true;
@@ -1034,7 +1036,8 @@ $('#btnFinalizado').on('click', function () {
                 });
                 tituloPanel2.style.color = "#e0d910";
                 tituloPanel2.innerHTML ="EN PROCESO";
-                generarContenidoTabla();
+                validarTicketVencidos();
+
   
                 btnFinalizado.removeAttribute("disabled");
                 btnStanby.removeAttribute("disabled");
