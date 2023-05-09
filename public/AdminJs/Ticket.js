@@ -661,7 +661,7 @@ $('#exampleModal').on('hide.bs.modal', function (e) {
 });
 
 $(document).on('click', 'button[name="edit"]', function () {
-
+  $('#exampleModal').modal('show');
   var id = $(this).attr('id');
 
   elegirSla();
@@ -695,7 +695,6 @@ $(document).on('click', 'button[name="edit"]', function () {
         var medio_reporte_id =response.success.medio_reporte_id;
         var usuario_reporte_id =response.success.usuario_reporte_id;
 
-        $('#exampleModal').modal('show');
 
         
         $('#fecha').val(fecha);
