@@ -13,27 +13,21 @@
 
 <div class="card">
   <div class="card-header row g-1 ">
-    <div class="col-md-3">
+    <div class="col-md-2">
       <button id="registrar" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo Ticket</button>
     </div>
 
-    <div class="col-md-1" >
+    <div class="col-md-2 d-flex align-items-center" >
       <label for="grupo" class="form-label me-2">DESDE</label>
-    </div>
-    <div class="col-md-2" >
-      <label for="grupo" class="form-label me-2">DESDE</label>
-
       <input type="date" id="filtroDesde" class="form-control" style="width: 140px;">
     </div>
-    <div class="col-md-1" >
+    <div class="col-md-2 d-flex align-items-center">
       <label for="grupo" class="form-label me-2">HASTA</label>
-    </div>
-    <div class="col-md-2 ">
       <input type="date" id="filtroHasta" class="form-control" style="width: 140px;">
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3 d-flex align-items-center">
       <label for="grupo" class="form-label me-2">ESTADO</label>
-      <select class="form-select" id="filtroEstado" style="width: 160px;"  required>
+      <select class="form-select" id="filtroEstado" style="width: 100px;"  required>
         <option value="Todos" selected>TODOS</option>
         <option value="Pendiente">PENDIENTE</option>
         <option value="En Proceso">EN PROCESO</option>
