@@ -1,4 +1,9 @@
 var idTicket;
+$('#PanelModal').on('hide.bs.modal', function (e) {
+  idTicket=0;
+  $('#tablaAcciones').DataTable().ajax.reload();
+
+});
 
 $(function () {
   DataTablePruebaAccion();
@@ -33,8 +38,11 @@ $(function () {
           {data: 'modo'},
           {data: 'usuario_nombre'},
           {data: 'persona_nombre'}, 
-          {data: 'archivo', orderable: false}, 
-          {data: 'action', orderable: false}
+          {data: 'action3', orderable: false}, 
+          {data: 'action4', orderable: false},
+          {data: 'action1', orderable: false},
+          {data: 'action2', orderable: false}
+
       ],
       createdRow: function ( row, data, dataIndex ) {
         // Obtener el valor de id y modificarlo
@@ -60,7 +68,6 @@ $('#btnAccion').on('click', function () {
     idTicket = $(this).attr('id');
     var idGenerado =$(this).attr('value');
     $('#tablaAcciones').DataTable().ajax.reload();
-
 
 /*
     var tituloAcciones = document.getElementById("tituloAcciones");
@@ -168,7 +175,6 @@ $('#btnAccion').on('click', function () {
   
     e.preventDefault();
   
-    var fecha = $('#fechaA').val();
     var descripcion = $('#descripcionA').val();
     var modo = $('#modo').val();
     var personal_id = $('#accionListPersona').val();
@@ -190,7 +196,6 @@ $('#btnAccion').on('click', function () {
       url: url,
       type: "POST",
       data: {
-        fecha: fecha,
         descripcion: descripcion,
         modo: modo,
         personal_id: personal_id,
@@ -220,8 +225,7 @@ $('#btnAccion').on('click', function () {
           }
           $('#modalAcciones').modal('hide');
           $('#tablaAcciones').DataTable().ajax.reload();
-          $('#resgistrarAcciones')[0].reset();
-  
+   
         }
   
       }

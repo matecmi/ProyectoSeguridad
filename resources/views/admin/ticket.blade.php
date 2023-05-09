@@ -84,10 +84,6 @@
                     <th><div style="width: 110;">SLA</div></th>
                     <th class="no-exportar">PANEL</th>
                     <th class="no-exportar">USUARIO REPORTE</th>
-                    <th class="no-exportar">ARCHIVOS</th>
-                    <th class="no-exportar">ESTADO</th>
-                    <th class="no-exportar">ACCIONES</th>
-                    <th class="no-exportar">COMENTARIO</th>
                     <th class="no-exportar">OPCIONES</th>    
                     <th style="display: none;">NOMBRE USUARIO REPORTA</th>
                     <th style="display: none;">TELEFONO USUARIO REPORTA</th>    
@@ -318,12 +314,8 @@
       <div class="modal-body">
         <form class="row g-3" id="resgistrarAcciones" action="{{ route('admin.accionesStore') }}">
             @csrf
-            <div class="col-md-6">
-                <input type="text" id="accionID" style="display:none">
-                <label for="Nombre" class="form-label">FECHA</label>
-                <input type="datetime-local" class="form-control" id="fechaA" name="fecha-hora">
-              </div>
               <div class="col-md-6">
+                <input type="text" id="accionID" style="display:none">
                 <label for="Ruta" class="form-label">MODO</label>
                 <select class="form-select" id="modo" required>
                   <option selected disabled value="">Elegir un Modo...</option>         
@@ -332,15 +324,16 @@
                   <option value="Cas">CAS</option>
                 </select>              
               </div>
-              <div class="col-md-12">
-                <label for="Ruta" class="form-label">DESCRIPCIÓN</label>
-                <textarea name="" class="form-control" id="descripcionA" cols="20" rows="5" required></textarea>
-              </div>
               <div class="col-md-6">
                 <label for="grupo" class="form-label">PERSONAL</label>
                 <select class="form-select" id="accionListPersona" required>
                 </select>
               </div>
+              <div class="col-md-12">
+                <label for="Ruta" class="form-label">DESCRIPCIÓN</label>
+                <textarea name="" class="form-control" id="descripcionA" cols="20" rows="5" required></textarea>
+              </div>
+ 
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button class="btn btn-primary" type="submit">Guardar</button>
@@ -590,8 +583,8 @@
           <div class="col-md-4">
             <label for="nombre" class="form-label">ARCHIVOS</label>
 
-           <button style="font-size: 20px;" id="btnVerImagen" type="button" class="btn imagen btn-sm" ><i class="fa-regular fa-images" style="color: white;"></i></button>
-          &nbsp;&nbsp;<button style="font-size: 20px;"  id="btnVerArchivo" type="button" class="btn archivo btn-sm"><i class="fa-solid fa-folder-open" style="color: white;"></i></button>
+           <button style="font-size: 20px;" name="imagen" id="NoFiltrar" type="button" class="btn imagen btn-sm" ><i class="fa-regular fa-images" style="color: white;"></i></button>
+          &nbsp;&nbsp;<button style="font-size: 20px;" name="archivo"  id="NoFiltrar" type="button" class="btn archivo btn-sm"><i class="fa-solid fa-folder-open" style="color: white;"></i></button>
     
           </div>
 
@@ -611,7 +604,7 @@
                       <th>MODO</th>
                       <th>USUARIO</th>
                       <th>PERSONAL </th>
-                      <th colspan="2">OPCIONES</th>
+                      <th colspan="4">OPCIONES</th>
                   </tr>
               </thead>
           </table>
@@ -688,6 +681,7 @@ function asset(file) {
     }
 
 var ticketId;
+var accionId;
 
 
 
@@ -706,16 +700,17 @@ $(document).on('click', 'button[name="panel"]', function () {
 
 
 
-$('#btnVerImagen').on('click', function () {
+$(document).on('click', 'button[name="imagen"]', function () {
+
+  accionId = $(this).attr('id');
 
   $('#archivoImagenModal').modal('show');
-
   $('#contenedorImagenes').html("");
   $('#botonesIamgen').html("");
   $('#ticketId').val(ticketId);
 
   listarImagenes();
-
+  
   });
 
 $('#btnImagen').on('click', function () {
@@ -741,8 +736,22 @@ $('#resgistrarTicketImagen').submit(function (e) {
       contentType: false,
       _token: $('meta[name="csrf-token"]').attr('content'),
       success: function (response) {
+        if (accionId!="NoFiltrar") {
+                    $.ajax({
   
-        if (response.success) {
+      url: "{{ route('admin.ticketImagenAccion') }}",
+      type: "POST",
+      data:{
+        accion_id:accionId,
+        id:response.success,
+        _token: $('meta[name="csrf-token"]').attr('content')
+
+      },      
+      success: function (response) {
+  
+      }
+    });
+        }
             swal({
               title: "Imagen agregada correctamente",
               text: "",
@@ -754,10 +763,16 @@ $('#resgistrarTicketImagen').submit(function (e) {
           $('#resgistrarTicketImagen')[0].reset();
           $('#ticketId').val(ticketId);
 
-        }
+
+
   
       }
     });
+
+
+
+
+
   });
 
 
@@ -766,7 +781,8 @@ $('#resgistrarTicketImagen').submit(function (e) {
     $.ajax({
       url: "{{ route('admin.ticketImagen') }}",
       data:{
-        ticketId:ticketId
+        ticketId:ticketId,
+        accion_id:accionId
       },
       type: 'GET',
       success: function (response) {
@@ -774,7 +790,6 @@ $('#resgistrarTicketImagen').submit(function (e) {
         var botones ='';
         var value =true;
         $.each(response, function (index, grupo) {
-          console.log(grupo.path);
           var ruta =grupo.path;
           if (value) {
             options += '<div class="carousel-item active">'
@@ -868,9 +883,16 @@ $('#eliminarImagen').on('click', function() {
 
 ////////////////////////////////ARCHIVO////////////////////////////////////////
 
-$('#btnVerArchivo').on('click', function () {
- 
-  $('#archivoModal').modal('show');
+$('#archivoModal').on('hide.bs.modal', function (e) {
+  $('#colArchivo').html("");
+
+});
+
+
+$(document).on('click', 'button[name="archivo"]', function () {
+  accionId = $(this).attr('id');
+
+    $('#archivoModal').modal('show');
     $('#ticketIdDocumento').val(ticketId);
 
     listDocumentos();
@@ -882,7 +904,6 @@ $('#btnArchivo').on('click', function () {
  $('#documentoModal').modal('show');
  $('#ticketIdDocumento').val(ticketId);
 
-
 });
 
 
@@ -893,6 +914,7 @@ function listDocumentos() {
     type: 'GET',
     data: {
       ticketId: ticketId,
+      accion_id:accionId
     },
 
     success: function (response) {
@@ -933,8 +955,24 @@ $('#resgistrarTicketDocumento').submit(function (e) {
       contentType: false,
       _token: $('meta[name="csrf-token"]').attr('content'),
       success: function (response) {
+
+
+      if (accionId!="NoFiltrar") {
+      $.ajax({
   
-        if (response.success) {
+      url: "{{ route('admin.ticketDocumentoAccion') }}",
+      type: "POST",
+      data:{
+        accion_id:accionId,
+        id:response.success,
+        _token: $('meta[name="csrf-token"]').attr('content')
+      },      
+      success: function (response) {
+  
+      }
+    });
+        }
+
             swal({
               title: "Documento agregada correctamente",
               text: "",
@@ -946,7 +984,7 @@ $('#resgistrarTicketDocumento').submit(function (e) {
           $('#resgistrarTicketDocumento')[0].reset();
           $('#ticketIdDocumento').val(ticketId);
 
-        }
+        
   
       }
     });

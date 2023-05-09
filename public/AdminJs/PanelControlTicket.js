@@ -9,4 +9,9 @@ $(document).on('click', 'button[name="panel"]', function () {
     tituloPanel.innerHTML = "Panel de control / Ticket " + idGenerado;
     
   });
+
+  $('#PanelModal').on('hide.bs.modal', function (e) {
+
+    
+  });
   

@@ -142,10 +142,12 @@ Route::get('admin/calificacion/listTicket',[CalificacionController::class, 'list
 
 Route::get('admin/ticketimagen/',[TicketIamgenController::class, 'ticketImagen'])->name('admin.ticketImagen');
 Route::post('admin/ticketimagen/create',[TicketIamgenController::class, 'ticketImagenStore'])->name('admin.ticketImagenStore');
+Route::post('admin/ticketimagen/accion',[TicketIamgenController::class, 'ticketImagenAccion'])->name('admin.ticketImagenAccion');
 Route::delete('admin/ticketimagen/delete',[TicketIamgenController::class, 'ticketImagenDestroy'])->name('admin.ticketImagenDestroy');
 
 Route::get('admin/ticketdocumento/',[TicketDocumentoController::class, 'ticketDocumento'])->name('admin.ticketDocumento');
 Route::post('admin/ticketdocumento/create',[TicketDocumentoController::class, 'ticketDocumentoStore'])->name('admin.ticketDocumentoStore');
+Route::post('admin/ticketdocumento/accion',[TicketDocumentoController::class, 'ticketDocumentoAccion'])->name('admin.ticketDocumentoAccion');
 Route::delete('admin/ticketdocumento/delete',[TicketDocumentoController::class, 'ticketDocumentoDestroy'])->name('admin.ticketDocumentoDestroy');
 
 

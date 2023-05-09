@@ -17,10 +17,15 @@ class TicketDocumentoController extends Controller
         if($request ->ajax()){
 
             $ticketId = $request->input("ticketId");
+            $accion_id = $request->input("accion_id");
+
 
             $ticketDocumento = TicketDocumento::select('*')
             ->where('ticket_documentos.status', '=', 'Y')
             ->where('ticket_documentos.ticket_id', '=', $ticketId)
+            ->when($accion_id != 'NoFiltrar' , function ($query) use ($accion_id) {
+                return $query->where('ticket_documentos.accion_id', $accion_id);
+            })
             ->get();
             
             return response()->json($ticketDocumento);
@@ -50,12 +55,26 @@ class TicketDocumentoController extends Controller
             $ticketDocumento->save();
  
 
-            return response()->json(['success' => true]);
+            return response()->json(['success' => $ticketDocumento->id]);
 
         }
         return response()->json(['success' => false]);
 
    
+    }
+
+    public function ticketDocumentoAccion(Request $request){
+
+        if($request->ajax()){
+
+            $id = $request->input('id');
+            $documento = TicketDocumento::find($id);
+            $documento->accion_id = $request->input('accion_id');
+            $documento->save();
+            return response()->json(['success' => true]);
+        }
+   
+        return response()->json(['success' => false]);
     }
 
     public function ticketDocumentoDestroy(Request $request)

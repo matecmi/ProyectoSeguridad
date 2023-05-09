@@ -17,10 +17,14 @@ class TicketIamgenController extends Controller
         if($request ->ajax()){
 
             $ticketId = $request->input("ticketId");
+            $accion_id = $request->input("accion_id");
 
             $ticketImagen = TicketImagen::select('*')
             ->where('ticket_imagens.status', '=', 'Y')
             ->where('ticket_imagens.ticket_id', '=', $ticketId)
+            ->when($accion_id != 'NoFiltrar' , function ($query) use ($accion_id) {
+                return $query->where('ticket_imagens.accion_id', $accion_id);
+            })
             ->get();
             
             return response()->json($ticketImagen);
@@ -45,15 +49,29 @@ class TicketIamgenController extends Controller
             $ticketImagen->nombre = "imagen";
             $ticketImagen->ticket_id = $request->input('ticketId');
             $ticketImagen->path =  $url;
+            
             $ticketImagen->save();
 
 
-            return response()->json(['success' => true]);
+            return response()->json(['success' => $ticketImagen->id]);
 
         }
         return response()->json(['success' => false]);
 
    
+    }
+
+    public function ticketImagenAccion(Request $request){
+        if($request->ajax()){
+
+            $id = $request->input('id');
+            $imagen = TicketImagen::find($id);
+            $imagen->accion_id = $request->input('accion_id');
+            $imagen->save();
+            return response()->json(['success' => true]);
+        }
+   
+        return response()->json(['success' => false]);
     }
 
     public function ticketImagenDestroy(Request $request)

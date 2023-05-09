@@ -27,25 +27,35 @@ class AccionesController extends Controller
             ->where('acciones.ticket_id', '=',$ticket)
             ->get();
             return Datatables::of($accion)
-            ->addColumn('action', function($accion){
+            ->addColumn('action1', function($accion){
 
-                $acciones ='<td id="tdTabla"> <button type="button" name="editAccion"  id="'.$accion->id.'" class="btn editar btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
-                $acciones .='&nbsp;&nbsp;<button type="button" name="deleteAccion" id="'.$accion->id.'" class="btn eliminar btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
+                $acciones ='<td id="tdTabla"> <button type="button" name="editAccion"  id="'.$accion->id.'" class="btn editar btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button></td>';
+                return $acciones;
+
+            })
+            ->addColumn('action2', function($accion){
+
+                $acciones ='<td id="tdTabla"> <button type="button" name="deleteAccion" id="'.$accion->id.'" class="btn eliminar btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
 
                 return $acciones;
 
             })
-            ->addColumn('archivo', function($accion){
+            ->addColumn('action3', function($accion){
 
-                $archi ='<button style="font-size: 20px;" value="'.$accion->id.'" id="btnVerImagen" type="button" class="btn imagen btn-sm" ><i class="fa-regular fa-images" style="color: white;"></i></button>';
-                $archi .='&nbsp;&nbsp;<button style="font-size: 20px;" value="'.$accion->id.'"  id="btnVerArchivo" type="button" class="btn archivo btn-sm"><i class="fa-solid fa-folder-open" style="color: white;"></i></button></td>';
+                $acciones ='<td id="tdTabla"><button style="font-size: 20px;" id="'.$accion->id.'" name="imagen" type="button" class="btn imagen btn-sm" ><i class="fa-regular fa-images" style="color: white;"></i></button></td>';
 
-                return $archi;
+                return $acciones;
 
             })
-            ->rawColumns(['action', 'archivo'])
+            ->addColumn('action4', function($accion){
+
+                $acciones ='<td id="tdTabla"><button style="font-size: 20px;"  name="archivo" id="'.$accion->id.'" type="button" class="btn archivo btn-sm"><i class="fa-solid fa-folder-open" style="color: white;"></i></button></td>';
+
+                return $acciones;
+
+            })
+            ->rawColumns(['action1', 'action2','action3','action4'])
             ->make(true);
-            //return response()->json(['success' => $accion]);
 
         }
 
@@ -70,9 +80,10 @@ class AccionesController extends Controller
 
 
         if($request->ajax()){
+            date_default_timezone_set('America/Lima');
 
             $accion = new Accione();
-            $accion->fecha = $request->input('fecha');
+            $accion->fecha = date('Y-m-d H:i:s', time());
             $accion->descripcion = $request->input('descripcion');
             $accion->modo = $request->input('modo');
             $accion->ticket_id = $request->input('idTicket');

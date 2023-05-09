@@ -51,6 +51,11 @@ $(function () {
 
 
 var idTicket;
+$('#PanelModal').on('hide.bs.modal', function (e) {
+  idTicket=0;
+  $('#tablaComentario').DataTable().ajax.reload();
+
+});
 
 $(document).on('click', 'button[name="panel"]', function () {
   idTicket = $(this).attr('id');
@@ -212,6 +217,9 @@ $(document).on('click', 'button[name="deleteComentario"]', function () {
 $('#modalComentario').on('hide.bs.modal', function (e) {
   $('#resgistrarComentario')[0].reset();
 });
+
+
+
 
 
 $(document).on('click', 'button[name="editComentario"]', function () {

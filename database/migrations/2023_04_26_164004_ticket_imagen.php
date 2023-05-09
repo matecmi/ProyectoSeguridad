@@ -12,6 +12,7 @@ class TicketImagen extends Migration
             $table->id();
             $table->string('nombre')->nulable(false);
             $table->string('path')->nulable(false);
+            $table->string('accion_id')->nullable();
             $table->unsignedBigInteger('ticket_id');
             $table->foreign('ticket_id')
                   ->references('id')
