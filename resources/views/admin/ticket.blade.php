@@ -21,11 +21,11 @@
     </div>
     <div class="col-md-2" >
       <label for="grupo" class="form-label me-2">DESDE</label>
-      <input type="date" id="filtroDesde" class="form-control" style="width: 140px;">
+      <input type="date" id="filtroDesde" class="form-control" style="width: 100px;">
     </div>
     <div class="col-md-2 ">
       <label for="grupo" class="form-label me-2">HASTA</label>
-      <input type="date" id="filtroHasta" class="form-control" style="width: 140px;">
+      <input type="date" id="filtroHasta" class="form-control" style="width: 100px;">
     </div>
     <div class="col-md-2">
       <label for="grupo" class="form-label me-2">ESTADO</label>
