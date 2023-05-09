@@ -35,12 +35,12 @@
         <option value="Finalizado">FINALIZADO</option>
       </select>
     </div>
-    <div class="col-md-2">
-      <label for="grupo" class="form-label me-2">EMPRESA</label>
-      <select class="form-select" id="filtroEmpresa" style="width: 140px;" required>
-      </select>
+    <div class="col-md-3">
     </div>
     <div class="col-md-3 d-flex align-items-center">
+      <label for="grupo" class="form-label me-2">EMPRESA</label>
+      <select class="form-select" id="filtroEmpresa" required>
+      </select>
     </div>
     <div class="col-md-3 d-flex align-items-center">
       <label for="grupo" class="form-label me-2">T.INCIDENCIA</label>
@@ -52,7 +52,9 @@
       <label for="grupo" class="form-label me-2">DESCRIPCIÓN</label>
       <input type="text" class="form-control" id="filtroDescripcion" required>
     </div>
-        <div class="col-md-3 d-flex align-items-center">
+    <div class="col-md-9">
+    </div>
+      <div class="col-md-3 d-flex align-items-center mb-3">
       <label for="grupo" class="form-label me-2">PERSONAL</label>
       <select class="form-select" id="filtroPersonal" required>
       </select>
