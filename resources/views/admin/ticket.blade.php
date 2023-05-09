@@ -12,12 +12,11 @@
 @section('content')
 
 <div class="card">
-  <div class="card-header row g-3 ">
+  <div class="card-header row g-1 ">
     <div class="col-md-2">
       <button id="registrar" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo Ticket</button>
     </div>
     <div class="col-md-2">
-      <button id="registrar" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo Ticket</button>
     </div>
     <div class="col-md-1" >
       <label for="grupo" class="form-label me-2">DESDE</label>
