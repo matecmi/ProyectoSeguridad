@@ -381,10 +381,10 @@ function elegirEmpresa() {
       $.each(response, function (index, grupo) {
         options += '<option value="' + grupo.id + '">' + grupo.nombres + '</option>';
       });
-      $('#listSupervisor').html(options);
+      $('#listEmpresa').html(options);
     }
   });
-
+  
 }
 
 function elegirSupervisor() {
@@ -397,7 +397,7 @@ function elegirSupervisor() {
       $.each(response, function (index, grupo) {
         options += '<option value="' + grupo.id + '">' + grupo.nombres + '</option>';
       });
-      $('#listEmpresa').html(options);
+      $('#listSupervisor').html(options);
     }
   });
 
@@ -549,6 +549,14 @@ $('#exampleModal').on('hide.bs.modal', function (e) {
 $(document).on('click', 'button[name="edit"]', function () {
 
   var id = $(this).attr('id');
+  
+  elegirSla();
+  elegirTipoIncidencia();
+  elegirPersona();
+  elegirSupervisor();
+  elegirEmpresa();
+  elegirMedioReporte();
+  elegirUsuarioReporte();
 
   $.ajax({
 
@@ -561,11 +569,13 @@ $(document).on('click', 'button[name="edit"]', function () {
     success: function (response) {
 
       if (response != null) {
+
+        console.log(response);
         var fecha = response.success.fecha_registro;
-        var descripcion_edit = response.success.descripcion;
-        var tipoincidencia_id_edit = response.success.tipoincidencia_id;
-        var sla_id_edit = response.success.sla_id;
-        var personal_id_edit = response.success.personal_id;
+        var descripcion = response.success.descripcion;
+        var tipoincidencia_id = response.success.tipoincidencia_id;
+        var sla_id = response.success.sla_id;
+        var personal_id = response.success.personal_id;
         var empresa_id = response.success.empresa_id;
         var supervisor_id = response.success.supervisor_id;
         var medio_reporte_id =response.success.medio_reporte_id;
@@ -576,23 +586,17 @@ $(document).on('click', 'button[name="edit"]', function () {
         
         $('#fecha').val(fecha);
         $('#listMedioReporte').val(medio_reporte_id);
-        $('#descripcion').val(descripcion_edit);
-        $('#listTIncidencia').val(tipoincidencia_id_edit);
-        $('#listSla').val(sla_id_edit);
-        $('#listPersona').val(personal_id_edit);
-        $('#listEmpresa').val(supervisor_id);
-        $('#listSupervisor').val(empresa_id);
+        $('#descripcion').val(descripcion);
+        $('#listTIncidencia').val(tipoincidencia_id);
+        $('#listSla').val(sla_id);
+        $('#listPersona').val(personal_id);
+        $('#listEmpresa').val(empresa_id);
+        $('#listSupervisor').val(supervisor_id);
         $('#listUsuarioReporte').val(usuario_reporte_id);
 
         $('#ID').val(id);
 
-        elegirSla();
-        elegirTipoIncidencia();
-        elegirPersona();
-        elegirSupervisor();
-        elegirEmpresa();
-        elegirMedioReporte();
-        elegirUsuarioReporte();
+
 
       }
 
