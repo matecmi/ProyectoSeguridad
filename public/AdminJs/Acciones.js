@@ -64,17 +64,57 @@ $('#btnAccion').on('click', function () {
   });
   
   $(document).on('click', 'button[name="panel"]', function () {
+    var tituloPanel = document.getElementById("TituloPanel");
+    var tituloPanel2 = document.getElementById("TituloPanel2");
+    tituloPanel.innerHTML ="";
+    tituloPanel2.innerHTML ="";
+    var id = $(this).attr('id');
+    var idGenerado =$(this).attr('value');
+
+    $.ajax({
   
+      url: "/admin/ticket/edit",
+      type: 'get',
+      data: {
+        id: id,
+        _token: $('meta[name="csrf-token"]').attr('content')
+      },
+      success: function (response) {
+  
+        if (response != null) {
+  
+          var situacion = response.success.situacion;
+
+          tituloPanel.innerHTML = "PANEL DE CONTROL / TICKET " + idGenerado + " / ";
+
+          if (situacion =="Standby") {
+            tituloPanel2.style.color = "green";
+            tituloPanel2.innerHTML =situacion.toUpperCase();
+
+          }
+          if (situacion =="En Proceso") {
+            tituloPanel2.style.color = "blue";
+            tituloPanel2.innerHTML =situacion.toUpperCase();
+
+          }
+          if (situacion =="Finalizado") {
+            tituloPanel2.style.color = "red";
+            tituloPanel2.innerHTML =situacion.toUpperCase();
+
+          }
+
+        }
+  
+      }
+    });
+  
+    
     idTicket = $(this).attr('id');
     var idGenerado =$(this).attr('value');
     $('#tablaAcciones').DataTable().ajax.reload();
 
-/*
-    var tituloAcciones = document.getElementById("tituloAcciones");
-    tituloAcciones.innerHTML = "Acciones / Ticket " + idGenerado;
-    $('#colAccion').html(" ");
-  */
-    //listAcciones();
+    
+
   });
   
   

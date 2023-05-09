@@ -602,6 +602,7 @@ $(document).on('click', 'button[name="panel"]', function () {
   tituloEstado.innerHTML = "Estado / Ticket " + idGenerado;
 
 });
+var tituloPanel2 = document.getElementById("TituloPanel2");
 
 var labelReapertura = document.getElementById("labelReapertura");
 var btnReapertura = document.getElementById("btnReapertura");
@@ -735,6 +736,9 @@ $('#btnStanby').on('click', function () {
               });
               generarContenidoTabla();
 
+              tituloPanel2.style.color = "green";
+              tituloPanel2.innerHTML ="STANDBY";
+
               btnFinalizado.removeAttribute("disabled");
               btnProceso.disabled = true;
               btnStanby.disabled = true;
@@ -786,6 +790,8 @@ $('#btnFinalizado').on('click', function () {
 
               btnReapertura.style.display="inline-block";
               labelReapertura.style.display="inline-block";
+              tituloPanel2.style.color = "red";
+              tituloPanel2.innerHTML ="FINALIZADO";
               generarContenidoTabla();
 
               btnFinalizado.disabled = true;
@@ -889,6 +895,8 @@ var idTicket;
                   title: "El ticket fue reaperturado correctamente",
                   icon: "success"
                 });
+                tituloPanel2.style.color = "blue";
+                tituloPanel2.innerHTML ="EN PROCESO";
                 generarContenidoTabla();
   
                 btnFinalizado.removeAttribute("disabled");
