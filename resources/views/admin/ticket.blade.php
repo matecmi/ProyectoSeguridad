@@ -27,7 +27,7 @@
       <label for="grupo" class="form-label me-2">HASTA</label>
       <input type="date" id="filtroHasta" class="form-control" style="width: 140px;">
     </div>
-    <div class="col-md-2 d-flex align-items-center" style="margin-right: 30px;">
+    <div class="col-md-2">
       <label for="grupo" class="form-label me-2">ESTADO</label>
       <select class="form-select" id="filtroEstado" style="width: 160px;"  required>
         <option value="Todos" selected>TODOS</option>
@@ -37,7 +37,7 @@
         <option value="Finalizado">FINALIZADO</option>
       </select>
     </div>
-    <div class="col-md-2 d-flex align-items-center">
+    <div class="col-md-2">
       <label for="grupo" class="form-label me-2">EMPRESA</label>
       <select class="form-select" id="filtroEmpresa" style="width: 140px;" required>
       </select>
