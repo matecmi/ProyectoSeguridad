@@ -21,6 +21,8 @@
       <label for="grupo" class="form-label me-2">DESDE</label>
     </div>
     <div class="col-md-2" >
+      <label for="grupo" class="form-label me-2">DESDE</label>
+
       <input type="date" id="filtroDesde" class="form-control" style="width: 140px;">
     </div>
     <div class="col-md-1" >
