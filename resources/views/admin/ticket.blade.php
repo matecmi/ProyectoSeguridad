@@ -19,15 +19,15 @@
 
     <div class="col-md-3 d-flex align-items-center" >
       <label for="grupo" class="form-label me-2">DESDE</label>
-      <input type="date" id="filtroDesde" class="form-control" style="width: 140px;">
+      <input type="date" id="filtroDesde" class="form-control" >
     </div>
     <div class="col-md-3 d-flex align-items-center">
       <label for="grupo" class="form-label me-2">HASTA</label>
-      <input type="date" id="filtroHasta" class="form-control" style="width: 140px;">
+      <input type="date" id="filtroHasta" class="form-control" >
     </div>
     <div class="col-md-3 d-flex align-items-center">
       <label for="grupo" class="form-label me-2">ESTADO</label>
-      <select class="form-select" id="filtroEstado" style="width: 100px;"  required>
+      <select class="form-select" id="filtroEstado"   required>
         <option value="Todos" selected>TODOS</option>
         <option value="Pendiente">PENDIENTE</option>
         <option value="En Proceso">EN PROCESO</option>
