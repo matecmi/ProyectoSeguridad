@@ -19,11 +19,11 @@
     <div class="col-md-2">
       <button id="registrar" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo Ticket</button>
     </div>
-    <div class="col-md-3" >
+    <div class="col-md-2" >
       <label for="grupo" class="form-label me-2">DESDE</label>
       <input type="date" id="filtroDesde" class="form-control" style="width: 140px;">
     </div>
-    <div class="col-md-3 ">
+    <div class="col-md-2 ">
       <label for="grupo" class="form-label me-2">HASTA</label>
       <input type="date" id="filtroHasta" class="form-control" style="width: 140px;">
     </div>
