@@ -13,14 +13,17 @@
 
 <div class="card">
   <div class="card-header row g-3 ">
-    <div class="col-md-3">
+    <div class="col-md-2">
       <button id="registrar" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo Ticket</button>
     </div>
-    <div class="col-md-2 d-flex align-items-center" style="margin-right: 20px;">
+    <div class="col-md-2">
+      <button id="registrar" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo Ticket</button>
+    </div>
+    <div class="col-md-3" >
       <label for="grupo" class="form-label me-2">DESDE</label>
       <input type="date" id="filtroDesde" class="form-control" style="width: 140px;">
     </div>
-    <div class="col-md-2 d-flex align-items-center" style="margin-right: 20px;">
+    <div class="col-md-3 ">
       <label for="grupo" class="form-label me-2">HASTA</label>
       <input type="date" id="filtroHasta" class="form-control" style="width: 140px;">
     </div>
