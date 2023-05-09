@@ -23,21 +23,7 @@ use App\Http\Controllers\Admin\TicketDocumentoController;
 use App\Http\Controllers\Admin\ComentarioController;
 use App\Http\Controllers\Admin\AccionesController;
 use App\Http\Controllers\Admin\MedioReporteController;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+use App\Http\Controllers\Admin\UsuarioReporteController;
 
 
 
@@ -131,6 +117,7 @@ Route::get('admin/ticket/listPersona',[TicketController::class, 'ListPersona'])-
 Route::get('admin/ticket/listEmpresa',[TicketController::class, 'listEmpresa'])->name('admin.listEmpresa');
 Route::get('admin/ticket/listSupervisor',[TicketController::class, 'listSupervisor'])->name('admin.listSupervisor');
 Route::get('admin/ticket/listMedioReporte',[TicketController::class, 'listMedioReporte'])->name('admin.listMedioReporte');
+Route::get('admin/ticket/usuarioreporte',[TicketController::class, 'ticketUsuarioReporte'])->name('admin.ticketUsuarioReporte');
 
 
 Route::get('admin/calificacion/',[CalificacionController::class, 'calificacion'])->name('admin.calificacion');
@@ -168,3 +155,10 @@ Route::post('admin/medioreporte/create',[MedioReporteController::class, 'medioRe
 Route::delete('admin/medioreporte/delete',[MedioReporteController::class, 'medioReporteDestroy'])->name('admin.medioReporteDestroy');
 Route::get('admin/medioreporte/edit',[MedioReporteController::class, 'medioReporteEdit'])->name('admin.medioReporteEdit');
 Route::post('admin/medioreporte/update',[MedioReporteController::class, 'medioReporteUpdate'])->name('admin.medioReporteUpdate');
+
+Route::get('admin/usuarioreporte',[UsuarioReporteController::class, 'usuarioReporte'])->name('admin.usuarioReporte');
+Route::post('admin/usuarioreporte/create',[UsuarioReporteController::class, 'usuarioReporteStore'])->name('admin.usuarioReporteStore');
+Route::delete('admin/usuarioreporte/delete',[UsuarioReporteController::class, 'usuarioReporteDestroy'])->name('admin.usuarioReporteDestroy');
+Route::get('admin/usuarioreporte/edit',[UsuarioReporteController::class, 'usuarioReporteEdit'])->name('admin.usuarioReporteEdit');
+Route::post('admin/usuarioreporte/update',[UsuarioReporteController::class, 'usuarioReporteUpdate'])->name('admin.usuarioReporteUpdate');
+Route::get('admin/usuarioreporte/list',[UsuarioReporteController::class, 'usuarioReporteList'])->name('admin.usuarioReporteList');

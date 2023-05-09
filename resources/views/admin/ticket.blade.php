@@ -85,12 +85,9 @@
                     <th>SITUACION</th>
                     <th>TIPO INCIDENCIA</th>
                     <th><div style="width: 110;">SLA</div></th>
+                    <th>USUARIO REPORTE</th>
                     <th class="no-exportar">PANEL</th>
-                    <th class="no-exportar">USUARIO REPORTE</th>
                     <th class="no-exportar">OPCIONES</th>    
-                    <th style="display: none;">NOMBRE USUARIO REPORTA</th>
-                    <th style="display: none;">TELEFONO USUARIO REPORTA</th>    
-                    <th style="display: none;">EMAIL USUARIO REPORTA</th>    
   
                 </tr>
             </thead>
@@ -160,7 +157,13 @@
               </div>
               <div class="col-md-6" style="text-align: center">
                 <label for="grupo" class="form-label" >USUARIO QUIEN REPORTA</label>
-                <button id="btnUsuario" type="button"  class="btn btn-primary">REGISTRAR<i class="fa-solid fa-user ml-2"></i></button>
+                <div class="d-flex align-items-center">
+                  <select class="form-select me-2" id="listUsuarioReporte" required>
+                  </select>
+                  <button id="btnUsuario" type="button" class="btn btn-primary">
+                    <i class="fa-solid fa-user"></i>
+                  </button>
+                </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -577,7 +580,7 @@
 
           <div class="col-md-4">
             <label for="nombre" class="form-label">USUARIO QUE REPORTO</label>
-            <button style="font-size: 20px;"  name="usuario" id="btnUsuario" type="button" class="btn usuario btn-sm" data-bs-toggle="modal" data-bs-target="#tablaUsuarioModal"><i class="fa-solid fa-user" style="color: white;"></i></button>
+            <button style="font-size: 20px;"  name="usuarioReporta" id="btnUsuario" type="button" class="btn usuario btn-sm" ><i class="fa-solid fa-user" style="color: white;"></i></button>
 
           </div>
           <div class="col-md-4">

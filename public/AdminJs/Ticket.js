@@ -95,8 +95,8 @@ function generarContenidoTabla() {
           options += '<td id="tdTabla">' + grupo.situacion + '</td>';
           options += '<td id="tdTabla">' + grupo.tipo_incidencia_nombre + '</td>';
           options += '<td id="tdTabla">' + grupo.sla_nombre + '</td>';
+          options += '<td id="tdTabla">' + grupo.nombre + '</td>';
           options += '<td id="tdTabla"><button style="font-size: 20px;" value="' + idGenerado + '" name="panel" id="' + grupo.id + '" type="button" class="btn usuario btn-sm" data-bs-toggle="modal" data-bs-target="#PanelModal"><i class="fa-solid fa-user" style="color: white;"></i></button></td>'
-          options += '<td id="tdTabla"><button style="font-size: 20px;" value="' + idGenerado + '" name="usuario" id="' + grupo.id + '" type="button" class="btn usuario btn-sm" data-bs-toggle="modal" data-bs-target="#tablaUsuarioModal"><i class="fa-solid fa-user" style="color: white;"></i></button></td>'
           if (grupo.situacion == "Finalizado") {
             options += '<td style="text-align: center; vertical-align: middle;"> <button disabled style="font-size: 20px;" type="button" name="edit"  id="' + grupo.id + '" class="btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
             options += '&nbsp;&nbsp;<button disabled style="font-size: 20px;" type="button" name="delete" id="' + grupo.id + '" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
@@ -106,11 +106,6 @@ function generarContenidoTabla() {
             options += '&nbsp;&nbsp;<button style="font-size: 20px;" type="button" name="delete" id="' + grupo.id + '" class="btn eliminar btn-sm"> <i class="fa-solid fa-trash-can" style="color: white;"></i> </button></td>';
 
           }
-
-          options += '<td style="display: none;">' + grupo.usuario_reporte_nombre + '</td>';
-          options += '<td style="display: none;">' + grupo.usuario_reporte_telefono + '</td>';
-          options += '<td style="display: none;">' + grupo.usuario_reporte_email + '</td>';
-
           options += '</tr>';
 
         });
@@ -193,6 +188,22 @@ function listarTipoIncidencia() {
         options += '<option value="' + grupo.id + '">' + grupo.nombre + '</option>';
       });
       $('#listTIncidencia').html(options);
+    }
+  });
+
+}
+
+function listarSelectUsuarioReporte() {
+  $.ajax({
+    url: "/admin/usuarioreporte/list",
+    type: 'GET',
+    success: function (response) {
+      var options = '';
+      options += '<option selected disabled value="">Elegir un U.Reporte ...</option>'
+      $.each(response, function (index, grupo) {
+        options += '<option value="' + grupo.id + '">' + grupo.nombre + '</option>';
+      });
+      $('#listUsuarioReporte').html(options);
     }
   });
 
@@ -296,6 +307,22 @@ function elegirTipoIncidencia() {
 
 }
 
+function elegirUsuarioReporte() {
+
+  $.ajax({
+    url: "/admin/usuarioreporte/list",
+    type: 'GET',
+    success: function (response) {
+      var options = '';
+      $.each(response, function (index, grupo) {
+        options += '<option value="' + grupo.id + '">' + grupo.nombre + '</option>';
+      });
+      $('#listUsuarioReporte').html(options);
+    }
+  });
+
+}
+
 function elegirMedioReporte() {
 
   $.ajax({
@@ -384,6 +411,8 @@ $(document).on('click', '#registrar', function () {
   $('#listSla').html("");
   $('#listMedioReporte').html("");
   $('#listTIncidencia').html("");
+  $('#listUsuarioReporte').html("");
+
 
   listarTipoIncidencia();
   listarSla();
@@ -391,6 +420,7 @@ $(document).on('click', '#registrar', function () {
   listarEmpresa();
   listarSupervisor();
   listarMedioReporte();
+  listarSelectUsuarioReporte();
 });
 
 
@@ -406,12 +436,10 @@ $('#resgistrarTicket').submit(function (e) {
   var supervisor_id = $('#listSupervisor').val();
   var empresa_id = $('#listEmpresa').val();
   var medio_reporte_id	 = $('#listMedioReporte').val();
+  var usuario_reporte_id 	 = $('#listUsuarioReporte').val();
   var id = $('#ID').val();
   var _token = $("input[name=_token]").val();
   var fecha = $('#fecha').val();
-  var nombre = $('#nombre').val();
-  var email = $('#email').val();
-  var telefono = $('#telefono').val();
 
 
   var url;
@@ -430,9 +458,6 @@ $('#resgistrarTicket').submit(function (e) {
     url: url,
     type: "POST",
     data: {
-      nombre:nombre,
-      email:email,
-      telefono:telefono,
       fecha:fecha,
       descripcion: descripcion,
       tipoincidencia_id:tipoincidencia_id,
@@ -441,6 +466,7 @@ $('#resgistrarTicket').submit(function (e) {
       supervisor_id: supervisor_id,
       empresa_id: empresa_id,
       medio_reporte_id:medio_reporte_id,
+      usuario_reporte_id:usuario_reporte_id,
       id: id,
       _token: _token
 
@@ -522,8 +548,6 @@ $('#exampleModal').on('hide.bs.modal', function (e) {
 
 $(document).on('click', 'button[name="edit"]', function () {
 
-
-
   var id = $(this).attr('id');
 
   $.ajax({
@@ -545,10 +569,7 @@ $(document).on('click', 'button[name="edit"]', function () {
         var empresa_id = response.success.empresa_id;
         var supervisor_id = response.success.supervisor_id;
         var medio_reporte_id =response.success.medio_reporte_id;
-        var nombre =response.success.usuario_reporte_nombre;
-        var telefono =response.success.usuario_reporte_telefono;
-        var email =response.success.usuario_reporte_email;
-
+        var usuario_reporte_id =response.success.usuario_reporte_id;
 
         $('#exampleModal').modal('show');
 
@@ -561,9 +582,7 @@ $(document).on('click', 'button[name="edit"]', function () {
         $('#listPersona').val(personal_id_edit);
         $('#listEmpresa').val(supervisor_id);
         $('#listSupervisor').val(empresa_id);
-        $('#nombre').val(nombre);
-        $('#email').val(email);
-        $('#telefono').val(telefono);
+        $('#listUsuarioReporte').val(usuario_reporte_id);
 
         $('#ID').val(id);
 
@@ -573,6 +592,7 @@ $(document).on('click', 'button[name="edit"]', function () {
         elegirSupervisor();
         elegirEmpresa();
         elegirMedioReporte();
+        elegirUsuarioReporte();
 
       }
 
@@ -600,6 +620,9 @@ $(document).on('click', 'button[name="panel"]', function () {
 
   var tituloEstado = document.getElementById("tituloEstado");
   tituloEstado.innerHTML = "Estado / Ticket " + idGenerado;
+
+  var tituloUsusario = document.getElementById("tituloUsusario");
+    tituloUsusario.innerHTML = "Ususario-Reporte / Ticket " + idGenerado;
 
 });
 var tituloPanel2 = document.getElementById("TituloPanel2");
@@ -815,15 +838,11 @@ $('#btnFinalizado').on('click', function () {
 
 //////////////////USUARIO QUE REPORTA /////////////////////////
 
-var idTicket;
 
-  $(document).on('click', 'button[name="usuario"]', function () {
-  
-    idTicket = $(this).attr('id');
-    var idGenerado =$(this).attr('value');
+  $(document).on('click', 'button[name="usuarioReporta"]', function () {
+    
+    $('#tablaUsuarioModal').modal('show');
 
-    var tituloUsusario = document.getElementById("tituloUsusario");
-    tituloUsusario.innerHTML = "Ususario-Reporte / Ticket " + idGenerado;
     $('#colUsuario').html(" ");
   
     listUsuarioReporte();
@@ -835,7 +854,7 @@ var idTicket;
   function listUsuarioReporte() {
   
     $.ajax({
-      url: "/admin/ticket/edit",
+      url: "/admin/ticket/usuarioreporte",
       type: 'GET',
       data: {
         id: idTicket,
@@ -843,17 +862,18 @@ var idTicket;
   
       success: function (response) {
 
+        console.log(response);
         var options;
 
             options += '<tr>';
-            options += '<td id="tdTabla">' + response.success.usuario_reporte_nombre + '</td>';
-            options += '<td id="tdTabla">' + response.success.usuario_reporte_telefono + '</td>';
-            options += '<td id="tdTabla">' + response.success.usuario_reporte_email + '</td>';
+            options += '<td id="tdTabla">' + response.nombre + '</td>';
+            options += '<td id="tdTabla">' + response.telefono + '</td>';
+            options += '<td id="tdTabla">' + response.email + '</td>';
             options += '</tr>';
           
         $('#colUsuario').html(options);
 
-        if (response.success.usuario_reporte_nombre ==null && response.success.usuario_reporte_telefono ==null && response.success.usuario_reporte_email ==null) {
+        if (response.nombre ==null && response.telefono ==null && response.email ==null) {
           $('#colUsuario').html(" ");
         }
       }

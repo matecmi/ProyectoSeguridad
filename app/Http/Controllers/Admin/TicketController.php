@@ -44,7 +44,7 @@ class TicketController extends Controller
             'medio_reportes.nombre as medio_reporte_nombre',
             'persona1.nombres as personal_nombre',
             'persona2.nombres as empresa_nombre', 
-            'persona3.nombres as supervisor_nombre')
+            'persona3.nombres as supervisor_nombre','usuario_reportes.nombre as nombre')
             ->join('usuarios', 'tickets.usuario_id', '=', 'usuarios.id')
             ->join('medio_reportes', 'tickets.medio_reporte_id', '=', 'medio_reportes.id')
             ->join('tipo_incidencias', 'tickets.tipoincidencia_id', '=', 'tipo_incidencias.id')
@@ -52,6 +52,7 @@ class TicketController extends Controller
             ->join('personas as persona1', 'tickets.personal_id', '=', 'persona1.id')
             ->join('personas as persona2', 'tickets.empresa_id', '=', 'persona2.id')
             ->join('personas as persona3', 'tickets.supervisor_id', '=', 'persona3.id')
+            ->join('usuario_reportes', 'tickets.usuario_reporte_id', '=', 'usuario_reportes.id')
             ->where('tickets.status', '=', 'Y')
             ->when($filtroEstado != 'Todos' && $filtroEstado != null , function ($query) use ($filtroEstado) {
                 return $query->where('tickets.situacion', $filtroEstado);
@@ -134,6 +135,23 @@ class TicketController extends Controller
         
         return view('admin.ticket');
 
+    }
+
+    public function ticketUsuarioReporte(Request $request){
+        if($request ->ajax()){
+            $id = $request->input('id');
+
+            $tickets = Ticket::select('tickets.*','usuario_reportes.nombre as nombre',
+            'usuario_reportes.email as email',
+            'usuario_reportes.telefono as telefono')
+            ->join('usuario_reportes', 'tickets.usuario_reporte_id', '=', 'usuario_reportes.id')
+            ->where('tickets.status', '=', 'Y')
+            ->where('tickets.id', '=',$id)
+            ->first();
+
+            return response()->json($tickets);
+
+        }
     }
 
     public function listUsuario()
@@ -321,9 +339,8 @@ class TicketController extends Controller
             $ticked->supervisor_id = $request->input('supervisor_id');
             $ticked->empresa_id = $request->input('empresa_id');
             $ticked->medio_reporte_id = $request->input('medio_reporte_id');
-            $ticked->usuario_reporte_nombre = $request->input('nombre');
-            $ticked->usuario_reporte_email = $request->input('email');
-            $ticked->usuario_reporte_telefono = $request->input('telefono');
+            $ticked->usuario_reporte_id  = $request->input('usuario_reporte_id');
+
 
             $ticked->save();
         
@@ -350,11 +367,32 @@ public function ticketEdit(Request $request)
 
     public function ticketUpdate(Request $request)
     {
+
+        $user = auth()->user();
+        $email = $user->email;
+
+            $key ="perfil";
+            $persona = Persona::select('*')
+            ->where('status', '=', 'Y')
+            ->where('email', '=', $email)
+            ->first();
+
+            $usuario = Usuario::select('*')
+            ->where('status', '=', 'Y')
+            ->where('persona_id', '=', $persona->id)
+            ->first();
         if($request->ajax()){
+
+            $sla = Sla::select('*')
+            ->where('status', '=', 'Y')
+            ->where('id', '=', $request->input('sla_id'))
+            ->first();
 
             $id = $request->input('id');
             $ticked = Ticket::find($id);
             $ticked->fecha_registro = $request->input('fecha');
+            $ticked->fecha_fin_estimado = $this->sumarHoras($request->input('fecha'),$sla->horas);
+            $ticked->fecha_primera_respuesta = $this->sumarHoras($request->input('fecha'),$sla->tiempo_primera_respuesta);
             $ticked->descripcion = $request->input('descripcion');
 
             $ticked->tipoincidencia_id = $request->input('tipoincidencia_id');
@@ -362,9 +400,8 @@ public function ticketEdit(Request $request)
             $ticked->personal_id = $request->input('personal_id');
             $ticked->supervisor_id = $request->input('supervisor_id');
             $ticked->empresa_id = $request->input('empresa_id');
-            $ticked->usuario_reporte_nombre = $request->input('nombre');
-            $ticked->usuario_reporte_email = $request->input('email');
-            $ticked->usuario_reporte_telefono = $request->input('telefono');
+            $ticked->usuario_reporte_id  = $request->input('usuario_reporte_id');
+            $ticked->medio_reporte_id = $request->input('medio_reporte_id');
 
             $ticked->save();
         

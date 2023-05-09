@@ -17,14 +17,17 @@ class Ticket extends Migration
             $table->dateTimeTz('fecha_fin')->nullable();
             $table->text('descripcion')->nulable(false);
             $table->string('situacion')->nulable(false);
-            $table->string('usuario_reporte_nombre')->nullable();
-            $table->string('usuario_reporte_email')->nullable();
-            $table->string('usuario_reporte_telefono')->nullable();
 
             $table->unsignedBigInteger('usuario_id');
             $table->foreign('usuario_id')
                   ->references('id')
                   ->on('usuarios')
+                  ->onDelete('cascade');
+
+            $table->unsignedBigInteger('usuario_reporte_id');
+            $table->foreign('usuario_reporte_id')
+                  ->references('id')
+                  ->on('usuario_reportes')
                   ->onDelete('cascade');
 
             $table->unsignedBigInteger('tipoincidencia_id');
