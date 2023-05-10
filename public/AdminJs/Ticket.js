@@ -583,22 +583,14 @@ $('#resgistrarTicket').submit(function (e) {
 
     url: url,
     type: "POST",
-    data: {
-      fecha:fecha,
-      descripcion: descripcion,
-      tipoincidencia_id:tipoincidencia_id,
-      sla_id:sla_id,
-      personal_id:personal_id,
-      supervisor_id: supervisor_id,
-      empresa_id: empresa_id,
-      medio_reporte_id:medio_reporte_id,
-      usuario_reporte_id:usuario_reporte_id,
-      id: id,
-      _token: _token
-
-    },
+      data: new FormData(this),
+      processData: false,
+      contentType: false,
+      _token: $('meta[name="csrf-token"]').attr('content'),
 
     success: function (response) {
+
+      console.log(response.success);
 
       if (response.success) {
         if (id == "") {

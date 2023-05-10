@@ -10,6 +10,10 @@ use App\Models\Admin\Rol;
 use App\Models\Admin\RolPersona;
 use App\Models\Admin\MedioReporte;
 use App\Models\Admin\Accione;
+use App\Models\Admin\TicketImagen;
+use App\Models\Admin\TicketDocumento;
+
+use Illuminate\Support\Facades\Storage;
 
 
 
@@ -332,6 +336,10 @@ class TicketController extends Controller
             ->first();
 
         if($request->ajax()){
+            $request->validate([
+
+                'fileTicket'=>'required|image|max:2048'
+            ]);
             
             $sla = Sla::select('*')
             ->where('status', '=', 'Y')
@@ -357,6 +365,32 @@ class TicketController extends Controller
 
 
             $ticked->save();
+
+           $imagenes= $request->file('fileTicket')->store('public/imagenes');
+           $urlImagen =Storage::url($imagenes);
+    
+            $ticketImagen = new TicketImagen();
+            $ticketImagen->nombre = "imagen";
+            $ticketImagen->ticket_id = $ticked->id;
+            $ticketImagen->path =  $urlImagen;
+            
+            $ticketImagen->save();
+
+            $request->validate([
+                'fileDocumentoTicket' => 'required|mimetypes:application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-powerpoint|max:10240',
+            ]);
+            
+    
+           $documento= $request->file('fileDocumentoTicket')->store('public/documentos');
+           $urlDocumento =Storage::url($documento);
+           date_default_timezone_set('America/Lima');
+
+            $ticketDocumento = new TicketDocumento();
+            $ticketDocumento->ticket_id = $ticked->id;
+            $ticketDocumento->nombre = "Documento Ticket";
+            $ticketDocumento->fecha = date('Y-m-d H:i:s', time());
+            $ticketDocumento->path =  $urlDocumento;
+            $ticketDocumento->save();
         
             return response()->json(['success' => true]);
         }

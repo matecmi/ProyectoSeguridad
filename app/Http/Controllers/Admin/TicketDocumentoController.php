@@ -26,6 +26,9 @@ class TicketDocumentoController extends Controller
             ->when($accion_id != 'NoFiltrar' , function ($query) use ($accion_id) {
                 return $query->where('ticket_documentos.accion_id', $accion_id);
             })
+            ->when($accion_id == 'NoFiltrar' , function ($query) use ($accion_id) {
+                return $query->where('ticket_documentos.accion_id', null);
+            })
             ->get();
             
             return response()->json($ticketDocumento);

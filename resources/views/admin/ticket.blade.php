@@ -114,56 +114,63 @@
               <div class="col-md-6">
                 <input type="text" id="ID" style="display:none">
                 <label for="Nombre" class="form-label">FECHA REGISTRO</label>
-                <input type="datetime-local" class="form-control" id="fecha" >
-
+                <input type="datetime-local" class="form-control" id="fecha" name="fecha" >
               </div>
 
               <div class="col-md-6">
                 <label for="grupo" class="form-label">EMPRESA</label>
-                <select class="form-select" id="listEmpresa" required>
+                <select class="form-select" id="listEmpresa" name="empresa_id" required>
                 </select>
               </div>
        
               <div class="col-md-12">
                 <label for="Orden" class="form-label">DESCRIPCION</label>
-                <textarea name="" class="form-control" id="descripcion" cols="20" rows="5" required></textarea>
+                <textarea  class="form-control" id="descripcion" name="descripcion" cols="20" rows="5" required></textarea>
               </div>
 
               <div class="col-md-6">
                 <label for="grupo" class="form-label">T.INCIDENCIA</label>
-                <select class="form-select" id="listTIncidencia" required>
+                <select class="form-select" id="listTIncidencia" name="tipoincidencia_id" required>
                 </select>
               </div>
 
               <div class="col-md-6">
                 <label for="grupo" class="form-label">SLA</label>
-                <select class="form-select" id="listSla" required>
+                <select class="form-select" id="listSla" name="sla_id" required>
                 </select>
               </div>
               <div class="col-md-6">
                 <label for="grupo" class="form-label">MEDIO DE REPORTE</label>
-                <select class="form-select" id="listMedioReporte" required>
+                <select class="form-select" id="listMedioReporte" name="medio_reporte_id" required>
                 </select>
               </div>
               <div class="col-md-6">
                 <label for="grupo" class="form-label">PERSONA</label>
-                <select class="form-select" id="listPersona" required>
+                <select class="form-select" id="listPersona" name="personal_id" required>
                 </select>
               </div>
               <div class="col-md-6">
                 <label for="grupo" class="form-label">SUPERVISOR</label>
-                <select class="form-select" id="listSupervisor" required>
+                <select class="form-select" id="listSupervisor" name="supervisor_id" required>
                 </select>
               </div>
               <div class="col-md-6" style="text-align: center">
                 <label for="grupo" class="form-label" >USUARIO QUIEN REPORTA</label>
                 <div class="d-flex align-items-center">
-                  <select class="form-select me-2" id="listUsuarioReporte" required>
+                  <select class="form-select me-2" id="listUsuarioReporte" name="usuario_reporte_id" required>
                   </select>
                   <button id="btnUsuario" type="button" class="btn btn-primary">
                     <i class="fa-solid fa-user"></i>
                   </button>
                 </div>
+              </div>
+              <div class="col-md-12">
+                <label for="Nombre" class="form-label">imagen</label>
+                <input type="file" class="form-control" id="fileTicket" name="fileTicket" accept="image/*" >
+              </div>
+              <div class="col-md-12">
+                <label for="Nombre" class="form-label">Documento</label>
+                <input type="file" class="form-control" id="fileDocumentoTicket" name="fileDocumentoTicket"  accept=".pdf,.xls,.xlsx,.doc,.docx,.pptx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"  >
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -663,7 +670,7 @@
     
               </div>
               <div class="col-md-4">
-                <label for="nombre" class="form-label margen">ARCHIVOS</label>
+                <label for="nombre" class="form-label margen">ARCHIVOS DEL TICKET</label>
     
                <button style="font-size: 20px;" name="imagen" id="NoFiltrar" type="button" class="btn imagen btn-sm" ><i class="fa-regular fa-images" style="color: white;"></i></button>
               &nbsp;&nbsp;<button style="font-size: 20px;" name="archivo"  id="NoFiltrar" type="button" class="btn archivo btn-sm"><i class="fa-solid fa-folder-open" style="color: white;"></i></button>
