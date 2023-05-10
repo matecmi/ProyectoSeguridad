@@ -578,65 +578,77 @@
       <div class="modal-body">
         <div class="row g-3">
 
-          <div class="col-md-4">
-            <label for="nombre" class="form-label">USUARIO QUE REPORTO</label>
-            <button style="font-size: 20px;"  name="usuarioReporta" id="btnUsuario" type="button" class="btn usuario btn-sm" ><i class="fa-solid fa-user" style="color: white;"></i></button>
+          <div class="col-md-3">
+
 
           </div>
-          <div class="col-md-4">
-            <label for="nombre" class="form-label">ESTADO DEL TICKET</label>
-            <button style="font-size: 20px;" name="estado" id="btnEstado" type="button" class="btn estado btn-sm" ><i class="fa-solid fa-hourglass-half" style="color: white;"></i></button>
 
-          </div>
-          <div class="col-md-4">
-            <label for="nombre" class="form-label">ARCHIVOS</label>
+          <div class="col-md-9">
 
-           <button style="font-size: 20px;" name="imagen" id="NoFiltrar" type="button" class="btn imagen btn-sm" ><i class="fa-regular fa-images" style="color: white;"></i></button>
-          &nbsp;&nbsp;<button style="font-size: 20px;" name="archivo"  id="NoFiltrar" type="button" class="btn archivo btn-sm"><i class="fa-solid fa-folder-open" style="color: white;"></i></button>
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label for="nombre" class="form-label">USUARIO QUE REPORTO</label>
+                <button style="font-size: 20px;"  name="usuarioReporta" id="btnUsuario" type="button" class="btn usuario btn-sm" ><i class="fa-solid fa-user" style="color: white;"></i></button>
     
-          </div>
-
-          <div class="col-md-12" >
-
-            <div class="card-body table-responsive bordeTabla" >
-
-            <h3 style="text-align: center">ACCIONES</h3>
-            <button id="btnAccion" type="button" class="btn btn-primary btn-sm ml-2 ">Nuevo</button>
-            <table style="font-size: 14px;"  class="table table-striped table-bordered table-hover" id="tablaAcciones">
-
-              <thead>
-                  <tr>
-                      <th>N.º</th>
-                      <th>FECHA</th>
-                      <th>DESCRIPCIÓN</th>
-                      <th>MODO</th>
-                      <th>USUARIO</th>
-                      <th>PERSONAL </th>
-                      <th colspan="4">OPCIONES</th>
-                  </tr>
-              </thead>
-          </table>
+              </div>
+              <div class="col-md-4">
+                <label for="nombre" class="form-label">ESTADO DEL TICKET</label>
+                <button style="font-size: 20px;" name="estado" id="btnEstado" type="button" class="btn estado btn-sm" ><i class="fa-solid fa-hourglass-half" style="color: white;"></i></button>
+    
+              </div>
+              <div class="col-md-4">
+                <label for="nombre" class="form-label">ARCHIVOS</label>
+    
+               <button style="font-size: 20px;" name="imagen" id="NoFiltrar" type="button" class="btn imagen btn-sm" ><i class="fa-regular fa-images" style="color: white;"></i></button>
+              &nbsp;&nbsp;<button style="font-size: 20px;" name="archivo"  id="NoFiltrar" type="button" class="btn archivo btn-sm"><i class="fa-solid fa-folder-open" style="color: white;"></i></button>
+        
+              </div>
+    
+              <div class="col-md-12" >
+    
+                <div class="card-body table-responsive bordeTabla" >
+    
+                <h3 style="text-align: center">ACCIONES</h3>
+                <button id="btnAccion" type="button" class="btn btn-primary btn-sm ml-2 ">Nuevo</button>
+                <table style="font-size: 14px;"  class="table table-striped table-bordered table-hover" id="tablaAcciones">
+    
+                  <thead>
+                      <tr>
+                          <th>N.º</th>
+                          <th>FECHA</th>
+                          <th>DESCRIPCIÓN</th>
+                          <th>MODO</th>
+                          <th>USUARIO</th>
+                          <th>PERSONAL </th>
+                          <th colspan="4">OPCIONES</th>
+                      </tr>
+                  </thead>
+              </table>
+                </div>
+              </div>
+    
+              <div class="col-md-12">
+                <div class="card-body table-responsive bordeTabla">
+                <h3 style="text-align: center">COMENTARIOS</h3>
+    
+                <button id="btnComentario" type="button" class="btn btn-primary btn-sm ml-2">Nuevo</button>
+                <table style="font-size: 13px;" class="table table-striped table-bordered table-hover" id="tablaComentario">
+                  <thead>
+                      <tr>
+                          <th>N.º</th>
+                          <th>DESCRIPCIÓN</th>
+                          <th>FECHA</th>
+                          <th>USUARIO</th>
+                          <th colspan="2">ACCIONES</th>    
+                      </tr>
+                  </thead>
+              </table>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="col-md-12">
-            <div class="card-body table-responsive bordeTabla">
-            <h3 style="text-align: center">COMENTARIOS</h3>
 
-            <button id="btnComentario" type="button" class="btn btn-primary btn-sm ml-2">Nuevo</button>
-            <table style="font-size: 13px;" class="table table-striped table-bordered table-hover" id="tablaComentario">
-              <thead>
-                  <tr>
-                      <th>N.º</th>
-                      <th>DESCRIPCIÓN</th>
-                      <th>FECHA</th>
-                      <th>USUARIO</th>
-                      <th colspan="2">ACCIONES</th>    
-                  </tr>
-              </thead>
-          </table>
-            </div>
-          </div>
         </div>
 
         

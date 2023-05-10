@@ -103,6 +103,13 @@ function generarContenidoTabla(ticketVencido) {
           "En Proceso": "#fbff00",
           "Standby": "#ff8800"
         };
+
+        const botonColores = {
+          "Finalizado": "finalizado",
+          "En Proceso": "proceso",
+          "Standby": "Standby"
+        };
+
         $.each(response.success, function (index, grupo) {
 
           $.each(ticketVencido, function (index, ticket) {
@@ -114,14 +121,14 @@ function generarContenidoTabla(ticketVencido) {
           });
           var idGenerado = grupo.sla_nomenclatura + "-" +grupo.id.toString().padStart(7, '0');
           if (validarTicket) {
-            options += '<tr style="background-color:#f24a4a;" >';
+            options += '<tr style="background-color:#f78282;" >';
 
           }else {
             options += '<tr>';
 
           }
           options += `<td id="tdTabla"><i class="fa-solid fa-circle" style="color: ${situacionColores[grupo.situacion]}"></i></td>`;
-          options += '<td id="tdTabla"><button value="' + idGenerado + '" name="panel" id="' + grupo.id + '" type="button" class="btn usuario btn-sm" data-bs-toggle="modal" data-bs-target="#PanelModal">' + idGenerado +'</button></td>';
+          options += `<td id="tdTabla"><button value="` + idGenerado + `" name="panel" id="` + grupo.id + `" type="button" class="btn ${botonColores[grupo.situacion]} btn-sm" data-bs-toggle="modal" data-bs-target="#PanelModal">` + idGenerado +`</button></td>`;
           options += '<td id="tdTabla">' + grupo.fecha_registro + '</td>';
           options += '<td id="tdTabla">' + grupo.fecha_fin_estimado + '</td>';
           options += '<td id="tdTabla">' + (grupo.fecha_fin == null ? "----" : grupo.fecha_fin) + '</td>';
@@ -194,13 +201,18 @@ function generarContenidoTabla(ticketVencido) {
             "En Proceso": "#fbff00",
             "Standby": "#ff8800"
           };
+          const botonColores = {
+            "Finalizado": "finalizado",
+            "En Proceso": "proceso",
+            "Standby": "Standby"
+          };
           $.each(response.success, function (index, grupo) {
   
             var idGenerado = grupo.sla_nomenclatura + "-" +grupo.id.toString().padStart(7, '0');
  
             options += '<tr>';
             options += `<td id="tdTabla"><i class="fa-solid fa-circle" style="color: ${situacionColores[grupo.situacion]}"></i></td>`;
-            options += '<td id="tdTabla"><button value="' + idGenerado + '" name="panel" id="' + grupo.id + '" type="button" class="btn usuario btn-sm" data-bs-toggle="modal" data-bs-target="#PanelModal">' + idGenerado +'</button></td>';
+            options += `<td id="tdTabla"><button value="` + idGenerado + `" name="panel" id="` + grupo.id + `" type="button" class="btn ${botonColores[grupo.situacion]} btn-sm" data-bs-toggle="modal" data-bs-target="#PanelModal">` + idGenerado +`</button></td>`;
             options += '<td id="tdTabla">' + grupo.fecha_registro + '</td>';
             options += '<td id="tdTabla">' + grupo.fecha_fin_estimado + '</td>';
             options += '<td id="tdTabla">' + (grupo.fecha_fin == null ? "----" : grupo.fecha_fin) + '</td>';
