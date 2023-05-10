@@ -696,7 +696,6 @@ $(document).on('click', 'button[name="edit"]', function () {
 
       if (response != null) {
 
-        console.log(response);
         var fecha = response.success.fecha_registro;
         var descripcion = response.success.descripcion;
         var tipoincidencia_id = response.success.tipoincidencia_id;
@@ -704,7 +703,7 @@ $(document).on('click', 'button[name="edit"]', function () {
         var personal_id = response.success.personal_id;
         var empresa_id = response.success.empresa_id;
         var supervisor_id = response.success.supervisor_id;
-        var medio_reporte_id =response.success.medio_reporte_id;
+        var medio_reporte_id =response.su|ccess.medio_reporte_id;
         var usuario_reporte_id =response.success.usuario_reporte_id;
 
 

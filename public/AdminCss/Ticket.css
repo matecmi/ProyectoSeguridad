@@ -287,6 +287,9 @@ table.dataTable td {
     font-weight: bold;
     text-align: center;
 }
+.contenidoSpan{
+    font-size: 18px;
+}
 
 .proceso {
     font-size: 14px;

@@ -73,7 +73,7 @@ $('#btnAccion').on('click', function () {
 
     $.ajax({
   
-      url: "/admin/ticket/edit",
+      url: "/admin/ticket/usuarioreporte",
       type: 'get',
       data: {
         id: id,
@@ -83,7 +83,7 @@ $('#btnAccion').on('click', function () {
   
         if (response != null) {
   
-          var situacion = response.success.situacion;
+          var situacion = response.situacion;
 
           tituloPanel.innerHTML = "PANEL DE CONTROL / TICKET " + idGenerado + " / ";
 
@@ -102,6 +102,41 @@ $('#btnAccion').on('click', function () {
             tituloPanel2.innerHTML =situacion.toUpperCase();
 
           }
+
+          console.log(response.fecha_registro);
+
+          var fechaRegistro = response.fecha_registro;
+          var fechaPrimeraRespuesta = response.fecha_primera_respuesta;
+          var fechaFinEstimada = response.fecha_fin_estimado;
+          var fechaFin = response.fecha_fin;
+          var estado =response.situacion;
+          var descripcion = response.descripcion;
+          var medio_reporte =response.medio_reporte_nombre;
+          var sla = response.sla_nombre;
+          var usuario_reporte =response.nombre;
+          var personal = response.personal_nombre;
+          var empresa = response.empresa_nombre;
+          var supervisor = response.supervisor_nombre;
+          var usuario = response.usuario_nombre;
+          var tipoincidencia = response.tipo_incidencia_nombre;
+
+          $('#numeroTicketSpan').html(idGenerado);
+          $('#fechaRegistroSpan').html(fechaRegistro);
+          $('#fechaPrimeraRespuestaSpan').html(fechaPrimeraRespuesta);
+          $('#fechaFinEstimadaSpan').html(fechaFinEstimada);
+          $('#fechaFinSpan').html(fechaFin);
+          $('#estadoSpan').html(estado);
+          $('#descripcionSpan').html(descripcion);
+          $('#medioReporteSpan').html(medio_reporte);
+          $('#slaSpan').html(sla);
+          $('#usuarioReporteSpan').html(usuario_reporte);
+          $('#personalSpan').html(personal);
+          $('#empresaSpan').html(empresa);
+          $('#supervisorSpan').html(supervisor);
+          $('#usuarioSpan').html(usuario);
+          $('#tipoIncidenciaSpan').html(tipoincidencia);
+
+
 
         }
   

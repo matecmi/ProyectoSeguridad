@@ -584,26 +584,68 @@
                 <h3 class="tituloPanel">DATOS GENERALES</h3>
               </div>
               <div class="col-md-12" >
-                <label for="">fecha</label>
+                <label for=""><i class="fa-sharp fa-solid fa-chevron-right"></i> N.TICKET:</label>
+                <span class="contenidoSpan" id="numeroTicketSpan"></span>
               </div>
               <div class="col-md-12" >
-                <label for="">fecha</label>
+                <label for=""><i class="fa-sharp fa-solid fa-chevron-right"></i> F.REGISTRO:</label>
+                <span class="contenidoSpan" id="fechaRegistroSpan"></span>
               </div>
               <div class="col-md-12" >
-                <label for="">fecha</label>
+                <label for=""><i class="fa-sharp fa-solid fa-chevron-right"></i> F.P RESPUESTA:</label>
+                <span class="contenidoSpan" id="fechaPrimeraRespuestaSpan"></span>
               </div>
               <div class="col-md-12" >
-                <label for="">fecha</label>
+                <label for=""><i class="fa-sharp fa-solid fa-chevron-right"></i> F.FIN ESTIMADA:</label>
+                <span class="contenidoSpan" id="fechaFinEstimadaSpan"></span>
               </div>
               <div class="col-md-12" >
-                <label for="">fecha</label>
+                <label for=""><i class="fa-sharp fa-solid fa-chevron-right"></i> F.FIN:</label>
+                <span class="contenidoSpan" id="fechaFinSpan"></span>
               </div>
               <div class="col-md-12" >
-                <label for="">fecha</label>
+                <label for=""><i class="fa-sharp fa-solid fa-chevron-right"></i> ESTADO:</label>
+                <span class="contenidoSpan" id="estadoSpan"></span>
               </div>
               <div class="col-md-12" >
-                <label for="">fecha</label>
+                <label for=""><i class="fa-sharp fa-solid fa-chevron-right"></i> DESCRIPCION:</label>
+                <span class="contenidoSpan" id="descripcionSpan"></span>
               </div>
+              <div class="col-md-12" >
+                <label for=""><i class="fa-sharp fa-solid fa-chevron-right"></i> MEDIO REPORTE:</label>
+                <span class="contenidoSpan" id="medioReporteSpan"></span>
+              </div>
+              <div class="col-md-12" >
+                <label for=""><i class="fa-sharp fa-solid fa-chevron-right"></i> SLA:</label>
+                <span class="contenidoSpan" id="slaSpan"></span>
+              </div>
+              <div class="col-md-12" >
+                <label for=""><i class="fa-sharp fa-solid fa-chevron-right"></i> USUARIO REPORTE:</label>
+                <span class="contenidoSpan" id="usuarioReporteSpan"></span>
+              </div>
+              <div class="col-md-12" >
+                <label for=""><i class="fa-sharp fa-solid fa-chevron-right"></i> PERSONAL:</label>
+                <span class="contenidoSpan" id="personalSpan"></span>
+              </div>
+              <div class="col-md-12" >
+                <label for=""><i class="fa-sharp fa-solid fa-chevron-right"></i> EMPRESA:</label>
+                <span class="contenidoSpan" id="empresaSpan"></span>
+              </div>
+              <div class="col-md-12" >
+                <label for=""><i class="fa-sharp fa-solid fa-chevron-right"></i> SUPERVISOR:</label>
+                <span class="contenidoSpan" id="supervisorSpan"></span>
+              </div>
+              <div class="col-md-12" >
+                <label for=""><i class="fa-sharp fa-solid fa-chevron-right"></i> USUARAIO:</label>
+                <span class="contenidoSpan" id="usuarioSpan"></span>
+              </div>
+              <div class="col-md-12" >
+                <label for=""><i class="fa-sharp fa-solid fa-chevron-right"></i> TIPO INCIDENCIA:</label>
+                <span class="contenidoSpan" id="tipoIncidenciaSpan"></span>
+              </div>
+      
+
+           
             </div>
           </div>
 
@@ -634,7 +676,7 @@
     
                 <h3 style="text-align: center">ACCIONES</h3>
                 <button id="btnAccion" type="button" class="btn btn-primary btn-sm ml-2 ">Nuevo</button>
-                <table style="font-size: 14px;"  class="table table-striped table-bordered table-hover" id="tablaAcciones">
+                <table style="font-size: 15px;"  class="table table-striped table-bordered table-hover" id="tablaAcciones">
     
                   <thead>
                       <tr>
@@ -656,7 +698,7 @@
                 <h3 style="text-align: center">COMENTARIOS</h3>
     
                 <button id="btnComentario" type="button" class="btn btn-primary btn-sm ml-2">Nuevo</button>
-                <table style="font-size: 13px;" class="table table-striped table-bordered table-hover" id="tablaComentario">
+                <table style="font-size: 15px;" class="table table-striped table-bordered table-hover" id="tablaComentario">
                   <thead>
                       <tr>
                           <th>N.º</th>

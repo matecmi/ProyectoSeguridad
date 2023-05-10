@@ -143,7 +143,21 @@ class TicketController extends Controller
 
             $tickets = Ticket::select('tickets.*','usuario_reportes.nombre as nombre',
             'usuario_reportes.email as email',
-            'usuario_reportes.telefono as telefono')
+            'usuario_reportes.telefono as telefono','usuarios.nombre as usuario_nombre',
+            'tipo_incidencias.nombre as tipo_incidencia_nombre',
+            'slas.nombre as sla_nombre',
+            'slas.nomenclatura as sla_nomenclatura',  
+            'medio_reportes.nombre as medio_reporte_nombre',
+            'persona1.nombres as personal_nombre',
+            'persona2.nombres as empresa_nombre', 
+            'persona3.nombres as supervisor_nombre')
+            ->join('usuarios', 'tickets.usuario_id', '=', 'usuarios.id')
+            ->join('medio_reportes', 'tickets.medio_reporte_id', '=', 'medio_reportes.id')
+            ->join('tipo_incidencias', 'tickets.tipoincidencia_id', '=', 'tipo_incidencias.id')
+            ->join('slas', 'tickets.sla_id', '=', 'slas.id')
+            ->join('personas as persona1', 'tickets.personal_id', '=', 'persona1.id')
+            ->join('personas as persona2', 'tickets.empresa_id', '=', 'persona2.id')
+            ->join('personas as persona3', 'tickets.supervisor_id', '=', 'persona3.id')
             ->join('usuario_reportes', 'tickets.usuario_reporte_id', '=', 'usuario_reportes.id')
             ->where('tickets.status', '=', 'Y')
             ->where('tickets.id', '=',$id)
