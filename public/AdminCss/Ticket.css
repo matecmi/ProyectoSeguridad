@@ -290,6 +290,7 @@ table.dataTable td {
 
 .proceso {
     font-size: 14px;
+    font-weight: bold;
     background-color: #FFD700;
     color: black;
     border: none;
@@ -306,6 +307,7 @@ table.dataTable td {
 
 .finalizado {
     font-size: 14px;
+    font-weight: bold;
     background-color: #32CD32;
     color: black;
     border: none;
@@ -322,6 +324,7 @@ table.dataTable td {
 
 .Standby {
     font-size: 14px;
+    font-weight: bold;
     background-color: #FF4500;
     color: black;
     border: none;
