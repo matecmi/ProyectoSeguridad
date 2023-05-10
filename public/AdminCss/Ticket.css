@@ -277,7 +277,16 @@ table.dataTable td {
     border: 2px solid black; 
     margin: 10px;
 }
+.margen{
+    margin: 10px;
+}
 
+.tituloPanel{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-align: center;
+}
 
 .proceso {
     font-size: 14px;

@@ -579,25 +579,49 @@
         <div class="row g-3">
 
           <div class="col-md-3">
-
-
+            <div class="card-body table-responsive bordeTabla" >
+              <div class="col-md-12" >
+                <h3 class="tituloPanel">DATOS GENERALES</h3>
+              </div>
+              <div class="col-md-12" >
+                <label for="">fecha</label>
+              </div>
+              <div class="col-md-12" >
+                <label for="">fecha</label>
+              </div>
+              <div class="col-md-12" >
+                <label for="">fecha</label>
+              </div>
+              <div class="col-md-12" >
+                <label for="">fecha</label>
+              </div>
+              <div class="col-md-12" >
+                <label for="">fecha</label>
+              </div>
+              <div class="col-md-12" >
+                <label for="">fecha</label>
+              </div>
+              <div class="col-md-12" >
+                <label for="">fecha</label>
+              </div>
+            </div>
           </div>
 
           <div class="col-md-9">
 
             <div class="row g-3">
               <div class="col-md-4">
-                <label for="nombre" class="form-label">USUARIO QUE REPORTO</label>
+                <label for="nombre" class="form-label margen">USUARIO QUE REPORTO</label>
                 <button style="font-size: 20px;"  name="usuarioReporta" id="btnUsuario" type="button" class="btn usuario btn-sm" ><i class="fa-solid fa-user" style="color: white;"></i></button>
     
               </div>
               <div class="col-md-4">
-                <label for="nombre" class="form-label">ESTADO DEL TICKET</label>
+                <label for="nombre" class="form-label margen">ESTADO DEL TICKET</label>
                 <button style="font-size: 20px;" name="estado" id="btnEstado" type="button" class="btn estado btn-sm" ><i class="fa-solid fa-hourglass-half" style="color: white;"></i></button>
     
               </div>
               <div class="col-md-4">
-                <label for="nombre" class="form-label">ARCHIVOS</label>
+                <label for="nombre" class="form-label margen">ARCHIVOS</label>
     
                <button style="font-size: 20px;" name="imagen" id="NoFiltrar" type="button" class="btn imagen btn-sm" ><i class="fa-regular fa-images" style="color: white;"></i></button>
               &nbsp;&nbsp;<button style="font-size: 20px;" name="archivo"  id="NoFiltrar" type="button" class="btn archivo btn-sm"><i class="fa-solid fa-folder-open" style="color: white;"></i></button>
