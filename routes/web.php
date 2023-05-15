@@ -15,16 +15,11 @@ use App\Http\Controllers\Admin\TicketController;
 |
 */
 
-Route::get('/', function () {
-    return view('auth/login');
-});
+
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
-
-Auth::routes();
-
 //Route::post('admin/ticket/list',[TicketController::class, 'ticketList'])->name('admin.ticketList');
+ 

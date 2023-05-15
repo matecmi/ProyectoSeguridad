@@ -9,6 +9,8 @@
     <meta name="csrf-token" content="RNXDvdt5ep7rIJQ3hhK9rBgUhcbeGhJdAbtd5z2T">
 
     <title>login de usuario</title>
+    <link rel="stylesheet" href="{{ asset('AdminCss/login.css') }}" >
+
     <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.min.css') }}">
@@ -16,11 +18,13 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 
-<body class="register-page" style="min-height: 457.995px;">
+<body class="register-page " style="min-height: 457.995px;">
+      
+   <div class="box" >
+        <img src="{{ asset('Imagenes/logo.png') }}" alt="" style="max-width: 550px" >
 
-<div class="container register-box">
-          
     <div class="register-box">
+
 
         <div class="card card-outline card-primary">
             <div class="card-header ">
