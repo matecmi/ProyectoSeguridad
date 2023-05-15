@@ -29,13 +29,13 @@ class AccionesController extends Controller
             return Datatables::of($accion)
             ->addColumn('action1', function($accion){
 
-                $acciones ='<td id="tdTabla"> <button type="button" name="editAccion"  id="'.$accion->id.'" class="btn editar btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button></td>';
+                $acciones ='<td id="tdTabla"> <button type="button" name="editAccion"  id="'.$accion->id.'" class="btn editar btn-sm">Editar <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button></td>';
                 return $acciones;
 
             })
             ->addColumn('action2', function($accion){
 
-                $acciones ='<td id="tdTabla"> <button type="button" name="deleteAccion" id="'.$accion->id.'" class="btn eliminar btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
+                $acciones ='<td id="tdTabla"> <button type="button" name="deleteAccion" id="'.$accion->id.'" class="btn eliminar btn-sm">Eliminar <i class="fa-solid fa-trash-can"></i> </button></td>';
 
                 return $acciones;
 

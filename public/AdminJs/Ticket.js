@@ -143,12 +143,12 @@ function generarContenidoTabla(ticketVencido) {
           options += '<td id="tdTabla">' + grupo.sla_nombre + '</td>';
           options += '<td id="tdTabla">' + grupo.nombre + '</td>';
           if (grupo.situacion == "Finalizado") {
-            options += '<td style="text-align: center; vertical-align: middle;"> <button disabled style="font-size: 20px;" type="button" name="edit"  id="' + grupo.id + '" class="btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
-            options += '&nbsp;&nbsp;<button disabled style="font-size: 20px;" type="button" name="delete" id="' + grupo.id + '" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
+            options += '<td style="text-align: center; vertical-align: middle;"> <button disabled type="button" name="edit"  id="' + grupo.id + '" class="btn btn-success btn-sm">Editar <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
+            options += '&nbsp;&nbsp;<button disabled  type="button" name="delete" id="' + grupo.id + '" class="btn btn-danger btn-sm">Eliminar<i class="fa-solid fa-trash-can"></i> </button></td>';
 
           } else {
-            options += '<td style="text-align: center; vertical-align: middle;"> <button style="font-size: 20px;" type="button" name="edit"  id="' + grupo.id + '" class="btn editar btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square" style="color: white;"></i> </button>';
-            options += '&nbsp;&nbsp;<button style="font-size: 20px;" type="button" name="delete" id="' + grupo.id + '" class="btn eliminar btn-sm"> <i class="fa-solid fa-trash-can" style="color: white;"></i> </button></td>';
+            options += '<td style="text-align: center; vertical-align: middle;"> <button  type="button" name="edit"  id="' + grupo.id + '" class="btn editar btn-sm">Editar<i class="fa-sharp fa-solid fa-pen-to-square" style="color: white;"></i> </button>';
+            options += '&nbsp;&nbsp;<button  type="button" name="delete" id="' + grupo.id + '" class="btn eliminar btn-sm">Eliminar<i class="fa-solid fa-trash-can" style="color: white;"></i> </button></td>';
 
           }
           options += '</tr>';
@@ -227,12 +227,12 @@ function generarContenidoTabla(ticketVencido) {
             options += '<td id="tdTabla">' + grupo.sla_nombre + '</td>';
             options += '<td id="tdTabla">' + grupo.nombre + '</td>';
             if (grupo.situacion == "Finalizado") {
-              options += '<td style="text-align: center; vertical-align: middle;"> <button disabled style="font-size: 20px;" type="button" name="edit"  id="' + grupo.id + '" class="btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
-              options += '&nbsp;&nbsp;<button disabled style="font-size: 20px;" type="button" name="delete" id="' + grupo.id + '" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
+              options += '<td style="text-align: center; vertical-align: middle;"> <button disabled  type="button" name="edit"  id="' + grupo.id + '" class="btn btn-success btn-sm">Editar<i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
+              options += '&nbsp;&nbsp;<button disabled  type="button" name="delete" id="' + grupo.id + '" class="btn btn-danger btn-sm">Eliminar<i class="fa-solid fa-trash-can"></i> </button></td>';
   
             } else {
-              options += '<td style="text-align: center; vertical-align: middle;"> <button style="font-size: 20px;" type="button" name="edit"  id="' + grupo.id + '" class="btn editar btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square" style="color: white;"></i> </button>';
-              options += '&nbsp;&nbsp;<button style="font-size: 20px;" type="button" name="delete" id="' + grupo.id + '" class="btn eliminar btn-sm"> <i class="fa-solid fa-trash-can" style="color: white;"></i> </button></td>';
+              options += '<td style="text-align: center; vertical-align: middle;"> <button  type="button" name="edit"  id="' + grupo.id + '" class="btn editar btn-sm">Editar<i class="fa-sharp fa-solid fa-pen-to-square" style="color: white;"></i> </button>';
+              options += '&nbsp;&nbsp;<button type="button" name="delete" id="' + grupo.id + '" class="btn eliminar btn-sm">Eliminar<i class="fa-solid fa-trash-can" style="color: white;"></i> </button></td>';
   
             }
             options += '</tr>';
@@ -877,6 +877,8 @@ $('#btnStanby').on('click', function () {
                 title: "El estado fue cambiado correctamente",
                 icon: "success"
               });
+              $('#estadoSpan').html("Standby");
+
               validarTicketVencidos();
 
 
@@ -936,6 +938,8 @@ $('#btnFinalizado').on('click', function () {
               labelReapertura.style.display="inline-block";
               tituloPanel2.style.color = "green";
               tituloPanel2.innerHTML ="FINALIZADO";
+              $('#estadoSpan').html("Finalizado");
+
               validarTicketVencidos();
 
 
@@ -1040,6 +1044,8 @@ $('#btnFinalizado').on('click', function () {
                 tituloPanel2.style.color = "#e0d910";
                 tituloPanel2.innerHTML ="EN PROCESO";
                 validarTicketVencidos();
+                $('#estadoSpan').html("En Proceso");
+
 
   
                 btnFinalizado.removeAttribute("disabled");

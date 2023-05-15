@@ -87,7 +87,7 @@
                     <th><div style="width: 150;">TIPO INCIDENCIA</div></th>
                     <th><div style="width: 110;">SLA</div></th>
                     <th>USUARIO REPORTE</th>
-                    <th class="no-exportar">OPCIONES</th>    
+                    <th  class="no-exportar"><div style="width: 200;">OPCIONES</div></th>    
   
                 </tr>
             </thead>

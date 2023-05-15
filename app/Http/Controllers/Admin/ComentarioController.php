@@ -31,14 +31,14 @@ class ComentarioController extends Controller
             return Datatables::of($comentario)
             ->addColumn('action', function($comentario){
 
-                $acciones ='<td id="tdTabla"> <button type="button" name="editComentario"  id="'.$comentario->id.'" class="btn editar btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button></td>';
+                $acciones ='<td id="tdTabla"> <button type="button" name="editComentario"  id="'.$comentario->id.'" class="btn editar btn-sm">Editar <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button></td>';
 
                 return $acciones;
 
             })
             ->addColumn('action2', function($comentario){
 
-                $acciones ='<td id="tdTabla"> <button type="button" name="deleteComentario" id="'.$comentario->id.'" class="btn eliminar btn-sm"> <i class="fa-solid fa-trash-can"></i> </button></td>';
+                $acciones ='<td id="tdTabla"> <button type="button" name="deleteComentario" id="'.$comentario->id.'" class="btn eliminar btn-sm">Eliminar<i class="fa-solid fa-trash-can"></i> </button></td>';
 
                 return $acciones;
 
