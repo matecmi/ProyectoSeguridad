@@ -551,7 +551,9 @@ $(document).on('click', '#registrar', function () {
 
 
 $('#resgistrarTicket').submit(function (e) {
-
+  var btnGuardarTicket = document.getElementById("btnGuardarTicket");
+  btnGuardarTicket.disabled = true;
+  
   e.preventDefault();
 
 
@@ -600,6 +602,8 @@ $('#resgistrarTicket').submit(function (e) {
             icon: "success",
             buttons: true,
           })
+          btnGuardarTicket.removeAttribute("disabled");
+
         } else {
           swal({
             title: "Registro actualizado",
@@ -607,7 +611,11 @@ $('#resgistrarTicket').submit(function (e) {
             icon: "success",
             buttons: true,
           })
+          btnGuardarTicket.removeAttribute("disabled");
+
         }
+        btnGuardarTicket.removeAttribute("disabled");
+
         $('#exampleModal').modal('hide');
         validarTicketVencidos();
         $('#resgistrarTicket')[0].reset();
@@ -840,7 +848,6 @@ $('#btnEstado').on('click', function () {
 
 $('#estadoModal').on('hide.bs.modal', function (e) {
 
-
   btnStanby.disabled = true;
   btnFinalizado.disabled = true;
   btnProceso.disabled = true;
@@ -927,6 +934,8 @@ $('#btnFinalizado').on('click', function () {
           },
           success: function (response) {
 
+            console.log(response.success);
+
             if (response.success) {
 
               swal({
@@ -951,6 +960,14 @@ $('#btnFinalizado').on('click', function () {
               divStanby.style.cursor = "not-allowed";
               divFinalizado.style.cursor = "not-allowed";
 
+            }else{
+              swal({
+                title: "No se puede Cambiar el Estado",
+                text:"El ticket no tiene ninguna acción registrada",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+              })
             }
           }
         });

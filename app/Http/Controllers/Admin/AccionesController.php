@@ -118,7 +118,6 @@ public function accionesEdit(Request $request)
 
             $id = $request->input('id');
             $accion = Accione::find($id);
-            $accion->fecha = $request->input('fecha');
             $accion->descripcion = $request->input('descripcion');
             $accion->modo = $request->input('modo');
             $accion->personal_id = $request->input('personal_id');

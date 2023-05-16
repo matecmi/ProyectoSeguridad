@@ -174,7 +174,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button class="btn btn-primary" type="submit">Guardar</button>
+                <button class="btn btn-primary" type="submit" id="btnGuardarTicket">Guardar</button>
             </div>
           </form>
       </div>
@@ -212,44 +212,7 @@
 </div>
 
 <!-- Modales para la creación de comentarios. -->
-<!-- 
-<div class="modal fade" id="tablaComentarioModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="tituloComentario"></h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
 
-          <div class="col-md-3">
-
-            <button id="btnComentario" type="button" class="btn btn-primary">Nuevo Comentario</button>
-          </div>
-
-        <div class="card-body table-responsive">
-          <table class="table table-striped table-bordered table-hover" id="tablaComentario">
-            <thead>
-                <tr>
-                    <th style="width: 50px;">#</th>
-                    <th style="width: 200px;">DESCRIPCIÓN</th>
-                    <th style="width: 100px;">FECHA</th>
-                    <th style="width: 150px;">USUARIO</th>
-                    <th style="width: 50px;">ACCIONES</th>    
-                </tr>
-            </thead>
-            <tbody id="colComentario">
-            </tbody>
-        </table>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-      </div>
-      </div>
-    </div>
-  </div>
-</div>
--->
 <div class="modal fade delante" id="modalComentario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -276,46 +239,6 @@
 </div>
 
 <!-- Modales para la creación de Acciones. -->
-
-<!--
-<div class="modal fade" id="tablaAccionesModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="tituloAcciones"></h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-
-          <div class="col-md-3">
-
-          </div>
-
-        <div class="card-body table-responsive">
-          <table class="table table-striped table-bordered table-hover" id="tablaAcciones">
-            <thead>
-                <tr>
-                    <th style="width: 50px;">#</th>
-                    <th style="width: 100px;">FECHA</th>
-                    <th style="width: 200px;">DESCRIPCIÓN</th>
-                    <th style="width: 100px;">MODO</th>
-                    <th style="width: 150px;">USUARIO</th>
-                    <th style="width: 150px;">PERSONAL </th>
-                    <th style="width: 50px;">ACCIONES</th>    
-                </tr>
-            </thead>
-            <tbody id="colAccion">
-            </tbody>
-        </table>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-      </div>
-      </div>
-    </div>
-  </div>
-</div>
--->
 
 <div class="modal fade delante" id="modalAcciones" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -448,7 +371,7 @@
 
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button class="btn btn-primary" type="submit">Guardar</button>
+                <button class="btn btn-primary" type="submit" id="btnGuardarImagen">Guardar</button>
             </div>
           </form>
       </div>
@@ -561,7 +484,7 @@
 
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button class="btn btn-primary" type="submit">Guardar</button>
+                <button class="btn btn-primary" type="submit" id="btnGuardarDocumento">Guardar</button>
             </div>
           </form>
       </div>
@@ -817,7 +740,8 @@ $('#btnImagen').on('click', function () {
 
 
 $('#resgistrarTicketImagen').submit(function (e) {
-  
+  var btnGuardarImagen = document.getElementById("btnGuardarImagen");
+  btnGuardarImagen.disabled = true;
     e.preventDefault();
 
     $.ajax({
@@ -830,7 +754,7 @@ $('#resgistrarTicketImagen').submit(function (e) {
       _token: $('meta[name="csrf-token"]').attr('content'),
       success: function (response) {
         if (accionId!="NoFiltrar") {
-                    $.ajax({
+      $.ajax({
   
       url: "{{ route('admin.ticketImagenAccion') }}",
       type: "POST",
@@ -841,7 +765,8 @@ $('#resgistrarTicketImagen').submit(function (e) {
 
       },      
       success: function (response) {
-  
+        btnGuardarImagen.removeAttribute("disabled");
+
       }
     });
         }
@@ -857,9 +782,11 @@ $('#resgistrarTicketImagen').submit(function (e) {
           $('#ticketId').val(ticketId);
 
 
+          btnGuardarImagen.removeAttribute("disabled");
 
   
       }
+
     });
 
 
@@ -1036,7 +963,8 @@ function listDocumentos() {
 
 
 $('#resgistrarTicketDocumento').submit(function (e) {
-  
+  var btnGuardarDocumento = document.getElementById("btnGuardarDocumento");
+  btnGuardarDocumento.disabled = true;
     e.preventDefault();
 
     $.ajax({
@@ -1061,7 +989,8 @@ $('#resgistrarTicketDocumento').submit(function (e) {
         _token: $('meta[name="csrf-token"]').attr('content')
       },      
       success: function (response) {
-  
+        btnGuardarDocumento.removeAttribute("disabled");
+
       }
     });
         }
@@ -1076,6 +1005,7 @@ $('#resgistrarTicketDocumento').submit(function (e) {
           $('#documentoModal').modal('hide');
           $('#resgistrarTicketDocumento')[0].reset();
           $('#ticketIdDocumento').val(ticketId);
+          btnGuardarDocumento.removeAttribute("disabled");
 
         
   

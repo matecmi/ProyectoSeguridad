@@ -38,7 +38,7 @@ class ComentarioController extends Controller
             })
             ->addColumn('action2', function($comentario){
 
-                $acciones ='<td id="tdTabla"> <button type="button" name="deleteComentario" id="'.$comentario->id.'" class="btn eliminar btn-sm">Eliminar<i class="fa-solid fa-trash-can"></i> </button></td>';
+                $acciones ='<td id="tdTabla"> <button type="button" name="deleteComentario" id="'.$comentario->id.'" class="btn eliminar btn-sm">Eliminar <i class="fa-solid fa-trash-can"></i> </button></td>';
 
                 return $acciones;
 
