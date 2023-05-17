@@ -108,7 +108,7 @@ class TicketController extends Controller
             ->join('usuarios', 'tickets.usuario_id', '=', 'usuarios.id')
             ->join('slas', 'tickets.sla_id', '=', 'slas.id')
             ->where('tickets.status', '=', 'Y')
-            ->where('tickets.situacion', '=', "En Proceso")
+            ->whereIn('tickets.situacion', ['En Proceso', 'Standby'])
             ->where('tickets.fecha_primera_respuesta', '<', date('Y-m-d H:i:s', time()))
             ->get();
 
@@ -441,7 +441,7 @@ public function ticketEdit(Request $request)
             ->where('id', '=', $request->input('sla_id'))
             ->first();
 
-            $id = $request->input('id');
+            $id = $request->input('ID');
             $ticked = Ticket::find($id);
             $ticked->fecha_registro = $request->input('fecha');
             $ticked->fecha_fin_estimado = $this->sumarHoras($request->input('fecha'),$sla->horas);

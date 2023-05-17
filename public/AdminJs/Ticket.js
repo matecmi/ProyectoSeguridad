@@ -580,7 +580,6 @@ $('#resgistrarTicket').submit(function (e) {
     url = "/admin/ticket/update";
 
   }
-
   $.ajax({
 
     url: url,
@@ -591,8 +590,6 @@ $('#resgistrarTicket').submit(function (e) {
       _token: $('meta[name="csrf-token"]').attr('content'),
 
     success: function (response) {
-
-      console.log(response.success);
 
       if (response.success) {
         if (id == "") {
@@ -932,7 +929,6 @@ $('#btnFinalizado').on('click', function () {
           },
           success: function (response) {
 
-            console.log(response.success);
 
             if (response.success) {
 
@@ -1003,7 +999,6 @@ $('#btnFinalizado').on('click', function () {
   
       success: function (response) {
 
-        console.log(response);
         var options;
 
             options += '<tr>';

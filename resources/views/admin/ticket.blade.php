@@ -112,7 +112,7 @@
         <form class="row g-3 " id="resgistrarTicket" action="{{ route('admin.ticketStore') }}">
             @csrf
               <div class="col-md-6">
-                <input type="text" id="ID" style="display:none">
+                <input type="text" id="ID" style="display:none" name="ID">
                 <label for="Nombre" class="form-label">FECHA REGISTRO</label>
                 <input type="datetime-local" class="form-control" id="fecha" name="fecha" >
               </div>
