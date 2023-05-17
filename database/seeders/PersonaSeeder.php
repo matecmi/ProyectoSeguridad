@@ -9,7 +9,7 @@ class PersonaSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('tipo_usuarios')->insert([
+        DB::table('personas')->insert([
             'id' => null,
             'nombres' => 'Administrador',
             'apellidopaterno' => '----',
