@@ -10,9 +10,10 @@ class UsuarioSeeder extends Seeder
 
     public function run()
     {
-        DB::table('tipo_usuarios')->insert([
+        DB::table('usuarios')->insert([
             'id' => null,
             'nombre' => 'administrador',
+            'password' => '1234',
             'tipo_usuario_id' => 1,
             'persona_id' => 1,
             'created_at' => '2023-05-16 23:50:40',
