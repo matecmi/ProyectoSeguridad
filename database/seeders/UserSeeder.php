@@ -26,6 +26,7 @@ class UserSeeder extends Seeder
             'updated_at' => '2023-05-16 23:50:40',
         ]);
 
+
         // \App\Models\User::factory(10)->create();
     }
 }
