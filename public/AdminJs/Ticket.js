@@ -703,11 +703,9 @@ $(document).on('click', 'button[name="edit"]', function () {
         var personal_id = response.success.personal_id;
         var empresa_id = response.success.empresa_id;
         var supervisor_id = response.success.supervisor_id;
-        var medio_reporte_id =response.su|ccess.medio_reporte_id;
+        var medio_reporte_id =response.success.medio_reporte_id;
         var usuario_reporte_id =response.success.usuario_reporte_id;
 
-
-        
         $('#fecha').val(fecha);
         $('#listMedioReporte').val(medio_reporte_id);
         $('#descripcion').val(descripcion);
