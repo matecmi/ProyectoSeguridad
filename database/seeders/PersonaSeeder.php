@@ -17,7 +17,7 @@ class PersonaSeeder extends Seeder
             'dni' => '----',
             'ruc' => '----',
             'telefno' => '---',
-            'email' => 'kevin2010_12@hotmail.com',
+            'email' => 'admin@gmail.com',
             'created_at' => '2023-05-16 23:50:40',
             'updated_at' => '2023-05-16 23:50:40',
         ]);
