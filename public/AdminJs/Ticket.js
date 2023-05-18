@@ -143,12 +143,12 @@ function generarContenidoTabla(ticketVencido) {
           options += '<td id="tdTabla">' + grupo.sla_nombre + '</td>';
           options += '<td id="tdTabla">' + grupo.nombre + '</td>';
           if (grupo.situacion == "Finalizado") {
-            options += '<td style="text-align: center; vertical-align: middle;"> <button disabled type="button" name="edit"  id="' + grupo.id + '" class="btn btn-success btn-sm">Editar <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
-            options += '&nbsp;&nbsp;<button disabled  type="button" name="delete" id="' + grupo.id + '" class="btn btn-danger btn-sm">Eliminar<i class="fa-solid fa-trash-can"></i> </button></td>';
+            options += '<td style="text-align: center; vertical-align: middle;"> <button disabled type="button" name="edit"  id="' + grupo.id + '" class="btn btn-success btn-sm">Editar<i class="fa-sharp fa-solid fa-pen-to-square ml-1"></i> </button>';
+            options += '&nbsp;&nbsp;<button disabled  type="button" name="delete" id="' + grupo.id + '" class="btn btn-danger btn-sm">Eliminar<i class="fa-solid fa-trash-can ml-1"></i> </button></td>';
 
           } else {
-            options += '<td style="text-align: center; vertical-align: middle;"> <button  type="button" name="edit"  id="' + grupo.id + '" class="btn editar btn-sm">Editar<i class="fa-sharp fa-solid fa-pen-to-square" style="color: white;"></i> </button>';
-            options += '&nbsp;&nbsp;<button  type="button" name="delete" id="' + grupo.id + '" class="btn eliminar btn-sm">Eliminar<i class="fa-solid fa-trash-can" style="color: white;"></i> </button></td>';
+            options += '<td style="text-align: center; vertical-align: middle;"> <button  type="button" name="edit"  id="' + grupo.id + '" class="btn editar btn-sm">Editar<i class="fa-sharp fa-solid fa-pen-to-square ml-1" style="color: white;"></i> </button>';
+            options += '&nbsp;&nbsp;<button  type="button" name="delete" id="' + grupo.id + '" class="btn eliminar btn-sm">Eliminar<i class="fa-solid fa-trash-can ml-1" style="color: white;"></i> </button></td>';
 
           }
           options += '</tr>';
