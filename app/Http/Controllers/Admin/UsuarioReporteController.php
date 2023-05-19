@@ -18,14 +18,12 @@ class UsuarioReporteController extends Controller
             ->where('status', '=', 'Y')
             ->get();
             return Datatables::of($usuarioReporte)
-                ->addColumn('action', function($usuarioReporte){
+            ->addColumn('action', function($usuarioReporte){
+                $acciones ='<button type="button" name="edit"  id="'.$usuarioReporte->id.'" class="btn editar btn-sm">Editar<i class="fa-sharp fa-solid fa-pen-to-square ml-1" style="color: white;"></i> </button>';
+                $acciones .='&nbsp;&nbsp;<button type="button" name="delete" id="'.$usuarioReporte->id.'" class="btn eliminar btn-sm">Eliminar<i class="fa-solid fa-trash-can ml-1" style="color: white;"></i> </button>'; 
+                return $acciones;
 
-                    $acciones ='<button type="button" name="edit"  id="'.$usuarioReporte->id.'" class=" btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
-                    $acciones .='&nbsp;&nbsp;<button type="button" name="delete" id="'.$usuarioReporte->id.'" class=" btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button>'; 
-
-                    return $acciones;
-
-                })
+            })
                 ->rawColumns(['action'])
                 ->make(true);
         }

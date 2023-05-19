@@ -26,7 +26,7 @@
                     <th>ORDEN</th>
                     <th>ICONO</th>
                     <th>GRUPO MENU</th>
-                    <th colspan="2">ACCIONES</th>    
+                    <th colspan="2"><div style="width: 140;">ACCIONES</div></th>    
                 </tr>
             </thead>
         </table>

@@ -25,7 +25,7 @@
                     <th>HORAS</th>
                     <th>TIEMPO PRIMERA RESPUESTA</th>
                     <th>NOMENCLATURA</th>
-                    <th colspan="2">ACCIONES</th>    
+                    <th colspan="2"><div style="width: 140;">ACCIONES</div></th>    
                 </tr>
             </thead>
         </table>

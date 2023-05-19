@@ -28,7 +28,7 @@
                     <th>RUC</th>
                     <th>TELEFONO</th>
                     <th>EMAIL</th>
-                    <th colspan="2">ACCIONES</th>    
+                    <th colspan="2"><div style="width: 200;">ACCIONES</div></th>    
                 </tr>
             </thead>
         </table>
