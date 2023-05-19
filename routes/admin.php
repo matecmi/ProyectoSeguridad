@@ -150,13 +150,13 @@ Route::delete('admin/acciones/delete',[AccionesController::class, 'accionesDestr
 Route::get('admin/acciones/edit',[AccionesController::class, 'accionesEdit'])->name('admin.accionesEdit');
 Route::post('admin/acciones/update',[AccionesController::class, 'accionesUpdate'])->name('admin.accionesUpdate');
 
-Route::get('admin/medioreporte',[MedioReporteController::class, 'medioReporte'])->name('admin.medioReporte');
+Route::get('admin/medioreporte',[MedioReporteController::class, 'medioreporte'])->name('admin.medioreporte');
 Route::post('admin/medioreporte/create',[MedioReporteController::class, 'medioReporteStore'])->name('admin.medioReporteStore');
 Route::delete('admin/medioreporte/delete',[MedioReporteController::class, 'medioReporteDestroy'])->name('admin.medioReporteDestroy');
 Route::get('admin/medioreporte/edit',[MedioReporteController::class, 'medioReporteEdit'])->name('admin.medioReporteEdit');
 Route::post('admin/medioreporte/update',[MedioReporteController::class, 'medioReporteUpdate'])->name('admin.medioReporteUpdate');
 
-Route::get('admin/usuarioreporte',[UsuarioReporteController::class, 'usuarioReporte'])->name('admin.usuarioReporte');
+Route::get('admin/usuarioreporte',[UsuarioReporteController::class, 'usuarioreporte'])->name('admin.usuarioreporte');
 Route::post('admin/usuarioreporte/create',[UsuarioReporteController::class, 'usuarioReporteStore'])->name('admin.usuarioReporteStore');
 Route::delete('admin/usuarioreporte/delete',[UsuarioReporteController::class, 'usuarioReporteDestroy'])->name('admin.usuarioReporteDestroy');
 Route::get('admin/usuarioreporte/edit',[UsuarioReporteController::class, 'usuarioReporteEdit'])->name('admin.usuarioReporteEdit');

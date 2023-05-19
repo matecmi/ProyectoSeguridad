@@ -9,7 +9,7 @@ use DataTables;
 
 class UsuarioReporteController extends Controller
 {
-    public function usuarioReporte(Request $request)
+    public function usuarioreporte(Request $request)
     {
 
         if($request ->ajax()){
@@ -30,7 +30,7 @@ class UsuarioReporteController extends Controller
                 ->make(true);
         }
 
-        return view('admin.usuarioReporte');
+        return view('admin.usuarioreporte');
     }
 
     public function usuarioReporteList(){
