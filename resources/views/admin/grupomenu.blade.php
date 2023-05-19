@@ -210,6 +210,14 @@
 
         id = $(this).attr('id');
         var _token =$("input[name=_token]").val();
+        swal({
+         title: "Desea eliminar el grupo de menu?",
+         icon: "warning",
+         buttons: true,
+         dangerMode: true,
+        })
+       .then((willDelete) => {
+           if (willDelete) {
 
       $.ajax({
 
@@ -221,8 +229,16 @@
                },
          success: function(response){
             $('#tabla').DataTable().ajax.reload();
+            swal({ 
+                    title:"Grupo de menu eliminado correctamente",
+                    icon: "success"
+            });
         }
       });
+    }
+
+});
+
    });
 
 

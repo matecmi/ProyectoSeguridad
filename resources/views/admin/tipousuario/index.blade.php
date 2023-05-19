@@ -327,6 +327,16 @@
         id = $(this).attr('id');
         var _token =$("input[name=_token]").val();
 
+        swal({
+         title: "Desea eliminar el tipo de usuario?",
+         icon: "warning",
+         buttons: true,
+         dangerMode: true,
+        })
+       .then((willDelete) => {
+           if (willDelete) {
+
+
       $.ajax({
 
          url: "/admin/tipousuario/" + id,
@@ -336,8 +346,15 @@
                },
          success: function(response){
             $('#tabla').DataTable().ajax.reload();
+            swal({ 
+                    title:"Tipo de usuario eliminado correctamente",
+                    icon: "success"
+            });
         }
       });
+               }
+
+     });
    });
 
 

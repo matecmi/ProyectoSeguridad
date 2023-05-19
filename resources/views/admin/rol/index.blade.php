@@ -192,6 +192,15 @@
         var nombre = $('#nombre').val();
         var _token =$("input[name=_token]").val();
 
+        swal({
+         title: "Desea eliminar el Rol?",
+         icon: "warning",
+         buttons: true,
+         dangerMode: true,
+        })
+       .then((willDelete) => {
+           if (willDelete) {
+
       $.ajax({
 
          url: "/admin/rol/" + id,
@@ -201,8 +210,15 @@
                },
          success: function(response){
             $('#tabla').DataTable().ajax.reload();
+            swal({ 
+                    title:"Rol eliminado correctamente",
+                    icon: "success"
+            });
         }
       });
+    }
+
+});
    });
 
 

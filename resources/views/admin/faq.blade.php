@@ -206,7 +206,14 @@
 
         id = $(this).attr('id');
         var _token =$("input[name=_token]").val();
-
+        swal({
+         title: "Desea eliminar el faq?",
+         icon: "warning",
+         buttons: true,
+         dangerMode: true,
+        })
+       .then((willDelete) => {
+           if (willDelete) {
       $.ajax({
 
          url: "{{ route('admin.faqDestroy') }}",
@@ -217,8 +224,16 @@
                },
          success: function(response){
             $('#tabla').DataTable().ajax.reload();
+            swal({ 
+                    title:"Faq eliminado correctamente",
+                    icon: "success"
+            });
         }
       });
+               }
+
+     });
+
    });
 
 

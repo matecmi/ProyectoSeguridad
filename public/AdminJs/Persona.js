@@ -162,7 +162,14 @@ $(document).on('click', 'button[name="delete"]', function () {
 
     id = $(this).attr('id');
     var _token = $("input[name=_token]").val();
-
+    swal({
+        title: "Desea eliminar la persona?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+       })
+       .then((willDelete) => {
+        if (willDelete) {
     $.ajax({
 
         url: "/admin/persona/delete",
@@ -173,8 +180,15 @@ $(document).on('click', 'button[name="delete"]', function () {
         },
         success: function (response) {
             $('#tabla').DataTable().ajax.reload();
+            swal({ 
+                title:"Registro eliminado correctamente",
+                icon: "success"
+        });
         }
     });
+    }
+
+ });
 });
 
 

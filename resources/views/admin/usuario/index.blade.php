@@ -282,6 +282,14 @@ $(document).on('click', '#registrar', function(){
 
         id = $(this).attr('id');
         var _token =$("input[name=_token]").val();
+        swal({
+         title: "Desea eliminar el usuario?",
+         icon: "warning",
+         buttons: true,
+         dangerMode: true,
+        })
+       .then((willDelete) => {
+           if (willDelete) {
 
       $.ajax({
 
@@ -292,8 +300,15 @@ $(document).on('click', '#registrar', function(){
                },
          success: function(response){
             $('#tabla').DataTable().ajax.reload();
+            swal({ 
+                    title:"Usuario eliminado correctamente",
+                    icon: "success"
+            });
         }
       });
+         }
+
+     });
    });
 
 
