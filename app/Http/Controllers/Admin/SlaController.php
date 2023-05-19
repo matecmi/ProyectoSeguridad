@@ -20,9 +20,8 @@ class SlaController extends Controller
             return Datatables::of($sla)
                 ->addColumn('action', function($sla){
 
-                    $acciones ='<button type="button" name="edit"  id="'.$sla->id.'" class=" btn btn-success btn-sm"> <i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
-                    $acciones .='&nbsp;&nbsp;<button type="button" name="delete" id="'.$sla->id.'" class=" btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button>'; 
-
+                    $acciones ='<button type="button" name="edit"  id="'.$sla->id.'" class="btn editar btn-sm">Editar<i class="fa-sharp fa-solid fa-pen-to-square ml-1" style="color: white;"></i> </button>';
+                    $acciones .='&nbsp;&nbsp;<button type="button" name="delete" id="'.$sla->id.'" class="btn eliminar btn-sm">Eliminar<i class="fa-solid fa-trash-can ml-1" style="color: white;"></i> </button>'; 
                     return $acciones;
 
                 })

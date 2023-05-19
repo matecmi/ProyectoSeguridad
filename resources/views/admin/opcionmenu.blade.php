@@ -85,6 +85,7 @@
 
 <link rel="stylesheet" href="{{ asset('DataTables/datatables.css') }}">
     <link rel="stylesheet" href="/css/admin_custom.css">
+    <link rel="stylesheet" href="{{ asset('AdminCss/general.css') }}" >
 
     <style>
         .dataTables_wrapper {
