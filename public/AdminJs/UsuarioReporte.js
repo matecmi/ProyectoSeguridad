@@ -167,6 +167,12 @@ function limpiarFormularioUsuarioReporte(){
 
 }
 
+function validarEdicionUsuarioReporte(){
+    campos.nombre=true;
+    campos.correo=true;
+    campos.telefono=true;
+}
+
 
 $('#usuarioReporteModal').on('hide.bs.modal', function (e) {
 
@@ -180,6 +186,7 @@ limpiarFormularioUsuarioReporte();
  $(document).on('click', 'button[name="editUsuarioReporte"]', function(){
    var id = $(this).attr('id');
    $('#usuarioReporteModal').modal('show');
+
 
  $.ajax({
 
@@ -203,6 +210,7 @@ limpiarFormularioUsuarioReporte();
         $('#telefonoUsuarioReporte').val(telefono);
 
         $('#usuarioReporteID').val(id);
+        validarEdicionUsuarioReporte();
 
         }
     }

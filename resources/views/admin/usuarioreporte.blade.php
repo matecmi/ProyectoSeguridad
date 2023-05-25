@@ -48,7 +48,7 @@
       <div class="col-md-12">
       <input type="text" id="usuarioReporteID" style="display:none">
 			<div class="formulario__grupo" id="grupo__nombre">
-				<label for="nombreUsuarioReporte" class="formulario__label">Nombre</label>
+				<label for="nombreUsuarioReporte" class="formulario__label">NOMBRE</label>
 				<div class="formulario__grupo-input">
 					<input type="text" class="formulario__input" name="nombre" id="nombreUsuarioReporte" placeholder="Jose Fernàndez" require>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>

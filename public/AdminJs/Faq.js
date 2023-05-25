@@ -47,10 +47,14 @@ function limpiarFormularioFaq(){
     
     document.getElementById('formulario__mensaje').classList.remove('formulario__mensaje-activo');
     
-    campos.nombre=false;
-    campos.correo=false;
-    campos.telefono=false;
+    campos.titulo=false;
+    campos.respuesta=false;
 
+}
+
+function validarEdicionFaq(){
+    campos.titulo=true;
+    campos.respuesta=true;
 }
 
 
@@ -177,7 +181,7 @@ limpiarFormularioFaq();
 
 
         $('#exampleModal').modal('show');
-
+        validarEdicionFaq();
         $('#titulo').val(titulo);
         $('#respuesta').val(respuesta);
         $('#ID').val(id);
