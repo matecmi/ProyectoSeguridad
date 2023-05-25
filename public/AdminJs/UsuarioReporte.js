@@ -89,9 +89,10 @@ function registrarUsuarioReporte() {
             if (id=="ticket") {
 
                 listarSelectUsuarioReporte();
-                
+                $('#usuarioReporteModal2').modal('hide');
+
             }
-            limpiarFormulario(formularioUsuarioReporte);
+            limpiarFormularioUsuarioReporte();
 
             $('#usuarioReporteModal').modal('hide');
             $('#tablaUsuarioReporte').DataTable().ajax.reload();
@@ -144,8 +145,8 @@ $(document).on('click', 'button[name="deleteUsuarioReporte"]', function(){
 
 });
 
-function limpiarFormulario(formulario){
-    formulario.reset();
+function limpiarFormularioUsuarioReporte(){
+    formularioUsuarioReporte.reset();
     document.querySelectorAll('.formulario__grupo').forEach((icono) => {
         icono.classList.remove('formulario__grupo-incorrecto');
         icono.classList.remove('formulario__grupo-correcto');
@@ -170,9 +171,11 @@ function limpiarFormulario(formulario){
 $('#usuarioReporteModal').on('hide.bs.modal', function (e) {
 
 $('#registrarUsuarioReporte')[0].reset();
-limpiarFormulario(formularioUsuarioReporte);
+limpiarFormularioUsuarioReporte();
 
 });
+
+
 
  $(document).on('click', 'button[name="editUsuarioReporte"]', function(){
    var id = $(this).attr('id');

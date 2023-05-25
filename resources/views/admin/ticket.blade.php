@@ -183,7 +183,7 @@
 </div>
 <!-- Modales para la creación de usuario que reporta. -->
 
-<div class="modal fade" id="usuarioReporteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="usuarioReporteModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-usuario">
     <div class="modal-content ">
       <div class="modal-header modalHeader">

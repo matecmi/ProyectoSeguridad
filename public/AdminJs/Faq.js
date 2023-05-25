@@ -31,8 +31,8 @@ $(document).ready(function() {
 
 var id;
 
-function limpiarFormulario(formulario){
-    formulario.reset();
+function limpiarFormularioFaq(){
+    formularioFaq.reset();
     document.querySelectorAll('.formulario__grupo').forEach((icono) => {
         icono.classList.remove('formulario__grupo-incorrecto');
         icono.classList.remove('formulario__grupo-correcto');
@@ -107,7 +107,7 @@ function registrarFaq() {
 
         }
 
-        limpiarFormulario(formularioFaq);
+        limpiarFormularioFaq();
     }
 });
 }
@@ -153,7 +153,7 @@ $(document).on('click', 'button[name="delete"]', function(){
 $('#exampleModal').on('hide.bs.modal', function (e) {
 // Restablecer el valor del campo 1
 
-limpiarFormulario(formularioFaq);
+limpiarFormularioFaq();
 
 
 });

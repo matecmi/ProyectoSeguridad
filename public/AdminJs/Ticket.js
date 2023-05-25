@@ -251,10 +251,17 @@ function generarContenidoTabla(ticketVencido) {
 }
 
 $('#btnUsuarioReporta').on('click', function () {
-  $('#usuarioReporteModal').modal('show');
+  $('#usuarioReporteModal2').modal('show');
   $("#usuarioReporteID").val("ticket");
 
 });
+
+$('#usuarioReporteModal2').on('hide.bs.modal', function (e) {
+
+  $('#registrarUsuarioReporte')[0].reset();
+  limpiarFormularioUsuarioReporte();
+  
+  });
 
 
 function filtroListTipoIncidencia() {
