@@ -52,7 +52,7 @@
 			<div class="formulario__grupo" id="grupo__titulo">
 				<label for="titulo" class="formulario__label">TITULO</label>
 				<div class="formulario__grupo-input">
-					<input type="text" class="formulario__input" name="titulo" id="titulo" placeholder="Jose Fernàndez" require>
+					<input type="text" class="formulario__input" name="titulo" id="titulo" placeholder="¿Pregunta frecuente?" require>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
 				<p class="formulario__input-error">El titulo tiene que ser mayor a 5 digitos.</p>
@@ -65,7 +65,7 @@
 			<div class="formulario__grupo" id="grupo__respuesta">
 				<label for="respuesta" class="formulario__label">RESPUESTA</label>
 				<div class="formulario__grupo-input">
-					<input type="text" class="formulario__input" name="respuesta" id="respuesta" placeholder="Jose Fernàndez" require>
+					<input type="text" class="formulario__input" name="respuesta" id="respuesta" placeholder="Respuesta asignada" require>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
 				<p class="formulario__input-error">La respuesta tiene que ser mayor a 5 digitos.</p>

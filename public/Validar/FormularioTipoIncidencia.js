@@ -1,9 +1,9 @@
-const formularioMedioReporte = document.getElementById('resgistrarMedioReporte');
-const inputMedioReporte = document.querySelectorAll('#resgistrarMedioReporte input');
+const formularioTipoIncidencia = document.getElementById('resgistrarTipoIncidencia');
+const inputTipoIncidencia = document.querySelectorAll('#resgistrarTipoIncidencia input');
 
 
 const expresiones = {
-	nombre: /^[a-zA-ZÀ-ÿ\s]{3,30}$/, // Letras y espacios, pueden llevar acentos.
+	nombre: /^.{2,30}$/, // Todo tipo de caracter
 
 }
 
@@ -39,20 +39,20 @@ const validarCampo = (expresion, input, campo) => {
 
 
 
-inputMedioReporte.forEach((input) => {
+inputTipoIncidencia.forEach((input) => {
 	input.addEventListener('keyup', validarFormulario);
 	input.addEventListener('blur', validarFormulario);
 });
 
-formularioMedioReporte.addEventListener('submit', (e) => {
+formularioTipoIncidencia.addEventListener('submit', (e) => {
 	e.preventDefault();
 
 	if(campos.nombre){
 
-        registrarMedioReporte();
+        registrarTipoIncidencia();
 
 
-		formularioMedioReporte.reset();
+		formularioTipoIncidencia.reset();
 		document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
 			icono.classList.remove('formulario__grupo-correcto');
 		});

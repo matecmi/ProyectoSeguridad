@@ -33,29 +33,44 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Tipo De Incidencia</h1>
+    <div class="modal-header modalHeader">
+        <h1 class="modal-title fs-5 formulario__labelTitulo">NUEVO TIPO INCIDENCIA </h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <form class="row g-3" id="resgistrarTipoIncidencia" action="{{ route('admin.tIncidenciaStore') }}">
-            @csrf
+      <div class="modal-body modalBody">
+     
+      <form  class="row g-3 formulario" id="resgistrarTipoIncidencia" action="{{ route('admin.tIncidenciaStore') }}">
+      @csrf
 
-            <div class="col-md-12">
-                <input type="text" id="ID" style="display:none">
-                <label for="nombre" class="form-label">NOMBRE</label>
-                <input type="text" class="form-control" id="nombre" name="" required>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button class="btn btn-primary" type="submit">Guardar</button>
-            </div>
-          </form>
+			<!-- Grupo: nombre -->
+      <div class="col-md-12">
+      <input type="text" id="ID" style="display:none">
+			<div class="formulario__grupo" id="grupo__nombre">
+				<label for="nombre" class="formulario__label">NOMBRE</label>
+				<div class="formulario__grupo-input">
+					<input type="text" class="formulario__input" name="nombre" id="nombre" placeholder="Garantia" require>
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">El nombre tiene que ser mayor a 2 digitos</p>
+			</div>
+			</div>
+
+			<div class="formulario__mensaje" id="formulario__mensaje">
+				<p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
+			</div>
+
+      <div class="modal-footer">
+        
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      <button class="btn btn-primary" type="submit">Guardar</button>
+      
+      </div>
+		</form>
+
       </div>
     </div>
   </div>
 </div>
-
 
 
 @stop
@@ -67,6 +82,11 @@
 <link rel="stylesheet" href="{{ asset('DataTables/datatables.css') }}">
     <link rel="stylesheet" href="/css/admin_custom.css">
     <link rel="stylesheet" href="{{ asset('AdminCss/general.css') }}" >
+
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="{{ asset('AdminCss/validarFormulario.css') }}" >
+
 
     <style>
         .dataTables_wrapper {
@@ -101,177 +121,15 @@
 
 <script src="{{ asset('DataTables/datatables.js') }}"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="{{ asset('AdminJs/TipoIncidencia.js') }}"></script>
+
+
+<script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+<script  src="{{ asset('Validar/FormularioTipoIncidencia.js') }}" ></script>
 
 <script> 
 
-    $(document).ready(function() {
-        var tabla =$('#tabla').DataTable({
-
-            processing:false,
-            serverSide:true,
-            //autoWidth: false,
-
-            language: {
-                    url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json'
-                },
-
-            ajax:{
-                    url: "{{ route('admin.tipoincidencia') }}",    
- 
-            },
-            
-            columns:[
-                
-                {data: 'id'},
-                {data: 'nombre'},      
-                {data: 'action', orderable: false}
-            ]
-        });
-    
-    });
-  
-    var id;
-
-
-
-    $('#resgistrarTipoIncidencia').submit(function(e){
-
-        e.preventDefault();
-
-        var nombre = $('#nombre').val();
-
-        var id = $('#ID').val();
-        var _token =$("input[name=_token]").val();
-
-        var ruta;
-
-        if(id==""){
-
-            ruta="{{ route('admin.tIncidenciaStore') }}";
-        }else if(id!=""){
-            ruta="{{ route('admin.tIncidenciaUpdate') }}";
-
-        }
-
-        $.ajax({
-
-            url: ruta,    
-            type: "POST",
-            data:{
-                nombre: nombre,
-                id: id,
-                _token: _token
-
-            },
-
-            success: function(response) {
-
-            if(response.success){
-
-                if (id=="") {
-                    swal({
-                 title: "Registro agregado",
-                 text: "",
-                 icon: "success",
-                 buttons: true,
-                })
-                }else {
-                swal({
-                 title: "Registro actualizado",
-                 text: "",
-                 icon: "success",
-                 buttons: true,
-                })
-                }
-                
-                $('#exampleModal').modal('hide');
-                $('#tabla').DataTable().ajax.reload();
-                $('#resgistrarTipoIncidencia')[0].reset();
-
-            }
-        }
-    });
-});
-      
-
-    
-    $(document).on('click', 'button[name="delete"]', function(){
-
-        var id;
-
-        id = $(this).attr('id');
-        var _token =$("input[name=_token]").val();
-        
-        swal({
-         title: "Desea eliminar el registro?",
-         icon: "warning",
-         buttons: true,
-         dangerMode: true,
-        })
-       .then((willDelete) => {
-           if (willDelete) {
-
-      $.ajax({
-
-         url: "{{ route('admin.tIncidenciaDestroy') }}",
-         type: 'DELETE',
-         data: {
-            id:id,
-        _token: $('meta[name="csrf-token"]').attr('content')
-               },
-         success: function(response){
-
-            if(response.success){
-                $('#tabla').DataTable().ajax.reload();
-                swal({ 
-                    title:"Registro eliminado correctamente",
-                    icon: "success"
-            });
-            }
-        }
-
-         });
-
-         }
-
-     });
-
-
-   });
-
-
-   $('#exampleModal').on('hide.bs.modal', function (e) {
-    // Restablecer el valor del campo 1
-    $('#nombre').val('');
-
-   });
-
-     $(document).on('click', 'button[name="edit"]', function(){
-       var id = $(this).attr('id');
-
-     $.ajax({
-
-        url: "{{ route('admin.tIncidenciaEdit') }}",
-        type: 'get',
-        data: {
-            id:id,
-        _token: $('meta[name="csrf-token"]').attr('content')
-               },
-        success: function(response){
-
-            if(response!=null){
-            var nombre = response.success.nombre;
-
-
-            $('#exampleModal').modal('show');
-
-            $('#nombre').val(nombre);
-            $('#ID').val(id);
-
-            }
-        }
-     });
-  });
+   
     
     </script>
 

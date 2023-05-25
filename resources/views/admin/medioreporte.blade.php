@@ -48,7 +48,7 @@
 			<div class="formulario__grupo" id="grupo__nombre">
 				<label for="nombre" class="formulario__label">NOMBRE</label>
 				<div class="formulario__grupo-input">
-					<input type="text" class="formulario__input" name="nombre" id="nombre" placeholder="Jose Fernàndez" require>
+					<input type="text" class="formulario__input" name="nombre" id="nombre" placeholder="WhatsApp" require>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
 				<p class="formulario__input-error">El nombre tiene que ser mayor a 2 digitos y solo puede contener letras y espacios</p>
@@ -122,6 +122,7 @@
 
 <script src="{{ asset('DataTables/datatables.js') }}"></script>
 <script src="{{ asset('AdminJs/MedioReporte.js') }}"></script>
+
 <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
 <script  src="{{ asset('Validar/FormularioMedioReporte.js') }}" ></script>
 

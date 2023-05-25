@@ -3,8 +3,8 @@ const inputFaq = document.querySelectorAll('#resgistrarFaq input');
 
 
 const expresiones = {
-	titulo: /^.{5,250}$/, // Letras y espacios, pueden llevar acentos.
-    respuesta: /^.{5,250}$/ // Letras y espacios, pueden llevar acentos.
+	titulo: /^.{5,250}$/, // Cualquier caracter
+    respuesta: /^.{5,250}$/ // Cualquier caracter
 
 }
 
