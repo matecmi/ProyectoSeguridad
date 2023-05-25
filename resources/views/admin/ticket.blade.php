@@ -183,16 +183,16 @@
 </div>
 <!-- Modales para la creación de usuario que reporta. -->
 
-
-<div class="modal fade" id="usuarioReporteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-usuario">
+<!--
+<div class="modal fade " id="usuarioReporteModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-usuario ">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5">Nuevo Usuario quien Reporta</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form class="row g-3 " id="registrarUsuarioReporte" action="{{ route('admin.usuarioReporteStore') }}">
+      <form class="row g-3" id="registrarUsuarioReporte" action="{{ route('admin.usuarioReporteStore') }}">
             @csrf
           <div class="col-md-12">
           <input type="text" id="usuarioReporteID" style="display:none">
@@ -209,9 +209,77 @@
           </div>
           <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button class="btn btn-primary" type="submit" id="btnGuardarTicket">Guardar</button>
+                <button class="btn btn-primary" type="submit">Guardar</button>
             </div>
           </form>
+      </div>
+    </div>
+  </div>
+</div>
+-->
+<div class="modal fade" id="usuarioReporteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-usuario">
+    <div class="modal-content ">
+      <div class="modal-header modalHeader">
+        <h1 class="modal-title fs-5 formulario__labelTitulo">NUEVO U.REPORTE</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body modalBody">
+     
+      <form  class="row g-3 formulario" id="registrarUsuarioReporte" action="{{ route('admin.usuarioReporteStore') }}">
+      @csrf
+
+			<!-- Grupo: Nombre -->
+      <div class="col-md-12">
+      <input type="text" id="usuarioReporteID" style="display:none">
+			<div class="formulario__grupo" id="grupo__nombre">
+				<label for="nombreUsuarioReporte" class="formulario__label">Nombre</label>
+				<div class="formulario__grupo-input">
+					<input type="text" class="formulario__input" name="nombre" id="nombreUsuarioReporte" placeholder="Jose Fernàndez" require>
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">El nombre tiene que ser mayor a 3 digitos.</p>
+			</div>
+			</div>
+
+			<!-- Grupo: Correo Electronico -->
+      <div class="col-md-12">
+
+			<div class="formulario__grupo" id="grupo__correo">
+				<label for="emailUsuarioReporte" class="formulario__label">CORREO ELECTRÒNICO</label>
+				<div class="formulario__grupo-input">
+					<input type="email" class="formulario__input" name="correo" id="emailUsuarioReporte" placeholder="compusoft@correo.com" require>
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">El correo electrònico escrito es invalido.</p>
+			</div>
+			</div>
+
+			<!-- Grupo: Teléfono -->
+        <div class="col-md-12">
+        <div class="formulario__grupo" id="grupo__telefono">
+				<label for="telefonoUsuarioReporte" class="formulario__label">TELÈFONO</label>
+				<div class="formulario__grupo-input">
+					<input type="number" class="formulario__input" name="telefono" id="telefonoUsuarioReporte" placeholder="976065457" require>
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">numero de telefono invalido, debe contener 9 digitos.</p>
+			</div>
+        </div>
+
+
+			<div class="formulario__mensaje" id="formulario__mensaje">
+				<p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
+			</div>
+
+      <div class="modal-footer">
+        
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      <button class="btn btn-primary" type="submit">Guardar</button>
+      
+      </div>
+		</form>
+
       </div>
     </div>
   </div>
@@ -684,7 +752,7 @@
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+<script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
 <script src="{{ asset('DataTables/datatables.js') }}"></script>
 <script src="{{ asset('AdminJs/Ticket.js') }}"></script>
 <script src="{{ asset('AdminJs/Acciones.js') }}"></script>
@@ -692,7 +760,7 @@
 <script src="{{ asset('AdminJs/PanelControlTicket.js') }}"></script>
 
 <script src="{{ asset('AdminJs/UsuarioReporte.js') }}"></script>
-<script  src="{{ asset('Validar/validarFormulario.js') }}" ></script>
+<script  src="{{ asset('Validar/FormularioUsuarioReporte.js') }}" ></script>
 
 
 <script src="{{ asset('DataTables/JSZip-2.5.0/jszip.min.js') }}"></script>

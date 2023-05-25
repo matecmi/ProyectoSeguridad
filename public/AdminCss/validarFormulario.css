@@ -1,30 +1,28 @@
-* {
-	box-sizing: border-box;
-}
 
-body {
+
+.modalBody {
 	font-family: 'Roboto', sans-serif;
 	background: #E5E5E5;
 }
 
-main {
-	max-width: 800px;
-	width: 90%;
-	margin: auto;
-	padding: 40px;
-}
-
-.formulario {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 20px;
+.modalHeader {
+	font-family: 'Roboto', sans-serif;
+	background: rgb(90, 90, 90);
+    color: white;
 }
 
 .formulario__label {
 	display: block;
 	font-weight: 700;
-	padding: 10px;
 	cursor: pointer;
+}
+
+.formulario__labelTitulo{
+
+    display: block;
+	font-weight: 1000;
+	padding: 10px;
+    text-align: center;
 }
 
 .formulario__grupo-input {

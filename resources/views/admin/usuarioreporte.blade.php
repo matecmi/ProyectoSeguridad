@@ -33,40 +33,72 @@
 
 
 <div class="modal fade" id="usuarioReporteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Medio De Reporte</h1>
+  <div class="modal-dialog modal-usuario">
+    <div class="modal-content ">
+      <div class="modal-header modalHeader">
+        <h1 class="modal-title fs-5 formulario__labelTitulo">NUEVO U.REPORTE</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <form class="row g-3" id="registrarUsuarioReporte" action="{{ route('admin.slaStore') }}">
-            @csrf
+      <div class="modal-body modalBody">
+     
+      <form  class="row g-3 formulario" id="registrarUsuarioReporte" action="{{ route('admin.usuarioReporteStore') }}">
+      @csrf
 
-            <div class="col-md-12">
-                <input type="text" id="usuarioReporteID" style="display:none">
-                <label for="nombre" class="form-label">NOMBRE</label>
-                <input type="text" class="form-control" id="nombreUsuarioReporte" name="nombreUsuarioReporte" required>
-              </div>
-              <div class="col-md-12">
-                <label for="nombre" class="form-label">TELEFONO</label>
-                <input type="text" class="form-control" id="telefonoUsuarioReporte" name="telefonoUsuarioReporte" required>
-              </div>         
-              <div class="col-md-12">
-                <label for="nombre" class="form-label">EMAIL</label>
-                <input type="text" class="form-control" id="emailUsuarioReporte" name="emailUsuarioReporte" required>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button class="btn btn-primary" type="submit">Guardar</button>
-            </div>
-          </form>
+			<!-- Grupo: Nombre -->
+      <div class="col-md-12">
+      <input type="text" id="usuarioReporteID" style="display:none">
+			<div class="formulario__grupo" id="grupo__nombre">
+				<label for="nombreUsuarioReporte" class="formulario__label">Nombre</label>
+				<div class="formulario__grupo-input">
+					<input type="text" class="formulario__input" name="nombre" id="nombreUsuarioReporte" placeholder="Jose Fernàndez" require>
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">El nombre tiene que ser mayor a 3 digitos.</p>
+			</div>
+			</div>
+
+			<!-- Grupo: Correo Electronico -->
+      <div class="col-md-12">
+
+			<div class="formulario__grupo" id="grupo__correo">
+				<label for="emailUsuarioReporte" class="formulario__label">CORREO ELECTRÒNICO</label>
+				<div class="formulario__grupo-input">
+					<input type="email" class="formulario__input" name="correo" id="emailUsuarioReporte" placeholder="compusoft@correo.com" require>
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">El correo electrònico escrito es invalido.</p>
+			</div>
+			</div>
+
+			<!-- Grupo: Teléfono -->
+        <div class="col-md-12">
+        <div class="formulario__grupo" id="grupo__telefono">
+				<label for="telefonoUsuarioReporte" class="formulario__label">TELÈFONO</label>
+				<div class="formulario__grupo-input">
+					<input type="number" class="formulario__input" name="telefono" id="telefonoUsuarioReporte" placeholder="976065457" require>
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">numero de telefono invalido, debe contener 9 digitos.</p>
+			</div>
+        </div>
+
+
+			<div class="formulario__mensaje" id="formulario__mensaje">
+				<p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
+			</div>
+
+      <div class="modal-footer">
+        
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      <button class="btn btn-primary" type="submit">Guardar</button>
+      
+      </div>
+		</form>
+
       </div>
     </div>
   </div>
 </div>
-
-
 
 @stop
 
@@ -76,8 +108,10 @@
 
 <link rel="stylesheet" href="{{ asset('DataTables/datatables.css') }}">
 <link rel="stylesheet" href="{{ asset('AdminCss/general.css') }}" >
+<link rel="stylesheet" href="{{ asset('AdminCss/validarFormulario.css') }}" >
 
-    <link rel="stylesheet" href="/css/admin_custom.css">
+
+<link rel="stylesheet" href="/css/admin_custom.css">
 
     <style>
         .dataTables_wrapper {
@@ -113,6 +147,10 @@
 
 <script src="{{ asset('DataTables/datatables.js') }}"></script>
 <script src="{{ asset('AdminJs/UsuarioReporte.js') }}"></script>
+
+<script  src="{{ asset('Validar/FormularioUsuarioReporte.js') }}" ></script>
+<script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+
 
 <script> 
 

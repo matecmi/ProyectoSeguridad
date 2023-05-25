@@ -28,12 +28,7 @@ $(document).ready(function() {
 
 var id;
 
-
-
-$('#registrarUsuarioReporte').submit(function(e){
-
-    e.preventDefault();
-
+function registrarUsuarioReporte() {
     var nombre = $('#nombreUsuarioReporte').val();
     var email = $('#emailUsuarioReporte').val();
     var telefono = $('#telefonoUsuarioReporte').val();
@@ -96,6 +91,7 @@ $('#registrarUsuarioReporte').submit(function(e){
                 listarSelectUsuarioReporte();
                 
             }
+            limpiarFormulario(formularioUsuarioReporte);
 
             $('#usuarioReporteModal').modal('hide');
             $('#tablaUsuarioReporte').DataTable().ajax.reload();
@@ -104,9 +100,9 @@ $('#registrarUsuarioReporte').submit(function(e){
         }
     }
 });
-});
-  
 
+
+}
 
 $(document).on('click', 'button[name="deleteUsuarioReporte"]', function(){
     var id;
@@ -148,10 +144,33 @@ $(document).on('click', 'button[name="deleteUsuarioReporte"]', function(){
 
 });
 
+function limpiarFormulario(formulario){
+    formulario.reset();
+    document.querySelectorAll('.formulario__grupo').forEach((icono) => {
+        icono.classList.remove('formulario__grupo-incorrecto');
+        icono.classList.remove('formulario__grupo-correcto');
+        icono.classList.remove('formulario__input-error-activo');
+    
+    });
+    
+    document.querySelectorAll('.formulario__input-error').forEach((icono) => {
+        icono.classList.remove('formulario__input-error-activo');
+    
+    });
+    
+    document.getElementById('formulario__mensaje').classList.remove('formulario__mensaje-activo');
+    
+    campos.nombre=false;
+    campos.correo=false;
+    campos.telefono=false;
+
+}
+
 
 $('#usuarioReporteModal').on('hide.bs.modal', function (e) {
 
 $('#registrarUsuarioReporte')[0].reset();
+limpiarFormulario(formularioUsuarioReporte);
 
 });
 
