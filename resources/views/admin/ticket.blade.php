@@ -159,7 +159,7 @@
                 <div class="d-flex align-items-center">
                   <select class="form-select me-2" id="listUsuarioReporte" name="usuario_reporte_id" required>
                   </select>
-                  <button id="btnUsuario" type="button" class="btn btn-primary">
+                  <button id="btnUsuarioReporta" type="button" class="btn btn-primary">
                     <i class="fa-solid fa-user"></i>
                   </button>
                 </div>
@@ -183,40 +183,6 @@
 </div>
 <!-- Modales para la creación de usuario que reporta. -->
 
-<!--
-<div class="modal fade " id="usuarioReporteModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-usuario ">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5">Nuevo Usuario quien Reporta</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      <form class="row g-3" id="registrarUsuarioReporte" action="{{ route('admin.usuarioReporteStore') }}">
-            @csrf
-          <div class="col-md-12">
-          <input type="text" id="usuarioReporteID" style="display:none">
-            <label for="nombre" class="form-label">NOMBRE</label>
-            <input type="text" class="form-control" id="nombreUsuarioReporte" name="" required>
-          </div>
-          <div class="col-md-12">
-            <label for="nombre" class="form-label">TELEFONO</label>
-            <input type="number" class="form-control" id="telefonoUsuarioReporte" name="" maxlength="9" required>
-          </div>
-          <div class="col-md-12">
-            <label for="nombre" class="form-label">EMAIL</label>
-            <input type="email" class="form-control" id="emailUsuarioReporte" name="" required>
-          </div>
-          <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button class="btn btn-primary" type="submit">Guardar</button>
-            </div>
-          </form>
-      </div>
-    </div>
-  </div>
-</div>
--->
 <div class="modal fade" id="usuarioReporteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-usuario">
     <div class="modal-content ">

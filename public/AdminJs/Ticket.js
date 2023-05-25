@@ -250,7 +250,7 @@ function generarContenidoTabla(ticketVencido) {
 
 }
 
-$('#btnUsuario').on('click', function () {
+$('#btnUsuarioReporta').on('click', function () {
   $('#usuarioReporteModal').modal('show');
   $("#usuarioReporteID").val("ticket");
 
