@@ -33,24 +33,40 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Medio De Reporte</h1>
+    <div class="modal-header modalHeader">
+        <h1 class="modal-title fs-5 formulario__labelTitulo">NUEVO MEDIO REPORTE </h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <form class="row g-3" id="resgistrarMedioReporte" action="{{ route('admin.slaStore') }}">
-            @csrf
+      <div class="modal-body modalBody">
+     
+      <form  class="row g-3 formulario" id="resgistrarMedioReporte" action="{{ route('admin.slaStore') }}">
+      @csrf
 
-            <div class="col-md-12">
-                <input type="text" id="ID" style="display:none">
-                <label for="nombre" class="form-label">NOMBRE</label>
-                <input type="text" class="form-control" id="nombre" name="" required>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button class="btn btn-primary" type="submit">Guardar</button>
-            </div>
-          </form>
+			<!-- Grupo: nombre -->
+      <div class="col-md-12">
+      <input type="text" id="ID" style="display:none">
+			<div class="formulario__grupo" id="grupo__nombre">
+				<label for="nombre" class="formulario__label">NOMBRE</label>
+				<div class="formulario__grupo-input">
+					<input type="text" class="formulario__input" name="nombre" id="nombre" placeholder="Jose Fernàndez" require>
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">El nombre tiene que ser mayor a 2 digitos y solo puede contener letras y espacios</p>
+			</div>
+			</div>
+
+			<div class="formulario__mensaje" id="formulario__mensaje">
+				<p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
+			</div>
+
+      <div class="modal-footer">
+        
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      <button class="btn btn-primary" type="submit">Guardar</button>
+      
+      </div>
+		</form>
+
       </div>
     </div>
   </div>
@@ -67,6 +83,10 @@
 <link rel="stylesheet" href="{{ asset('DataTables/datatables.css') }}">
     <link rel="stylesheet" href="/css/admin_custom.css">
     <link rel="stylesheet" href="{{ asset('AdminCss/general.css') }}" >
+
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="{{ asset('AdminCss/validarFormulario.css') }}" >
 
     <style>
         .dataTables_wrapper {
@@ -102,6 +122,8 @@
 
 <script src="{{ asset('DataTables/datatables.js') }}"></script>
 <script src="{{ asset('AdminJs/MedioReporte.js') }}"></script>
+<script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+<script  src="{{ asset('Validar/FormularioMedioReporte.js') }}" ></script>
 
 <script> 
 

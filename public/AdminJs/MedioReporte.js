@@ -26,11 +26,7 @@ $(document).ready(function() {
 
 var id;
 
-
-
-$('#resgistrarMedioReporte').submit(function(e){
-
-    e.preventDefault();
+function registrarMedioReporte(){
 
     var nombre = $('#nombre').val();
     var id = $('#ID').val();
@@ -80,11 +76,39 @@ $('#resgistrarMedioReporte').submit(function(e){
             $('#exampleModal').modal('hide');
             $('#tabla').DataTable().ajax.reload();
             $('#resgistrarMedioReporte')[0].reset();
+            limpiarFormularioMedioReporte();
+
 
         }
     }
 });
-});
+
+}
+
+
+function limpiarFormularioMedioReporte(){
+    formularioMedioReporte.reset();
+    document.querySelectorAll('.formulario__grupo').forEach((icono) => {
+        icono.classList.remove('formulario__grupo-incorrecto');
+        icono.classList.remove('formulario__grupo-correcto');
+        icono.classList.remove('formulario__input-error-activo');
+    
+    });
+    
+    document.querySelectorAll('.formulario__input-error').forEach((icono) => {
+        icono.classList.remove('formulario__input-error-activo');
+    
+    });
+    
+    document.getElementById('formulario__mensaje').classList.remove('formulario__mensaje-activo');
+    
+    campos.nombre=false;
+
+}
+
+function validarEdicion(){
+    campos.nombre=true;
+}
   
 
 
@@ -131,6 +155,8 @@ $(document).on('click', 'button[name="delete"]', function(){
 
 $('#exampleModal').on('hide.bs.modal', function (e) {
 
+    limpiarFormularioMedioReporte();
+
 $('#resgistrarMedioReporte')[0].reset();
 
 });
@@ -152,7 +178,7 @@ $('#resgistrarMedioReporte')[0].reset();
         var nombre = response.success.nombre;
 
         $('#exampleModal').modal('show');
-
+        validarEdicion();
         $('#nombre').val(nombre);
         $('#ID').val(id);
 

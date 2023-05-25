@@ -1,25 +1,20 @@
-const formularioFaq = document.getElementById('resgistrarFaq');
-const inputFaq = document.querySelectorAll('#resgistrarFaq input');
+const formularioMedioReporte = document.getElementById('resgistrarMedioReporte');
+const inputMedioReporte = document.querySelectorAll('#resgistrarMedioReporte input');
 
 
 const expresiones = {
-	titulo: /^.{5,250}$/, // Letras y espacios, pueden llevar acentos.
-    respuesta: /^.{5,250}$/ // Letras y espacios, pueden llevar acentos.
+	nombre: /^.{3,30}$/, // Letras y espacios, pueden llevar acentos.
 
 }
 
 const campos = {
-	titulo: false,
-    respuesta: false
+	nombre: false,
 }
 
 const validarFormulario = (e) => {
 	switch (e.target.name) {
-		case "titulo":
-			validarCampo(expresiones.titulo, e.target, 'titulo');
-		break;
-        case "respuesta":
-			validarCampo(expresiones.respuesta, e.target, 'respuesta');
+		case "nombre":
+			validarCampo(expresiones.nombre, e.target, 'nombre');
 		break;
 	}
 }
@@ -44,26 +39,25 @@ const validarCampo = (expresion, input, campo) => {
 
 
 
-inputFaq.forEach((input) => {
+inputMedioReporte.forEach((input) => {
 	input.addEventListener('keyup', validarFormulario);
 	input.addEventListener('blur', validarFormulario);
 });
 
-formularioFaq.addEventListener('submit', (e) => {
+formularioMedioReporte.addEventListener('submit', (e) => {
 	e.preventDefault();
 
-	if(campos.titulo && campos.respuesta ){
+	if(campos.nombre){
 
-        registrarFaq();
+        registrarMedioReporte();
 
 
-		formularioFaq.reset();
+		formularioMedioReporte.reset();
 		document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
 			icono.classList.remove('formulario__grupo-correcto');
 		});
 
-		campos.titulo=false;
-		campos.respuesta=false;
+		campos.nombre=false;
 	} else {
 		document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
 	}
