@@ -249,13 +249,20 @@ function generarContenidoTabla(ticketVencido) {
     });
 
 }
-
+/*
 $('#btnUsuarioReporta2').on('click', function () {
   $('#usuarioReporteModal2').modal('show');
   $("#usuarioReporteID").val("ticket");
   console.log("entreeeee");
 
 });
+*/
+$('#btnUsuarioReporta2').on('click', function () {
+  $('#modalAcciones').modal('show');
+  console.log("entreeeee");
+
+});
+
 
 $('#usuarioReporteModal2').on('hide.bs.modal', function (e) {
 

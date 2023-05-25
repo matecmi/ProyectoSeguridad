@@ -160,8 +160,9 @@
                   <select class="form-select me-2" id="listUsuarioReporte" name="usuario_reporte_id" required>
                   </select>
                   <button id="btnUsuarioReporta2" type="button" class="btn btn-primary">
-                    uss
+                    <i class="fa-solid fa-user"></i>
                   </button>
+
                 </div>
               </div>
               <div class="col-md-12">
