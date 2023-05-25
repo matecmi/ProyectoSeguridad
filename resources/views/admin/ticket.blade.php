@@ -159,7 +159,7 @@
                 <div class="d-flex align-items-center">
                   <select class="form-select me-2" id="listUsuarioReporte" name="usuario_reporte_id" required>
                   </select>
-                  <button id="btnUsuarioReporta2" type="button" class="btn btn-primary">
+                  <button id="btnReporteUsuario" type="button" class="btn btn-primary">
                     <i class="fa-solid fa-user"></i>
                   </button>
 

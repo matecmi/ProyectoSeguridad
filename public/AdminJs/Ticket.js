@@ -257,7 +257,7 @@ $('#btnUsuarioReporta2').on('click', function () {
 
 });
 */
-$('#btnUsuarioReporta2').on('click', function () {
+$('#btnReporteUsuario').on('click', function () {
   $('#modalAcciones').modal('show');
   console.log("entreeeee");
 
