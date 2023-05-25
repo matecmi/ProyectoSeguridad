@@ -61,8 +61,8 @@
 
       <div class="modal-footer">
         
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      <button class="btn btn-primary" type="submit">Guardar</button>
+      <button type="button" class="btn btn-secondary formulario__label" data-bs-dismiss="modal">Close</button>
+      <button class="btn btn-primary formulario__label" type="submit">Guardar</button>
       
       </div>
 		</form>

@@ -55,7 +55,7 @@
 					<input type="text" class="formulario__input" name="nombre" id="nombre" placeholder="Caja Sullana" require>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">El nombre tiene que ser mayor a 3 digitos.</p>
+				<p class="formulario__input-error">El nombre tiene que ser mayor a 2 digitos.</p>
 			</div>
 			</div>
 
@@ -102,8 +102,8 @@
 
       <div class="modal-footer">
         
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      <button class="btn btn-primary" type="submit">Guardar</button>
+      <button type="button" class="btn btn-secondary formulario__label" data-bs-dismiss="modal">Close</button>
+      <button class="btn btn-primary formulario__label" type="submit">Guardar</button>
       
       </div>
 		</form>
