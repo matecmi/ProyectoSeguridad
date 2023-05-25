@@ -14,10 +14,10 @@
 
 <div class="card">
     <div class="card-header">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo Registro</button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#usuarioReporteModal">Nuevo Registro</button>
     </div>
     <div class="card-body table-responsive">
-        <table class="table table-striped table-bordered table-hover" id="tabla">
+        <table class="table table-striped table-bordered table-hover" id="tablaUsuarioReporte">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -32,7 +32,7 @@
 </div>
 
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="usuarioReporteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -40,21 +40,21 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form class="row g-3" id="resgistrarMedioReporte" action="{{ route('admin.slaStore') }}">
+        <form class="row g-3" id="registrarUsuarioReporte" action="{{ route('admin.slaStore') }}">
             @csrf
 
             <div class="col-md-12">
-                <input type="text" id="ID" style="display:none">
+                <input type="text" id="usuarioReporteID" style="display:none">
                 <label for="nombre" class="form-label">NOMBRE</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                <input type="text" class="form-control" id="nombreUsuarioReporte" name="nombreUsuarioReporte" required>
               </div>
               <div class="col-md-12">
                 <label for="nombre" class="form-label">TELEFONO</label>
-                <input type="text" class="form-control" id="telefono" name="telefono" required>
+                <input type="text" class="form-control" id="telefonoUsuarioReporte" name="telefonoUsuarioReporte" required>
               </div>         
               <div class="col-md-12">
                 <label for="nombre" class="form-label">EMAIL</label>
-                <input type="text" class="form-control" id="email" name="email" required>
+                <input type="text" class="form-control" id="emailUsuarioReporte" name="emailUsuarioReporte" required>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

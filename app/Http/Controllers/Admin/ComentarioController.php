@@ -21,12 +21,12 @@ class ComentarioController extends Controller
 
             $ticket = $request->input('idTicket');
 
-            $comentario = Comentario::select('Comentarios.*','tickets.situacion as ticket_estado'
+            $comentario = Comentario::select('comentarios.*','tickets.situacion as ticket_estado'
             ,'usuarios.nombre as usuario_nombre')
-            ->join('usuarios', 'Comentarios.usuario_id', '=', 'usuarios.id')
-            ->join('tickets', 'Comentarios.ticket_id', '=', 'tickets.id')
-            ->where('Comentarios.status', '=', 'Y')
-            ->where('Comentarios.ticket_id', '=',$ticket)
+            ->join('usuarios', 'comentarios.usuario_id', '=', 'usuarios.id')
+            ->join('tickets', 'comentarios.ticket_id', '=', 'tickets.id')
+            ->where('comentarios.status', '=', 'Y')
+            ->where('comentarios.ticket_id', '=',$ticket)
             ->get();
             return Datatables::of($comentario)
             ->addColumn('action', function($comentario){

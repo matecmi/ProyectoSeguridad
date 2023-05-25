@@ -181,9 +181,10 @@
     </div>
   </div>
 </div>
+<!-- Modales para la creación de usuario que reporta. -->
 
 
-<div class="modal fade" id="usuarioModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="usuarioReporteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-usuario">
     <div class="modal-content">
       <div class="modal-header">
@@ -191,21 +192,26 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+      <form class="row g-3 " id="registrarUsuarioReporte" action="{{ route('admin.usuarioReporteStore') }}">
+            @csrf
           <div class="col-md-12">
+          <input type="text" id="usuarioReporteID" style="display:none">
             <label for="nombre" class="form-label">NOMBRE</label>
-            <input type="text" class="form-control" id="nombre" name="" required>
+            <input type="text" class="form-control" id="nombreUsuarioReporte" name="" required>
           </div>
           <div class="col-md-12">
             <label for="nombre" class="form-label">TELEFONO</label>
-            <input type="number" class="form-control" id="telefono" name="" required>
+            <input type="number" class="form-control" id="telefonoUsuarioReporte" name="" maxlength="9" required>
           </div>
           <div class="col-md-12">
             <label for="nombre" class="form-label">EMAIL</label>
-            <input type="email" class="form-control" id="email" name="" required>
+            <input type="email" class="form-control" id="emailUsuarioReporte" name="" required>
           </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Guardar</button>
-          </div>
+          <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button class="btn btn-primary" type="submit" id="btnGuardarTicket">Guardar</button>
+            </div>
+          </form>
       </div>
     </div>
   </div>
@@ -661,9 +667,11 @@
 @section('css')
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+<link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> 
 <link rel="stylesheet" href="{{ asset('DataTables/datatables.css') }}">
 <link rel="stylesheet" href="{{ asset('AdminCss/Ticket.css') }}" >
+<link rel="stylesheet" href="{{ asset('AdminCss/validarFormulario.css') }}" >
 
     <link rel="stylesheet" href="/css/admin_custom.css">
 
@@ -682,6 +690,10 @@
 <script src="{{ asset('AdminJs/Acciones.js') }}"></script>
 <script src="{{ asset('AdminJs/Comentario.js') }}"></script>
 <script src="{{ asset('AdminJs/PanelControlTicket.js') }}"></script>
+
+<script src="{{ asset('AdminJs/UsuarioReporte.js') }}"></script>
+<script  src="{{ asset('Validar/validarFormulario.js') }}" ></script>
+
 
 <script src="{{ asset('DataTables/JSZip-2.5.0/jszip.min.js') }}"></script>
 <script src="{{ asset('DataTables/Buttons-2.3.4/js/dataTables.buttons.min.js') }}"></script>

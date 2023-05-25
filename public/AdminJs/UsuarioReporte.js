@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var tabla =$('#tabla').DataTable({
+    var tabla =$('#tablaUsuarioReporte').DataTable({
 
         processing:false,
         serverSide:true,
@@ -30,23 +30,32 @@ var id;
 
 
 
-$('#resgistrarMedioReporte').submit(function(e){
+$('#registrarUsuarioReporte').submit(function(e){
 
     e.preventDefault();
 
-    var nombre = $('#nombre').val();
-    var email = $('#email').val();
-    var telefono = $('#telefono').val();
-    var id = $('#ID').val();
+    var nombre = $('#nombreUsuarioReporte').val();
+    var email = $('#emailUsuarioReporte').val();
+    var telefono = $('#telefonoUsuarioReporte').val();
+    var id = $('#usuarioReporteID').val();
     var _token =$("input[name=_token]").val();
+
+
+    if (telefono.length !== 9 || isNaN(telefono)) {
+        event.preventDefault(); // Detener el envío del formulario
+        //alert("El campo debe tener nueve dígitos.");
+      }
 
     var ruta;
 
     if(id==""){
 
         ruta="/admin/usuarioreporte/create";
-    }else if(id!=""){
+    }else if(id!=""&& id!="ticket"){
         ruta="/admin/usuarioreporte/update";
+
+    }else if (id=="ticket") {
+        ruta="/admin/usuarioreporte/create";
 
     }
 
@@ -82,9 +91,15 @@ $('#resgistrarMedioReporte').submit(function(e){
             })
             }
 
-            $('#exampleModal').modal('hide');
-            $('#tabla').DataTable().ajax.reload();
-            $('#resgistrarMedioReporte')[0].reset();
+            if (id=="ticket") {
+
+                listarSelectUsuarioReporte();
+                
+            }
+
+            $('#usuarioReporteModal').modal('hide');
+            $('#tablaUsuarioReporte').DataTable().ajax.reload();
+            $('#registrarUsuarioReporte')[0].reset();
 
         }
     }
@@ -93,7 +108,7 @@ $('#resgistrarMedioReporte').submit(function(e){
   
 
 
-$(document).on('click', 'button[name="delete"]', function(){
+$(document).on('click', 'button[name="deleteUsuarioReporte"]', function(){
     var id;
 
     id = $(this).attr('id');
@@ -118,7 +133,7 @@ $(document).on('click', 'button[name="delete"]', function(){
            },
      success: function(response){
         if(response.success){
-            $('#tabla').DataTable().ajax.reload();
+            $('#tablaUsuarioReporte').DataTable().ajax.reload();
             swal({ 
                 title:"Registro eliminado correctamente",
                 icon: "success"
@@ -134,15 +149,15 @@ $(document).on('click', 'button[name="delete"]', function(){
 });
 
 
-$('#exampleModal').on('hide.bs.modal', function (e) {
+$('#usuarioReporteModal').on('hide.bs.modal', function (e) {
 
-$('#resgistrarMedioReporte')[0].reset();
+$('#registrarUsuarioReporte')[0].reset();
 
 });
 
- $(document).on('click', 'button[name="edit"]', function(){
+ $(document).on('click', 'button[name="editUsuarioReporte"]', function(){
    var id = $(this).attr('id');
-   $('#exampleModal').modal('show');
+   $('#usuarioReporteModal').modal('show');
 
  $.ajax({
 
@@ -161,11 +176,11 @@ $('#resgistrarMedioReporte')[0].reset();
 
 
 
-        $('#nombre').val(nombre);
-        $('#email').val(email);
-        $('#telefono').val(telefono);
+        $('#nombreUsuarioReporte').val(nombre);
+        $('#emailUsuarioReporte').val(email);
+        $('#telefonoUsuarioReporte').val(telefono);
 
-        $('#ID').val(id);
+        $('#usuarioReporteID').val(id);
 
         }
     }
