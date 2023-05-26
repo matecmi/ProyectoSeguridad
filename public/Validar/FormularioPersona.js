@@ -79,25 +79,101 @@ inputPersona.forEach((input) => {
 formularioPersona.addEventListener('submit', (e) => {
 	e.preventDefault();
 
-	if(campos.nombres && campos.dni && campos.paterno && campos.materno && campos.ruc && campos.email && campos.telefono){
+    var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+    var valores = [];
+    for (var i = 0; i < checkboxes.length; i++) {
+        valores.push(checkboxes[i].value);
+    }
 
-        registrarPersona();
+    if (valores.length>1) {
+
+        campos.ruc=true;
+        
+        if(campos.nombres && campos.dni && campos.paterno && campos.materno && campos.ruc && campos.email && campos.telefono){
+
+            registrarPersona();
+    
+    
+            formularioPersona.reset();
+            document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
+                icono.classList.remove('formulario__grupo-correcto');
+            });
+    
+            campos.nombres=false;
+            campos.paterno=false;
+            campos.materno=false;
+            campos.dni=false;
+            campos.ruc=false;
+            campos.telefono=false;
+            campos.email=false;
+    
+        } else {
+            document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
+        }
+
+    }else if(valores.length==1) {
+
+        var id = valores[0];
+
+        $.ajax({
+
+            url: "/admin/rol/edit",
+            type: 'get',
+            data: {
+                id:id,
+            _token: $('meta[name="csrf-token"]').attr('content')
+                   },
+            success: function(response){
+        
+            var nombre = response.success.nombre;
+
+            if (nombre=="Empresa") {
+                campos.paterno=true;
+                campos.materno=true;
+                campos.dni=true;
+                
+            }else {
+            
+                campos.ruc=true;
+            }
 
 
-		formularioPersona.reset();
-		document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
-			icono.classList.remove('formulario__grupo-correcto');
-		});
+            if(campos.nombres && campos.dni && campos.paterno && campos.materno && campos.ruc && campos.email && campos.telefono){
 
-		campos.nombres=false;
-        campos.paterno=false;
-		campos.materno=false;
-        campos.dni=false;
-        campos.ruc=false;
-        campos.telefono=false;
-        campos.email=false;
+                registrarPersona();
+        
+        
+                formularioPersona.reset();
+                document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
+                    icono.classList.remove('formulario__grupo-correcto');
+                });
+        
+                campos.nombres=false;
+                campos.paterno=false;
+                campos.materno=false;
+                campos.dni=false;
+                campos.ruc=false;
+                campos.telefono=false;
+                campos.email=false;
+        
+            } else {
+                document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
+            }
+            
+        
+                
+            }
+         });
 
-	} else {
-		document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
-	}
+    }else {
+        document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
+
+    }
+
+
+
+
+
+
+	
 });
