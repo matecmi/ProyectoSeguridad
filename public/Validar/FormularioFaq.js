@@ -3,8 +3,8 @@ const inputFaq = document.querySelectorAll('#resgistrarFaq input');
 
 
 const expresiones = {
-	titulo: /^.{5,250}$/, // Cualquier caracter
-    respuesta: /^.{5,250}$/ // Cualquier caracter
+	titulo: /^.{1,250}$/, // Cualquier caracter
+    respuesta: /^.{1,250}$/ // Cualquier caracter
 
 }
 

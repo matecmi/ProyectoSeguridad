@@ -55,7 +55,7 @@
 					<input type="text" class="formulario__input" name="nombre" id="nombre" placeholder="Caja Sullana" require>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">El nombre tiene que ser mayor a 2 digitos.</p>
+				<p class="formulario__input-error">El campo "nombre" no debe estar vacio.</p>
 			</div>
 			</div>
 
@@ -67,7 +67,7 @@
 					<input type="text" class="formulario__input" name="nomenclatura" id="nomenclatura" placeholder="BN" require>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">Este campo no debe estar vacio.</p>
+				<p class="formulario__input-error">El campo "nomenclatura" no debe estar vacio.</p>
 			</div>
 			</div>
 
@@ -80,7 +80,7 @@
 					<input type="number" class="formulario__input" name="hora" id="hora" placeholder="48" require>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">Este campo no debe estar vacio.</p>
+				<p class="formulario__input-error">El campo "horas" no debe estar vacio.</p>
 			</div>
 			</div>
 
@@ -92,7 +92,7 @@
 					<input type="number" class="formulario__input" name="tpRespuesta" id="tpRespuesta" placeholder="6" require>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">Este campo no debe estar vacio.</p>
+				<p class="formulario__input-error">El campo "tiempo primera respuesta" no debe estar vacio.</p>
 			</div>
 			</div>
 

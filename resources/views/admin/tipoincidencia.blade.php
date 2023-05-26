@@ -51,7 +51,7 @@
 					<input type="text" class="formulario__input" name="nombre" id="nombre" placeholder="Garantia" require>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">El nombre tiene que ser mayor a 2 digitos</p>
+				<p class="formulario__input-error">El campo "nombre" no debe estar vacio.</p>
 			</div>
 			</div>
 

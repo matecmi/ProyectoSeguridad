@@ -51,7 +51,7 @@
 					<input type="text" class="formulario__input" name="nombre" id="nombre" placeholder="WhatsApp" require>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">El nombre tiene que ser mayor a 2 digitos y solo puede contener letras y espacios</p>
+				<p class="formulario__input-error">El campo "nombre" no debe estar vacio.</p>
 			</div>
 			</div>
 

@@ -3,7 +3,7 @@ const inputSla = document.querySelectorAll('#resgistrarSla input');
 
 
 const expresiones = {
-	nombre: /^.{2,30}$/, // Todo tipo de caracter
+	nombre: /^.{1,30}$/, // Todo tipo de caracter
     nomenclatura: /^.{1,10}$/, // Todo tipo de caracter
 	hora: /^\d{1,10}$/, // numero
 	tpRespuesta: /^\d{1,10}$/, // numero

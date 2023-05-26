@@ -3,7 +3,7 @@ const inputTipoIncidencia = document.querySelectorAll('#resgistrarTipoIncidencia
 
 
 const expresiones = {
-	nombre: /^.{2,30}$/, // Todo tipo de caracter
+	nombre: /^.{1,30}$/, // Todo tipo de caracter
 
 }
 

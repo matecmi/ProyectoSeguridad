@@ -3,7 +3,7 @@ const inputMedioReporte = document.querySelectorAll('#resgistrarMedioReporte inp
 
 
 const expresiones = {
-	nombre: /^[a-zA-ZÀ-ÿ\s]{3,30}$/, // Letras y espacios, pueden llevar acentos.
+	nombre: /^.{1,30}$/, // Todo tipo de caracter
 
 }
 
