@@ -31,36 +31,67 @@
     </div>
 </div>
 
-
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Grupo Menu</h1>
+    <div class="modal-header modalHeader">
+        <h1 class="modal-title fs-5 formulario__labelTitulo">NUEVO MEDIO REPORTE </h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <form class="row g-3" id="resgistrarGrupo" action="{{ route('admin.grupoStore') }}">
-            @csrf
+      <div class="modal-body modalBody">
+     
+      <form  class="row g-3 formulario" id="resgistrarGrupo" action="{{ route('admin.grupoStore') }}">
+      @csrf
 
-            <div class="col-md-12">
-                <input type="text" id="ID" style="display:none">
-                <label for="Nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre" name="" required>
-              </div>
-              <div class="col-md-12">
-                <label for="Icono" class="form-label">Icono</label>
-                <input type="text" class="form-control" id="icono" required>
-              </div>
-              <div class="col-md-12">
-                <label for="Orden" class="form-label">Orden</label>
-                <input type="text" class="form-control" id="orden" required>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button class="btn btn-primary" type="submit">Guardar</button>
-            </div>
-          </form>
+	 <!-- Grupo: nombre -->
+      <div class="col-md-12">
+        <input type="text" id="ID" style="display:none">
+        <div class="formulario__grupo" id="grupo__nombre">
+				<label for="nombre" class="formulario__label">NOMBRE</label>
+				<div class="formulario__grupo-input">
+					<input type="text" class="formulario__input" name="nombre" id="nombre" placeholder="WhatsApp" require>
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">El campo "nombre" no debe estar vacio.</p>
+			</div>
+			</div>
+
+         <!-- Grupo: icono -->
+      <div class="col-md-12">
+			<div class="formulario__grupo" id="grupo__icono">
+				<label for="icono" class="formulario__label">ICONO</label>
+				<div class="formulario__grupo-input">
+					<input type="text" class="formulario__input" name="icono" id="icono" placeholder="WhatsApp" require>
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">El campo "icono" no debe estar vacio.</p>
+			</div>
+			</div>
+
+         <!-- Grupo: orden -->
+      <div class="col-md-12">
+			<div class="formulario__grupo" id="grupo__orden">
+				<label for="orden" class="formulario__label">ORDEN</label>
+				<div class="formulario__grupo-input">
+					<input type="number" class="formulario__input" name="orden" id="orden" placeholder="WhatsApp" require>
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">El campo "orden" no debe estar vacio.</p>
+			</div>
+			</div>
+
+			<div class="formulario__mensaje" id="formulario__mensaje">
+				<p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
+			</div>
+
+      <div class="modal-footer">
+        
+      <button type="button" class="btn btn-secondary formulario__label" data-bs-dismiss="modal">Close</button>
+      <button class="btn btn-primary formulario__label" type="submit">Guardar</button>
+      
+      </div>
+		</form>
+
       </div>
     </div>
   </div>
@@ -76,6 +107,11 @@
 <link rel="stylesheet" href="{{ asset('DataTables/datatables.css') }}">
     <link rel="stylesheet" href="/css/admin_custom.css">
     <link rel="stylesheet" href="{{ asset('AdminCss/general.css') }}" >
+
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="{{ asset('AdminCss/validarFormulario.css') }}" >
+
 
     <style>
         .dataTables_wrapper {
@@ -111,176 +147,15 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script src="{{ asset('DataTables/datatables.js') }}"></script>
+<script src="{{ asset('AdminJs/GrupoMenu.js') }}"></script>
+
+<script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+<script  src="{{ asset('Validar/FormularioGrupoMenu.js') }}" ></script>
+
 
 <script> 
 
-    $(document).ready(function() {
-        var tabla =$('#tabla').DataTable({
-
-            processing:false,
-            serverSide:true,
-
-            language: {
-                    url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json'
-                },
-
-            ajax:{
-                    url: "{{ route('admin.grupomenu') }}",    
- 
-            },
-
- 
-            
-            columns:[
-                
-                {data: 'id'},
-                {data: 'nombre'},
-                {data: 'icono'},
-                {data: 'orden'},
-                {data: 'action', orderable: false}
-            ],
-
-        });
-    
-    });
-
-    $('#resgistrarGrupo').submit(function(e){
-
-        e.preventDefault();
-
-        var nombre = $('#nombre').val();
-        var icono = $('#icono').val();
-        var orden = $('#orden').val();
-        var id = $('#ID').val();
-        var _token =$("input[name=_token]").val();
-
-        var ruta;
-
-        if(id==""){
-
-            ruta="{{ route('admin.grupoStore') }}";
-        }else if(id!=""){
-            ruta="{{ route('admin.grupoUpdate') }}";
-
-        }
-
-        $.ajax({
-
-            url: ruta,    
-            type: "POST",
-            data:{
-                nombre: nombre,
-                icono: icono,
-                orden: orden,
-                id: id,
-                _token: _token
-
-            },
-
-            success: function(response) {
-
-            if(response.success){
-                if (id=="") {
-                    swal({
-                 title: "Registro agregado",
-                 text: "",
-                 icon: "success",
-                 buttons: true,
-                })
-                }else {
-                swal({
-                 title: "Registro actualizado",
-                 text: "",
-                 icon: "success",
-                 buttons: true,
-                })
-                }
-                $('#exampleModal').modal('hide');
-                $('#tabla').DataTable().ajax.reload();
-                $('#resgistrarGrupo')[0].reset();
-
-            }
-        }
-    });
-});
-      
-
-    
-    $(document).on('click', 'button[name="delete"]', function(){
-        var id;
-
-        id = $(this).attr('id');
-        var _token =$("input[name=_token]").val();
-        swal({
-         title: "Desea eliminar el grupo de menu?",
-         icon: "warning",
-         buttons: true,
-         dangerMode: true,
-        })
-       .then((willDelete) => {
-           if (willDelete) {
-
-      $.ajax({
-
-         url: "{{ route('admin.grupoDestroy') }}",
-         type: 'GET',
-         data: {
-            id:id,
-            _token: $('meta[name="csrf-token"]').attr('content')
-               },
-         success: function(response){
-            $('#tabla').DataTable().ajax.reload();
-            swal({ 
-                    title:"Grupo de menu eliminado correctamente",
-                    icon: "success"
-            });
-        }
-      });
-    }
-
-});
-
-   });
-
-
-   $('#exampleModal').on('hide.bs.modal', function (e) {
-    // Restablecer el valor del campo 1
-    $('#nombre').val('');
-    $('#icono').val('');
-    $('#orden').val('');
-   });
-        
-
-     $(document).on('click', 'button[name="edit"]', function(){
-       var id = $(this).attr('id');
-
-     $.ajax({
-        
-        url: "{{ route('admin.grupoEdit') }}",
-        type: 'get',
-        data: {
-            id:id,
-            _token: $('meta[name="csrf-token"]').attr('content')
-               },
-        success: function(response){
-
-            if(response!=null){
-            var nombre = response.success.nombre;
-            var icono = response.success.icono;
-            var orden = response.success.orden;
-
-            $('#exampleModal').modal('show');
-
-            $('#nombre').val(nombre);
-            $('#icono').val(icono);
-            $('#orden').val(orden);
-            $('#ID').val(id);
-
-            }
-
-        }
-     });
-  });
+   
    
     </script>
 
