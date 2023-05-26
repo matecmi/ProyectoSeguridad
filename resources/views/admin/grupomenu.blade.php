@@ -49,7 +49,7 @@
         <div class="formulario__grupo" id="grupo__nombre">
 				<label for="nombre" class="formulario__label">NOMBRE</label>
 				<div class="formulario__grupo-input">
-					<input type="text" class="formulario__input" name="nombre" id="nombre" placeholder="WhatsApp" require>
+					<input type="text" class="formulario__input" name="nombre" id="nombre" placeholder="Seguridad" require>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
 				<p class="formulario__input-error">El campo "nombre" no debe estar vacio.</p>
@@ -61,7 +61,7 @@
 			<div class="formulario__grupo" id="grupo__icono">
 				<label for="icono" class="formulario__label">ICONO</label>
 				<div class="formulario__grupo-input">
-					<input type="text" class="formulario__input" name="icono" id="icono" placeholder="WhatsApp" require>
+					<input type="text" class="formulario__input" name="icono" id="icono" placeholder="fa-solid fa-wrench" require>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
 				<p class="formulario__input-error">El campo "icono" no debe estar vacio.</p>
@@ -73,7 +73,7 @@
 			<div class="formulario__grupo" id="grupo__orden">
 				<label for="orden" class="formulario__label">ORDEN</label>
 				<div class="formulario__grupo-input">
-					<input type="number" class="formulario__input" name="orden" id="orden" placeholder="WhatsApp" require>
+					<input type="number" class="formulario__input" name="orden" id="orden" placeholder="3" require>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
 				<p class="formulario__input-error">El campo "orden" no debe estar vacio.</p>
