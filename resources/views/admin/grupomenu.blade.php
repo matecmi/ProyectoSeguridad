@@ -5,7 +5,7 @@
 
 @section('content_header')
 
-<h1>GrupoMenu</h1>
+<h1>GRUPO DE MENU</h1>
 
 
 @stop
@@ -35,7 +35,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
     <div class="modal-header modalHeader">
-        <h1 class="modal-title fs-5 formulario__labelTitulo">NUEVO MEDIO REPORTE </h1>
+        <h1 class="modal-title fs-5 formulario__labelTitulo">NUEVO GRUPO DE MENU</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body modalBody">

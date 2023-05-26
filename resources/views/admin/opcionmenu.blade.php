@@ -37,40 +37,88 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Grupo Menu</h1>
+    <div class="modal-header modalHeader">
+        <h1 class="modal-title fs-5 formulario__labelTitulo">NUEVO GRUPO DE MENU</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <form class="row g-3" id="resgistrarOpcion" action="{{ route('admin.opcionStore') }}">
-            @csrf
-            <div class="col-md-12">
-                <label for="grupo" class="form-label">Grupo de menu</label>
-                <select class="form-select" id="grupo" required>
-                </select>
-              </div>
-            <div class="col-md-12">
-                <input type="text" id="ID" style="display:none">
-                <label for="Nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre" name="" required>
-              </div>
-              <div class="col-md-12">
-                <label for="Ruta" class="form-label">Ruta</label>
-                <input type="text" class="form-control" id="ruta" required>
-              </div>
-              <div class="col-md-12">
-                <label for="Icono" class="form-label">Icono</label>
-                <input type="text" class="form-control" id="icono" required>
-              </div>
-              <div class="col-md-12">
-                <label for="Orden" class="form-label">Orden</label>
-                <input type="text" class="form-control" id="orden" required>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button class="btn btn-primary" type="submit">Guardar</button>
-            </div>
-          </form>
+      <div class="modal-body modalBody">
+     
+      <form  class="row g-3 formulario" id="resgistrarOpcion" action="{{ route('admin.opcionStore') }}">
+      @csrf
+
+    <!-- Grupo: grupo -->
+      <div class="col-md-12">
+        <div class="formulario__grupo" id="grupo__grupo">
+				<label for="grupo" class="formulario__label">GRUPO DE MENÙ</label>
+				<div class="formulario__grupo-input">
+        <select class="form-select" id="grupo" name="grupo" required>
+        </select>	
+				</div>
+				<p class="formulario__input-error">El campo "nombre" no debe estar vacio.</p>
+			</div>
+			</div>
+
+	 <!-- Grupo: nombre -->
+      <div class="col-md-12">
+        <input type="text" id="ID" style="display:none">
+        <div class="formulario__grupo" id="grupo__nombre">
+				<label for="nombre" class="formulario__label">NOMBRE</label>
+				<div class="formulario__grupo-input">
+					<input type="text" class="formulario__input" name="nombre" id="nombre" placeholder="WhatsApp" require>
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">El campo "nombre" no debe estar vacio.</p>
+			</div>
+			</div>
+
+      	 <!-- Grupo: ruta -->
+         <div class="col-md-12">
+        <div class="formulario__grupo" id="grupo__ruta">
+				<label for="ruta" class="formulario__label">RUTA</label>
+				<div class="formulario__grupo-input">
+					<input type="text" class="formulario__input" name="ruta" id="ruta" placeholder="WhatsApp" require>
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">El campo "ruta" no debe estar vacio.</p>
+			</div>
+			</div>
+
+         <!-- Grupo: icono -->
+      <div class="col-md-12">
+			<div class="formulario__grupo" id="grupo__icono">
+				<label for="icono" class="formulario__label">ICONO</label>
+				<div class="formulario__grupo-input">
+					<input type="text" class="formulario__input" name="icono" id="icono" placeholder="WhatsApp" require>
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">El campo "icono" no debe estar vacio.</p>
+			</div>
+			</div>
+
+         <!-- Grupo: orden -->
+      <div class="col-md-12">
+			<div class="formulario__grupo" id="grupo__orden">
+				<label for="orden" class="formulario__label">ORDEN</label>
+				<div class="formulario__grupo-input">
+					<input type="number" class="formulario__input" name="orden" id="orden" placeholder="WhatsApp" require>
+					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">El campo "orden" no debe estar vacio.</p>
+			</div>
+			</div>
+
+			<div class="formulario__mensaje" id="formulario__mensaje">
+				<p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
+			</div>
+
+      <div class="modal-footer">
+        
+      <button type="button" class="btn btn-secondary formulario__label" data-bs-dismiss="modal">Close</button>
+      <button class="btn btn-primary formulario__label" type="submit">Guardar</button>
+      
+      </div>
+		</form>
+
       </div>
     </div>
   </div>
@@ -86,6 +134,10 @@
 <link rel="stylesheet" href="{{ asset('DataTables/datatables.css') }}">
     <link rel="stylesheet" href="/css/admin_custom.css">
     <link rel="stylesheet" href="{{ asset('AdminCss/general.css') }}" >
+
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="{{ asset('AdminCss/validarFormulario.css') }}" >
 
     <style>
         .dataTables_wrapper {
@@ -121,222 +173,15 @@
 
 <script src="{{ asset('DataTables/datatables.js') }}"></script>
 
+<script src="{{ asset('AdminJs/OpcionMenu.js') }}"></script>
+
+<script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+<script  src="{{ asset('Validar/FormularioOpcionMenu.js') }}" ></script>
+
+
 <script> 
 
-    $(document).ready(function() {
-        var tabla =$('#tablaOpcionMenu').DataTable({
-
-            processing:false,
-            serverSide:true,
-
-            language: {
-                    url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json'
-                },
-
-            ajax:{
-                    url: "{{ route('admin.opcionmenu') }}",    
- 
-            },
-            
-            columns:[
-                
-                {data: 'id'},
-                {data: 'nombre'},
-                {data: 'ruta'},
-                {data: 'orden'},
-                {data: 'icono'},
-                {data: 'nombre_grupo'},  
-                {data: 'action', orderable: false}
-            ]
-        });
-    
-    });
-
-
-     function listarGrupo(){
-        $.ajax({
-    url: "{{ route('admin.grupo') }}",
-    type: 'GET',
-    success: function(response) {
-      var options = '';                   
-      options +='<option selected disabled value="">Elegir un grupo de menu...</option>'
-      $.each(response, function(index, grupo) {
-        options += '<option value="' + grupo.id + '">' + grupo.nombre + '</option>';
-      });
-      $('#grupo').html(options);
-    }
-  });
-
-    }
-
-    function elegirGrupo(){
-
-        $.ajax({
-    url: "{{ route('admin.grupo') }}",
-    type: 'GET',
-    success: function(response) {
-      var options = '';                   
-      $.each(response, function(index, grupo) {
-        options += '<option value="' + grupo.id + '">' + grupo.nombre + '</option>';
-      });
-      $('#grupo').html(options);
-    }
-  });
-
-    }
-
-$(document).on('click', '#registrar', function(){
-    listarGrupo();
-   });
-
-
-    $('#resgistrarOpcion').submit(function(e){
-
-        e.preventDefault();
-
-        var nombre = $('#nombre').val();
-        var icono = $('#icono').val();
-        var orden = $('#orden').val();
-        var ruta = $('#ruta').val();
-        var grupo = $('#grupo').val();
-
-        var id = $('#ID').val();
-        var _token =$("input[name=_token]").val();
-
-        var url;
-
-        if(id==""){
-
-            url="{{ route('admin.opcionStore') }}";
-        }else if(id!=""){
-            url="{{ route('admin.opcionUpdate') }}";
-
-        }
-
-        $.ajax({
-
-            url: url,    
-            type: "POST",
-            data:{
-                nombre: nombre,
-                icono: icono,
-                orden: orden,
-                ruta:ruta,
-                grupo:grupo,
-                id: id,
-                _token: _token
-
-            },
-
-            success: function(response) {
-
-            if(response.success){
-              if (id=="") {
-                    swal({
-                 title: "Registro agregado",
-                 text: "",
-                 icon: "success",
-                 buttons: true,
-                })
-                }else {
-                swal({
-                 title: "Registro actualizado",
-                 text: "",
-                 icon: "success",
-                 buttons: true,
-                })
-                }
-                $('#exampleModal').modal('hide');
-                $('#tablaOpcionMenu').DataTable().ajax.reload();
-                $('#resgistrarOpcion')[0].reset();
-
-            }
-        }
-    });
-});
-      
-    
-    $(document).on('click', 'button[name="delete"]', function(){
-        var id;
-
-        id = $(this).attr('id');
-        var _token =$("input[name=_token]").val();
-        swal({
-         title: "Desea eliminar la opcion de menu?",
-         icon: "warning",
-         buttons: true,
-         dangerMode: true,
-        })
-        .then((willDelete) => {
-           if (willDelete) {
-
-      $.ajax({
-
-         url: "/admin/opcionmenu/" + id,
-         type: 'DELETE',
-         data: {
-        _token: $('meta[name="csrf-token"]').attr('content')
-               },
-         success: function(response){
-            $('#tablaOpcionMenu').DataTable().ajax.reload();
-            swal({ 
-                    title:"Opcion de menu eliminada correctamente",
-                    icon: "success"
-            });
-        }
-      });
-    }
-
-});
-
-   });
-
-
-   $('#exampleModal').on('hide.bs.modal', function (e) {
-    // Restablecer el valor del campo 1
-    $('#nombre').val('');
-    $('#icono').val('');
-    $('#orden').val('');
-    $('#ruta').val('');
-    $('#grupo').val('');
-   });
-        
-     $(document).on('click', 'button[name="edit"]', function(){
-      
-       elegirGrupo();
-       var id = $(this).attr('id');
-
-     $.ajax({
-
-        url: "/admin/opcionmenu/" + id,
-        type: 'get',
-        success: function(response){
-
-            if(response!=null){
-            var nombre = response.success.nombre;
-            var icono = response.success.icono;
-            var orden = response.success.orden;
-            var ruta = response.success.ruta;
-            var grupo = response.success.grupo_menus_id;
-
-            $('#exampleModal').modal('show');
-            $('#nombre').val(nombre);
-            $('#icono').val(icono);
-            $('#orden').val(orden);
-            $('#ruta').val(ruta);
-            $('#grupo').val(grupo);
-            $('#ID').val(id);
-
-            }
-            
-
-
-
-        }
-     });
-
-     
-  });
+   
     
     </script>
 

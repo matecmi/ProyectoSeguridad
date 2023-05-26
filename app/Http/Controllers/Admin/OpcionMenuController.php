@@ -82,13 +82,17 @@ class OpcionMenuController extends Controller
 
     }
 
-public function opcionEdit($id)
+public function opcionEdit(Request $request)
 {
-    try {
-        $opcionmenu = OpcionMenu::findOrFail($id);
-        return response()->json(['success' => $opcionmenu]);
-    } catch (\Throwable $th) {
-        return response()->json(['error' => 'Registro no encontrado'], 404);
+
+    if($request->ajax()){
+
+        try {
+            $opcionmenu = OpcionMenu::findOrFail($request->input('id'));
+            return response()->json(['success' => $opcionmenu]);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => 'Registro no encontrado'], 404);
+        }
     }
 }
 
@@ -113,13 +117,18 @@ public function opcionEdit($id)
     }
 
 
-    public function opcionDestroy( $id)
+    public function opcionDestroy(Request $request)
     {
         
-        $registro = OpcionMenu::find($id);
-        $registro->status = "N";
-        $registro->save();
+        if($request->ajax()){
 
-        return response()->json(['mensaje' => 'Registro eliminado']);
+            $registro = OpcionMenu::find($request->input('id'));
+            $registro->status = "N";
+            $registro->save();
+    
+            return response()->json(['success' => true]);
+            }
+            return response()->json(['success' => false]);
+    
     }
 }

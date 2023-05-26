@@ -38,8 +38,8 @@ Route::get('admin/opcionmenu/lista',[OpcionMenuController::class, 'listaOpcion']
 Route::get('admin/opcionmenu/grupo',[OpcionMenuController::class, 'grupo'])->name('admin.grupo');
 Route::get('admin/opcionmenu/',[OpcionMenuController::class, 'opcionmenu'])->name('admin.opcionmenu');
 Route::post('admin/opcionmenu/create',[OpcionMenuController::class, 'opcionStore'])->name('admin.opcionStore');
-Route::delete('admin/opcionmenu/{id}',[OpcionMenuController::class, 'opcionDestroy'])->name('admin.opcionDestroy');
-Route::get('admin/opcionmenu/{id}',[OpcionMenuController::class, 'opcionEdit'])->name('admin.opcionEdit');
+Route::get('admin/opcionmenu/delete',[OpcionMenuController::class, 'opcionDestroy'])->name('admin.opcionDestroy');
+Route::get('admin/opcionmenu/edit',[OpcionMenuController::class, 'opcionEdit'])->name('admin.opcionEdit');
 Route::post('admin/opcionmenu/update',[OpcionMenuController::class, 'opcionUpdate'])->name('admin.opcionUpdate');
 
 
