@@ -229,7 +229,7 @@
 			<div class="formulario__grupo" id="grupo__descripcion">
 				<label for="descripcion" class="formulario__label">DESCRIPCIÒN</label>
 				<div class="formulario__grupo-input">
-        <textarea class="formulario__textArea" cols="20" rows="2" name="descripcion" id="descripcion"  require></textarea>
+        <textarea class="formulario__textArea" cols="20" rows="2" name="descripcion" id="descripcion" placeholder="Descripcion del ticket"   require></textarea>
         <i class="formulario__validacion-estado fas fa-times-circle"></i>	
       </div>
 				<p class="formulario__input-error">El campo "DESCRIPCIÒN" no debe estar vacio.</p>
@@ -426,7 +426,7 @@
   </div>
 </div>
 
-<!-- Modales para la creación de comentarios. -->
+<!-- Modales para la creación de comentarios. 
 
 <div class="modal fade delante" id="modalComentario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -452,6 +452,49 @@
     </div>
   </div>
 </div>
+-->
+<div class="modal fade delante" id="modalComentario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header modalHeader">
+        <h1 class="modal-title fs-5 formulario__labelTitulo">NUEVO COMENTARIO</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body modalBody">
+     
+      <form  class="row g-3 formulario" id="resgistrarComentario" action="{{ route('admin.comentarioStore') }}">
+      @csrf
+
+        <!-- Grupo: descripcion-->
+        <div class="col-md-12">
+        <input type="text" id="IDComentario" style="display:none">
+			<div class="formulario__grupo" id="grupo__comentario">
+				<label for="descripcionC" class="formulario__label">COMENTARIO</label>
+				<div class="formulario__grupo-input">
+        <textarea class="formulario__textArea" cols="20" rows="2" name="descripcionC" id="descripcionC" placeholder="Escribe un comentario"   require></textarea>
+        <i class="formulario__validacion-estado fas fa-times-circle"></i>	
+      </div>
+				<p class="formulario__input-error">El campo "COMENTARIO" no debe estar vacio.</p>
+			</div>
+			</div>
+
+			<div class="formulario__mensaje" id="formulario__mensaje">
+				<p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
+			</div>
+
+      <div class="modal-footer">
+        
+      <button type="button" class="btn btn-secondary formulario__label" data-bs-dismiss="modal">Close</button>
+      <button class="btn btn-primary formulario__label" type="submit">Guardar</button>
+      
+      </div>
+		</form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <!-- Modales para la creación de Acciones. -->
 
@@ -900,7 +943,10 @@
 <script src="{{ asset('AdminJs/PanelControlTicket.js') }}"></script>
 
 <script src="{{ asset('AdminJs/UsuarioReporte.js') }}"></script>
+
 <script  src="{{ asset('Validar/FormularioUsuarioReporte.js') }}" ></script>
+<script  src="{{ asset('Validar/FormularioComentario.js') }}" ></script>
+<script  src="{{ asset('Validar/FormularioTicket.js') }}" ></script>
 
 
 <script src="{{ asset('DataTables/JSZip-2.5.0/jszip.min.js') }}"></script>
@@ -908,7 +954,6 @@
 <script src="{{ asset('DataTables/Buttons-2.3.4/js/buttons.bootstrap5.min.js') }}"></script>
 <script src="{{ asset('DataTables/Buttons-2.3.4/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('DataTables/Buttons-2.3.4/js/buttons.print.min.js') }}"></script>
-<script  src="{{ asset('Validar/FormularioTicket.js') }}" ></script>
 
 
 <script>

@@ -116,10 +116,8 @@ $('#btnComentario').on('click', function () {
   $('#modalComentario').modal('show');
 });
 
-$('#resgistrarComentario').submit(function (e) {
 
-  e.preventDefault();
-
+function registrarComentario() {
   var descripcion = $('#descripcionC').val();
   var id = $('#IDComentario').val();
   var _token = $("input[name=_token]").val();
@@ -164,6 +162,7 @@ $('#resgistrarComentario').submit(function (e) {
             buttons: true,
           })
         }
+        limpiarFormularioComentario();
         $('#modalComentario').modal('hide');
         $('#tablaComentario').DataTable().ajax.reload();
         $('#resgistrarComentario')[0].reset();
@@ -172,7 +171,31 @@ $('#resgistrarComentario').submit(function (e) {
 
     }
   });
-});
+}
+
+function limpiarFormularioComentario(){
+  formularioComentario.reset();
+  document.querySelectorAll('.formulario__grupo').forEach((icono) => {
+      icono.classList.remove('formulario__grupo-incorrecto');
+      icono.classList.remove('formulario__grupo-correcto');
+      icono.classList.remove('formulario__input-error-activo');
+  
+  });
+  
+  document.querySelectorAll('.formulario__input-error').forEach((icono) => {
+      icono.classList.remove('formulario__input-error-activo');
+  
+  });
+  
+  document.getElementById('formulario__mensaje').classList.remove('formulario__mensaje-activo');
+  
+  camposComentario.comentario=false;
+
+}
+
+function validarEdicionComentario(){
+  camposComentario.comentario=true;
+}
 
 
 $(document).on('click', 'button[name="deleteComentario"]', function () {
@@ -215,6 +238,7 @@ $(document).on('click', 'button[name="deleteComentario"]', function () {
 
 
 $('#modalComentario').on('hide.bs.modal', function (e) {
+  limpiarFormularioComentario();
   $('#resgistrarComentario')[0].reset();
 });
 
@@ -225,7 +249,7 @@ $('#modalComentario').on('hide.bs.modal', function (e) {
 $(document).on('click', 'button[name="editComentario"]', function () {
 
   $('#modalComentario').modal('show');
-
+  validarEdicionComentario();
   var id = $(this).attr('id');
 
   $.ajax({
