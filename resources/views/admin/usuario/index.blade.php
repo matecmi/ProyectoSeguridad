@@ -5,7 +5,7 @@
 
 @section('content_header')
 
-<h1>Usuario</h1>
+<h1>USUARIO</h1>
 
 
 @stop

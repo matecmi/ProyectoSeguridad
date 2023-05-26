@@ -5,7 +5,7 @@
 
 @section('content_header')
 
-<h1>Faq</h1>
+<h1>FAQ</h1>
 
 
 @stop

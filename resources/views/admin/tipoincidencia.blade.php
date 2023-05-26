@@ -5,7 +5,7 @@
 
 @section('content_header')
 
-<h1>Tipo Incidencia</h1>
+<h1>TIPO INCIDENCIA</h1>
 
 
 @stop
@@ -83,8 +83,6 @@
     <link rel="stylesheet" href="/css/admin_custom.css">
     <link rel="stylesheet" href="{{ asset('AdminCss/general.css') }}" >
 
-    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="{{ asset('AdminCss/validarFormulario.css') }}" >
 
 

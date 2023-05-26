@@ -5,7 +5,7 @@
 
 @section('content_header')
 
-<h1>Rol</h1>
+<h1>ROL</h1>
 
 
 @stop

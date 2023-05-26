@@ -5,7 +5,7 @@
 
 @section('content_header')
 
-<h1>Calificacion</h1>
+<h1>CALIFICACIÒN</h1>
 
 @stop
 

@@ -5,7 +5,7 @@
 
 @section('content_header')
 
-<h1>Opcion Menu</h1>
+<h1>OPCIÒN MENU</h1>
 
 
 @stop
@@ -38,7 +38,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
     <div class="modal-header modalHeader">
-        <h1 class="modal-title fs-5 formulario__labelTitulo">NUEVO GRUPO DE MENU</h1>
+        <h1 class="modal-title fs-5 formulario__labelTitulo">NUEVA OPCIÒN DE MENU</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body modalBody">
@@ -134,9 +134,7 @@
 <link rel="stylesheet" href="{{ asset('DataTables/datatables.css') }}">
     <link rel="stylesheet" href="/css/admin_custom.css">
     <link rel="stylesheet" href="{{ asset('AdminCss/general.css') }}" >
-
-    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> 
+ 
     <link rel="stylesheet" href="{{ asset('AdminCss/validarFormulario.css') }}" >
 
     <style>
