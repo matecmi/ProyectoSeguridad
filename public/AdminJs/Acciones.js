@@ -93,12 +93,12 @@ $('#btnAccion').on('click', function () {
 
           }
           if (situacion =="En Proceso") {
-            tituloPanel2.style.color = "#e0d910";
+            tituloPanel2.style.color = "#FFFF00";
             tituloPanel2.innerHTML =situacion.toUpperCase();
 
           }
           if (situacion =="Finalizado") {
-            tituloPanel2.style.color = "green";
+            tituloPanel2.style.color = "#7FFF00";
             tituloPanel2.innerHTML =situacion.toUpperCase();
 
           }
@@ -244,12 +244,8 @@ $('#btnAccion').on('click', function () {
     accionListarPersona();
   
   });
-  
-  
-  $('#resgistrarAcciones').submit(function (e) {
-  
-    e.preventDefault();
-  
+
+  function registrarAcciones() {
     var descripcion = $('#descripcionA').val();
     var modo = $('#modo').val();
     var personal_id = $('#accionListPersona').val();
@@ -298,6 +294,7 @@ $('#btnAccion').on('click', function () {
               buttons: true,
             })
           }
+          limpiarFormularioAcciones();
           $('#modalAcciones').modal('hide');
           $('#tablaAcciones').DataTable().ajax.reload();
           validarTicketVencidos();
@@ -306,7 +303,37 @@ $('#btnAccion').on('click', function () {
   
       }
     });
-  });
+  }
+  
+  function limpiarFormularioAcciones(){
+    formularioAcciones.reset();
+    document.querySelectorAll('.formulario__grupo').forEach((icono) => {
+        icono.classList.remove('formulario__grupo-incorrecto');
+        icono.classList.remove('formulario__grupo-correcto');
+        icono.classList.remove('formulario__input-error-activo');
+    
+    });
+    
+    document.querySelectorAll('.formulario__input-error').forEach((icono) => {
+        icono.classList.remove('formulario__input-error-activo');
+    
+    });
+    
+    document.getElementById('formulario__mensaje').classList.remove('formulario__mensaje-activo');
+    
+    camposAcciones.descripcionA=false;
+    camposAcciones.modo=false;
+    camposAcciones.personal=false;
+
+  
+  }
+  
+  function validarEdicionAcciones(){
+    camposAcciones.descripcionA=true;
+    camposAcciones.modo=true;
+    camposAcciones.personal=true;
+
+  }
   
   
   $(document).on('click', 'button[name="deleteAccion"]', function () {
@@ -351,13 +378,15 @@ $('#btnAccion').on('click', function () {
 
   $('#modalAcciones').on('hide.bs.modal', function (e) {
     // Restablecer el valor del campo 1
+    limpiarFormularioAcciones();
+
     $('#resgistrarAcciones')[0].reset();
     
   });
   
   $(document).on('click', 'button[name="editAccion"]', function () {
     $('#modalAcciones').modal('show');
-
+    validarEdicionAcciones();
     accionElegirPersona();
   
     var id = $(this).attr('id');

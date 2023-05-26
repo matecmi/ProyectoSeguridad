@@ -11,23 +11,23 @@
 
 @section('content')
 
-<div class="card">
+<div class="card modalBody">
   <div class="card-header row g-1 ">
     <div class="col-md-3">
-      <button id="registrar" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo Ticket</button>
+      <button id="registrar" type="button" class="btn btn-primary formulario__label" data-bs-toggle="modal" data-bs-target="#exampleModal">NUEVO TICKET</button>
     </div>
 
     <div class="col-md-3 d-flex align-items-center" >
-      <label for="grupo" class="form-label me-2">DESDE</label>
+      <label for="filtroDesde" class="form-label me-2 ">DESDE</label>
       <input type="date" id="filtroDesde" class="form-control" >
     </div>
     <div class="col-md-3 d-flex align-items-center">
-      <label for="grupo" class="form-label me-2">HASTA</label>
+      <label for="filtroHasta" class="form-label me-2">HASTA</label>
       <input type="date" id="filtroHasta" class="form-control" >
     </div>
     <div class="col-md-3 d-flex align-items-center">
-      <label for="grupo" class="form-label me-2">ESTADO</label>
-      <select class="form-select" id="filtroEstado"   required>
+      <label for="filtroEstado" class="form-label me-2">ESTADO</label>
+      <select class="form-select" id="filtroEstado"   >
         <option value="Todos" selected>TODOS</option>
         <option value="Pendiente">PENDIENTE</option>
         <option value="En Proceso">EN PROCESO</option>
@@ -38,30 +38,30 @@
     <div class="col-md-3">
     </div>
     <div class="col-md-3 d-flex align-items-center">
-      <label for="grupo" class="form-label me-2">EMPRESA</label>
-      <select class="form-select" id="filtroEmpresa" required>
+      <label for="filtroEmpresa" class="form-label me-2">EMPRESA</label>
+      <select class="form-select" id="filtroEmpresa">
       </select>
     </div>
     <div class="col-md-3 d-flex align-items-center">
-      <label for="grupo" class="form-label me-2">T.INCIDENCIA</label>
-      <select class="form-select" id="filtroIcidencia" required>
+      <label for="filtroIcidencia" class="form-label me-2">T.INCIDENCIA</label>
+      <select class="form-select" id="filtroIcidencia">
       </select>
     </div>
 
     <div class="col-md-3 d-flex align-items-center">
-      <label for="grupo" class="form-label me-2">DESCRIPCIÓN</label>
-      <input type="text" class="form-control" id="filtroDescripcion" required>
+      <label for="filtroDescripcion" class="form-label me-2">DESCRIPCIÓN</label>
+      <input type="text" class="form-control" id="filtroDescripcion">
     </div>
     <div class="col-md-9">
     </div>
       <div class="col-md-3 d-flex align-items-center mb-3">
-      <label for="grupo" class="form-label me-2">PERSONAL</label>
-      <select class="form-select" id="filtroPersonal" required>
+      <label for="filtroPersonal" class="form-label me-2">PERSONAL</label>
+      <select class="form-select" id="filtroPersonal">
       </select>
     </div>
     <div class="col-md-9 d-flex align-items-center"></div> 
-    <div class="col-md-3 d-flex align-items-center justify-content-end" id="exportar">
-      <button id="filtro" type="button" class="btn btn-primary ml-2">Filtrar <i class="fa-solid fa-magnifying-glass"></i></button>
+    <div class="col-md-3 d-flex align-items-center justify-content-end " id="exportar">
+      <button id="filtro" type="button" class="btn btn-primary ml-2 formulario__label ">FILTRAR <i class="fa-solid fa-magnifying-glass"></i></button>
     </div>
   </div>
 </div>
@@ -100,89 +100,7 @@
     </div>
 </div>
 
-<!-- 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Ticket</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form class="row g-3 " id="resgistrarTicket" action="{{ route('admin.ticketStore') }}">
-            @csrf
-              <div class="col-md-6">
-                <input type="text" id="ID" style="display:none" name="ID">
-                <label for="Nombre" class="form-label">FECHA REGISTRO</label>
-                <input type="datetime-local" class="form-control" id="fecha" name="fecha" >
-              </div>
-
-              <div class="col-md-6">
-                <label for="grupo" class="form-label">EMPRESA</label>
-                <select class="form-select" id="listEmpresa" name="empresa_id" required>
-                </select>
-              </div>
-       
-              <div class="col-md-12">
-                <label for="Orden" class="form-label">DESCRIPCION</label>
-                <textarea  class="form-control" id="descripcion" name="descripcion" cols="20" rows="5" required></textarea>
-              </div>
-
-              <div class="col-md-6">
-                <label for="grupo" class="form-label">T.INCIDENCIA</label>
-                <select class="form-select" id="listTIncidencia" name="tipoincidencia_id" required>
-                </select>
-              </div>
-
-              <div class="col-md-6">
-                <label for="grupo" class="form-label">SLA</label>
-                <select class="form-select" id="listSla" name="sla_id" required>
-                </select>
-              </div>
-              <div class="col-md-6">
-                <label for="grupo" class="form-label">MEDIO DE REPORTE</label>
-                <select class="form-select" id="listMedioReporte" name="medio_reporte_id" required>
-                </select>
-              </div>
-              <div class="col-md-6">
-                <label for="grupo" class="form-label">PERSONA</label>
-                <select class="form-select" id="listPersona" name="personal_id" required>
-                </select>
-              </div>
-              <div class="col-md-6">
-                <label for="grupo" class="form-label">SUPERVISOR</label>
-                <select class="form-select" id="listSupervisor" name="supervisor_id" required>
-                </select>
-              </div>
-              <div class="col-md-6" style="text-align: center">
-                <label for="grupo" class="form-label" >USUARIO QUIEN REPORTA</label>
-                <div class="d-flex align-items-center">
-                  <select class="form-select me-2" id="listUsuarioReporte" name="usuario_reporte_id" required>
-                  </select>
-                  <button id="btnReporteUsuario" type="button" class="btn btn-primary">
-                    <i class="fa-solid fa-user"></i>
-                  </button>
-
-                </div>
-              </div>
-              <div class="col-md-12">
-                <label for="Nombre" class="form-label">imagen</label>
-                <input type="file" class="form-control" id="fileTicket" name="fileTicket" accept="image/*" >
-              </div>
-              <div class="col-md-12">
-                <label for="Nombre" class="form-label">Documento</label>
-                <input type="file" class="form-control" id="fileDocumentoTicket" name="fileDocumentoTicket"  accept=".pdf,.xls,.xlsx,.doc,.docx,.pptx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"  >
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button class="btn btn-primary" type="submit" id="btnGuardarTicket">Guardar</button>
-            </div>
-          </form>
-      </div>
-    </div>
-  </div>
-</div>
--->
+<!-- MODAL PARA CREACION DEL TICKET -->
 
 
 
@@ -426,33 +344,8 @@
   </div>
 </div>
 
-<!-- Modales para la creación de comentarios. 
+<!-- Modales para la creación de comentarios.-->
 
-<div class="modal fade delante" id="modalComentario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Comentario</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form class="row g-3" id="resgistrarComentario" action="{{ route('admin.comentarioStore') }}">
-            @csrf
-              <div class="col-md-12">
-                <input type="text" id="IDComentario" style="display:none">
-                <label for="Ruta" class="form-label">DESCRIPCIÓN</label>
-                <textarea name="" class="form-control" id="descripcionC" cols="20" rows="5" required></textarea>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button class="btn btn-primary" type="submit">Guardar</button>
-            </div>
-          </form>
-      </div>
-    </div>
-  </div>
-</div>
--->
 <div class="modal fade delante" id="modalComentario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -501,38 +394,70 @@
 <div class="modal fade delante" id="modalAcciones" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Nueva Accion</h1>
+    <div class="modal-header modalHeader">
+        <h1 class="modal-title fs-5 formulario__labelTitulo">NUEVA ACCIÒN</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <form class="row g-3" id="resgistrarAcciones" action="{{ route('admin.accionesStore') }}">
-            @csrf
-              <div class="col-md-6">
-                <input type="text" id="accionID" style="display:none">
-                <label for="Ruta" class="form-label">MODO</label>
-                <select class="form-select" id="modo" required>
-                  <option selected disabled value="">Elegir un Modo...</option>         
-                  <option value="Remoto">REMOTO</option>
-                  <option value="Presencial">PRESENCIAL</option>
-                  <option value="Cas">CAS</option>
-                </select>              
-              </div>
-              <div class="col-md-6">
-                <label for="grupo" class="form-label">PERSONAL</label>
-                <select class="form-select" id="accionListPersona" required>
-                </select>
-              </div>
-              <div class="col-md-12">
-                <label for="Ruta" class="form-label">DESCRIPCIÓN</label>
-                <textarea name="" class="form-control" id="descripcionA" cols="20" rows="5" required></textarea>
-              </div>
- 
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button class="btn btn-primary" type="submit">Guardar</button>
-            </div>
-          </form>
+      <div class="modal-body modalBody">
+     
+      <form  class="row g-3 formulario" id="resgistrarAcciones" action="{{ route('admin.accionesStore') }}">
+      @csrf
+
+      <!-- Grupo: MODO-->
+      <div class="col-md-6">
+      <input type="text" id="accionID" style="display:none">
+			<div class="formulario__grupo" id="grupo__modo">
+				<label for="modo" class="formulario__label">MODO</label>
+				<div class="formulario__grupo-input">
+        <select class="formulario__input" id="modo" name="modo" required>
+          <option selected disabled value="">Elegir un Modo...</option>         
+          <option value="Remoto">REMOTO</option>
+          <option value="Presencial">PRESENCIAL</option>
+          <option value="Cas">CAS</option>
+        </select>
+        <i class="formulario__validacion-estado fas fa-times-circle icono"></i>
+        </div>
+				<p class="formulario__input-error">El campo "MODO" no debe estar vacio.</p>
+			</div>
+			</div>
+
+      <!-- Grupo: PERSONAL-->
+      <div class="col-md-6">
+      <input type="text" id="accionID" style="display:none">
+			<div class="formulario__grupo" id="grupo__personal">
+				<label for="accionListPersona" class="formulario__label">PERSONAL</label>
+				<div class="formulario__grupo-input">
+        <select class="formulario__input" id="accionListPersona" name="personal" required></select>
+        <i class="formulario__validacion-estado fas fa-times-circle icono"></i>
+        </div>
+				<p class="formulario__input-error">El campo "PERSONAL" no debe estar vacio.</p>
+			</div>
+			</div>
+
+        <!-- Grupo: descripcion-->
+        <div class="col-md-12">
+			<div class="formulario__grupo" id="grupo__descripcionA">
+				<label for="descripcionA" class="formulario__label">DESCRIPCIÒN</label>
+				<div class="formulario__grupo-input">
+        <textarea class="formulario__textArea" cols="20" rows="2" name="descripcionA" id="descripcionA" placeholder="Escribe una descripciòn"   require></textarea>
+        <i class="formulario__validacion-estado fas fa-times-circle"></i>	
+      </div>
+				<p class="formulario__input-error">El campo "DESCRIPCIÒN" no debe estar vacio.</p>
+			</div>
+			</div>
+
+			<div class="formulario__mensaje" id="formulario__mensaje">
+				<p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
+			</div>
+
+      <div class="modal-footer">
+        
+      <button type="button" class="btn btn-secondary formulario__label" data-bs-dismiss="modal">Close</button>
+      <button class="btn btn-primary formulario__label" type="submit">Guardar</button>
+      
+      </div>
+		</form>
+
       </div>
     </div>
   </div>
@@ -543,8 +468,8 @@
 <div class="modal fade delante" id="estadoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-tablaUsuario">
     <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="tituloEstado">ESTADO</h1>
+      <div class="modal-header modalHeader">
+        <h1 class="modal-title fs-5 formulario__labelTitulo" id="tituloEstado">ESTADO</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" >
@@ -582,11 +507,11 @@
 <div class="modal fade delante" id="tablaUsuarioModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-tablaUsuario">
     <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="tituloUsusario"></h1>
+      <div class="modal-header modalHeader">
+        <h1 class="modal-title fs-5 formulario__labelTitulo" id="tituloUsusario"></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body ">
 
         <div class="card-body table-responsive">
           <table class="table table-striped table-bordered table-hover" id="tablausuario">
@@ -614,16 +539,16 @@
 <div class="modal fade" id="imagenModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Nueva Imagen</h1>
+      <div class="modal-header modalHeader">
+        <h1 class="modal-title fs-5 formulario__labelTitulo" id="exampleModalLabel">NUEVA IMAGEN</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body modalBody">
         <form class="row g-3" id="resgistrarTicketImagen" action="{{ route('admin.ticketImagenStore') }}" method="POST" enctype="multipart/form-data">
           @csrf
           <div class="col-md-12">
                 <input type="text" id="ticketId" name="ticketId" style="display:none">
-                <label for="Nombre" class="form-label">imagen</label>
+                <label for="file" class="form-label">IMAGEN</label>
                 <input type="file" class="form-control" id="file" name="file" accept="image/*" required>
               </div>
 
@@ -641,14 +566,14 @@
 <div class="modal fade delante" id="archivoImagenModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" style="max-width: 50%"> 
     <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="tituloImagen"></h1>
+      <div class="modal-header modalHeader">
+        <h1 class="modal-title fs-5 formulario__labelTitulo" id="tituloImagen"></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body modalBody">
 
           <div class="col-md-5 mb-2">
-            <button id="btnImagen" type="button" class="btn btn-success">Nueva Imagen <i class="fa-solid fa-circle-up ml-2"></i></button>
+            <button id="btnImagen" type="button" class="btn btn-success formulario__label">NUEVA IMAGEN<i class="fa-solid fa-circle-up ml-2"></i></button>
           </div>
 
         <div class="card-body table-responsive">
@@ -688,13 +613,13 @@
 <div class="modal fade delante" id="archivoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-tablaUsuario">
     <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="tituloArchivo"></h1>
+      <div class="modal-header modalHeader">
+        <h1 class="modal-title fs-5 formulario__labelTitulo" id="tituloArchivo"></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="col-md-5 mb-2">
-          <button id="btnArchivo" type="button" class="btn btn-success">Nuevo Documento<i class="fa-solid fa-circle-up ml-2"></i></button>
+          <button id="btnArchivo" type="button" class="btn btn-success formulario__label">NUEVO DOCUMENTO<i class="fa-solid fa-circle-up ml-2"></i></button>
         </div>
         <div class="card-body table-responsive">
           <table class="table table-striped table-bordered table-hover" id="tablaArchivo">
@@ -723,20 +648,20 @@
 <div class="modal fade" id="documentoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Documento</h1>
+      <div class="modal-header modalHeader">
+        <h1 class="modal-title fs-5 formulario__labelTitulo" id="exampleModalLabel">NUEVO DOCUMENTO</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body modalBody">
         <form class="row g-3" id="resgistrarTicketDocumento" action="{{ route('admin.ticketDocumentoStore') }}" method="POST" enctype="multipart/form-data">
           @csrf
           <div class="col-md-12">
-            <label for="nombre" class="form-label">NOMBRE</label>
+            <label for="nombreDocumento" class="formulario__label">NOMBRE</label>
             <input type="text" class="form-control" id="nombreDocumento" name="nombreDocumento" required>
           </div>
           <div class="col-md-12">
                 <input type="text" id="ticketIdDocumento" name="ticketIdDocumento" style="display:none">
-                <label for="Nombre" class="form-label">Documento</label>
+                <label for="file" class="formulario__label">DOCUMENTO</label>
                 <input type="file" class="form-control" id="file" name="file"  accept=".pdf,.xls,.xlsx,.doc,.docx,.pptx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"  required>
               </div>
 
@@ -757,22 +682,22 @@
 <div class="modal fade" id="PanelModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="TituloPanel"></h1>
-        <h1 class="modal-title fs-5" id="TituloPanel2" style="font-weight: bold;"></h1>
+      <div class="modal-header modalHeader">
+        <h1 class="modal-title fs-5 formulario__labelTitulo" id="TituloPanel"></h1>
+        <h1 class="modal-title fs-5 formulario__labelTitulo" id="TituloPanel2" style="font-weight: bold;"></h1>
 
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body modalBody">
         <div class="row g-3">
 
-          <div class="col-md-3">
-            <div class="card-body table-responsive bordeTabla" >
+          <div class="col-md-3 ">
+            <div class="card-body table-responsive bordeTabla modalTabla" >
               <div class="col-md-12" >
-                <h3 class="tituloPanel">DATOS GENERALES</h3>
+                <h3 class="tituloPanel formulario__labelTabla">DATOS GENERALES</h3>
               </div>
               <div class="col-md-12" >
-                <label for=""><i class="fa-sharp fa-solid fa-chevron-right"></i> N.TICKET:</label>
+                <label for=""><i class="fa-sharp fa-solid fa-chevron-right "></i> N.TICKET:</label>
                 <span class="contenidoSpan" id="numeroTicketSpan"></span>
               </div>
               <div class="col-md-12" >
@@ -860,9 +785,9 @@
     
               <div class="col-md-12" >
     
-                <div class="card-body table-responsive bordeTabla" >
+                <div class="card-body table-responsive bordeTabla modalTabla " >
     
-                <h3 style="text-align: center">ACCIONES</h3>
+                <h3 class="formulario__labelTabla">ACCIONES</h3>
                 <button id="btnAccion" type="button" class="btn btn-primary btn-sm ml-2 ">Nuevo</button>
                 <table style="font-size: 15px;"  class="table table-striped table-bordered table-hover" id="tablaAcciones">
     
@@ -882,8 +807,8 @@
               </div>
     
               <div class="col-md-12">
-                <div class="card-body table-responsive bordeTabla">
-                <h3 style="text-align: center">COMENTARIOS</h3>
+                <div class="card-body table-responsive bordeTabla modalTabla">
+                <h3 class="formulario__labelTabla">COMENTARIOS</h3>
     
                 <button id="btnComentario" type="button" class="btn btn-primary btn-sm ml-2">Nuevo</button>
                 <table style="font-size: 15px;" class="table table-striped table-bordered table-hover" id="tablaComentario">
@@ -947,6 +872,8 @@
 <script  src="{{ asset('Validar/FormularioUsuarioReporte.js') }}" ></script>
 <script  src="{{ asset('Validar/FormularioComentario.js') }}" ></script>
 <script  src="{{ asset('Validar/FormularioTicket.js') }}" ></script>
+<script  src="{{ asset('Validar/FormularioAcciones.js') }}" ></script>
+
 
 
 <script src="{{ asset('DataTables/JSZip-2.5.0/jszip.min.js') }}"></script>
@@ -973,10 +900,10 @@ $(document).on('click', 'button[name="panel"]', function () {
   var idGenerado =$(this).attr('value');
 
   var tituloImagen = document.getElementById("tituloImagen");
-    tituloImagen.innerHTML = "Imagenes / Ticket " + idGenerado;
+    tituloImagen.innerHTML = "IMAGENES / TICKET " + idGenerado;
 
     var tituloArchivo = document.getElementById("tituloArchivo");
-    tituloArchivo.innerHTML = "Documentos / Ticket " + idGenerado;
+    tituloArchivo.innerHTML = "DOCUMENTOS / TICKET " + idGenerado;
   
 });
 

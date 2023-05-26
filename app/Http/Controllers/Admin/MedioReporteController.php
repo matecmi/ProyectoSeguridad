@@ -12,23 +12,33 @@ class MedioReporteController extends Controller
     public function medioreporte(Request $request)
     {
 
-        if($request ->ajax()){
+        $user = auth()->user();
 
-            $medio = MedioReporte::select('*')
-            ->where('status', '=', 'Y')
-            ->get();
-            return Datatables::of($medio)
-                ->addColumn('action', function($medio){
-                    $acciones ='<button type="button" name="edit"  id="'.$medio->id.'" class="btn editar btn-sm">Editar<i class="fa-sharp fa-solid fa-pen-to-square ml-1" style="color: white;"></i> </button>';
-                    $acciones .='&nbsp;&nbsp;<button type="button" name="delete" id="'.$medio->id.'" class="btn eliminar btn-sm">Eliminar<i class="fa-solid fa-trash-can ml-1" style="color: white;"></i> </button>'; 
-                    return $acciones;
+    if (optional($user)->email !== null) {
+    if($request ->ajax()){
 
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
+        $medio = MedioReporte::select('*')
+        ->where('status', '=', 'Y')
+        ->get();
+        return Datatables::of($medio)
+            ->addColumn('action', function($medio){
+                $acciones ='<button type="button" name="edit"  id="'.$medio->id.'" class="btn editar btn-sm">Editar<i class="fa-sharp fa-solid fa-pen-to-square ml-1" style="color: white;"></i> </button>';
+                $acciones .='&nbsp;&nbsp;<button type="button" name="delete" id="'.$medio->id.'" class="btn eliminar btn-sm">Eliminar<i class="fa-solid fa-trash-can ml-1" style="color: white;"></i> </button>'; 
+                return $acciones;
 
-        return view('admin.medioreporte');
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+    return view('admin.medioreporte');
+
+    
+}
+
+return view('auth.login');
+
+       
     }
 
     public function medioReporteStore(Request $request)

@@ -14,6 +14,9 @@ class FaqController extends Controller
     public function faq(Request $request)
     {
 
+        $user = auth()->user();
+
+        if (optional($user)->email !== null) {
         if($request ->ajax()){
 
             $faq = Faq::select('*')
@@ -32,6 +35,11 @@ class FaqController extends Controller
         }
 
         return view('admin.faq');
+
+    }
+
+    return view('auth.login');
+
     }
 
     public function faqStore(Request $request)

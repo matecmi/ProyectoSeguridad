@@ -7,10 +7,20 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+
     
     public function index(){
 
-        return view('admin.index');
+        $user = auth()->user();
+
+        if (optional($user)->email !== null) {
+            return view('admin.index');
+
+        }
+
+        return view('auth.login');
     }
 
 }
+
+

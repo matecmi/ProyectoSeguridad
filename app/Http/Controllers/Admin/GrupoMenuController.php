@@ -12,6 +12,11 @@ class GrupoMenuController extends Controller
     public function grupomenu(Request $request)
     {
 
+        $user = auth()->user();
+
+        if (optional($user)->email !== null) {
+
+
         if($request ->ajax()){
 
             $grupomenu = GrupoMenu::select('*')
@@ -30,6 +35,9 @@ class GrupoMenuController extends Controller
         }
 
         return view('admin.grupomenu');
+    }
+    return view('auth.login');
+
     }
 
     public function grupoCreate(Request $request)

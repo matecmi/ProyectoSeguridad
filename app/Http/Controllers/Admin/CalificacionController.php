@@ -13,6 +13,10 @@ class CalificacionController extends Controller
     public function calificacion(Request $request)
     {
 
+        $user = auth()->user();
+
+        if (optional($user)->email !== null) {
+
         if($request ->ajax()){
 
             $calificacion = Calificacion::select('calificacions.*','tickets.descripcion as ticket_nombre')
@@ -32,6 +36,10 @@ class CalificacionController extends Controller
         }
 
         return view('admin.calificacion');
+
+    }
+    return view('auth.login');
+
     }
 
     public function listTicket()

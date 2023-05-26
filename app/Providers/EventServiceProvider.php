@@ -115,7 +115,10 @@ class EventServiceProvider extends ServiceProvider
 
     public function OpcionesMenu($event){
         $user = auth()->user();
-        $email = $user->email;
+
+        if (optional($user)->email !== null) {
+
+            $email = $user->email;
 
 
             $grupos = GrupoMenu::select('*')
@@ -174,10 +177,16 @@ class EventServiceProvider extends ServiceProvider
                     
            }
            return $key;
+        }
+
+       
     }
 
     public function OpcionesPorRol($key,$event){
         $user = auth()->user();
+
+        if (optional($user)->email !== null) {
+
         $email = $user->email;
 
         $persona = Persona::select('*')
@@ -227,8 +236,7 @@ class EventServiceProvider extends ServiceProvider
             }
             }
 
-       
-
+        }
 
     }
 }

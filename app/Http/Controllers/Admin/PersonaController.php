@@ -16,24 +16,35 @@ class PersonaController extends Controller
     public function persona(Request $request)
     {
 
-        if ($request->ajax()) {
 
-            $persona = Persona::select('*')
-                ->where('status', '=', 'Y')
-                ->get();
-            return Datatables::of($persona)
-                ->addColumn('action', function ($persona) {
+        $user = auth()->user();
 
-                    $acciones ='<button type="button" name="edit"  id="'.$persona->id.'" class="btn editar btn-sm">Editar<i class="fa-sharp fa-solid fa-pen-to-square ml-1" style="color: white;"></i> </button>';
-                    $acciones .='&nbsp;&nbsp;<button type="button" name="delete" id="'.$persona->id.'" class="btn eliminar btn-sm">Eliminar<i class="fa-solid fa-trash-can ml-1" style="color: white;"></i> </button>'; 
-                    return $acciones;
+        if (optional($user)->email !== null) {
+            if ($request->ajax()) {
 
-                })
-                ->rawColumns(['action'])
-                ->make(true);
+                $persona = Persona::select('*')
+                    ->where('status', '=', 'Y')
+                    ->get();
+                return Datatables::of($persona)
+                    ->addColumn('action', function ($persona) {
+    
+                        $acciones ='<button type="button" name="edit"  id="'.$persona->id.'" class="btn editar btn-sm">Editar<i class="fa-sharp fa-solid fa-pen-to-square ml-1" style="color: white;"></i> </button>';
+                        $acciones .='&nbsp;&nbsp;<button type="button" name="delete" id="'.$persona->id.'" class="btn eliminar btn-sm">Eliminar<i class="fa-solid fa-trash-can ml-1" style="color: white;"></i> </button>'; 
+                        return $acciones;
+    
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+            }
+    
+            return view('admin.persona');
+
+    
         }
 
-        return view('admin.persona');
+        return view('auth.login');
+
+       
     }
 
     public function personaStore(Request $request)

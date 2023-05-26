@@ -19,28 +19,39 @@ class UsuarioController extends Controller
     public function index(Request $request)
     {
 
-        if($request ->ajax()){
 
-            $usuario = Usuario::select('usuarios.*','tipo_usuarios.nombre as nombre_tipo',
-            'personas.nombres as nombre_persona')
-            ->join('tipo_usuarios', 'usuarios.tipo_usuario_id', '=', 'tipo_usuarios.id')
-            ->join('personas', 'usuarios.persona_id', '=', 'personas.id')
-            ->where('usuarios.status', '=', 'Y')
-            ->get();
-            return Datatables::of($usuario)
-                ->addColumn('action', function($usuario){
+        $user = auth()->user();
 
-                    $acciones ='<button type="button" name="edit"  id="'.$usuario->id.'" class="btn editar btn-sm">Editar<i class="fa-sharp fa-solid fa-pen-to-square ml-1" style="color: white;"></i> </button>';
-                    $acciones .='&nbsp;&nbsp;<button type="button" name="delete" id="'.$usuario->id.'" class="btn eliminar btn-sm">Eliminar<i class="fa-solid fa-trash-can ml-1" style="color: white;"></i> </button>'; 
+        if (optional($user)->email !== null) {
 
-                    return $acciones;
+            if($request ->ajax()){
 
-                })
-                ->rawColumns(['action'])
-                ->make(true);
+                $usuario = Usuario::select('usuarios.*','tipo_usuarios.nombre as nombre_tipo',
+                'personas.nombres as nombre_persona')
+                ->join('tipo_usuarios', 'usuarios.tipo_usuario_id', '=', 'tipo_usuarios.id')
+                ->join('personas', 'usuarios.persona_id', '=', 'personas.id')
+                ->where('usuarios.status', '=', 'Y')
+                ->get();
+                return Datatables::of($usuario)
+                    ->addColumn('action', function($usuario){
+    
+                        $acciones ='<button type="button" name="edit"  id="'.$usuario->id.'" class="btn editar btn-sm">Editar<i class="fa-sharp fa-solid fa-pen-to-square ml-1" style="color: white;"></i> </button>';
+                        $acciones .='&nbsp;&nbsp;<button type="button" name="delete" id="'.$usuario->id.'" class="btn eliminar btn-sm">Eliminar<i class="fa-solid fa-trash-can ml-1" style="color: white;"></i> </button>'; 
+    
+                        return $acciones;
+    
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+            }
+    
+            return view('admin.usuario.index');
+    
         }
 
-        return view('admin.usuario.index');
+        return view('auth.login');
+
+       
     }
 
     public function tipousuario()

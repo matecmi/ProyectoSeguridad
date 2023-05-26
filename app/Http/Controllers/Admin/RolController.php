@@ -13,24 +13,35 @@ class RolController extends Controller
     public function rol(Request $request)
     {
 
-        if($request ->ajax()){
 
-            $rol = Rol::select('*')
-            ->where('status', '=', 'Y')
-            ->get();
-            return Datatables::of($rol)
-                ->addColumn('action', function($rol){
+        $user = auth()->user();
 
-                    $acciones ='<button type="button" name="edit"  id="'.$rol->id.'" class="btn editar btn-sm">Editar<i class="fa-sharp fa-solid fa-pen-to-square ml-1" style="color: white;"></i> </button>';
-                    $acciones .='&nbsp;&nbsp;<button type="button" name="delete" id="'.$rol->id.'" class="btn eliminar btn-sm">Eliminar<i class="fa-solid fa-trash-can ml-1" style="color: white;"></i> </button>'; 
-                    return $acciones;
+        if (optional($user)->email !== null) {
 
-                })
-                ->rawColumns(['action'])
-                ->make(true);
+            if($request ->ajax()){
+
+                $rol = Rol::select('*')
+                ->where('status', '=', 'Y')
+                ->get();
+                return Datatables::of($rol)
+                    ->addColumn('action', function($rol){
+    
+                        $acciones ='<button type="button" name="edit"  id="'.$rol->id.'" class="btn editar btn-sm">Editar<i class="fa-sharp fa-solid fa-pen-to-square ml-1" style="color: white;"></i> </button>';
+                        $acciones .='&nbsp;&nbsp;<button type="button" name="delete" id="'.$rol->id.'" class="btn eliminar btn-sm">Eliminar<i class="fa-solid fa-trash-can ml-1" style="color: white;"></i> </button>'; 
+                        return $acciones;
+    
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+            }
+    
+            return view('admin.rol');
+    
         }
 
-        return view('admin.rol');
+        return view('auth.login');
+
+        
     }
 
 

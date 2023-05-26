@@ -5,6 +5,15 @@
 	background: #E5E5E5;
 }
 
+
+.modalTabla{
+	font-family: 'Roboto', sans-serif;
+	background: white;
+}
+.label{
+	font-family: 'Roboto', sans-serif;
+}
+
 .modalHeader {
 	font-family: 'Roboto', sans-serif;
 	background: #1E90FF;
@@ -24,6 +33,16 @@
 	padding: 10px;
     text-align: center;
 }
+
+
+.formulario__labelTabla{
+
+    display: block;
+	font-weight: 800;
+	padding: 10px;
+    text-align: center;
+}
+
 
 .formulario__grupo-input {
 	position: relative;

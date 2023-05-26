@@ -35,7 +35,7 @@ function DataTableCreacion() {
   
   
     $('#exportar').append(
-      '<button id="exportar-btn" class="btn btn-success">Excel<i class="fa fa-file-excel ml-1"></i></button>'
+      '<button id="exportar-btn" class="btn btn-success formulario__label">Excel<i class="fa fa-file-excel ml-1"></i></button>'
     );
     $('#exportar-btn').click(function() {
       $('#tabla').DataTable().button('.buttons-excel').trigger();
@@ -824,10 +824,10 @@ $(document).on('click', 'button[name="panel"]', function () {
   var idGenerado =$(this).attr('value');
 
   var tituloEstado = document.getElementById("tituloEstado");
-  tituloEstado.innerHTML = "Estado / Ticket " + idGenerado;
+  tituloEstado.innerHTML = "ESTADO / TICKET " + idGenerado;
 
   var tituloUsusario = document.getElementById("tituloUsusario");
-    tituloUsusario.innerHTML = "Ususario-Reporte / Ticket " + idGenerado;
+    tituloUsusario.innerHTML = "USUARIO-REPORTE / TICKET " + idGenerado;
 
 });
 var tituloPanel2 = document.getElementById("TituloPanel2");
@@ -1133,7 +1133,7 @@ $('#btnFinalizado').on('click', function () {
                   title: "El ticket fue reaperturado correctamente",
                   icon: "success"
                 });
-                tituloPanel2.style.color = "#e0d910";
+                tituloPanel2.style.color = "#FFFF00";
                 tituloPanel2.innerHTML ="EN PROCESO";
                 validarTicketVencidos();
                 $('#estadoSpan').html("En Proceso");

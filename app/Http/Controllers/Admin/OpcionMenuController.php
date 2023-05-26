@@ -14,25 +14,35 @@ class OpcionMenuController extends Controller
     public function opcionmenu(Request $request)
     {
 
-        if($request ->ajax()){
+        $user = auth()->user();
 
-            $opcionmenu = OpcionMenu::select('opcion_menus.*','grupo_menus.nombre as nombre_grupo')
-            ->join('grupo_menus', 'opcion_menus.grupo_menus_id', '=', 'grupo_menus.id')
-            ->where('opcion_menus.status', '=', 'Y')
-            ->get();
-            return Datatables::of($opcionmenu)
-                ->addColumn('action', function($opcionmenu){
+        if (optional($user)->email !== null) {
 
-                    $acciones ='<button type="button" name="edit"  id="'.$opcionmenu->id.'" class="btn editar btn-sm">Editar<i class="fa-sharp fa-solid fa-pen-to-square ml-1" style="color: white;"></i> </button>';
-                    $acciones .='&nbsp;&nbsp;<button type="button" name="delete" id="'.$opcionmenu->id.'" class="btn eliminar btn-sm">Eliminar<i class="fa-solid fa-trash-can ml-1" style="color: white;"></i> </button>'; 
-                    return $acciones;
+            if($request ->ajax()){
 
-                })
-                ->rawColumns(['action'])
-                ->make(true);
+                $opcionmenu = OpcionMenu::select('opcion_menus.*','grupo_menus.nombre as nombre_grupo')
+                ->join('grupo_menus', 'opcion_menus.grupo_menus_id', '=', 'grupo_menus.id')
+                ->where('opcion_menus.status', '=', 'Y')
+                ->get();
+                return Datatables::of($opcionmenu)
+                    ->addColumn('action', function($opcionmenu){
+    
+                        $acciones ='<button type="button" name="edit"  id="'.$opcionmenu->id.'" class="btn editar btn-sm">Editar<i class="fa-sharp fa-solid fa-pen-to-square ml-1" style="color: white;"></i> </button>';
+                        $acciones .='&nbsp;&nbsp;<button type="button" name="delete" id="'.$opcionmenu->id.'" class="btn eliminar btn-sm">Eliminar<i class="fa-solid fa-trash-can ml-1" style="color: white;"></i> </button>'; 
+                        return $acciones;
+    
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+            }
+    
+            return view('admin.opcionmenu');
+    
         }
 
-        return view('admin.opcionmenu');
+        return view('auth.login');
+
+        
     }
 
     public function grupo()

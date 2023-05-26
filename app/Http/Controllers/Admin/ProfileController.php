@@ -22,70 +22,93 @@ class ProfileController extends Controller
 
     public function validar(Request $request){
 
-        if($request->ajax()){
 
-            $user = auth()->user();
-            $email = $user->email;
+        $user = auth()->user();
 
+        if (optional($user)->email !== null) {
 
-            $persona = Persona::select('*')
-            ->where('status', '=', 'Y')
-            ->where('email', '=', $email)
-            ->first();
+            if($request->ajax()){
 
-            $usuario = Usuario::select('*')
-            ->where('status', '=', 'Y')
-            ->where('persona_id', '=', $persona->id)
-            ->first();
-
-            if($usuario->password == $request->input('password')){
-                return response()->json(['success' => true]);
-
-            }else{
-                
-              return response()->json(['success' => false]);
-
+                $user = auth()->user();
+                $email = $user->email;
+    
+    
+                $persona = Persona::select('*')
+                ->where('status', '=', 'Y')
+                ->where('email', '=', $email)
+                ->first();
+    
+                $usuario = Usuario::select('*')
+                ->where('status', '=', 'Y')
+                ->where('persona_id', '=', $persona->id)
+                ->first();
+    
+                if($usuario->password == $request->input('password')){
+                    return response()->json(['success' => true]);
+    
+                }else{
+                    
+                  return response()->json(['success' => false]);
+    
+                }
+    
             }
-
+    
         }
+
+        return view('auth.login');
+
+      
     }
 
     public function update(Request $request){
 
         if($request->ajax()){
 
-            
-            $logeado = auth()->user();
-            $email = $logeado->email;
+            $user = auth()->user();
 
-            $persona = Persona::select('*')
-            ->where('status', '=', 'Y')
-            ->where('email', '=', $email)
-            ->first();
-
-            $usuario = Usuario::select('*')
-            ->where('status', '=', 'Y')
-            ->where('persona_id', '=', $persona->id)
-            ->first();
-
-            $user = User::select('*')
-            ->where('email', '=', $email)
-            ->first();
-             User::destroy($user->id);
+            if (optional($user)->email !== null) {
     
-             User::create([
-                'name' => $persona->nombres,
-                'email' => $persona->email,
-                'password' => Hash::make($request->input('password')),
-            ]);
-
-            $usuario->password = $request->input('password');
-            $usuario->save();
+                $logeado = auth()->user();
+                $email = $logeado->email;
+    
+                $persona = Persona::select('*')
+                ->where('status', '=', 'Y')
+                ->where('email', '=', $email)
+                ->first();
+    
+                $usuario = Usuario::select('*')
+                ->where('status', '=', 'Y')
+                ->where('persona_id', '=', $persona->id)
+                ->first();
+    
+                $user = User::select('*')
+                ->where('email', '=', $email)
+                ->first();
+                 User::destroy($user->id);
         
-            return response()->json(['success' => true]);
-        }
-        return response()->json(['success' => false]);
-
+                 User::create([
+                    'name' => $persona->nombres,
+                    'email' => $persona->email,
+                    'password' => Hash::make($request->input('password')),
+                ]);
+    
+                $usuario->password = $request->input('password');
+                $usuario->save();
+            
+                return response()->json(['success' => true]);
+            }
+            return response()->json(['success' => false]);
+    
+        
+            }
+    
+            return view('auth.login');
+    
+    
+    
+            
+           
     }
 
 

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\TicketController;
+use App\Http\Controllers\Auth\LoginController;
 
 
 /*
@@ -15,8 +16,6 @@ use App\Http\Controllers\Admin\TicketController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
 
 Auth::routes();
 

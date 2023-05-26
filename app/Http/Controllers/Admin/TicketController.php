@@ -93,51 +93,62 @@ class TicketController extends Controller
     public function ticket(Request $request)
     {
 
-        if($request ->ajax()){
 
-            $acciones =Accione::select('*')
-            ->where('status', '=', 'Y')
-            ->get();
+        $user = auth()->user();
 
-        
-            date_default_timezone_set('America/Lima');
+        if (optional($user)->email !== null) {
 
-            $tickets = Ticket::select('tickets.*','usuarios.nombre as usuario_nombre',
-            'slas.nombre as sla_nombre',
-            'slas.nomenclatura as sla_nomenclatura')
-            ->join('usuarios', 'tickets.usuario_id', '=', 'usuarios.id')
-            ->join('slas', 'tickets.sla_id', '=', 'slas.id')
-            ->where('tickets.status', '=', 'Y')
-            ->whereIn('tickets.situacion', ['En Proceso', 'Standby'])
-            ->where('tickets.fecha_primera_respuesta', '<', date('Y-m-d H:i:s', time()))
-            ->get();
+            if($request ->ajax()){
 
-            $ticketVencido = array(); 
-            $validar =true;
-            foreach ($tickets as $ticket) {
-
-                foreach ($acciones as $accion) {
-
-                    if ($accion->ticket_id == $ticket->id) {
-                        $validar =false;
-
-                    }
-                }
-
-                if ($validar) {
-                    array_push($ticketVencido, $ticket);
-
-                }
+                $acciones =Accione::select('*')
+                ->where('status', '=', 'Y')
+                ->get();
+    
+            
+                date_default_timezone_set('America/Lima');
+    
+                $tickets = Ticket::select('tickets.*','usuarios.nombre as usuario_nombre',
+                'slas.nombre as sla_nombre',
+                'slas.nomenclatura as sla_nomenclatura')
+                ->join('usuarios', 'tickets.usuario_id', '=', 'usuarios.id')
+                ->join('slas', 'tickets.sla_id', '=', 'slas.id')
+                ->where('tickets.status', '=', 'Y')
+                ->whereIn('tickets.situacion', ['En Proceso', 'Standby'])
+                ->where('tickets.fecha_primera_respuesta', '<', date('Y-m-d H:i:s', time()))
+                ->get();
+    
+                $ticketVencido = array(); 
                 $validar =true;
-
+                foreach ($tickets as $ticket) {
+    
+                    foreach ($acciones as $accion) {
+    
+                        if ($accion->ticket_id == $ticket->id) {
+                            $validar =false;
+    
+                        }
+                    }
+    
+                    if ($validar) {
+                        array_push($ticketVencido, $ticket);
+    
+                    }
+                    $validar =true;
+    
+                }
+    
+    
+                return response()->json($ticketVencido);
             }
-
-
-            return response()->json($ticketVencido);
+            
+            return view('admin.ticket');
+    
+    
         }
-        
-        return view('admin.ticket');
 
+        return view('auth.login');
+
+        
     }
 
     public function ticketUsuarioReporte(Request $request){
@@ -321,87 +332,100 @@ class TicketController extends Controller
     {
 
         $user = auth()->user();
-        $email = $user->email;
 
-            $key ="perfil";
-            $persona = Persona::select('*')
-            ->where('status', '=', 'Y')
-            ->where('email', '=', $email)
-            ->first();
+        if (optional($user)->email !== null) {
 
-            $usuario = Usuario::select('*')
-            ->where('status', '=', 'Y')
-            ->where('persona_id', '=', $persona->id)
-            ->first();
-
-        if($request->ajax()){
-
+            $user = auth()->user();
+            $email = $user->email;
+    
+                $key ="perfil";
+                $persona = Persona::select('*')
+                ->where('status', '=', 'Y')
+                ->where('email', '=', $email)
+                ->first();
+    
+                $usuario = Usuario::select('*')
+                ->where('status', '=', 'Y')
+                ->where('persona_id', '=', $persona->id)
+                ->first();
+    
+            if($request->ajax()){
+    
+                
+                $sla = Sla::select('*')
+                ->where('status', '=', 'Y')
+                ->where('id', '=', $request->input('sla_id'))
+                ->first();
+    
+                date_default_timezone_set('America/Lima');
+    
+                $ticked = new Ticket();
+                $ticked->fecha_registro = $request->input('fecha');
+                $ticked->fecha_fin_estimado = $this->sumarHoras($request->input('fecha'),$sla->horas);
+                $ticked->fecha_primera_respuesta = $this->sumarHoras($request->input('fecha'),$sla->tiempo_primera_respuesta);
+                $ticked->descripcion = $request->input('descripcion');
+                $ticked->situacion = "En Proceso";
+                $ticked->usuario_id = $usuario->id;
+                $ticked->tipoincidencia_id = $request->input('tipoincidencia_id');
+                $ticked->sla_id = $request->input('sla_id');
+                $ticked->personal_id = $request->input('personal_id');
+                $ticked->supervisor_id = $request->input('supervisor_id');
+                $ticked->empresa_id = $request->input('empresa_id');
+                $ticked->medio_reporte_id = $request->input('medio_reporte_id');
+                $ticked->usuario_reporte_id  = $request->input('usuario_reporte_id');
+    
+    
+                $ticked->save();
+    
+                if ( $request->hasFile('fileTicket')) {
+                    $request->validate([
+    
+                        'fileTicket'=>'required|image|max:2048'
+                    ]);
+        
+                   $imagenes= $request->file('fileTicket')->store('public/imagenes');
+                   $urlImagen =Storage::url($imagenes);
             
-            $sla = Sla::select('*')
-            ->where('status', '=', 'Y')
-            ->where('id', '=', $request->input('sla_id'))
-            ->first();
-
-            date_default_timezone_set('America/Lima');
-
-            $ticked = new Ticket();
-            $ticked->fecha_registro = $request->input('fecha');
-            $ticked->fecha_fin_estimado = $this->sumarHoras($request->input('fecha'),$sla->horas);
-            $ticked->fecha_primera_respuesta = $this->sumarHoras($request->input('fecha'),$sla->tiempo_primera_respuesta);
-            $ticked->descripcion = $request->input('descripcion');
-            $ticked->situacion = "En Proceso";
-            $ticked->usuario_id = $usuario->id;
-            $ticked->tipoincidencia_id = $request->input('tipoincidencia_id');
-            $ticked->sla_id = $request->input('sla_id');
-            $ticked->personal_id = $request->input('personal_id');
-            $ticked->supervisor_id = $request->input('supervisor_id');
-            $ticked->empresa_id = $request->input('empresa_id');
-            $ticked->medio_reporte_id = $request->input('medio_reporte_id');
-            $ticked->usuario_reporte_id  = $request->input('usuario_reporte_id');
-
-
-            $ticked->save();
-
-            if ( $request->hasFile('fileTicket')) {
-                $request->validate([
-
-                    'fileTicket'=>'required|image|max:2048'
-                ]);
+                    $ticketImagen = new TicketImagen();
+                    $ticketImagen->nombre = "imagen";
+                    $ticketImagen->ticket_id = $ticked->id;
+                    $ticketImagen->path =  $urlImagen;
+                    
+                    $ticketImagen->save();           
+                 }
     
-               $imagenes= $request->file('fileTicket')->store('public/imagenes');
-               $urlImagen =Storage::url($imagenes);
+                 if ($request->hasFile('fileDocumentoTicket')) {
+                    $request->validate([
+                        'fileDocumentoTicket' => 'required|mimetypes:application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-powerpoint|max:10240',
+                    ]);
+                    
+            
+                   $documento= $request->file('fileDocumentoTicket')->store('public/documentos');
+                   $urlDocumento =Storage::url($documento);
+                   date_default_timezone_set('America/Lima');
         
-                $ticketImagen = new TicketImagen();
-                $ticketImagen->nombre = "imagen";
-                $ticketImagen->ticket_id = $ticked->id;
-                $ticketImagen->path =  $urlImagen;
-                
-                $ticketImagen->save();           
-             }
-
-             if ($request->hasFile('fileDocumentoTicket')) {
-                $request->validate([
-                    'fileDocumentoTicket' => 'required|mimetypes:application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-powerpoint|max:10240',
-                ]);
-                
-        
-               $documento= $request->file('fileDocumentoTicket')->store('public/documentos');
-               $urlDocumento =Storage::url($documento);
-               date_default_timezone_set('America/Lima');
-    
-                $ticketDocumento = new TicketDocumento();
-                $ticketDocumento->ticket_id = $ticked->id;
-                $ticketDocumento->nombre = "Documento Ticket";
-                $ticketDocumento->fecha = date('Y-m-d H:i:s', time());
-                $ticketDocumento->path =  $urlDocumento;
-                $ticketDocumento->save();             
+                    $ticketDocumento = new TicketDocumento();
+                    $ticketDocumento->ticket_id = $ticked->id;
+                    $ticketDocumento->nombre = "Documento Ticket";
+                    $ticketDocumento->fecha = date('Y-m-d H:i:s', time());
+                    $ticketDocumento->path =  $urlDocumento;
+                    $ticketDocumento->save();             
+                }
+            
+                return response()->json(['success' => true]);
             }
-        
-            return response()->json(['success' => true]);
+       
+            return response()->json(['success' => false]);
+    
+    
         }
-   
-        return response()->json(['success' => false]);
 
+        return view('auth.login');
+
+
+
+
+      
     }
 
 public function ticketEdit(Request $request)

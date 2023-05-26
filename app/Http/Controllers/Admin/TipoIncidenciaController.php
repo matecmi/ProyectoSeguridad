@@ -12,24 +12,35 @@ class TipoIncidenciaController extends Controller
     public function tipoincidencia(Request $request)
     {
 
-        if($request ->ajax()){
 
-            $tipoIncidencia = TipoIncidencia::select('*')
-            ->where('status', '=', 'Y')
-            ->get();
-            return Datatables::of($tipoIncidencia)
-                ->addColumn('action', function($tipoIncidencia){
+        $user = auth()->user();
 
-                    $acciones ='<button type="button" name="edit"  id="'.$tipoIncidencia->id.'" class="btn editar btn-sm">Editar<i class="fa-sharp fa-solid fa-pen-to-square ml-1" style="color: white;"></i> </button>';
-                    $acciones .='&nbsp;&nbsp;<button type="button" name="delete" id="'.$tipoIncidencia->id.'" class="btn eliminar btn-sm">Eliminar<i class="fa-solid fa-trash-can ml-1" style="color: white;"></i> </button>'; 
-                    return $acciones;
+        if (optional($user)->email !== null) {
 
-                })
-                ->rawColumns(['action'])
-                ->make(true);
+            if($request ->ajax()){
+
+                $tipoIncidencia = TipoIncidencia::select('*')
+                ->where('status', '=', 'Y')
+                ->get();
+                return Datatables::of($tipoIncidencia)
+                    ->addColumn('action', function($tipoIncidencia){
+    
+                        $acciones ='<button type="button" name="edit"  id="'.$tipoIncidencia->id.'" class="btn editar btn-sm">Editar<i class="fa-sharp fa-solid fa-pen-to-square ml-1" style="color: white;"></i> </button>';
+                        $acciones .='&nbsp;&nbsp;<button type="button" name="delete" id="'.$tipoIncidencia->id.'" class="btn eliminar btn-sm">Eliminar<i class="fa-solid fa-trash-can ml-1" style="color: white;"></i> </button>'; 
+                        return $acciones;
+    
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+            }
+    
+            return view('admin.tipoincidencia');
+    
         }
 
-        return view('admin.tipoincidencia');
+        return view('auth.login');
+
+   
     }
 
     public function tIncidenciaStore(Request $request)
