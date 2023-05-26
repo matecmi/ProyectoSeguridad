@@ -93,20 +93,6 @@ formularioPersona.addEventListener('submit', (e) => {
 
             registrarPersona();
     
-    
-            formularioPersona.reset();
-            document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
-                icono.classList.remove('formulario__grupo-correcto');
-            });
-    
-            campos.nombres=false;
-            campos.paterno=false;
-            campos.materno=false;
-            campos.dni=false;
-            campos.ruc=false;
-            campos.telefono=false;
-            campos.email=false;
-    
         } else {
             document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
         }
@@ -143,18 +129,6 @@ formularioPersona.addEventListener('submit', (e) => {
                 registrarPersona();
         
         
-                formularioPersona.reset();
-                document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
-                    icono.classList.remove('formulario__grupo-correcto');
-                });
-        
-                campos.nombres=false;
-                campos.paterno=false;
-                campos.materno=false;
-                campos.dni=false;
-                campos.ruc=false;
-                campos.telefono=false;
-                campos.email=false;
         
             } else {
                 document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
