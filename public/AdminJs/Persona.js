@@ -54,10 +54,8 @@ function rolPersona2() {
 }
 
 
-
-$('#resgistrarGrupo').submit(function (e) {
-
-    e.preventDefault();
+function registrarPersona() {
+    
     var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
     var valores = [];
     for (var i = 0; i < checkboxes.length; i++) {
@@ -134,6 +132,7 @@ $('#resgistrarGrupo').submit(function (e) {
                         buttons: true,
                     })
                 }
+                limpiarFormularioPersona();
                 $('#exampleModal').modal('hide');
                 $('#tabla').DataTable().ajax.reload();
                 $('#resgistrarGrupo')[0].reset();
@@ -154,7 +153,47 @@ $('#resgistrarGrupo').submit(function (e) {
 
         }
     });
-});
+}
+
+
+function limpiarFormularioPersona(){
+    formularioPersona.reset();
+    document.querySelectorAll('.formulario__grupo').forEach((icono) => {
+        icono.classList.remove('formulario__grupo-incorrecto');
+        icono.classList.remove('formulario__grupo-correcto');
+        icono.classList.remove('formulario__input-error-activo');
+    
+    });
+    
+    document.querySelectorAll('.formulario__input-error').forEach((icono) => {
+        icono.classList.remove('formulario__input-error-activo');
+    
+    });
+    
+    document.getElementById('formulario__mensaje').classList.remove('formulario__mensaje-activo');
+    
+    campos.nombres=false;
+    campos.paterno=false;
+    campos.materno=false;
+    campos.dni=false;
+    campos.ruc=false;
+    campos.telefono=false;
+    campos.email=false;
+
+
+}
+
+function validarEdicion(){
+    campos.nombres=true;
+    campos.paterno=true;
+    campos.materno=true;
+    campos.dni=true;
+    campos.ruc=true;
+    campos.telefono=true;
+    campos.email=true;
+
+
+}
 
 
 $(document).on('click', 'button[name="delete"]', function () {
@@ -195,6 +234,7 @@ $(document).on('click', 'button[name="delete"]', function () {
 $('#exampleModal').on('hide.bs.modal', function (e) {
     // Restablecer el valor del campo 1
     $('#resgistrarGrupo')[0].reset();
+    limpiarFormularioPersona();
     editarValidar=false;
 
     $('#checkbox-container-nuevo input[type=checkbox]').each(function () {
@@ -252,7 +292,7 @@ $(document).on('click', 'button[name="edit"]', function () {
                 editarValidar=true;
 
                 $('#exampleModal').modal('show');
-
+                validarEdicion();
 
                 inputNombres.removeAttribute("disabled");
                 inputPaterno.removeAttribute("disabled");

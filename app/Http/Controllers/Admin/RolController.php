@@ -10,7 +10,7 @@ use DataTables;
 class RolController extends Controller
 {
    
-    public function index(Request $request)
+    public function rol(Request $request)
     {
 
         if($request ->ajax()){
@@ -30,11 +30,11 @@ class RolController extends Controller
                 ->make(true);
         }
 
-        return view('admin.rol.index');
+        return view('admin.rol');
     }
 
 
-    public function lista()
+    public function rolLista()
     {
         $opcionMenu = Rol::select('*')
         ->where('status', '=', 'Y')
@@ -42,7 +42,7 @@ class RolController extends Controller
         return response()->json($opcionMenu);
     }
 
-    public function store(Request $request)
+    public function rolStore(Request $request)
     {
 
         if($request->ajax()){
@@ -57,18 +57,21 @@ class RolController extends Controller
 
     }
 
-public function edit($id)
+public function rolEdit(Request $request)
 {
+    if($request->ajax()){
+
     try {
-        $rol = Rol::findOrFail($id);
+        $rol = Rol::findOrFail($request->input('id'));
         return response()->json(['success' => $rol]);
     } catch (\Throwable $th) {
         return response()->json(['error' => 'Registro no encontrado'], 404);
     }
 }
+}
 
 
-    public function update(Request $request)
+    public function rolUpdate(Request $request)
     {
         if($request->ajax()){
             $id = $request->input('id');
@@ -83,13 +86,15 @@ public function edit($id)
     }
 
 
-    public function destroy( $id)
+    public function rolDestroy( Request $request)
     {
-        
-        $registro = Rol::find($id);
+        if($request->ajax()){
+
+        $registro = Rol::find($request->input('id'));
         $registro->status = "N";
         $registro->save();
 
         return response()->json(['mensaje' => 'Registro eliminado']);
     }
+}
 }

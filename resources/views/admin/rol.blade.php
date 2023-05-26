@@ -38,7 +38,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form class="row g-3" id="resgistrarGrupo" action="{{ route('admin.rol.store') }}">
+        <form class="row g-3" id="resgistrarGrupo" action="{{ route('admin.rolStore') }}">
             @csrf
 
             <div class="col-md-12">
@@ -100,156 +100,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
 
 <script src="{{ asset('DataTables/datatables.js') }}"></script>
-
-<script> 
-
-    $(document).ready(function() {
-        var tabla =$('#tabla').DataTable({
-
-            processing:false,
-            serverSide:true,
-            language: {
-                    url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json'
-                },
-
-            ajax:{
-                    url: "{{ route('admin.rol.index') }}",    
- 
-            },
-            
-            columns:[
-                
-                {data: 'id'},
-                {data: 'nombre'},
-                {data: 'action', orderable: false}
-            ]
-        });
-    
-    });
-  
-
-    $('#resgistrarGrupo').submit(function(e){
-
-        e.preventDefault();
-
-        var nombre = $('#nombre').val();
-        var id = $('#ID').val();
-        var _token =$("input[name=_token]").val();
-
-        var ruta;
-
-        if(id==""){
-
-            ruta="{{ route('admin.rol.store') }}";
-        }else if(id!=""){
-            ruta="{{ route('admin.rol.update') }}";
-
-        }
-
-        $.ajax({
-
-            url: ruta,    
-            type: "POST",
-            data:{
-                nombre: nombre,
-                id: id,
-                _token: _token
-
-            },
-
-            success: function(response) {
-
-            if(response.success){
-                if (id=="") {
-                    swal({
-                 title: "Registro agregado",
-                 text: "",
-                 icon: "success",
-                 buttons: true,
-                })
-                }else {
-                swal({
-                 title: "Registro actualizado",
-                 text: "",
-                 icon: "success",
-                 buttons: true,
-                })
-                }
-                $('#exampleModal').modal('hide');
-                $('#tabla').DataTable().ajax.reload();
-                $('#resgistrarGrupo')[0].reset();
-
-            }
-        }
-    });
-});
-      
-    
-    $(document).on('click', 'button[name="delete"]', function(){
-        var id;
-
-        id = $(this).attr('id');
-
-        var nombre = $('#nombre').val();
-        var _token =$("input[name=_token]").val();
-
-        swal({
-         title: "Desea eliminar el Rol?",
-         icon: "warning",
-         buttons: true,
-         dangerMode: true,
-        })
-       .then((willDelete) => {
-           if (willDelete) {
-
-      $.ajax({
-
-         url: "/admin/rol/" + id,
-         type: 'DELETE',
-         data: {
-        _token: $('meta[name="csrf-token"]').attr('content')
-               },
-         success: function(response){
-            $('#tabla').DataTable().ajax.reload();
-            swal({ 
-                    title:"Rol eliminado correctamente",
-                    icon: "success"
-            });
-        }
-      });
-    }
-
-});
-   });
+<script src="{{ asset('AdminJs/Rol.js') }}"></script>
 
 
-   $('#exampleModal').on('hide.bs.modal', function (e) {
-    // Restablecer el valor del campo 1
-    $('#nombre').val('');
-   });
-        
-     $(document).on('click', 'button[name="edit"]', function(){
-       var id = $(this).attr('id');
-
-     $.ajax({
-
-        url: "/admin/rol/" + id,
-        type: 'get',
-        success: function(response){
-
-            if(response!=null){
-                var nombre = response.success.nombre;
-
-            $('#exampleModal').modal('show');
-
-            $('#nombre').val(nombre);
-            $('#ID').val(id);
-
-            }
-        }
-     });
-  });
-    
-    </script>
 
 @stop

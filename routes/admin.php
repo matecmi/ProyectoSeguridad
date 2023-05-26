@@ -53,12 +53,12 @@ Route::post('admin/tipousuario/update',[TipoUsuarioController::class, 'update'])
 Route::get('admin/acceso/lista',[AccesoController::class, 'lista'])->name('admin.acceso.lista');
 Route::post('admin/acceso/create',[AccesoController::class, 'store'])->name('admin.acceso.store');
 
-Route::get('admin/rol/lista',[RolController::class, 'lista'])->name('admin.rol.lista');
-Route::get('admin/rol/',[RolController::class, 'index'])->name('admin.rol.index');
-Route::post('admin/rol/create',[RolController::class, 'store'])->name('admin.rol.store');
-Route::delete('admin/rol/{id}',[RolController::class, 'destroy'])->name('admin.rol.destroy');
-Route::get('admin/rol/{id}',[RolController::class, 'edit'])->name('admin.rol.edit');
-Route::post('admin/rol/update',[RolController::class, 'update'])->name('admin.rol.update');
+Route::get('admin/rol/lista',[RolController::class, 'rolLista'])->name('admin.rolLista');
+Route::get('admin/rol',[RolController::class, 'rol'])->name('admin.rol');
+Route::post('admin/rol/create',[RolController::class, 'rolStore'])->name('admin.rolStore');
+Route::delete('admin/rol/delete',[RolController::class, 'rolDestroy'])->name('admin.rolDestroy');
+Route::get('admin/rol/edit',[RolController::class, 'rolEdit'])->name('admin.rolEdit');
+Route::post('admin/rol/update',[RolController::class, 'rolUpdate'])->name('admin.rolUpdate');
 
 
 Route::get('admin/persona',[PersonaController::class, 'persona'])->name('admin.persona');
