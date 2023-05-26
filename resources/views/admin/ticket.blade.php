@@ -100,7 +100,7 @@
     </div>
 </div>
 
-
+<!-- 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -182,6 +182,180 @@
     </div>
   </div>
 </div>
+-->
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="max-width: 30%;">
+    <div class="modal-content">
+    <div class="modal-header modalHeader">
+        <h1 class="modal-title fs-5 formulario__labelTitulo">NUEVO TICKET </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body modalBody">
+     
+      <form  class="row g-3 formulario" id="resgistrarTicket">
+      @csrf
+
+			<!-- Grupo: fecha registro -->
+      <div class="col-md-6">
+      <input type="text" id="ID" style="display:none" name="ID">
+			<div class="formulario__grupo" id="grupo__fecha">
+				<label for="fecha" class="formulario__label">FECHA REGISTRO</label>
+				<div class="formulario__grupo-input">
+					<input type="datetime-local" class="formulario__input" name="fecha" id="fecha" >
+          <i class="formulario__validacion-estado fas fa-times-circle"></i>
+				</div>
+				<p class="formulario__input-error">El campo "FECHA REGISTRO" no debe estar vacio.</p>
+			</div>
+			</div>
+
+        <!-- Grupo: empresa-->
+        <div class="col-md-6">
+			<div class="formulario__grupo" id="grupo__empresa">
+				<label for="listEmpresa" class="formulario__label">EMPRESA</label>
+				<div class="formulario__grupo-input">
+        <select class="formulario__input" id="listEmpresa" name="empresa_id" required></select>
+        <i class="formulario__validacion-estado fas fa-times-circle icono"></i>
+				</div>
+				<p class="formulario__input-error">El campo "EMPRESA" no debe estar vacio.</p>
+			</div>
+			</div>
+
+
+        <!-- Grupo: descripcion-->
+        <div class="col-md-12">
+			<div class="formulario__grupo" id="grupo__descripcion">
+				<label for="descripcion" class="formulario__label">DESCRIPCIÒN</label>
+				<div class="formulario__grupo-input">
+        <textarea class="formulario__textArea" cols="20" rows="2" name="descripcion" id="descripcion"  require></textarea>
+        <i class="formulario__validacion-estado fas fa-times-circle"></i>	
+      </div>
+				<p class="formulario__input-error">El campo "DESCRIPCIÒN" no debe estar vacio.</p>
+			</div>
+			</div>
+
+
+      <!-- Grupo: T.INCIDENCIA-->
+      <div class="col-md-6">
+			<div class="formulario__grupo" id="grupo__incidencia">
+				<label for="listTIncidencia" class="formulario__label">T.INCIDENCIA</label>
+				<div class="formulario__grupo-input">
+          <select class="formulario__input" id="listTIncidencia" name="tipoincidencia_id" required></select>
+          <i class="formulario__validacion-estado fas fa-times-circle icono"></i>
+        </div>
+				<p class="formulario__input-error">El campo "T.INCIDENCIA" no debe estar vacio.</p>
+			</div>
+			</div>
+
+
+      <!-- Grupo: SLA-->
+      <div class="col-md-6">
+			<div class="formulario__grupo" id="grupo__sla">
+				<label for="listSla" class="formulario__label">SLA</label>
+				<div class="formulario__grupo-input">
+          <select class="formulario__input" id="listSla" name="sla_id" required></select>
+          <i class="formulario__validacion-estado fas fa-times-circle icono"></i>
+        </div>
+				<p class="formulario__input-error">El campo "SLA" no debe estar vacio.</p>
+			</div>
+			</div>
+
+
+      <!-- Grupo: MEDIO DE REPORTE-->
+      <div class="col-md-6">
+			<div class="formulario__grupo" id="grupo__medio">
+				<label for="listMedioReporte" class="formulario__label">MEDIO DE REPORTE</label>
+				<div class="formulario__grupo-input">
+        <select class="formulario__input" id="listMedioReporte" name="medio_reporte_id" required></select>
+        <i class="formulario__validacion-estado fas fa-times-circle icono"></i>  
+      </div>
+				<p class="formulario__input-error">El campo "MEDIO DE REPORTE" no debe estar vacio.</p>
+			</div>
+			</div>
+
+       <!-- Grupo: PERSONA-->
+      <div class="col-md-6">
+			<div class="formulario__grupo" id="grupo__persona">
+				<label for="listPersona" class="formulario__label">PERSONA</label>
+				<div class="formulario__grupo-input">
+        <select class="formulario__input" id="listPersona" name="personal_id" required></select>
+        <i class="formulario__validacion-estado fas fa-times-circle icono"></i>
+
+        </div>
+				<p class="formulario__input-error">El campo "PERSONA" no debe estar vacio.</p>
+			</div>
+			</div>
+
+      <!-- Grupo: SUPERVISOR-->
+      <div class="col-md-6">
+			<div class="formulario__grupo" id="grupo__supervisor">
+				<label for="listSupervisor" class="formulario__label">SUPERVISOR</label>
+				<div class="formulario__grupo-input">
+        <select class="formulario__input" id="listSupervisor" name="supervisor_id" required></select>
+        <i class="formulario__validacion-estado fas fa-times-circle icono"></i>
+
+        </div>
+				<p class="formulario__input-error">El campo "SUPERVISOR" no debe estar vacio.</p>
+			</div>
+			</div>
+
+      <!-- Grupo: USUARIO QUIEN REPORTA-->
+      <div class="col-md-6">
+			<div class="formulario__grupo" id="grupo__usuario">
+				<label for="listUsuarioReporte" class="formulario__label">USUARIO REPORTE</label>
+				<div class="formulario__grupo-input d-flex align-items-center">
+        <select class="formulario__input me-2" id="listUsuarioReporte" name="usuario_reporte_id" required></select>
+        <i class="formulario__validacion-estado fas fa-times-circle iconoReporta"></i>
+        <button id="btnReporteUsuario" type="button" class="btn btn-primary">
+        <i class="fa-solid fa-user"></i>
+        </button>
+      </div>
+				<p class="formulario__input-error">El campo "USUARIO REPORTE" no debe estar vacio.</p>
+			</div>
+			</div>
+
+      <!-- Grupo: IMAGEN-->
+      <div class="col-md-12">
+			<div class="formulario__grupo" id="grupo__titulo">
+				<label for="fileTicket" class="formulario__label">IMAGEN</label>
+				<div class="formulario__grupo-input">
+					<input type="file" class="form-control" name="fileTicket" id="fileTicket"  accept="image/*">
+				</div>
+				<p class="formulario__input-error">El campo "titulo" no debe estar vacio.</p>
+			</div>
+			</div>
+
+      <!-- Grupo: Documento-->
+      <div class="col-md-12">
+			<div class="formulario__grupo" id="grupo__titulo">
+				<label for="fileDocumentoTicket" class="formulario__label">DOCUMENTO</label>
+				<div class="formulario__grupo-input">
+					<input type="file" class="form-control" name="fileDocumentoTicket" id="fileDocumentoTicket"  accept=".pdf,.xls,.xlsx,.doc,.docx,.pptx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" >
+				</div>
+				<p class="formulario__input-error">El campo "titulo" no debe estar vacio.</p>
+			</div>
+			</div>
+
+
+			<div class="formulario__mensaje" id="formulario__mensaje">
+				<p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
+			</div>
+
+      <div class="modal-footer">
+        
+      <button type="button" class="btn btn-secondary formulario__label" data-bs-dismiss="modal">Close</button>
+      <button class="btn btn-primary formulario__label" type="submit" id="btnGuardarTicket">Guardar</button>
+      
+      </div>
+		</form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Modales para la creación de usuario que reporta. -->
 
 <div class="modal fade" id="usuarioReporteModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -702,8 +876,7 @@
 @section('css')
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> 
+
 <link rel="stylesheet" href="{{ asset('DataTables/datatables.css') }}">
 <link rel="stylesheet" href="{{ asset('AdminCss/Ticket.css') }}" >
 <link rel="stylesheet" href="{{ asset('AdminCss/validarFormulario.css') }}" >
@@ -735,6 +908,7 @@
 <script src="{{ asset('DataTables/Buttons-2.3.4/js/buttons.bootstrap5.min.js') }}"></script>
 <script src="{{ asset('DataTables/Buttons-2.3.4/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('DataTables/Buttons-2.3.4/js/buttons.print.min.js') }}"></script>
+<script  src="{{ asset('Validar/FormularioTicket.js') }}" ></script>
 
 
 <script>

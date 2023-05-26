@@ -564,77 +564,144 @@ $(document).on('click', '#registrar', function () {
 
 
 $('#resgistrarTicket').submit(function (e) {
-  var btnGuardarTicket = document.getElementById("btnGuardarTicket");
-  btnGuardarTicket.disabled = true;
-  
-  e.preventDefault();
 
 
-  var descripcion = $('#descripcion').val();
-  var tipoincidencia_id = $('#listTIncidencia').val();
-  var sla_id = $('#listSla').val();
-  var personal_id = $('#listPersona').val();
-  var supervisor_id = $('#listSupervisor').val();
-  var empresa_id = $('#listEmpresa').val();
-  var medio_reporte_id	 = $('#listMedioReporte').val();
-  var usuario_reporte_id 	 = $('#listUsuarioReporte').val();
-  var id = $('#ID').val();
-  var _token = $("input[name=_token]").val();
-  var fecha = $('#fecha').val();
+    var btnGuardarTicket = document.getElementById("btnGuardarTicket");
+    
+    e.preventDefault();
 
 
-  var url;
+    if(camposTicket.empresa && camposTicket.incidencia && camposTicket.sla && camposTicket.medio && camposTicket.persona && camposTicket.supervisor && camposTicket.usuario && camposTicket.descripcion && camposTicket.fecha){
+      btnGuardarTicket.disabled = true;
 
-
-  if (id == "") {
-
-    url = "/admin/ticket/create";
-  } else if (id != "") {
-    url = "/admin/ticket/update";
-
-  }
-  $.ajax({
-
-    url: url,
-    type: "POST",
-      data: new FormData(this),
-      processData: false,
-      contentType: false,
-      _token: $('meta[name="csrf-token"]').attr('content'),
-
-    success: function (response) {
-
-      if (response.success) {
-        if (id == "") {
-          swal({
-            title: "Registro agregado",
-            text: "",
-            icon: "success",
-            buttons: true,
-          })
-          btnGuardarTicket.removeAttribute("disabled");
-
-        } else {
-          swal({
-            title: "Registro actualizado",
-            text: "",
-            icon: "success",
-            buttons: true,
-          })
-          btnGuardarTicket.removeAttribute("disabled");
-
-        }
-        btnGuardarTicket.removeAttribute("disabled");
-
-        $('#exampleModal').modal('hide');
-        validarTicketVencidos();
-        $('#resgistrarTicket')[0].reset();
-
+      var descripcion = $('#descripcion').val();
+      var tipoincidencia_id = $('#listTIncidencia').val();
+      var sla_id = $('#listSla').val();
+      var personal_id = $('#listPersona').val();
+      var supervisor_id = $('#listSupervisor').val();
+      var empresa_id = $('#listEmpresa').val();
+      var medio_reporte_id	 = $('#listMedioReporte').val();
+      var usuario_reporte_id 	 = $('#listUsuarioReporte').val();
+      var id = $('#ID').val();
+      var _token = $("input[name=_token]").val();
+      var fecha = $('#fecha').val();
+    
+    
+      var url;
+    
+    
+      if (id == "") {
+    
+        url = "/admin/ticket/create";
+      } else if (id != "") {
+        url = "/admin/ticket/update";
+    
       }
-
+      $.ajax({
+    
+        url: url,
+        type: "POST",
+          data: new FormData(this),
+          processData: false,
+          contentType: false,
+          _token: $('meta[name="csrf-token"]').attr('content'),
+    
+        success: function (response) {
+    
+          if (response.success) {
+            if (id == "") {
+              swal({
+                title: "Registro agregado",
+                text: "",
+                icon: "success",
+                buttons: true,
+              })
+              btnGuardarTicket.removeAttribute("disabled");
+    
+            } else {
+              swal({
+                title: "Registro actualizado",
+                text: "",
+                icon: "success",
+                buttons: true,
+              })
+              btnGuardarTicket.removeAttribute("disabled");
+    
+            }
+            btnGuardarTicket.removeAttribute("disabled");
+            limpiarFormularioTicket();
+            $('#exampleModal').modal('hide');
+            validarTicketVencidos();
+            $('#resgistrarTicket')[0].reset();
+    
+          }
+    
+        }
+      });
+  
+    
+  
+  
+    } else {
+      document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
+    console.log("empresa :" + camposTicket.empresa);
+    console.log("incidencia :" +  camposTicket.incidencia);
+    console.log("sla :" +  camposTicket.sla);
+    console.log("medio :" +  camposTicket.medio);
+    console.log("persona :" +  camposTicket.persona);
+    console.log("supervisor :" +  camposTicket.supervisor);
+    console.log("usuario :" +  camposTicket.usuario);
+    console.log("descripcion :" +  camposTicket.descripcion);
+    console.log("fecha :" +  camposTicket.fecha);
+   
+    
     }
-  });
+  
+  
+    
+  
 });
+
+
+function limpiarFormularioTicket(){
+  formularioTicket.reset();
+  document.querySelectorAll('.formulario__grupo').forEach((icono) => {
+      icono.classList.remove('formulario__grupo-incorrecto');
+      icono.classList.remove('formulario__grupo-correcto');
+      icono.classList.remove('formulario__input-error-activo');
+  
+  });
+  
+  document.querySelectorAll('.formulario__input-error').forEach((icono) => {
+      icono.classList.remove('formulario__input-error-activo');
+  
+  });
+  
+  document.getElementById('formulario__mensaje').classList.remove('formulario__mensaje-activo');
+
+  camposTicket.empresa=false;
+  camposTicket.incidencia=false;
+  camposTicket.sla=false;
+  camposTicket.medio=false;
+  camposTicket.persona=false;
+  camposTicket.supervisor=false;
+  camposTicket.usuario=false;
+  camposTicket.descripcion=false;
+  camposTicket.fecha=false;
+}
+
+function validarEdicionTicket(){
+  camposTicket.empresa=true;
+  camposTicket.incidencia=true;
+  camposTicket.sla=true;
+  camposTicket.medio=true;
+  camposTicket.persona=true;
+  camposTicket.supervisor=true;
+  camposTicket.usuario=true;
+  camposTicket.descripcion=true;
+  camposTicket.fecha=true;
+
+}
 
 
 $(document).on('click', 'button[name="delete"]', function () {
@@ -678,12 +745,14 @@ $(document).on('click', 'button[name="delete"]', function () {
 
 $('#exampleModal').on('hide.bs.modal', function (e) {
   // Restablecer el valor del campo 1
+  limpiarFormularioTicket();
   $('#resgistrarTicket')[0].reset();
 
 });
 
 $(document).on('click', 'button[name="edit"]', function () {
   $('#exampleModal').modal('show');
+ // validarEdicionTicket();
   var id = $(this).attr('id');
 
   elegirSla();

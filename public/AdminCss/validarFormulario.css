@@ -40,6 +40,17 @@
 	transition: .3s ease all;
 }
 
+
+.formulario__textArea {
+	width: 100%;
+	background: #fff;
+	border: 3px solid transparent;
+	border-radius: 3px;
+	line-height: 45px;
+	padding: 0 40px 0 10px;
+	transition: .3s ease all;
+}
+
 .formulario__input:focus {
 	border: 3px solid #0075FF;
 	outline: none;
@@ -160,4 +171,12 @@
 	.formulario__btn {
 		width: 100%;
 	}
+}
+
+.icono {
+	margin-right:20px ;
+}
+
+.iconoReporta{
+	margin-right:70px ;
 }
