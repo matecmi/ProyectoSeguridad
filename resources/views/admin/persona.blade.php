@@ -142,7 +142,7 @@
 					<input type="email" class="formulario__input" name="email" id="email" placeholder="compusoft@correo.com" required disabled>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">El correo solo puede contener letras, numeros, puntos, guiones y guion bajo.</p>
+				<p class="formulario__input-error">El "CORREO" solo puede contener letras, numeros, puntos, guiones y guion bajo.</p>
 			</div>
 			</div>
 

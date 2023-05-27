@@ -92,7 +92,7 @@
 					<input type="number" class="formulario__input" name="tpRespuesta" id="tpRespuesta" placeholder="6" require>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">El campo "tiempo primera respuesta" no debe estar vacio.</p>
+				<p class="formulario__input-error">El campo "TIEMPO PRIMERA RESPUESTA" no debe estar vacio.</p>
 			</div>
 			</div>
 

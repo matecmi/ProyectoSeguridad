@@ -53,7 +53,7 @@
 					<input type="text" class="formulario__input" name="nombre" id="nombreUsuarioReporte" placeholder="Jose Fernàndez" require>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">El nombre tiene que ser mayor a 2 digitos y solo puede contener letras y espacios.</p>
+				<p class="formulario__input-error">El "NOMBRE" tiene que ser mayor a 2 digitos y solo puede contener letras y espacios.</p>
 			</div>
 			</div>
 
@@ -66,7 +66,7 @@
 					<input type="email" class="formulario__input" name="correo" id="emailUsuarioReporte" placeholder="compusoft@correo.com" require>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">El correo solo puede contener letras, numeros, puntos, guiones y guion bajo.</p>
+				<p class="formulario__input-error">El "CORREO" solo puede contener letras, numeros, puntos, guiones y guion bajo.</p>
 			</div>
 			</div>
 
@@ -78,7 +78,7 @@
 					<input type="number" class="formulario__input" name="telefono" id="telefonoUsuarioReporte" placeholder="976065457" require>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">numero de telefono invalido, debe contener 9 digitos.</p>
+				<p class="formulario__input-error">numero de "TELEFONO" invalido, debe contener 9 digitos.</p>
 			</div>
         </div>
 

@@ -52,7 +52,7 @@
 					<input type="text" class="formulario__input" name="nombre" id="nombre" placeholder="Seguridad" require>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">El campo "nombre" no debe estar vacio.</p>
+				<p class="formulario__input-error">El campo "NOMBRE" no debe estar vacio.</p>
 			</div>
 			</div>
 
@@ -64,7 +64,7 @@
 					<input type="text" class="formulario__input" name="icono" id="icono" placeholder="fa-solid fa-wrench" require>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">El campo "icono" no debe estar vacio.</p>
+				<p class="formulario__input-error">El campo "ICONO" no debe estar vacio.</p>
 			</div>
 			</div>
 
@@ -76,7 +76,7 @@
 					<input type="number" class="formulario__input" name="orden" id="orden" placeholder="3" require>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">El campo "orden" no debe estar vacio.</p>
+				<p class="formulario__input-error">El campo "ORDEN" no debe estar vacio.</p>
 			</div>
 			</div>
 

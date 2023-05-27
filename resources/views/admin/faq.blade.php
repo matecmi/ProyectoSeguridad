@@ -55,7 +55,7 @@
 					<input type="text" class="formulario__input" name="titulo" id="titulo" placeholder="¿Pregunta frecuente?" require>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">El campo "titulo" no debe estar vacio.</p>
+				<p class="formulario__input-error">El campo "TITULO" no debe estar vacio.</p>
 			</div>
 			</div>
 
@@ -68,7 +68,7 @@
 					<input type="text" class="formulario__input" name="respuesta" id="respuesta" placeholder="Respuesta asignada" require>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
-				<p class="formulario__input-error">El campo "respuesta" no debe estar vacio.</p>
+				<p class="formulario__input-error">El campo "RESPUESTA" no debe estar vacio.</p>
 			</div>
 			</div>
 
