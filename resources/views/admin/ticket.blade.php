@@ -105,7 +105,7 @@
 
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" style="max-width: 30%;">
+  <div class="modal-dialog" style="max-width: 35%;">
     <div class="modal-content">
     <div class="modal-header modalHeader">
         <h1 class="modal-title fs-5 formulario__labelTitulo">NUEVO TICKET </h1>
