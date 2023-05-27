@@ -147,7 +147,7 @@
 			<div class="formulario__grupo" id="grupo__descripcion">
 				<label for="descripcion" class="formulario__label">DESCRIPCIÒN</label>
 				<div class="formulario__grupo-input">
-        <textarea class="formulario__textArea" cols="20" rows="5" name="descripcion" id="descripcion" placeholder="Descripcion del ticket"   require></textarea>
+        <textarea class=" form-control formulario__textArea" cols="20" rows="5" name="descripcion" id="descripcion" placeholder="Descripcion del ticket"   require></textarea>
         <i class="formulario__validacion-estado fas fa-times-circle"></i>	
       </div>
 				<p class="formulario__input-error">El campo "DESCRIPCIÒN" no debe estar vacio.</p>
