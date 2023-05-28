@@ -10,7 +10,7 @@ $(function () {
     var tabla =$('#tablaComentario').DataTable({
       info: false,
 
-      "pageLength": 4,
+      "pageLength": 3,
       responsive: "true",
       lengthChange: false,
 

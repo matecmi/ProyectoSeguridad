@@ -13,7 +13,7 @@ $(function () {
     var tabla =$('#tablaAcciones').DataTable({
       info: false,
 
-      "pageLength": 4,
+      "pageLength": 3,
       responsive: "true",
       lengthChange: false,
 
@@ -111,7 +111,6 @@ $('#btnAccion').on('click', function () {
 
           }
 
-          console.log(response.fecha_registro);
 
           var fechaRegistro = response.fecha_registro;
           var fechaPrimeraRespuesta = response.fecha_primera_respuesta;

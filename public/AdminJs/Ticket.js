@@ -1034,7 +1034,7 @@ $('#btnFinalizado').on('click', function () {
 
               btnReapertura.style.display="inline-block";
               labelReapertura.style.display="inline-block";
-              tituloPanel2.style.color = "green";
+              tituloPanel2.style.color = "#7FFF00";
               tituloPanel2.innerHTML ="FINALIZADO";
               $('#estadoSpan').html("Finalizado");
 

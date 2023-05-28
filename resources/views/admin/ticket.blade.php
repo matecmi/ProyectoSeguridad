@@ -14,7 +14,7 @@
 <div class="card modalBody">
   <div class="card-header row g-1 ">
     <div class="col-md-3">
-      <button id="registrar" type="button" class="btn btn-primary formulario__label" data-bs-toggle="modal" data-bs-target="#exampleModal">NUEVO TICKET</button>
+      <button id="registrar" type="button" class="btn agregar formulario__label" data-bs-toggle="modal" data-bs-target="#exampleModal">NUEVO TICKET</button>
     </div>
 
     <div class="col-md-3 d-flex align-items-center" >
@@ -61,7 +61,7 @@
     </div>
     <div class="col-md-9 d-flex align-items-center"></div> 
     <div class="col-md-3 d-flex align-items-center justify-content-end " id="exportar">
-      <button id="filtro" type="button" class="btn btn-primary ml-2 formulario__label ">FILTRAR <i class="fa-solid fa-magnifying-glass"></i></button>
+      <button id="filtro" type="button" class="btn  ml-2 agregar formulario__label ">FILTRAR <i class="fa-solid fa-magnifying-glass"></i></button>
     </div>
   </div>
 </div>
@@ -720,7 +720,7 @@
       <div class="modal-header modalHeader">
         <h1 class="modal-title fs-5 formulario__labelTitulo" id="TituloPanel"></h1>
         <h1 class="modal-title fs-5 formulario__labelTitulo" id="TituloPanel2" style="font-weight: bold;"></h1>
-        <button class="btn calificacion btn-sm" name="btnCalificacion" id="btnCalificacion"type="button"  style="display:none">CALIFICACIÒN</button>
+        <button class="btn editar  formulario__label" name="btnCalificacion" id="btnCalificacion"type="button"  style="display:none">CALIFICACIÒN</button>
 
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -824,7 +824,7 @@
                 <div class="card-body table-responsive bordeTabla modalTabla " >
     
                 <h3 class="formulario__labelTabla">ACCIONES</h3>
-                <button id="btnAccion" type="button" class="btn btn-primary btn-sm  ml-2 formulario__label">NUEVA ACCIÒN</button>
+                <button id="btnAccion" type="button" class="btn  btn-sm  ml-2 agregar formulario__label">NUEVA ACCIÒN</button>
                 <table style="font-size: 15px;"  class="table table-striped table-bordered table-hover " id="tablaAcciones">
     
                   <thead>
@@ -846,7 +846,7 @@
                 <div class="card-body table-responsive bordeTabla modalTabla">
                 <h3 class="formulario__labelTabla">COMENTARIOS</h3>
     
-                <button id="btnComentario" type="button" class="btn btn-primary btn-sm ml-2 formulario__label">NUEVO COMENTARIO</button>
+                <button id="btnComentario" type="button" class="btn agregar btn-sm ml-2 formulario__label">NUEVO COMENTARIO</button>
                 <table style="font-size: 15px;" class="table table-striped table-bordered table-hover" id="tablaComentario">
                   <thead>
                       <tr>
