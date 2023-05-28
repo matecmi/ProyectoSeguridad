@@ -349,7 +349,7 @@
 <div class="modal fade delante" id="modalComentario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-    <div class="modal-header modalHeader">
+    <div class="modal-header modalHeader2">
         <h1 class="modal-title fs-5 formulario__labelTitulo">NUEVO COMENTARIO</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -394,7 +394,7 @@
 <div class="modal fade delante" id="modalAcciones" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-    <div class="modal-header modalHeader">
+    <div class="modal-header modalHeader2">
         <h1 class="modal-title fs-5 formulario__labelTitulo">NUEVA ACCIÒN</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -468,7 +468,7 @@
 <div class="modal fade delante" id="estadoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-tablaUsuario">
     <div class="modal-content">
-      <div class="modal-header modalHeader">
+      <div class="modal-header modalHeader2">
         <h1 class="modal-title fs-5 formulario__labelTitulo" id="tituloEstado">ESTADO</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -507,7 +507,7 @@
 <div class="modal fade delante" id="tablaUsuarioModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-tablaUsuario">
     <div class="modal-content">
-      <div class="modal-header modalHeader">
+      <div class="modal-header modalHeader2">
         <h1 class="modal-title fs-5 formulario__labelTitulo" id="tituloUsusario"></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -539,7 +539,7 @@
 <div class="modal fade" id="imagenModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header modalHeader">
+      <div class="modal-header modalHeader2">
         <h1 class="modal-title fs-5 formulario__labelTitulo" id="exampleModalLabel">NUEVA IMAGEN</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -566,7 +566,7 @@
 <div class="modal fade delante" id="archivoImagenModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" style="max-width: 50%"> 
     <div class="modal-content">
-      <div class="modal-header modalHeader">
+      <div class="modal-header modalHeader2">
         <h1 class="modal-title fs-5 formulario__labelTitulo" id="tituloImagen"></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -613,7 +613,7 @@
 <div class="modal fade delante" id="archivoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-tablaUsuario">
     <div class="modal-content">
-      <div class="modal-header modalHeader">
+      <div class="modal-header modalHeader2">
         <h1 class="modal-title fs-5 formulario__labelTitulo" id="tituloArchivo"></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -648,7 +648,7 @@
 <div class="modal fade" id="documentoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header modalHeader">
+      <div class="modal-header modalHeader2">
         <h1 class="modal-title fs-5 formulario__labelTitulo" id="exampleModalLabel">NUEVO DOCUMENTO</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -674,6 +674,41 @@
     </div>
   </div>
 </div>
+<!-- Modales para la visualizacion de la Calificacion. -->
+
+<div class="modal fade delante" id="modalTablaCalificacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-tablaCalificacion">
+    <div class="modal-content">
+      <div class="modal-header modalHeader2">
+        <h1 class="modal-title fs-5 formulario__labelTitulo" id="tituloCalificacion"></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body ">
+      <div class="col-md-5 mb-2">
+          <button id="btnCalificacionTabla" type="button" class="btn btn-success formulario__label">CALIFICACIÒN</button>
+        </div>
+        <div class="card-body table-responsive">
+          <table class="table table-striped table-bordered table-hover" id="tablaModalCalificacion">
+            <thead>
+                <tr>
+                    <th id="tdTabla">FECHA</th>
+                    <th id="tdTabla">DESCRIPCIÒN</th>
+                    <th id="tdTabla">PUNTAJE</th>
+                    <th id="tdTabla">TICKET</th>
+
+                </tr>
+            </thead>
+            <tbody id="colCalificacion">
+            </tbody>
+        </table>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <!-- Modales para el panel de control del ticket. -->
@@ -685,6 +720,7 @@
       <div class="modal-header modalHeader">
         <h1 class="modal-title fs-5 formulario__labelTitulo" id="TituloPanel"></h1>
         <h1 class="modal-title fs-5 formulario__labelTitulo" id="TituloPanel2" style="font-weight: bold;"></h1>
+        <button class="btn calificacion btn-sm" name="btnCalificacion" id="btnCalificacion"type="button"  style="display:none">CALIFICACIÒN</button>
 
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -768,7 +804,7 @@
               <div class="col-md-4">
                 <label for="nombre" class="form-label margen">USUARIO QUE REPORTO</label>
                 <button style="font-size: 20px;"  name="usuarioReporta" id="btnUsuario" type="button" class="btn usuario btn-sm" ><i class="fa-solid fa-user" style="color: white;"></i></button>
-    
+
               </div>
               <div class="col-md-4">
                 <label for="nombre" class="form-label margen">ESTADO DEL TICKET</label>
@@ -788,8 +824,8 @@
                 <div class="card-body table-responsive bordeTabla modalTabla " >
     
                 <h3 class="formulario__labelTabla">ACCIONES</h3>
-                <button id="btnAccion" type="button" class="btn btn-primary btn-sm ml-2 ">Nuevo</button>
-                <table style="font-size: 15px;"  class="table table-striped table-bordered table-hover" id="tablaAcciones">
+                <button id="btnAccion" type="button" class="btn btn-primary btn-sm  ml-2 formulario__label">NUEVA ACCIÒN</button>
+                <table style="font-size: 15px;"  class="table table-striped table-bordered table-hover " id="tablaAcciones">
     
                   <thead>
                       <tr>
@@ -810,7 +846,7 @@
                 <div class="card-body table-responsive bordeTabla modalTabla">
                 <h3 class="formulario__labelTabla">COMENTARIOS</h3>
     
-                <button id="btnComentario" type="button" class="btn btn-primary btn-sm ml-2">Nuevo</button>
+                <button id="btnComentario" type="button" class="btn btn-primary btn-sm ml-2 formulario__label">NUEVO COMENTARIO</button>
                 <table style="font-size: 15px;" class="table table-striped table-bordered table-hover" id="tablaComentario">
                   <thead>
                       <tr>
@@ -839,6 +875,70 @@
   </div>
 </div>
 
+<!-- Modal para la Calificacion del Ticket -->
+
+<div class="modal fade delante" id="modalCalificacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header modalHeader2">
+        <h1 class="modal-title fs-5 formulario__labelTitulo">CALIFICACIÒN DEL TICKET</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body modalBody">
+     
+      <form  class="row g-3 formulario" id="resgistrarCalificacion" action="{{ route('admin.calificacionStore') }}">
+      @csrf
+
+        <!-- Grupo: descripcion-->
+        <div class="col-md-12">
+        <input type="text" id="idTicket" style="display:none">
+              <input type="text" id="ID" style="display:none">
+        <div class="formulario__grupo" id="grupo__calificacion">
+				<label for="calificacion" class="formulario__label">DESCRIPCIÒN</label>
+				<div class="formulario__grupo-input">
+        <textarea class="formulario__textArea" cols="20" rows="2" name="calificacion" id="calificacion" placeholder="Escribe un comentario"   require></textarea>
+        <i class="formulario__validacion-estado fas fa-times-circle"></i>	
+      </div>
+				<p class="formulario__input-error">El campo "COMENTARIO" no debe estar vacio.</p>
+			</div>
+			</div>
+
+
+
+     <!-- Grupo: estrella-->
+        <div class="col-md-12">
+        <div class="formulario__grupo" style="text-align: center;">
+				<label for="" class="formulario__label">CALIFICACIÒN</label>
+				<div class="formulario__grupo-input">
+
+        <div class="stars formulario__grupo-input" >
+        <i class="fa-solid fa-star" id="estrella0"></i>
+        <i class="fa-solid fa-star" id="estrella1"></i>
+        <i class="fa-solid fa-star" id="estrella2"></i>
+        <i class="fa-solid fa-star" id="estrella3"></i>
+        <i class="fa-solid fa-star" id="estrella4"></i>
+      </div>
+    </div>
+			</div>
+			<div class="formulario__mensaje" id="formulario__mensaje">
+				<p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor asigne una "CALIFICACIÒN". </p>
+			</div>
+
+      <div class="modal-footer modalBody">
+        
+      <button type="button" class="btn btn-secondary formulario__label" data-bs-dismiss="modal">Close</button>
+      <button class="btn btn-primary formulario__label" type="submit">Guardar</button>
+      
+      </div>
+		</form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 @stop
 
 @section('css')
@@ -848,6 +948,7 @@
 <link rel="stylesheet" href="{{ asset('DataTables/datatables.css') }}">
 <link rel="stylesheet" href="{{ asset('AdminCss/Ticket.css') }}" >
 <link rel="stylesheet" href="{{ asset('AdminCss/validarFormulario.css') }}" >
+<link rel="stylesheet" href="{{ asset('AdminCss/Estrella.css') }}" >
 
     <link rel="stylesheet" href="/css/admin_custom.css">
 
@@ -873,6 +974,8 @@
 <script  src="{{ asset('Validar/FormularioComentario.js') }}" ></script>
 <script  src="{{ asset('Validar/FormularioTicket.js') }}" ></script>
 <script  src="{{ asset('Validar/FormularioAcciones.js') }}" ></script>
+<script  src="{{ asset('Validar/FormularioCalificacion.js') }}" ></script>
+<script src="{{ asset('AdminJs/Calificacion.js') }}"></script>
 
 
 

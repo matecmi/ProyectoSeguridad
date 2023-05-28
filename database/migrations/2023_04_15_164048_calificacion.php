@@ -14,6 +14,7 @@ class Calificacion extends Migration
             $table->dateTimeTz('fecha')->nulable(false);
             $table->text('descripcion')->nulable(false);
             $table->string('puntaje')->nulable(false);
+            $table->string('ticketCodigo')->nulable(false);
             $table->unsignedBigInteger('ticket_id');
             $table->foreign('ticket_id')
                   ->references('id')

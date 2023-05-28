@@ -126,6 +126,7 @@ Route::delete('admin/calificacion/delete',[CalificacionController::class, 'calif
 Route::get('admin/calificacion/edit',[CalificacionController::class, 'calificacionEdit'])->name('admin.calificacionEdit');
 Route::post('admin/calificacion/update',[CalificacionController::class, 'calificacionUpdate'])->name('admin.calificacionUpdate');
 Route::get('admin/calificacion/listTicket',[CalificacionController::class, 'listTicket'])->name('admin.listTicket');
+Route::get('admin/calificacion/objeto',[CalificacionController::class, 'calificacionObjeto'])->name('admin.calificacionObjeto');
 
 Route::get('admin/ticketimagen/',[TicketIamgenController::class, 'ticketImagen'])->name('admin.ticketImagen');
 Route::post('admin/ticketimagen/create',[TicketIamgenController::class, 'ticketImagenStore'])->name('admin.ticketImagenStore');

@@ -85,6 +85,11 @@ table.dataTable td {
 
 }
 
+.modal-tablaCalificacion {
+    max-width: 60%;
+
+}
+
 #imagenModal {
     z-index: 2002;
     /* el valor de z-index debe ser mayor que el del otro modal */

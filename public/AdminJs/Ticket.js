@@ -1,5 +1,5 @@
 
-
+ var idGeneradoCalificacion;
 
 $(function () {
   validarTicketVencidos();
@@ -821,7 +821,8 @@ var idTicket;
 $(document).on('click', 'button[name="panel"]', function () {
   
   idTicket = $(this).attr('id');
-  var idGenerado =$(this).attr('value');
+ var idGenerado =$(this).attr('value');
+ idGeneradoCalificacion=idGenerado;
 
   var tituloEstado = document.getElementById("tituloEstado");
   tituloEstado.innerHTML = "ESTADO / TICKET " + idGenerado;
@@ -829,11 +830,15 @@ $(document).on('click', 'button[name="panel"]', function () {
   var tituloUsusario = document.getElementById("tituloUsusario");
     tituloUsusario.innerHTML = "USUARIO-REPORTE / TICKET " + idGenerado;
 
+    var tituloCalificacion = document.getElementById("tituloCalificacion");
+    tituloCalificacion.innerHTML = "CALIFICACIÒN / TICKET " + idGenerado;
+
 });
 var tituloPanel2 = document.getElementById("TituloPanel2");
 
 var labelReapertura = document.getElementById("labelReapertura");
 var btnReapertura = document.getElementById("btnReapertura");
+var btnCalificacion = document.getElementById("btnCalificacion");
 
 
 var btnStanby = document.getElementById("btnStanby");
@@ -869,6 +874,7 @@ $('#btnEstado').on('click', function () {
 
           btnReapertura.style.display="none";
           labelReapertura.style.display="none";
+          btnCalificacion.style.display="none";
 
           btnFinalizado.removeAttribute("disabled");
           btnStanby.removeAttribute("disabled");
@@ -884,6 +890,8 @@ $('#btnEstado').on('click', function () {
 
           btnReapertura.style.display="none";
           labelReapertura.style.display="none";
+          btnCalificacion.style.display="none";
+
 
           btnFinalizado.removeAttribute("disabled");
           btnProceso.disabled = true;
@@ -898,6 +906,7 @@ $('#btnEstado').on('click', function () {
 
           btnReapertura.style.display="inline-block";
           labelReapertura.style.display="inline-block";
+          btnCalificacion.style.display="inline-block";
 
           btnFinalizado.disabled = true;
           btnStanby.disabled = true;
@@ -976,6 +985,10 @@ $('#btnStanby').on('click', function () {
               divProceso.style.cursor = "not-allowed";
               divStanby.style.cursor = "not-allowed";
               divFinalizado.style.cursor = "";
+              btnCalificacion.style.display="none";
+
+              $('#estadoModal').modal('hide');
+
             }
           }
         });
@@ -1035,6 +1048,11 @@ $('#btnFinalizado').on('click', function () {
               divProceso.style.cursor = "not-allowed";
               divStanby.style.cursor = "not-allowed";
               divFinalizado.style.cursor = "not-allowed";
+              $('#estadoModal').modal('hide');
+              btnCalificacion.style.display="inline-block";
+
+              $('#modalCalificacion').modal('show');
+
 
             }else{
               swal({
@@ -1146,6 +1164,10 @@ $('#btnFinalizado').on('click', function () {
                 divProceso.style.cursor = "not-allowed";
                 divStanby.style.cursor = "";
                 divFinalizado.style.cursor = "";
+                btnCalificacion.style.display="none";
+
+                $('#estadoModal').modal('hide');
+
               }
             }
           });
@@ -1157,3 +1179,120 @@ $('#btnFinalizado').on('click', function () {
   
   
   });
+  
+
+  ///////////////////////////////////////////////////
+
+   $(document).on('click', 'button[name="btnCalificacion"]', function () {
+    
+    $('#modalTablaCalificacion').modal('show');
+    $('#colCalificacion').html(" ");
+  
+    listCalificacion();
+
+  
+  });
+  $('#btnCalificacionTabla').on('click', function () {
+
+    $('#modalCalificacion').modal('show');
+
+  });
+
+
+
+  function listCalificacion() {
+  
+    $.ajax({
+      url: "/admin/calificacion/objeto",
+      type: 'GET',
+      data: {
+        id: idTicket,
+      },
+  
+      success: function (response) {
+        console.log(response);
+
+        if (response.success!=null) {
+          var btnCalificacionTabla = document.getElementById("btnCalificacionTabla");
+          btnCalificacionTabla.disabled=true;
+
+          var options;
+
+          options += '<tr>';
+          options += '<td id="tdTabla">' + response.success.fecha + '</td>';
+          options += '<td id="tdTabla">' + response.success.descripcion + '</td>';
+          options += '<td id="tdTabla">' + estrellas(response.success.puntaje) + '</td>';
+          options += '<td id="tdTabla">' + response.success.ticketCodigo + '</td>';
+          options += '</tr>';
+        
+      $('#colCalificacion').html(options);
+        }else{
+          btnCalificacionTabla.removeAttribute("disabled");
+
+        }
+
+
+
+      }
+    });
+  }
+
+
+  function estrellas(cantidad) {
+    
+     var acciones ='<div class="starEstrella" >';
+
+    if (cantidad==0) {
+
+        acciones  +='<i class="fa-solid fa-star activo"></i>';
+        acciones  +='<i class="fa-solid fa-star inactivo"></i>';
+        acciones  +='<i class="fa-solid fa-star inactivo"></i>';
+        acciones  +='<i class="fa-solid fa-star inactivo"></i>';
+        acciones  +='<i class="fa-solid fa-star inactivo"></i>';
+
+    }
+
+    if (cantidad==1) {
+
+        acciones  +='<i class="fa-solid fa-star activo"></i>';
+        acciones  +='<i class="fa-solid fa-star activo"></i>';
+        acciones  +='<i class="fa-solid fa-star inactivo"></i>';
+        acciones  +='<i class="fa-solid fa-star inactivo"></i>';
+        acciones  +='<i class="fa-solid fa-star inactivo"></i>';
+
+        
+    }
+
+    if (cantidad==2) {
+        acciones  +='<i class="fa-solid fa-star activo"></i>';
+        acciones  +='<i class="fa-solid fa-star activo"></i>';
+        acciones  +='<i class="fa-solid fa-star activo"></i>';
+        acciones  +='<i class="fa-solid fa-star inactivo"></i>';
+        acciones  +='<i class="fa-solid fa-star inactivo"></i>';
+
+        
+    }
+
+    if (cantidad==3) {
+        acciones  +='<i class="fa-solid fa-star activo"></i>';
+        acciones  +='<i class="fa-solid fa-star activo"></i>';
+        acciones  +='<i class="fa-solid fa-star activo"></i>';
+        acciones  +='<i class="fa-solid fa-star activo"></i>';
+        acciones  +='<i class="fa-solid fa-star inactivo"></i>';
+
+        
+    }
+
+    if (cantidad==4) {
+        acciones  +='<i class="fa-solid fa-star activo"></i>';
+        acciones  +='<i class="fa-solid fa-star activo"></i>';
+        acciones  +='<i class="fa-solid fa-star activo"></i>';
+        acciones  +='<i class="fa-solid fa-star activo"></i>';
+        acciones  +='<i class="fa-solid fa-star activo"></i>';
+
+    }
+    acciones +='</div>';
+
+    
+    return  acciones;
+  }

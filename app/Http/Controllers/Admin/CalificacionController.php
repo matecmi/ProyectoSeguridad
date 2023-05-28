@@ -21,7 +21,7 @@ class CalificacionController extends Controller
 
             $calificacion = Calificacion::select('calificacions.*','tickets.descripcion as ticket_nombre')
             ->join('tickets', 'calificacions.ticket_id', '=', 'tickets.id')
-            ->where('tickets.status', '=', 'Y')
+            ->where('calificacions.status', '=', 'Y')
             ->get();
             return Datatables::of($calificacion)
                 ->addColumn('action', function($calificacion){
@@ -31,7 +31,67 @@ class CalificacionController extends Controller
                     return $acciones;
 
                 })
-                ->rawColumns(['action'])
+                ->addColumn('estrella', function($calificacion){
+                    $estrellas = $calificacion->puntaje;
+
+                    $acciones ='<div class="starEstrella" >';
+
+                    if ($estrellas==0) {
+
+                        $acciones  .='<i class="fa-solid fa-star activo"></i>';
+                        $acciones  .='<i class="fa-solid fa-star inactivo"></i>';
+                        $acciones  .='<i class="fa-solid fa-star inactivo"></i>';
+                        $acciones  .='<i class="fa-solid fa-star inactivo"></i>';
+                        $acciones  .='<i class="fa-solid fa-star inactivo"></i>';
+
+                    }
+
+                    if ($estrellas==1) {
+
+                        $acciones  .='<i class="fa-solid fa-star activo"></i>';
+                        $acciones  .='<i class="fa-solid fa-star activo"></i>';
+                        $acciones  .='<i class="fa-solid fa-star inactivo"></i>';
+                        $acciones  .='<i class="fa-solid fa-star inactivo"></i>';
+                        $acciones  .='<i class="fa-solid fa-star inactivo"></i>';
+
+                        
+                    }
+
+                    if ($estrellas==2) {
+                        $acciones  .='<i class="fa-solid fa-star activo"></i>';
+                        $acciones  .='<i class="fa-solid fa-star activo"></i>';
+                        $acciones  .='<i class="fa-solid fa-star activo"></i>';
+                        $acciones  .='<i class="fa-solid fa-star inactivo"></i>';
+                        $acciones  .='<i class="fa-solid fa-star inactivo"></i>';
+
+                        
+                    }
+
+                    if ($estrellas==3) {
+                        $acciones  .='<i class="fa-solid fa-star activo"></i>';
+                        $acciones  .='<i class="fa-solid fa-star activo"></i>';
+                        $acciones  .='<i class="fa-solid fa-star activo"></i>';
+                        $acciones  .='<i class="fa-solid fa-star activo"></i>';
+                        $acciones  .='<i class="fa-solid fa-star inactivo"></i>';
+
+                        
+                    }
+
+                    if ($estrellas==4) {
+                        $acciones  .='<i class="fa-solid fa-star activo"></i>';
+                        $acciones  .='<i class="fa-solid fa-star activo"></i>';
+                        $acciones  .='<i class="fa-solid fa-star activo"></i>';
+                        $acciones  .='<i class="fa-solid fa-star activo"></i>';
+                        $acciones  .='<i class="fa-solid fa-star activo"></i>';
+
+                    }
+                    $acciones .='</div>';
+
+                    
+                    return  $acciones;
+    
+                })
+                ->rawColumns(['action', 'estrella'])
                 ->make(true);
         }
 
@@ -56,11 +116,15 @@ class CalificacionController extends Controller
 
         if($request->ajax()){
 
+            date_default_timezone_set('America/Lima');
+
+
             $calificacion = new Calificacion();
-            $calificacion->fecha = $request->input('fecha');
+            $calificacion->fecha = date('Y-m-d H:i:s', time());
             $calificacion->descripcion = $request->input('descripcion');
             $calificacion->puntaje = $request->input('puntaje');
             $calificacion->ticket_id = $request->input('ticket_id');
+            $calificacion->ticketCodigo=$request->input('ticketNombre');
             $calificacion->save();
         
             return response()->json(['success' => true]);
@@ -83,6 +147,21 @@ public function calificacionEdit(Request $request)
     }
 }
 
+public function calificacionObjeto (Request $request){
+    if($request->ajax()){
+
+    $calificacion = Calificacion::select('*')
+    ->where('status', '=', 'Y')
+    ->where('ticket_id', '=', $request->input('id'))
+    ->first();
+    return response()->json(['success' => $calificacion]);
+
+}
+
+}
+
+
+
 
     public function calificacionUpdate(Request $request)
     {
@@ -90,10 +169,8 @@ public function calificacionEdit(Request $request)
 
             $id = $request->input('id');
             $calificacion = Calificacion::find($id);
-            $calificacion->fecha = $request->input('fecha');
             $calificacion->descripcion = $request->input('descripcion');
             $calificacion->puntaje = $request->input('puntaje');
-            $calificacion->ticket_id = $request->input('ticket_id');
 
             $calificacion->save();
         

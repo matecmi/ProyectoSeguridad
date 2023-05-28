@@ -20,6 +20,12 @@
     color: white;
 }
 
+.modalHeader2 {
+	font-family: 'Roboto', sans-serif;
+	background: #2874A6 ;
+    color: white;
+}
+
 .formulario__label {
 	display: block;
 	font-weight: 700;

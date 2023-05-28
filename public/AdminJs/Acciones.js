@@ -66,6 +66,8 @@ $('#btnAccion').on('click', function () {
   $(document).on('click', 'button[name="panel"]', function () {
     var tituloPanel = document.getElementById("TituloPanel");
     var tituloPanel2 = document.getElementById("TituloPanel2");
+    var btnCalificacion = document.getElementById("btnCalificacion");
+
     tituloPanel.innerHTML ="";
     tituloPanel2.innerHTML ="";
     var id = $(this).attr('id');
@@ -88,16 +90,22 @@ $('#btnAccion').on('click', function () {
           tituloPanel.innerHTML = "PANEL DE CONTROL / TICKET " + idGenerado + " / ";
 
           if (situacion =="Standby") {
+            btnCalificacion.style.display="none";
+
             tituloPanel2.style.color = "orange";
             tituloPanel2.innerHTML =situacion.toUpperCase();
 
           }
           if (situacion =="En Proceso") {
+            btnCalificacion.style.display="none";
+
             tituloPanel2.style.color = "#FFFF00";
             tituloPanel2.innerHTML =situacion.toUpperCase();
 
           }
           if (situacion =="Finalizado") {
+            btnCalificacion.style.display="inline-block";
+
             tituloPanel2.style.color = "#7FFF00";
             tituloPanel2.innerHTML =situacion.toUpperCase();
 
