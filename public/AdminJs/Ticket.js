@@ -35,7 +35,7 @@ function DataTableCreacion() {
   
   
     $('#exportar').append(
-      '<button id="exportar-btn" class="btn btn-success formulario__label">Excel<i class="fa fa-file-excel ml-1"></i></button>'
+      '<button id="exportar-btn" class="btn editar formulario__label">Excel<i class="fa fa-file-excel ml-1"></i></button>'
     );
     $('#exportar-btn').click(function() {
       $('#tabla').DataTable().button('.buttons-excel').trigger();
