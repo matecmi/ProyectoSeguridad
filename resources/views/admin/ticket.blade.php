@@ -107,18 +107,6 @@
       <form  class="row g-3 formulario" id="resgistrarTicket">
       @csrf
 
-			<!-- Grupo: fecha registro -->
-      <div class="col-md-6">
-      <input type="text" id="ID" style="display:none" name="ID">
-			<div class="formulario__grupo" id="grupo__fecha">
-				<label for="fecha" class="formulario__label">FECHA REGISTRO</label>
-				<div class="formulario__grupo-input">
-					<input type="datetime-local" class="formulario__input" name="fecha" id="fecha" >
-          <i class="formulario__validacion-estado fas fa-times-circle"></i>
-				</div>
-				<p class="formulario__input-error">El campo "FECHA REGISTRO" no debe estar vacio.</p>
-			</div>
-			</div>
 
         <!-- Grupo: empresa-->
         <div class="col-md-6">

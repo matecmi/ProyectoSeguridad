@@ -235,7 +235,6 @@ function generarContenidoTabla(ticketVencido) {
 $('#btnReporteUsuario').on('click', function () {
   $('#usuarioReporteModal2').modal('show');
   $("#usuarioReporteID").val("ticket");
-  console.log("entreeeee");
 
 });
 
@@ -553,7 +552,7 @@ $('#resgistrarTicket').submit(function (e) {
     e.preventDefault();
 
 
-    if(camposTicket.empresa && camposTicket.incidencia && camposTicket.sla && camposTicket.medio && camposTicket.persona && camposTicket.supervisor && camposTicket.usuario && camposTicket.descripcion && camposTicket.fecha){
+    if(camposTicket.empresa && camposTicket.incidencia && camposTicket.sla && camposTicket.medio && camposTicket.persona && camposTicket.supervisor && camposTicket.usuario && camposTicket.descripcion){
       btnGuardarTicket.disabled = true;
 
       var descripcion = $('#descripcion').val();
@@ -566,7 +565,6 @@ $('#resgistrarTicket').submit(function (e) {
       var usuario_reporte_id 	 = $('#listUsuarioReporte').val();
       var id = $('#ID').val();
       var _token = $("input[name=_token]").val();
-      var fecha = $('#fecha').val();
 
 
       var url;
@@ -628,16 +626,6 @@ $('#resgistrarTicket').submit(function (e) {
 
       document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
 
-    console.log("empresa :" + camposTicket.empresa);
-    console.log("incidencia :" +  camposTicket.incidencia);
-    console.log("sla :" +  camposTicket.sla);
-    console.log("medio :" +  camposTicket.medio);
-    console.log("persona :" +  camposTicket.persona);
-    console.log("supervisor :" +  camposTicket.supervisor);
-    console.log("usuario :" +  camposTicket.usuario);
-    console.log("descripcion :" +  camposTicket.descripcion);
-    console.log("fecha :" +  camposTicket.fecha);
-
 
     }
 
@@ -671,7 +659,6 @@ function limpiarFormularioTicket(){
   camposTicket.supervisor=false;
   camposTicket.usuario=false;
   camposTicket.descripcion=false;
-  camposTicket.fecha=false;
 }
 
 function validarEdicionTicket(){
@@ -683,7 +670,6 @@ function validarEdicionTicket(){
   camposTicket.supervisor=true;
   camposTicket.usuario=true;
   camposTicket.descripcion=true;
-  camposTicket.fecha=true;
 
 }
 
@@ -758,7 +744,6 @@ $(document).on('click', 'button[name="edit"]', function () {
 
       if (response != null) {
 
-        var fecha = response.success.fecha_registro;
         var descripcion = response.success.descripcion;
         var tipoincidencia_id = response.success.tipoincidencia_id;
         var sla_id = response.success.sla_id;
@@ -770,7 +755,6 @@ $(document).on('click', 'button[name="edit"]', function () {
 
         $('#exampleModal').modal('show');
         validarEdicionTicket();
-        $('#fecha').val(fecha);
         $('#listMedioReporte').val(medio_reporte_id);
         $('#descripcion').val(descripcion);
         $('#listTIncidencia').val(tipoincidencia_id);

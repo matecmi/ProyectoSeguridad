@@ -20,7 +20,6 @@ const camposTicket = {
 	supervisor: false,
 	usuario: false,
     descripcion: false,
-    fecha: false
 
 }
 
@@ -49,9 +48,6 @@ const validarFormularioTicket = (e) => {
 		break;
         case "descripcion":
 			validarCampoTicket2(expresiones2.descripcion ,e.target, 'descripcion');
-		break;
-        case "fecha":
-			validarCampoTicket2(expresiones2.descripcion ,e.target, 'fecha');
 		break;
 	}
 }

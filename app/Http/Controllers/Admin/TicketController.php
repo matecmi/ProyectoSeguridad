@@ -27,8 +27,8 @@ class TicketController extends Controller
     public function ticketList(Request $request){
 
         if($request ->ajax()){
-        
-            
+
+
             $filtroIncidencia = $request->input('filtroIncidencia');
             $filtroEstado = $request->input('filtroEstado');
             $filtroEmpresa = $request->input('filtroEmpresa');
@@ -43,10 +43,10 @@ class TicketController extends Controller
             $ticket = Ticket::select('tickets.*','usuarios.nombre as usuario_nombre',
             'tipo_incidencias.nombre as tipo_incidencia_nombre',
             'slas.nombre as sla_nombre',
-            'slas.nomenclatura as sla_nomenclatura',  
+            'slas.nomenclatura as sla_nomenclatura',
             'medio_reportes.nombre as medio_reporte_nombre',
             'persona1.nombres as personal_nombre',
-            'persona2.nombres as empresa_nombre', 
+            'persona2.nombres as empresa_nombre',
             'persona3.nombres as supervisor_nombre','usuario_reportes.nombre as nombre')
             ->join('usuarios', 'tickets.usuario_id', '=', 'usuarios.id')
             ->join('medio_reportes', 'tickets.medio_reporte_id', '=', 'medio_reportes.id')
@@ -89,7 +89,7 @@ class TicketController extends Controller
 
         }
     }
-     
+
     public function ticket(Request $request)
     {
 
@@ -103,10 +103,10 @@ class TicketController extends Controller
                 $acciones =Accione::select('*')
                 ->where('status', '=', 'Y')
                 ->get();
-    
-            
+
+
                 date_default_timezone_set('America/Lima');
-    
+
                 $tickets = Ticket::select('tickets.*','usuarios.nombre as usuario_nombre',
                 'slas.nombre as sla_nombre',
                 'slas.nomenclatura as sla_nomenclatura')
@@ -116,39 +116,39 @@ class TicketController extends Controller
                 ->whereIn('tickets.situacion', ['En Proceso', 'Standby'])
                 ->where('tickets.fecha_primera_respuesta', '<', date('Y-m-d H:i:s', time()))
                 ->get();
-    
-                $ticketVencido = array(); 
+
+                $ticketVencido = array();
                 $validar =true;
                 foreach ($tickets as $ticket) {
-    
+
                     foreach ($acciones as $accion) {
-    
+
                         if ($accion->ticket_id == $ticket->id) {
                             $validar =false;
-    
+
                         }
                     }
-    
+
                     if ($validar) {
                         array_push($ticketVencido, $ticket);
-    
+
                     }
                     $validar =true;
-    
+
                 }
-    
-    
+
+
                 return response()->json($ticketVencido);
             }
-            
+
             return view('admin.ticket');
-    
-    
+
+
         }
 
         return view('auth.login');
 
-        
+
     }
 
     public function ticketUsuarioReporte(Request $request){
@@ -160,10 +160,10 @@ class TicketController extends Controller
             'usuario_reportes.telefono as telefono','usuarios.nombre as usuario_nombre',
             'tipo_incidencias.nombre as tipo_incidencia_nombre',
             'slas.nombre as sla_nombre',
-            'slas.nomenclatura as sla_nomenclatura',  
+            'slas.nomenclatura as sla_nomenclatura',
             'medio_reportes.nombre as medio_reporte_nombre',
             'persona1.nombres as personal_nombre',
-            'persona2.nombres as empresa_nombre', 
+            'persona2.nombres as empresa_nombre',
             'persona3.nombres as supervisor_nombre')
             ->join('usuarios', 'tickets.usuario_id', '=', 'usuarios.id')
             ->join('medio_reportes', 'tickets.medio_reporte_id', '=', 'medio_reportes.id')
@@ -189,7 +189,7 @@ class TicketController extends Controller
         ->get();
         return response()->json($usuario);
     }
-    
+
     public function listMedioReporte()
     {
         $medio = MedioReporte::select('*')
@@ -214,7 +214,7 @@ class TicketController extends Controller
     }
     public function ListPersona()
     {
-        $Personal = array(); 
+        $Personal = array();
 
         $rol = Rol::select('*')
         ->where('status', '=', 'Y')
@@ -253,7 +253,7 @@ class TicketController extends Controller
 
     public function listEmpresa()
     {
-        $Empresa = array(); 
+        $Empresa = array();
 
         $rol = Rol::select('*')
         ->where('status', '=', 'Y')
@@ -291,7 +291,7 @@ class TicketController extends Controller
     }
     public function listSupervisor()
     {
-        $Supervisor = array(); 
+        $Supervisor = array();
 
         $rol = Rol::select('*')
         ->where('status', '=', 'Y')
@@ -337,32 +337,32 @@ class TicketController extends Controller
 
             $user = auth()->user();
             $email = $user->email;
-    
+
                 $key ="perfil";
                 $persona = Persona::select('*')
                 ->where('status', '=', 'Y')
                 ->where('email', '=', $email)
                 ->first();
-    
+
                 $usuario = Usuario::select('*')
                 ->where('status', '=', 'Y')
                 ->where('persona_id', '=', $persona->id)
                 ->first();
-    
+
             if($request->ajax()){
-    
-                
+
+
                 $sla = Sla::select('*')
                 ->where('status', '=', 'Y')
                 ->where('id', '=', $request->input('sla_id'))
                 ->first();
-    
+
                 date_default_timezone_set('America/Lima');
-    
+
                 $ticked = new Ticket();
-                $ticked->fecha_registro = $request->input('fecha');
-                $ticked->fecha_fin_estimado = $this->sumarHoras($request->input('fecha'),$sla->horas);
-                $ticked->fecha_primera_respuesta = $this->sumarHoras($request->input('fecha'),$sla->tiempo_primera_respuesta);
+                $ticked->fecha_registro =date('Y-m-d H:i:s', time());
+                $ticked->fecha_fin_estimado = $this->sumarHoras($ticked->fecha_registro,$sla->horas);
+                $ticked->fecha_primera_respuesta = $this->sumarHoras($ticked->fecha_registro,$sla->tiempo_primera_respuesta);
                 $ticked->descripcion = $request->input('descripcion');
                 $ticked->situacion = "En Proceso";
                 $ticked->usuario_id = $usuario->id;
@@ -373,51 +373,51 @@ class TicketController extends Controller
                 $ticked->empresa_id = $request->input('empresa_id');
                 $ticked->medio_reporte_id = $request->input('medio_reporte_id');
                 $ticked->usuario_reporte_id  = $request->input('usuario_reporte_id');
-    
-    
+
+
                 $ticked->save();
-    
+
                 if ( $request->hasFile('fileTicket')) {
                     $request->validate([
-    
+
                         'fileTicket'=>'required|image|max:2048'
                     ]);
-        
+
                    $imagenes= $request->file('fileTicket')->store('public/imagenes');
                    $urlImagen =Storage::url($imagenes);
-            
+
                     $ticketImagen = new TicketImagen();
                     $ticketImagen->nombre = "imagen";
                     $ticketImagen->ticket_id = $ticked->id;
                     $ticketImagen->path =  $urlImagen;
-                    
-                    $ticketImagen->save();           
+
+                    $ticketImagen->save();
                  }
-    
+
                  if ($request->hasFile('fileDocumentoTicket')) {
                     $request->validate([
                         'fileDocumentoTicket' => 'required|mimetypes:application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-powerpoint|max:10240',
                     ]);
-                    
-            
+
+
                    $documento= $request->file('fileDocumentoTicket')->store('public/documentos');
                    $urlDocumento =Storage::url($documento);
                    date_default_timezone_set('America/Lima');
-        
+
                     $ticketDocumento = new TicketDocumento();
                     $ticketDocumento->ticket_id = $ticked->id;
                     $ticketDocumento->nombre = "Documento Ticket";
                     $ticketDocumento->fecha = date('Y-m-d H:i:s', time());
                     $ticketDocumento->path =  $urlDocumento;
-                    $ticketDocumento->save();             
+                    $ticketDocumento->save();
                 }
-            
+
                 return response()->json(['success' => true]);
             }
-       
+
             return response()->json(['success' => false]);
-    
-    
+
+
         }
 
         return view('auth.login');
@@ -425,7 +425,7 @@ class TicketController extends Controller
 
 
 
-      
+
     }
 
 public function ticketEdit(Request $request)
@@ -467,9 +467,8 @@ public function ticketEdit(Request $request)
 
             $id = $request->input('ID');
             $ticked = Ticket::find($id);
-            $ticked->fecha_registro = $request->input('fecha');
-            $ticked->fecha_fin_estimado = $this->sumarHoras($request->input('fecha'),$sla->horas);
-            $ticked->fecha_primera_respuesta = $this->sumarHoras($request->input('fecha'),$sla->tiempo_primera_respuesta);
+            $ticked->fecha_fin_estimado = $this->sumarHoras($ticked->fecha_registro,$sla->horas);
+            $ticked->fecha_primera_respuesta = $this->sumarHoras($ticked->fecha_registro,$sla->tiempo_primera_respuesta);
             $ticked->descripcion = $request->input('descripcion');
 
             $ticked->tipoincidencia_id = $request->input('tipoincidencia_id');
@@ -481,10 +480,10 @@ public function ticketEdit(Request $request)
             $ticked->medio_reporte_id = $request->input('medio_reporte_id');
 
             $ticked->save();
-        
+
             return response()->json(['success' => true]);
         }
-   
+
         return response()->json(['success' => false]);
     }
 
@@ -496,11 +495,11 @@ public function ticketEdit(Request $request)
             $registro = Ticket::find($request->input('id'));
             $registro->status = "N";
             $registro->save();
-    
+
             return response()->json(['success' => true]);
             }
             return response()->json(['success' => false]);
-    
+
     }
 
 
@@ -541,20 +540,20 @@ public function ticketEdit(Request $request)
                 $ticked->save();
 
             }
-        
+
             return response()->json(['success' => true]);
         }
-   
+
         return response()->json(['success' => false]);
     }
 
     function sumarHoras($fecha, $horas) {
         // Crea un objeto DateTime a partir de la fecha y hora dadas
         $fechaObj = new \DateTime($fecha);
-        
+
         // Suma las horas a la fecha y hora
         $fechaObj->add(new \DateInterval("PT{$horas}H"));
-        
+
         // Devuelve la nueva fecha y hora en formato ISO 8601
         return $fechaObj->format('Y-m-d H:i:s');
       }
