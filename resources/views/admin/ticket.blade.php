@@ -754,7 +754,7 @@
                 <span class="contenidoSpan" id="usuarioReporteSpan"></span>
               </div>
               <div class="col-md-12" >
-                <label for=""><i class="fa-sharp fa-solid fa-chevron-right"></i> PERSONAL:</label>
+                <label for=""><i class="fa-sharp fa-solid fa-chevron-right"></i> RESPONSABLE:</label>
                 <span class="contenidoSpan" id="personalSpan"></span>
               </div>
               <div class="col-md-12" >
