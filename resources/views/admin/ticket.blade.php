@@ -96,7 +96,7 @@
 
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" style="max-width: 35%;">
+  <div class="modal-dialog" style="max-width: 60%;">
     <div class="modal-content">
     <div class="modal-header modalHeader">
         <h1 class="modal-title fs-5 formulario__labelTitulo">NUEVO TICKET </h1>
@@ -109,7 +109,8 @@
 
 
         <!-- Grupo: empresa-->
-        <div class="col-md-6">
+        <div class="col-md-3">
+        <input type="text" id="ID" style="display:none" name="ID">
 			<div class="formulario__grupo" id="grupo__empresa">
 				<label for="listEmpresa" class="formulario__label">EMPRESA</label>
 				<div class="formulario__grupo-input">
@@ -117,6 +118,44 @@
         <i class="formulario__validacion-estado fas fa-times-circle icono"></i>
 				</div>
 				<p class="formulario__input-error">El campo "EMPRESA" no debe estar vacio.</p>
+			</div>
+			</div>
+
+    <!-- Grupo: RESPONSABLE-->
+      <div class="col-md-3">
+			<div class="formulario__grupo" id="grupo__persona">
+				<label for="listPersona" class="formulario__label">RESPONSABLE</label>
+				<div class="formulario__grupo-input">
+        <select class="formulario__input" id="listPersona" name="personal_id" required></select>
+        <i class="formulario__validacion-estado fas fa-times-circle icono"></i>
+
+        </div>
+				<p class="formulario__input-error">El campo "PERSONA" no debe estar vacio.</p>
+			</div>
+			</div>
+
+      <!-- Grupo: SUPERVISOR-->
+      <div class="col-md-3">
+			<div class="formulario__grupo" id="grupo__supervisor">
+				<label for="listSupervisor" class="formulario__label">SUPERVISOR</label>
+				<div class="formulario__grupo-input">
+        <select class="formulario__input" id="listSupervisor" name="supervisor_id" required></select>
+        <i class="formulario__validacion-estado fas fa-times-circle icono"></i>
+
+        </div>
+				<p class="formulario__input-error">El campo "SUPERVISOR" no debe estar vacio.</p>
+			</div>
+			</div>
+
+      <!-- Grupo: SLA-->
+      <div class="col-md-3">
+			<div class="formulario__grupo" id="grupo__sla">
+				<label for="listSla" class="formulario__label">SLA</label>
+				<div class="formulario__grupo-input">
+          <select class="formulario__input" id="listSla" name="sla_id" required></select>
+          <i class="formulario__validacion-estado fas fa-times-circle icono"></i>
+        </div>
+				<p class="formulario__input-error">El campo "SLA" no debe estar vacio.</p>
 			</div>
 			</div>
 
@@ -133,9 +172,8 @@
 			</div>
 			</div>
 
-
-      <!-- Grupo: T.INCIDENCIA-->
-      <div class="col-md-6">
+             <!-- Grupo: T.INCIDENCIA-->
+      <div class="col-md-4">
 			<div class="formulario__grupo" id="grupo__incidencia">
 				<label for="listTIncidencia" class="formulario__label">T.INCIDENCIA</label>
 				<div class="formulario__grupo-input">
@@ -146,22 +184,8 @@
 			</div>
 			</div>
 
-
-      <!-- Grupo: SLA-->
-      <div class="col-md-6">
-			<div class="formulario__grupo" id="grupo__sla">
-				<label for="listSla" class="formulario__label">SLA</label>
-				<div class="formulario__grupo-input">
-          <select class="formulario__input" id="listSla" name="sla_id" required></select>
-          <i class="formulario__validacion-estado fas fa-times-circle icono"></i>
-        </div>
-				<p class="formulario__input-error">El campo "SLA" no debe estar vacio.</p>
-			</div>
-			</div>
-
-
       <!-- Grupo: MEDIO DE REPORTE-->
-      <div class="col-md-6">
+      <div class="col-md-4">
 			<div class="formulario__grupo" id="grupo__medio">
 				<label for="listMedioReporte" class="formulario__label">MEDIO DE REPORTE</label>
 				<div class="formulario__grupo-input">
@@ -172,34 +196,10 @@
 			</div>
 			</div>
 
-       <!-- Grupo: PERSONA-->
-      <div class="col-md-6">
-			<div class="formulario__grupo" id="grupo__persona">
-				<label for="listPersona" class="formulario__label">RESPONSABLE</label>
-				<div class="formulario__grupo-input">
-        <select class="formulario__input" id="listPersona" name="personal_id" required></select>
-        <i class="formulario__validacion-estado fas fa-times-circle icono"></i>
 
-        </div>
-				<p class="formulario__input-error">El campo "PERSONA" no debe estar vacio.</p>
-			</div>
-			</div>
-
-      <!-- Grupo: SUPERVISOR-->
-      <div class="col-md-6">
-			<div class="formulario__grupo" id="grupo__supervisor">
-				<label for="listSupervisor" class="formulario__label">SUPERVISOR</label>
-				<div class="formulario__grupo-input">
-        <select class="formulario__input" id="listSupervisor" name="supervisor_id" required></select>
-        <i class="formulario__validacion-estado fas fa-times-circle icono"></i>
-
-        </div>
-				<p class="formulario__input-error">El campo "SUPERVISOR" no debe estar vacio.</p>
-			</div>
-			</div>
 
       <!-- Grupo: USUARIO QUIEN REPORTA-->
-      <div class="col-md-6">
+      <div class="col-md-4">
 			<div class="formulario__grupo" id="grupo__usuario">
 				<label for="listUsuarioReporte" class="formulario__label">USUARIO REPORTE</label>
 				<div class="formulario__grupo-input d-flex align-items-center">
@@ -214,9 +214,9 @@
 			</div>
 
       <!-- Grupo: IMAGEN-->
-      <div class="col-md-12">
+      <div class="col-md-6">
 			<div class="formulario__grupo" id="grupo__titulo">
-				<label for="fileTicket" class="formulario__label">IMAGEN</label>
+				<label for="fileTicket" class="formulario__label">IMAGEN<em style="color: #1E90FF;"> (No es obligario)</em></label>
 				<div class="formulario__grupo-input">
 					<input type="file" class="form-control" name="fileTicket" id="fileTicket"  accept="image/*">
 				</div>
@@ -225,9 +225,9 @@
 			</div>
 
       <!-- Grupo: Documento-->
-      <div class="col-md-12">
+      <div class="col-md-6">
 			<div class="formulario__grupo" id="grupo__titulo">
-				<label for="fileDocumentoTicket" class="formulario__label">DOCUMENTO</label>
+				<label for="fileDocumentoTicket" class="formulario__label">DOCUMENTO<em style="color: #1E90FF;"> (No es obligario)</em></label>
 				<div class="formulario__grupo-input">
 					<input type="file" class="form-control" name="fileDocumentoTicket" id="fileDocumentoTicket"  accept=".pdf,.xls,.xlsx,.doc,.docx,.pptx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" >
 				</div>
