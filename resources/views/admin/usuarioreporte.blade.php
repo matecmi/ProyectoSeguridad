@@ -24,7 +24,7 @@
                     <th>NOMBRE</th>
                     <th>TELEFONO</th>
                     <th>EMAIL</th>
-                    <th colspan="2">ACCIONES</th>    
+                    <th colspan="2">ACCIONES</th>
                 </tr>
             </thead>
         </table>
@@ -40,7 +40,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body modalBody">
-     
+
       <form  class="row g-3 formulario" id="registrarUsuarioReporte" action="{{ route('admin.usuarioReporteStore') }}">
       @csrf
 
@@ -75,7 +75,7 @@
         <div class="formulario__grupo" id="grupo__telefono">
 				<label for="telefonoUsuarioReporte" class="formulario__label">TELÈFONO</label>
 				<div class="formulario__grupo-input">
-					<input type="number" class="formulario__input" name="telefono" id="telefonoUsuarioReporte" placeholder="976065457" require>
+					<input type="number" class="formulario__input" name="telefono" id="telefonoUsuarioReporte" placeholder="976065457" oninput="limitarLongitudTelefono(event)" require>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
 				<p class="formulario__input-error">numero de "TELEFONO" invalido, debe contener 9 digitos.</p>
@@ -88,10 +88,10 @@
 			</div>
 
       <div class="modal-footer">
-        
+
       <button type="button" class="btn btn-secondary formulario__label" data-bs-dismiss="modal">Close</button>
       <button class="btn btn-primary formulario__label" type="submit">Guardar</button>
-      
+
       </div>
 		</form>
 
@@ -152,8 +152,13 @@
 <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
 
 
-<script> 
-
+<script>
+function limitarLongitudTelefono(event) {
+  var input = event.target;
+  if (input.value.length > 9) {
+    input.value = input.value.slice(0, 9);
+  }
+}
     </script>
 
 @stop

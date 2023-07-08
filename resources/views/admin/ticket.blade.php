@@ -59,7 +59,7 @@
       <select class="form-select" id="filtroPersonal">
       </select>
     </div>
-    <div class="col-md-9 d-flex align-items-center"></div> 
+    <div class="col-md-9 d-flex align-items-center"></div>
     <div class="col-md-3 d-flex align-items-center justify-content-end " id="exportar">
       <button id="filtro" type="button" class="btn  ml-2 agregar formulario__label ">FILTRAR <i class="fa-solid fa-magnifying-glass"></i></button>
     </div>
@@ -87,8 +87,8 @@
                     <th><div style="width: 150;">TIPO INCIDENCIA</div></th>
                     <th><div style="width: 110;">SLA</div></th>
                     <th>USUARIO REPORTE</th>
-                    <th  class="no-exportar"><div style="width: 200;">OPCIONES</div></th>    
-  
+                    <th  class="no-exportar"><div style="width: 200;">OPCIONES</div></th>
+
                 </tr>
             </thead>
 
@@ -112,7 +112,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body modalBody">
-     
+
       <form  class="row g-3 formulario" id="resgistrarTicket">
       @csrf
 
@@ -148,7 +148,7 @@
 				<label for="descripcion" class="formulario__label">DESCRIPCIÒN</label>
 				<div class="formulario__grupo-input">
         <textarea class=" form-control formulario__textArea" cols="20" rows="3" name="descripcion" id="descripcion" placeholder="Descripcion del ticket"   require></textarea>
-        <i class="formulario__validacion-estado fas fa-times-circle"></i>	
+        <i class="formulario__validacion-estado fas fa-times-circle"></i>
       </div>
 				<p class="formulario__input-error">El campo "DESCRIPCIÒN" no debe estar vacio.</p>
 			</div>
@@ -187,7 +187,7 @@
 				<label for="listMedioReporte" class="formulario__label">MEDIO DE REPORTE</label>
 				<div class="formulario__grupo-input">
         <select class="formulario__input" id="listMedioReporte" name="medio_reporte_id" required></select>
-        <i class="formulario__validacion-estado fas fa-times-circle icono"></i>  
+        <i class="formulario__validacion-estado fas fa-times-circle icono"></i>
       </div>
 				<p class="formulario__input-error">El campo "MEDIO DE REPORTE" no debe estar vacio.</p>
 			</div>
@@ -262,10 +262,10 @@
 			</div>
 
       <div class="modal-footer">
-        
+
       <button type="button" class="btn btn-secondary formulario__label" data-bs-dismiss="modal">Close</button>
       <button class="btn btn-primary formulario__label" type="submit" id="btnGuardarTicket">Guardar</button>
-      
+
       </div>
 		</form>
 
@@ -284,7 +284,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body modalBody">
-     
+
       <form  class="row g-3 formulario" id="registrarUsuarioReporte" action="{{ route('admin.usuarioReporteStore') }}">
       @csrf
 
@@ -319,7 +319,7 @@
         <div class="formulario__grupo" id="grupo__telefono">
 				<label for="telefonoUsuarioReporte" class="formulario__label">TELÈFONO</label>
 				<div class="formulario__grupo-input">
-					<input type="number" class="formulario__input" name="telefono" id="telefonoUsuarioReporte" placeholder="976065457" require>
+					<input type="number" class="formulario__input" name="telefono" id="telefonoUsuarioReporte" placeholder="976065457" oninput="limitarLongitudTelefono(event)" require>
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
 				<p class="formulario__input-error">numero de telefono invalido, debe contener 9 digitos.</p>
@@ -332,10 +332,10 @@
 			</div>
 
       <div class="modal-footer">
-        
+
       <button type="button" class="btn btn-secondary formulario__label" data-bs-dismiss="modal">Close</button>
       <button class="btn btn-primary formulario__label" type="submit">Guardar</button>
-      
+
       </div>
 		</form>
 
@@ -354,7 +354,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body modalBody">
-     
+
       <form  class="row g-3 formulario" id="resgistrarComentario" action="{{ route('admin.comentarioStore') }}">
       @csrf
 
@@ -365,7 +365,7 @@
 				<label for="descripcionC" class="formulario__label">COMENTARIO</label>
 				<div class="formulario__grupo-input">
         <textarea class="formulario__textArea" cols="20" rows="2" name="descripcionC" id="descripcionC" placeholder="Escribe un comentario"   require></textarea>
-        <i class="formulario__validacion-estado fas fa-times-circle"></i>	
+        <i class="formulario__validacion-estado fas fa-times-circle"></i>
       </div>
 				<p class="formulario__input-error">El campo "COMENTARIO" no debe estar vacio.</p>
 			</div>
@@ -376,10 +376,10 @@
 			</div>
 
       <div class="modal-footer">
-        
+
       <button type="button" class="btn btn-secondary formulario__label" data-bs-dismiss="modal">Close</button>
       <button class="btn btn-primary formulario__label" type="submit">Guardar</button>
-      
+
       </div>
 		</form>
 
@@ -399,7 +399,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body modalBody">
-     
+
       <form  class="row g-3 formulario" id="resgistrarAcciones" action="{{ route('admin.accionesStore') }}">
       @csrf
 
@@ -410,7 +410,7 @@
 				<label for="modo" class="formulario__label">MODO</label>
 				<div class="formulario__grupo-input">
         <select class="formulario__input" id="modo" name="modo" required>
-          <option selected disabled value="">Elegir un Modo...</option>         
+          <option selected disabled value="">Elegir un Modo...</option>
           <option value="Remoto">REMOTO</option>
           <option value="Presencial">PRESENCIAL</option>
           <option value="Cas">CAS</option>
@@ -440,7 +440,7 @@
 				<label for="descripcionA" class="formulario__label">DESCRIPCIÒN</label>
 				<div class="formulario__grupo-input">
         <textarea class="formulario__textArea" cols="20" rows="2" name="descripcionA" id="descripcionA" placeholder="Escribe una descripciòn"   require></textarea>
-        <i class="formulario__validacion-estado fas fa-times-circle"></i>	
+        <i class="formulario__validacion-estado fas fa-times-circle"></i>
       </div>
 				<p class="formulario__input-error">El campo "DESCRIPCIÒN" no debe estar vacio.</p>
 			</div>
@@ -451,10 +451,10 @@
 			</div>
 
       <div class="modal-footer">
-        
+
       <button type="button" class="btn btn-secondary formulario__label" data-bs-dismiss="modal">Close</button>
       <button class="btn btn-primary formulario__label" type="submit">Guardar</button>
-      
+
       </div>
 		</form>
 
@@ -481,7 +481,7 @@
               <button id="btnReapertura" type="button" class="btn btn-primary" style="display:none"><i class="fa-solid fa-arrow-rotate-left"></i></button>
             </div>
         </div>
-        
+
 
         <div class="card-header row g-3 d-flex justify-content-center mb-3">
           <div id="divProceso" class="col-md-4">
@@ -564,7 +564,7 @@
 
 
 <div class="modal fade delante" id="archivoImagenModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" style="max-width: 50%"> 
+  <div class="modal-dialog" style="max-width: 50%">
     <div class="modal-content">
       <div class="modal-header modalHeader2">
         <h1 class="modal-title fs-5 formulario__labelTitulo" id="tituloImagen"></h1>
@@ -594,7 +594,7 @@
               <span class="visually-hidden">Next</span>
             </button>
           </div>
-          
+
         <div class="modal-footer">
           <button id="btnDescargarImagen" class="btn btn-primary"><i class="fa-solid fa-download"></i></button>
           <button id="eliminarImagen" style="font-size: 20px;" type="button" class="btn btn-danger btn-sm"> <i class="fa-solid fa-trash-can"></i> </button>
@@ -792,9 +792,9 @@
                 <label for=""><i class="fa-sharp fa-solid fa-chevron-right"></i> TIPO INCIDENCIA:</label>
                 <span class="contenidoSpan" id="tipoIncidenciaSpan"></span>
               </div>
-      
 
-           
+
+
             </div>
           </div>
 
@@ -809,24 +809,24 @@
               <div class="col-md-4">
                 <label for="nombre" class="form-label margen">ESTADO DEL TICKET</label>
                 <button style="font-size: 20px;" name="estado" id="btnEstado" type="button" class="btn estado btn-sm" ><i class="fa-solid fa-hourglass-half" style="color: white;"></i></button>
-    
+
               </div>
               <div class="col-md-4">
                 <label for="nombre" class="form-label margen">ARCHIVOS DEL TICKET</label>
-    
+
                <button style="font-size: 20px;" name="imagen" id="NoFiltrar" type="button" class="btn imagen btn-sm" ><i class="fa-regular fa-images" style="color: white;"></i></button>
               &nbsp;&nbsp;<button style="font-size: 20px;" name="archivo"  id="NoFiltrar" type="button" class="btn archivo btn-sm"><i class="fa-solid fa-folder-open" style="color: white;"></i></button>
-        
+
               </div>
-    
+
               <div class="col-md-12" >
-    
+
                 <div class="card-body table-responsive bordeTabla modalTabla " >
-    
+
                 <h3 class="formulario__labelTabla">ACCIONES</h3>
                 <button id="btnAccion" type="button" class="btn  btn-sm  ml-2 agregar formulario__label">NUEVA ACCIÒN</button>
                 <table style="font-size: 15px;"  class="table table-striped table-bordered table-hover " id="tablaAcciones">
-    
+
                   <thead>
                       <tr>
                           <th>N.º</th>
@@ -841,11 +841,11 @@
               </table>
                 </div>
               </div>
-    
+
               <div class="col-md-12">
                 <div class="card-body table-responsive bordeTabla modalTabla">
                 <h3 class="formulario__labelTabla">COMENTARIOS</h3>
-    
+
                 <button id="btnComentario" type="button" class="btn agregar btn-sm ml-2 formulario__label">NUEVO COMENTARIO</button>
                 <table style="font-size: 15px;" class="table table-striped table-bordered table-hover" id="tablaComentario">
                   <thead>
@@ -854,7 +854,7 @@
                           <th>DESCRIPCIÓN</th>
                           <th>FECHA</th>
                           <th>USUARIO</th>
-                          <th colspan="2">ACCIONES</th>    
+                          <th colspan="2">ACCIONES</th>
                       </tr>
                   </thead>
               </table>
@@ -866,7 +866,7 @@
 
         </div>
 
-        
+
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
@@ -885,7 +885,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body modalBody">
-     
+
       <form  class="row g-3 formulario" id="resgistrarCalificacion" action="{{ route('admin.calificacionStore') }}">
       @csrf
 
@@ -897,7 +897,7 @@
 				<label for="calificacion" class="formulario__label">DESCRIPCIÒN</label>
 				<div class="formulario__grupo-input">
         <textarea class="formulario__textArea" cols="20" rows="2" name="calificacion" id="calificacion" placeholder="Escribe un comentario"   require></textarea>
-        <i class="formulario__validacion-estado fas fa-times-circle"></i>	
+        <i class="formulario__validacion-estado fas fa-times-circle"></i>
       </div>
 				<p class="formulario__input-error">El campo "COMENTARIO" no debe estar vacio.</p>
 			</div>
@@ -925,10 +925,10 @@
 			</div>
 
       <div class="modal-footer modalBody">
-        
+
       <button type="button" class="btn btn-secondary formulario__label" data-bs-dismiss="modal">Close</button>
       <button class="btn btn-primary formulario__label" type="submit">Guardar</button>
-      
+
       </div>
 		</form>
 
@@ -998,7 +998,7 @@ var accionId;
 
 
 $(document).on('click', 'button[name="panel"]', function () {
-  
+
   ticketId = $(this).attr('id');
   var idGenerado =$(this).attr('value');
 
@@ -1007,7 +1007,7 @@ $(document).on('click', 'button[name="panel"]', function () {
 
     var tituloArchivo = document.getElementById("tituloArchivo");
     tituloArchivo.innerHTML = "DOCUMENTOS / TICKET " + idGenerado;
-  
+
 });
 
 
@@ -1022,7 +1022,7 @@ $(document).on('click', 'button[name="imagen"]', function () {
   $('#ticketId').val(ticketId);
 
   listarImagenes();
-  
+
   });
 
 $('#btnImagen').on('click', function () {
@@ -1041,7 +1041,7 @@ $('#resgistrarTicketImagen').submit(function (e) {
     e.preventDefault();
 
     $.ajax({
-  
+
       url: "{{ route('admin.ticketImagenStore') }}",
       type: "POST",
       data: new FormData(this),
@@ -1051,7 +1051,7 @@ $('#resgistrarTicketImagen').submit(function (e) {
       success: function (response) {
         if (accionId!="NoFiltrar") {
       $.ajax({
-  
+
       url: "{{ route('admin.ticketImagenAccion') }}",
       type: "POST",
       data:{
@@ -1059,7 +1059,7 @@ $('#resgistrarTicketImagen').submit(function (e) {
         id:response.success,
         _token: $('meta[name="csrf-token"]').attr('content')
 
-      },      
+      },
       success: function (response) {
         btnGuardarImagen.removeAttribute("disabled");
 
@@ -1080,7 +1080,7 @@ $('#resgistrarTicketImagen').submit(function (e) {
 
           btnGuardarImagen.removeAttribute("disabled");
 
-  
+
       }
 
     });
@@ -1136,15 +1136,15 @@ var carrusel = document.getElementById('carouselExampleIndicators');
 btnDescargar.addEventListener('click', function() {
   // Obtener la imagen activa del carrusel
   var imagenActiva = carrusel.querySelector('.carousel-item.active img');
-  
+
   // Crear un enlace de descarga con la imagen y agregar un nombre de archivo
   var linkDescarga = document.createElement('a');
   linkDescarga.download = 'ImagenTicket.jpg';
   linkDescarga.href = imagenActiva.src;
-  
+
   // Simular un clic en el enlace de descarga
   linkDescarga.click();
-  
+
   // Eliminar el enlace de descarga del DOM
   linkDescarga.remove();
 });
@@ -1182,11 +1182,11 @@ $('#eliminarImagen').on('click', function() {
                success: function(response){
             if(response.success){
               listarImagenes();
-                swal({ 
+                swal({
                     title:"Imagen eliminada correctamente",
                     icon: "success"
             });
-            }       
+            }
          }
         });
          }
@@ -1264,7 +1264,7 @@ $('#resgistrarTicketDocumento').submit(function (e) {
     e.preventDefault();
 
     $.ajax({
-  
+
       url: "{{ route('admin.ticketDocumentoStore') }}",
       type: "POST",
       data: new FormData(this),
@@ -1276,14 +1276,14 @@ $('#resgistrarTicketDocumento').submit(function (e) {
 
       if (accionId!="NoFiltrar") {
       $.ajax({
-  
+
       url: "{{ route('admin.ticketDocumentoAccion') }}",
       type: "POST",
       data:{
         accion_id:accionId,
         id:response.success,
         _token: $('meta[name="csrf-token"]').attr('content')
-      },      
+      },
       success: function (response) {
         btnGuardarDocumento.removeAttribute("disabled");
 
@@ -1303,8 +1303,8 @@ $('#resgistrarTicketDocumento').submit(function (e) {
           $('#ticketIdDocumento').val(ticketId);
           btnGuardarDocumento.removeAttribute("disabled");
 
-        
-  
+
+
       }
     });
   });
@@ -1333,11 +1333,11 @@ swal({
              success: function(response){
           if(response.success){
             listDocumentos();
-              swal({ 
+              swal({
                   title:"Documento eliminado correctamente",
                   icon: "success"
           });
-          }       
+          }
        }
       });
        }
@@ -1347,6 +1347,12 @@ swal({
 
 });
 
-  
+function limitarLongitudTelefono(event) {
+  var input = event.target;
+  if (input.value.length > 9) {
+    input.value = input.value.slice(0, 9);
+  }
+}
+
 </script>
 @stop
