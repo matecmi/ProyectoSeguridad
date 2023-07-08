@@ -8,7 +8,7 @@ $(function () {
   filtroListEmpresa();
   filtroListPersonal();
 
-  
+
 
 });
 
@@ -32,8 +32,8 @@ function DataTableCreacion() {
   if (boton !== null) {
     boton.remove();
   }
-  
-  
+
+
     $('#exportar').append(
       '<button id="exportar-btn" class="btn editar formulario__label">Excel<i class="fa fa-file-excel ml-1"></i></button>'
     );
@@ -118,7 +118,7 @@ function generarContenidoTabla(ticketVencido) {
             if (grupo.id == ticket.id) {
               validarTicket=true;
             }
-          
+
           });
           var idGenerado = grupo.sla_nomenclatura + "-" +grupo.id.toString().padStart(7, '0');
           if (validarTicket) {
@@ -133,16 +133,7 @@ function generarContenidoTabla(ticketVencido) {
           options += '<td id="tdTabla">' + grupo.fecha_registro + '</td>';
           options += '<td id="tdTabla">' + grupo.fecha_fin_estimado + '</td>';
           options += '<td id="tdTabla">' + (grupo.fecha_fin == null ? "----" : grupo.fecha_fin) + '</td>';
-          options += '<td id="tdTabla">' + grupo.descripcion + '</td>';
-          options += '<td id="tdTabla">' + grupo.personal_nombre + '</td>';
           options += '<td id="tdTabla">' + grupo.empresa_nombre + '</td>';
-          options += '<td id="tdTabla">' + grupo.supervisor_nombre + '</td>';
-          options += '<td id="tdTabla">' + grupo.usuario_nombre + '</td>';
-          options += '<td id="tdTabla">' + grupo.medio_reporte_nombre + '</td>';
-          options += '<td id="tdTabla">' + grupo.situacion + '</td>';
-          options += '<td id="tdTabla">' + grupo.tipo_incidencia_nombre + '</td>';
-          options += '<td id="tdTabla">' + grupo.sla_nombre + '</td>';
-          options += '<td id="tdTabla">' + grupo.nombre + '</td>';
           if (grupo.situacion == "Finalizado") {
             options += '<td style="text-align: center; vertical-align: middle;"> <button disabled type="button" name="edit"  id="' + grupo.id + '" class="btn btn-success btn-sm">Editar<i class="fa-sharp fa-solid fa-pen-to-square ml-1"></i> </button>';
             options += '&nbsp;&nbsp;<button disabled  type="button" name="delete" id="' + grupo.id + '" class="btn btn-danger btn-sm">Eliminar<i class="fa-solid fa-trash-can ml-1"></i> </button></td>';
@@ -168,7 +159,7 @@ function generarContenidoTabla(ticketVencido) {
 
   function generarContenidoTabla2() {
     $('#tabla').DataTable().destroy();
-  
+
     filtroIncidencia = $('#filtroIcidencia').val();
     filtroEstado = $('#filtroEstado').val();
     filtroEmpresa = $('#filtroEmpresa').val();
@@ -176,7 +167,7 @@ function generarContenidoTabla(ticketVencido) {
     filtroPersonal = $('#filtroPersonal').val();
     filtroDesde = $('#filtroDesde').val();
     filtroHasta = $('#filtroHasta').val();
-  
+
     $.ajax({
       url: "/admin/ticket/list",
       type: 'GET',
@@ -189,14 +180,14 @@ function generarContenidoTabla(ticketVencido) {
         filtroDesde:filtroDesde,
         filtroHasta:filtroHasta,
         _token: $('meta[name="csrf-token"]').attr('content')
-  
+
       },
-  
+
       success: function (response) {
         var options;
-  
+
         if (response.success.length > 0) {
-  
+
           const situacionColores = {
             "Finalizado": "#00ff11",
             "En Proceso": "#fbff00",
@@ -208,43 +199,34 @@ function generarContenidoTabla(ticketVencido) {
             "Standby": "Standby"
           };
           $.each(response.success, function (index, grupo) {
-  
+
             var idGenerado = grupo.sla_nomenclatura + "-" +grupo.id.toString().padStart(7, '0');
- 
+
             options += '<tr>';
             options += `<td id="tdTabla"><i class="fa-solid fa-circle" style="color: ${situacionColores[grupo.situacion]}"></i></td>`;
             options += `<td id="tdTabla"><button value="` + idGenerado + `" name="panel" id="` + grupo.id + `" type="button" class="btn ${botonColores[grupo.situacion]} btn-sm" data-bs-toggle="modal" data-bs-target="#PanelModal">` + idGenerado +`</button></td>`;
             options += '<td id="tdTabla">' + grupo.fecha_registro + '</td>';
             options += '<td id="tdTabla">' + grupo.fecha_fin_estimado + '</td>';
             options += '<td id="tdTabla">' + (grupo.fecha_fin == null ? "----" : grupo.fecha_fin) + '</td>';
-            options += '<td id="tdTabla">' + grupo.descripcion + '</td>';
-            options += '<td id="tdTabla">' + grupo.personal_nombre + '</td>';
             options += '<td id="tdTabla">' + grupo.empresa_nombre + '</td>';
-            options += '<td id="tdTabla">' + grupo.supervisor_nombre + '</td>';
-            options += '<td id="tdTabla">' + grupo.usuario_nombre + '</td>';
-            options += '<td id="tdTabla">' + grupo.medio_reporte_nombre + '</td>';
-            options += '<td id="tdTabla">' + grupo.situacion + '</td>';
-            options += '<td id="tdTabla">' + grupo.tipo_incidencia_nombre + '</td>';
-            options += '<td id="tdTabla">' + grupo.sla_nombre + '</td>';
-            options += '<td id="tdTabla">' + grupo.nombre + '</td>';
             if (grupo.situacion == "Finalizado") {
               options += '<td style="text-align: center; vertical-align: middle;"> <button disabled  type="button" name="edit"  id="' + grupo.id + '" class="btn btn-success btn-sm">Editar<i class="fa-sharp fa-solid fa-pen-to-square"></i> </button>';
               options += '&nbsp;&nbsp;<button disabled  type="button" name="delete" id="' + grupo.id + '" class="btn btn-danger btn-sm">Eliminar<i class="fa-solid fa-trash-can"></i> </button></td>';
-  
+
             } else {
               options += '<td style="text-align: center; vertical-align: middle;"> <button  type="button" name="edit"  id="' + grupo.id + '" class="btn editar btn-sm">Editar<i class="fa-sharp fa-solid fa-pen-to-square" style="color: white;"></i> </button>';
               options += '&nbsp;&nbsp;<button type="button" name="delete" id="' + grupo.id + '" class="btn eliminar btn-sm">Eliminar<i class="fa-solid fa-trash-can" style="color: white;"></i> </button></td>';
-  
+
             }
             options += '</tr>';
           });
         } else {
           options = " ";
         }
-  
+
         $('#colTicket').html(options);
         DataTableCreacion();
-  
+
       }
     });
 
@@ -263,7 +245,7 @@ $('#usuarioReporteModal2').on('hide.bs.modal', function (e) {
 
   $('#registrarUsuarioReporte')[0].reset();
   limpiarFormularioUsuarioReporte();
-  
+
   });
 
 
@@ -523,7 +505,7 @@ function elegirEmpresa() {
       $('#listEmpresa').html(options);
     }
   });
-  
+
 }
 
 function elegirSupervisor() {
@@ -567,7 +549,7 @@ $('#resgistrarTicket').submit(function (e) {
 
 
     var btnGuardarTicket = document.getElementById("btnGuardarTicket");
-    
+
     e.preventDefault();
 
 
@@ -585,29 +567,29 @@ $('#resgistrarTicket').submit(function (e) {
       var id = $('#ID').val();
       var _token = $("input[name=_token]").val();
       var fecha = $('#fecha').val();
-    
-    
+
+
       var url;
-    
-    
+
+
       if (id == "") {
-    
+
         url = "/admin/ticket/create";
       } else if (id != "") {
         url = "/admin/ticket/update";
-    
+
       }
       $.ajax({
-    
+
         url: url,
         type: "POST",
           data: new FormData(this),
           processData: false,
           contentType: false,
           _token: $('meta[name="csrf-token"]').attr('content'),
-    
+
         success: function (response) {
-    
+
           if (response.success) {
             if (id == "") {
               swal({
@@ -617,7 +599,7 @@ $('#resgistrarTicket').submit(function (e) {
                 buttons: true,
               })
               btnGuardarTicket.removeAttribute("disabled");
-    
+
             } else {
               swal({
                 title: "Registro actualizado",
@@ -626,24 +608,26 @@ $('#resgistrarTicket').submit(function (e) {
                 buttons: true,
               })
               btnGuardarTicket.removeAttribute("disabled");
-    
+
             }
             btnGuardarTicket.removeAttribute("disabled");
             limpiarFormularioTicket();
             $('#exampleModal').modal('hide');
             validarTicketVencidos();
             $('#resgistrarTicket')[0].reset();
-    
+
           }
-    
+
         }
       });
-  
-    
-  
-  
+
+
+
+
     } else {
+
       document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
+
     console.log("empresa :" + camposTicket.empresa);
     console.log("incidencia :" +  camposTicket.incidencia);
     console.log("sla :" +  camposTicket.sla);
@@ -653,13 +637,13 @@ $('#resgistrarTicket').submit(function (e) {
     console.log("usuario :" +  camposTicket.usuario);
     console.log("descripcion :" +  camposTicket.descripcion);
     console.log("fecha :" +  camposTicket.fecha);
-   
-    
+
+
     }
-  
-  
-    
-  
+
+
+
+
 });
 
 
@@ -669,14 +653,14 @@ function limpiarFormularioTicket(){
       icono.classList.remove('formulario__grupo-incorrecto');
       icono.classList.remove('formulario__grupo-correcto');
       icono.classList.remove('formulario__input-error-activo');
-  
+
   });
-  
+
   document.querySelectorAll('.formulario__input-error').forEach((icono) => {
       icono.classList.remove('formulario__input-error-activo');
-  
+
   });
-  
+
   document.getElementById('formulario__mensaje').classList.remove('formulario__mensaje-activo');
 
   camposTicket.empresa=false;
@@ -751,7 +735,6 @@ $('#exampleModal').on('hide.bs.modal', function (e) {
 });
 
 $(document).on('click', 'button[name="edit"]', function () {
-  $('#exampleModal').modal('show');
  // validarEdicionTicket();
   var id = $(this).attr('id');
 
@@ -785,6 +768,8 @@ $(document).on('click', 'button[name="edit"]', function () {
         var medio_reporte_id =response.success.medio_reporte_id;
         var usuario_reporte_id =response.success.usuario_reporte_id;
 
+        $('#exampleModal').modal('show');
+        validarEdicionTicket();
         $('#fecha').val(fecha);
         $('#listMedioReporte').val(medio_reporte_id);
         $('#descripcion').val(descripcion);
@@ -819,7 +804,7 @@ $(document).on('click', '#filtro', function () {
 var idTicket;
 
 $(document).on('click', 'button[name="panel"]', function () {
-  
+
   idTicket = $(this).attr('id');
  var idGenerado =$(this).attr('value');
  idGeneradoCalificacion=idGenerado;
@@ -1077,26 +1062,26 @@ $('#btnFinalizado').on('click', function () {
 
 
   $(document).on('click', 'button[name="usuarioReporta"]', function () {
-    
+
     $('#tablaUsuarioModal').modal('show');
 
     $('#colUsuario').html(" ");
-  
+
     listUsuarioReporte();
-  
+
   });
-  
-  
-  
+
+
+
   function listUsuarioReporte() {
-  
+
     $.ajax({
       url: "/admin/ticket/usuarioreporte",
       type: 'GET',
       data: {
         id: idTicket,
       },
-  
+
       success: function (response) {
 
         var options;
@@ -1106,7 +1091,7 @@ $('#btnFinalizado').on('click', function () {
             options += '<td id="tdTabla">' + response.telefono + '</td>';
             options += '<td id="tdTabla">' + response.email + '</td>';
             options += '</tr>';
-          
+
         $('#colUsuario').html(options);
 
         if (response.nombre ==null && response.telefono ==null && response.email ==null) {
@@ -1118,12 +1103,12 @@ $('#btnFinalizado').on('click', function () {
 
 
   ////////////////////Reapertura de ticket////////////////////////
-  
+
 
   $('#btnReapertura').on('click', function () {
 
     var estado = "En Proceso"
-  
+
     swal({
       title: "¿Desea reaperturar el ticket'?",
       text: "",
@@ -1133,9 +1118,9 @@ $('#btnFinalizado').on('click', function () {
     })
       .then((willDelete) => {
         if (willDelete) {
-  
+
           $.ajax({
-  
+
             url: "/admin/ticket/updateEstado",
             type: 'POST',
             data: {
@@ -1144,9 +1129,9 @@ $('#btnFinalizado').on('click', function () {
               _token: $('meta[name="csrf-token"]').attr('content')
             },
             success: function (response) {
-  
+
               if (response.success) {
-  
+
                 swal({
                   title: "El ticket fue reaperturado correctamente",
                   icon: "success"
@@ -1157,7 +1142,7 @@ $('#btnFinalizado').on('click', function () {
                 $('#estadoSpan').html("En Proceso");
 
 
-  
+
                 btnFinalizado.removeAttribute("disabled");
                 btnStanby.removeAttribute("disabled");
                 btnProceso.disabled = true;
@@ -1171,26 +1156,26 @@ $('#btnFinalizado').on('click', function () {
               }
             }
           });
-  
-  
+
+
         }
       });
-  
-  
-  
+
+
+
   });
-  
+
 
   ///////////////////////////////////////////////////
 
    $(document).on('click', 'button[name="btnCalificacion"]', function () {
-    
+
     $('#modalTablaCalificacion').modal('show');
     $('#colCalificacion').html(" ");
-  
+
     listCalificacion();
 
-  
+
   });
   $('#btnCalificacionTabla').on('click', function () {
 
@@ -1201,14 +1186,14 @@ $('#btnFinalizado').on('click', function () {
 
 
   function listCalificacion() {
-  
+
     $.ajax({
       url: "/admin/calificacion/objeto",
       type: 'GET',
       data: {
         id: idTicket,
       },
-  
+
       success: function (response) {
         console.log(response);
 
@@ -1224,7 +1209,7 @@ $('#btnFinalizado').on('click', function () {
           options += '<td id="tdTabla">' + estrellas(response.success.puntaje) + '</td>';
           options += '<td id="tdTabla">' + response.success.ticketCodigo + '</td>';
           options += '</tr>';
-        
+
       $('#colCalificacion').html(options);
         }else{
           btnCalificacionTabla.removeAttribute("disabled");
@@ -1239,7 +1224,7 @@ $('#btnFinalizado').on('click', function () {
 
 
   function estrellas(cantidad) {
-    
+
      var acciones ='<div class="starEstrella" >';
 
     if (cantidad==0) {
@@ -1260,7 +1245,7 @@ $('#btnFinalizado').on('click', function () {
         acciones  +='<i class="fa-solid fa-star inactivo"></i>';
         acciones  +='<i class="fa-solid fa-star inactivo"></i>';
 
-        
+
     }
 
     if (cantidad==2) {
@@ -1270,7 +1255,7 @@ $('#btnFinalizado').on('click', function () {
         acciones  +='<i class="fa-solid fa-star inactivo"></i>';
         acciones  +='<i class="fa-solid fa-star inactivo"></i>';
 
-        
+
     }
 
     if (cantidad==3) {
@@ -1280,7 +1265,7 @@ $('#btnFinalizado').on('click', function () {
         acciones  +='<i class="fa-solid fa-star activo"></i>';
         acciones  +='<i class="fa-solid fa-star inactivo"></i>';
 
-        
+
     }
 
     if (cantidad==4) {
@@ -1293,6 +1278,6 @@ $('#btnFinalizado').on('click', function () {
     }
     acciones +='</div>';
 
-    
+
     return  acciones;
   }

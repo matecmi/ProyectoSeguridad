@@ -77,16 +77,7 @@
                     <th>F.REGISTRO</th>
                     <th>F.FIN ESTIMADA</th>
                     <th><div style="width: 80;">F. FIN</div></th>
-                    <th><div style="width: 150;">DESCRIPCION</div></th>
-                    <th>PERSONAL</th>
                     <th>EMPRESA</th>
-                    <th>SUPERVISOR</th>
-                    <th>USUARIO</th>
-                    <th>MEDIO REPORTE</th>
-                    <th>SITUACION</th>
-                    <th><div style="width: 150;">TIPO INCIDENCIA</div></th>
-                    <th><div style="width: 110;">SLA</div></th>
-                    <th>USUARIO REPORTE</th>
                     <th  class="no-exportar"><div style="width: 200;">OPCIONES</div></th>
 
                 </tr>
@@ -196,7 +187,7 @@
        <!-- Grupo: PERSONA-->
       <div class="col-md-6">
 			<div class="formulario__grupo" id="grupo__persona">
-				<label for="listPersona" class="formulario__label">PERSONA</label>
+				<label for="listPersona" class="formulario__label">RESPONSABLE</label>
 				<div class="formulario__grupo-input">
         <select class="formulario__input" id="listPersona" name="personal_id" required></select>
         <i class="formulario__validacion-estado fas fa-times-circle icono"></i>
