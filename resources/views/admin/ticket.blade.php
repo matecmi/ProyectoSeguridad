@@ -59,9 +59,11 @@
       <select class="form-select" id="filtroPersonal">
       </select>
     </div>
-    <div class="col-md-9 d-flex align-items-center"></div>
-    <div class="col-md-3 d-flex align-items-center justify-content-end " id="exportar">
-      <button id="filtro" type="button" class="btn  ml-2 agregar formulario__label ">FILTRAR <i class="fa-solid fa-magnifying-glass"></i></button>
+    <div class="col-md-1 d-flex align-items-center" id="exportar"></div>
+    <div class="col-md-11 d-flex align-items-center justify-content-end " >
+    <button id="filtro" type="button" class="btn  ml-2 agregar formulario__label ">FILTRAR <i class="fa-solid fa-magnifying-glass"></i></button>
+    <button id="filtroLimpiar" type="button" class="btn  ml-2 eliminar formulario__label ">LIMPIAR <i class="fa-solid fa-magnifying-glass"></i></button>
+
     </div>
   </div>
 </div>

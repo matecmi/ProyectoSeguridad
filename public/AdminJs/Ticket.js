@@ -157,6 +157,92 @@ function generarContenidoTabla(ticketVencido) {
   });
 }
 
+
+function generarContenidoTablaFiltroLimpiar(ticketVencido) {
+    $('#tabla').DataTable().destroy();
+
+    var filtroDesde = null;
+    var filtroHasta = null;
+    $.ajax({
+      url: "/admin/ticket/list",
+      type: 'GET',
+      data: {
+        filtroIncidencia: filtroIncidencia,
+        filtroEstado: filtroEstado,
+        filtroEmpresa: filtroEmpresa,
+        filtroDescripcion: filtroDescripcion,
+        filtroPersonal:filtroPersonal,
+        filtroDesde:filtroDesde,
+        filtroHasta:filtroHasta,
+        _token: $('meta[name="csrf-token"]').attr('content')
+
+      },
+
+      success: function (response) {
+        var options;
+        var validarTicket=false;
+
+        if (response.success.length > 0) {
+
+          const situacionColores = {
+            "Finalizado": "#00ff11",
+            "En Proceso": "#fbff00",
+            "Standby": "#ff8800"
+          };
+
+          const botonColores = {
+            "Finalizado": "finalizado",
+            "En Proceso": "proceso",
+            "Standby": "Standby"
+          };
+
+          $.each(response.success, function (index, grupo) {
+
+            $.each(ticketVencido, function (index, ticket) {
+
+              if (grupo.id == ticket.id) {
+                validarTicket=true;
+              }
+
+            });
+            var idGenerado = grupo.sla_nomenclatura + "-" +grupo.id.toString().padStart(7, '0');
+            if (validarTicket) {
+              options += '<tr style="background-color:#f78282;" >';
+
+            }else {
+              options += '<tr>';
+
+            }
+            options += `<td id="tdTabla"><i class="fa-solid fa-circle" style="color: ${situacionColores[grupo.situacion]}"></i></td>`;
+            options += `<td id="tdTabla"><button value="` + idGenerado + `" name="panel" id="` + grupo.id + `" type="button" class="btn ${botonColores[grupo.situacion]} btn-sm" data-bs-toggle="modal" data-bs-target="#PanelModal">` + idGenerado +`</button></td>`;
+            options += '<td id="tdTabla">' + grupo.fecha_registro + '</td>';
+            options += '<td id="tdTabla">' + grupo.fecha_fin_estimado + '</td>';
+            options += '<td id="tdTabla">' + (grupo.fecha_fin == null ? "----" : grupo.fecha_fin) + '</td>';
+            options += '<td id="tdTabla">' + grupo.empresa_nombre + '</td>';
+            if (grupo.situacion == "Finalizado") {
+              options += '<td style="text-align: center; vertical-align: middle;"> <button disabled type="button" name="edit"  id="' + grupo.id + '" class="btn btn-success btn-sm">Editar<i class="fa-sharp fa-solid fa-pen-to-square ml-1"></i> </button>';
+              options += '&nbsp;&nbsp;<button disabled  type="button" name="delete" id="' + grupo.id + '" class="btn btn-danger btn-sm">Eliminar<i class="fa-solid fa-trash-can ml-1"></i> </button></td>';
+
+            } else {
+              options += '<td style="text-align: center; vertical-align: middle;"> <button  type="button" name="edit"  id="' + grupo.id + '" class="btn editar btn-sm">Editar<i class="fa-sharp fa-solid fa-pen-to-square ml-1" style="color: white;"></i> </button>';
+              options += '&nbsp;&nbsp;<button  type="button" name="delete" id="' + grupo.id + '" class="btn eliminar btn-sm">Eliminar<i class="fa-solid fa-trash-can ml-1" style="color: white;"></i> </button></td>';
+
+            }
+            options += '</tr>';
+            validarTicket=false;
+          });
+        } else {
+          options = " ";
+        }
+
+        $('#colTicket').html(options);
+        DataTableCreacion();
+
+      }
+    });
+  }
+
+
   function generarContenidoTabla2() {
     $('#tabla').DataTable().destroy();
 
@@ -781,6 +867,28 @@ $(document).on('click', '#filtro', function () {
   generarContenidoTabla();
 
 });
+
+$(document).on('click', '#filtroLimpiar', function () {
+
+ filtroIncidencia = "Todos";
+ filtroEstado = "Todos";
+ filtroEmpresa = "Todos";
+ filtroDescripcion = " ";
+ filtroPersonal = "Todos";
+
+ $('#filtroIcidencia').val("Todos");
+ $('#filtroEstado').val("Todos");
+ $('#filtroEmpresa').val("Todos");
+ $('#filtroDescripcion').val("");
+ $('#filtroPersonal').val("Todos");
+ $('#filtroDesde').val("");
+ $('#filtroHasta').val("");
+
+
+
+generarContenidoTablaFiltroLimpiar();
+
+  });
 
 
 ////////////////////ESTADO/////////////////////////

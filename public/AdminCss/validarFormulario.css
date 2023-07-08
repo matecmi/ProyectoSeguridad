@@ -105,7 +105,7 @@
 	margin-right: 10px;
 }
 
-.formulario__grupo-terminos, 
+.formulario__grupo-terminos,
 .formulario__mensaje,
 .formulario__grupo-btn-enviar {
 	grid-column: span 2;
@@ -187,7 +187,7 @@
 		grid-template-columns: 1fr;
 	}
 
-	.formulario__grupo-terminos, 
+	.formulario__grupo-terminos,
 	.formulario__mensaje,
 	.formulario__grupo-btn-enviar {
 		grid-column: 1;
