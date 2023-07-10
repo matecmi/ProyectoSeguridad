@@ -506,6 +506,12 @@ public function ticketEdit(Request $request)
 
     public function ticketUpdateEstado(Request $request)
     {
+
+        $user = auth()->user();
+
+        if (optional($user)->email !== null) {
+
+
         if($request->ajax()){
 
             date_default_timezone_set('America/Lima');
@@ -536,7 +542,17 @@ public function ticketEdit(Request $request)
                     $ticked->save();
                 }
 
-            }else{
+            }else if($estado=="En Proceso"){
+
+                if ($user->email == "admin@gmail.com") {
+                    $ticked->save();
+                    return response()->json(['success' => true]);
+
+                }else {
+                    return response()->json(['success' => false]);
+                }
+
+            }else {
                 $ticked->save();
 
             }
@@ -545,8 +561,14 @@ public function ticketEdit(Request $request)
         }
 
         return response()->json(['success' => false]);
+
+
+    }else{
+        return view('auth.login');
+
     }
 
+    }
     function sumarHoras($fecha, $horas) {
         // Crea un objeto DateTime a partir de la fecha y hora dadas
         $fechaObj = new \DateTime($fecha);

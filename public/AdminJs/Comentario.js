@@ -3,7 +3,7 @@
 
 $(function () {
   DataTablePruebaComentario();
-  
+
   });
 
   function DataTablePruebaComentario(){
@@ -20,15 +20,15 @@ $(function () {
           },
 
       ajax:{
-              url: "/admin/comentario",   
+              url: "/admin/comentario",
               data: function ( d ) {
                 d.idTicket = idTicket;
-            } 
+            }
 
       },
-      
+
       columns:[
-          
+
           {data: 'id'},
           {data: 'descripcion'},
           {data: 'fecha'},
@@ -46,7 +46,7 @@ $(function () {
     }
   });
 
-    
+
   }
 
 
@@ -179,16 +179,16 @@ function limpiarFormularioComentario(){
       icono.classList.remove('formulario__grupo-incorrecto');
       icono.classList.remove('formulario__grupo-correcto');
       icono.classList.remove('formulario__input-error-activo');
-  
+
   });
-  
+
   document.querySelectorAll('.formulario__input-error').forEach((icono) => {
       icono.classList.remove('formulario__input-error-activo');
-  
+
   });
-  
+
   document.getElementById('formulario__mensaje').classList.remove('formulario__mensaje-activo');
-  
+
   camposComentario.comentario=false;
 
 }
@@ -227,6 +227,11 @@ $(document).on('click', 'button[name="deleteComentario"]', function () {
                 title: "Registro eliminado correctamente",
                 icon: "success"
               });
+            }else{
+                swal({
+                    title: "El comentario solo puede ser eliminado por el administrador",
+                    icon: "warning"
+                  });
             }
           }
         });

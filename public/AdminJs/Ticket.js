@@ -1245,6 +1245,12 @@ $('#btnFinalizado').on('click', function () {
 
                 $('#estadoModal').modal('hide');
 
+              }else {
+                swal({
+                    title: "El ticket solo puede ser reaperturado por el administrador",
+                    icon: "warning",
+                });
+
               }
             }
           });
